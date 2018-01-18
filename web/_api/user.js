@@ -2,6 +2,7 @@
  * This is the API endpoint for current user operations
  */
 const express = require('express');
+
 const router = express.Router();
 
 /**
@@ -16,9 +17,10 @@ router.get('/example', (req, res) => {
   //   res.status(200).json(data);
   // });
   res.status(200).json({
-    example: 'This is an example - this was sent from the server!!! From endpoint /api/user/example!',
-    data: ['Here\'s', 'Some', 'Date']
-  })
+    example:
+      'This is an example - this was sent from the server!!! From endpoint /api/user/example!',
+    data: ["Here's", 'Some', 'Date']
+  });
 });
 
 module.exports = router;

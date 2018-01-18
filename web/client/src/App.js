@@ -11,11 +11,11 @@ class App extends Component {
     return fetch('/api/user/example')
       .then(res => res.json())
       .catch(err => console.error(err));
-  }
+  };
 
   componentDidMount() {
     this.getMessage()
-      .then(msg => this.setState({server_response: msg.example}))
+      .then(msg => this.setState({ server_response: msg.example }))
       .catch(err => console.error(err));
   }
 
@@ -26,9 +26,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <p className="App-intro">
-          {this.state.server_response}
-        </p>
+        <p className="App-intro">{this.state.server_response}</p>
       </div>
     );
   }
