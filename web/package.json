@@ -1,0 +1,20 @@
+{
+  "name": "cinder",
+  "version": "0.1.0",
+  "scripts": {
+    "client": "cd client && npm start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "description": "",
+  "main": "server.js",
+  "author": "COMP4350 Group 7",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "nodemon": "^1.14.11"
+  }
+}
