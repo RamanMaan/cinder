@@ -6,7 +6,8 @@
     "server": "nodemon server.js",
     "dev":
       "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "postinstall": "cd client && npm install"
   },
   "description": "",
   "main": "server.js",
