@@ -14,6 +14,8 @@ Project Structure
 |   └── ...TODO
 ├── mobile/                     # contains our mobile application
 |   └── ...TODO
+```
 
-
-# How To Run
+How To Run
+---
+```npm run dev``` in the ./server/ directory
