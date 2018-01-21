@@ -4,8 +4,7 @@
   "scripts": {
     "client": "cd ../client && npm start",
     "server": "nodemon server.js",
-    "dev":
-      "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "precommit": "lint-staged",
     "postinstall": "cd ../client && npm install"
   },
@@ -14,18 +13,19 @@
   "author": "COMP4350 Group 7",
   "license": "ISC",
   "lint-staged": {
-    "**/*.{js,jsx,json,scss}": ["prettier --single-quote --write", "git add"]
+    "**/*.{js,jsx,json,scss}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
   },
   "dependencies": {
     "express": "^4.16.2"
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
-    "eslint": "^4.15.0",
-    "eslint-config-airbnb": "^16.1.0",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-react": "^7.5.1",
     "husky": "^0.14.3",
     "lint-staged": "^6.0.0",
     "nodemon": "^1.14.11",
