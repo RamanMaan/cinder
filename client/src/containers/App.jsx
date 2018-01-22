@@ -3,18 +3,21 @@ import logo from '../images/logo.svg';
 import './App.css';
 
 class App extends Component {
-  state = {
-    server_response: ''
-  };
-
-  getMessage = () => {
+  static getMessage() {
     return fetch('/api/user/example')
       .then(res => res.json())
       .catch(err => console.error(err));
-  };
+  }
+
+  constructor() {
+    super();
+    this.state = {
+      server_response: 'No request for message has been made'
+    };
+  }
 
   componentDidMount() {
-    this.getMessage()
+    App.getMessage()
       .then(msg => this.setState({ server_response: msg.example }))
       .catch(err => console.error(err));
   }
