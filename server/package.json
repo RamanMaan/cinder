@@ -22,13 +22,17 @@
     "express": "^4.16.2"
   },
   "devDependencies": {
+    "cheerio": "^1.0.0-rc.2",
     "concurrently": "^3.5.1",
     "eslint": "^4.16.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
+    "gulp": "^3.9.1",
     "husky": "^0.14.3",
     "lint-staged": "^6.0.0",
     "nodemon": "^1.14.11",
-    "prettier": "^1.10.2"
+    "prettier": "^1.10.2",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
   }
 }
