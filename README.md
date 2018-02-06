@@ -6,6 +6,9 @@ Project Structure
 ```
 ├── server/                     # contains our web server
 |   ├── server.js               # manages the Node server handling the API and serving app content
+|   ├── db/                     # database configuration files
+|   |   ├── setup.sql           # creates all tables
+|   |   └── test-data.sql       # inserts all test data
 |   └── _api/
 |       ├── _api.js             # api controller - this controls api routes/endpoints
 |       └── user.js             # user related endpoints
