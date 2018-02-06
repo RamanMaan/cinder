@@ -6,6 +6,10 @@ services:
 cache:
   directories:
   - node_modules
+before_script:
+  - cd client && npm install
+  - cd ../server && npm install
+  - cd ../mobile && npm install
 script:
   - cd client
   - npm test
