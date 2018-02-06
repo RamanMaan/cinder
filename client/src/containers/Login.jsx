@@ -9,35 +9,33 @@ class Login extends Component {
   constructor(props) {
     super(props);
 
+    this.setInput = this.setInput.bind(this);
+    this.userLogin = this.userLogin.bind(this);
+
     this.state = {
       email: '',
       password: '',
       loggedIn: false,
       loginBtnText: 'Log In'
     };
-
-    this.setInput = this.setInput.bind(this);
-    this.userLogin = this.userLogin.bind(this);
   }
 
   setInput(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  userLogin() {
-    // TODO - validate fields
-
-    const payload = { email: this.state.email, password: this.state.password };
+  userLogin(e) {
+    e.preventDefault();
 
     this.setState({ loginBtnText: 'Logging In...' });
-
-    // attempt to log in
     fetch('/api/user/login', {
       method: 'POST',
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
+      })
     })
       .then(res => {
-        // all good, let's go to home page
         if (res.status === 200) {
           this.setState({ loginBtnText: 'Log In', loggedIn: true });
         } else {
@@ -68,11 +66,12 @@ class Login extends Component {
           </div>
           <hr />
 
-          <Form className="login-form">
+          <Form className="login-form" onSubmit={e => this.userLogin(e)}>
             <FormGroup>
               <Label for="email">Email</Label>
               <Input
                 required
+                id="email"
                 type="email"
                 name="email"
                 placeholder="Email"
@@ -84,6 +83,7 @@ class Login extends Component {
               <Label for="password">Password</Label>
               <Input
                 required
+                id="password"
                 type="password"
                 name="password"
                 onChange={this.setInput}
@@ -92,17 +92,18 @@ class Login extends Component {
             </FormGroup>
 
             <FormGroup>
-              <Button
-                outline
-                block
-                color="dark"
-                type="button"
-                onClick={this.userLogin}
-              >
+              <Button id="submitBtn" outline block color="dark" type="submit">
                 {this.state.loginBtnText}
               </Button>
 
-              <Button outline block color="secondary" tag={Link} to="/signup">
+              <Button
+                id="signUpBtn"
+                outline
+                block
+                color="secondary"
+                tag={Link}
+                to="/"
+              >
                 Sign Up
               </Button>
             </FormGroup>

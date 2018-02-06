@@ -19,8 +19,12 @@ router.get('/example', (req, res) => {
   res.status(200).json({
     example:
       'This is an example - this was sent from the server!!! From endpoint /api/user/example!',
-    data: ["Here's", 'Some', 'Date']
+    data: ["Here's", 'Some', 'Date'],
   });
+});
+
+router.post('/login', (req, res) => {
+  res.status(200).json({ id: 1 });
 });
 
 module.exports = router;
