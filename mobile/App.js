@@ -1,7 +1,7 @@
 import React from 'react';
 import Expo, { AppLoading } from 'expo';
 
-import Login from './containers/login';
+import Home from './containers/home';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -31,7 +31,7 @@ export default class App extends React.Component {
     }
 
     return (
-      <Login />
+      <Home />
     );
   }
 }
