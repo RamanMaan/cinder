@@ -67,17 +67,20 @@ INSERT INTO Users (UserID, UserEmail, UserPassword) VALUES
 (3, '112233@abc.com', 'qwert12345'),
 (4, 'abc3@123.com', '4tester');
 
-INSERT INTO UsersInfo (UserID, UserName, Birthday, Age, GenderID, Latitude, Longitude) VALUES
-(1, 'Test1', '1995-05-05', 23, 1, 49.880488, -97.161546),
-(2, 'Test2', '1995-06-30', 23, 2, 49.8150033, -97.1488722),
-(3, 'Test3', '1995-02-15', 23, 2, 49.8150033, -97.1488722),
-(4, 'Test4', '1995-04-12', 23, 1, 49.8150033, -97.1488722);
+INSERT INTO UsersInfo (UserID, UserName, Birthday, GenderID, Latitude, Longitude) VALUES
+(1, 'Test1', '1995-05-05', 1, 49.880488, -97.161546),
+(2, 'Test2', '1995-06-30', 2, 49.8150033, -97.1488722),
+(3, 'Test3', '1995-02-15', 2, 49.8150033, -97.1488722),
+(4, 'Test4', '1995-04-12', 1, 49.8150033, -97.1488722);
 
-INSERT INTO UserStudy (UserID, StudyID) VALUES
-(1, 15),
-(2, 4),
-(3, 31),
-(4, 25);
+INSERT INTO UserStudy (UserID, StudyID, EducationID) VALUES
+(1, 15, 1),
+(2, 4, 2),
+(2, 13, 1),
+(3, 31, 3),
+(4, 25, 1),
+(4, 27, 1),
+(4, 27, 2);
 
 INSERT INTO UserPreference (UserID, GenderID) VALUES
 (1, 2),

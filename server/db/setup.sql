@@ -54,7 +54,6 @@ CREATE TABLE IF NOT EXISTS UsersInfo
   UserID INT NOT NULL,
   UserName VARCHAR(254) NOT NULL,
   Birthday DATE NOT NULL,
-  Age INT NOT NULL,
   GenderID INT NOT NULL,
   Latitude DECIMAL(10, 8) NOT NULL,
   Longitude DECIMAL(11, 8) NOT NULL,
@@ -63,7 +62,6 @@ CREATE TABLE IF NOT EXISTS UsersInfo
   CONSTRAINT PK_UsersInfo_UserID PRIMARY KEY (UserID),
   CONSTRAINT FK_UsersInfo_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID),
   CONSTRAINT FK_UsersInfo_GenderType_GenderID FOREIGN KEY (GenderID) REFERENCES GenderType(GenderID),
-  CONSTRAINT FK_UsersInfo_EducationType_EducationID FOREIGN KEY (EducationID) REFERENCES EducationType(EducationID),
   CONSTRAINT FK_UsersInfo_ReligionType_ReligionID FOREIGN KEY (ReligionID) REFERENCES ReligionType(ReligionID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -101,8 +99,10 @@ CREATE TABLE IF NOT EXISTS UserStudy
 (
   UserID INT NOT NULL,
   StudyID INT NOT NULL,
+  EducationID INT NOT NULL,
   CONSTRAINT FK_UserStudy_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID),
-  CONSTRAINT FK_UserStudy_StudyType_StudyID FOREIGN KEY (StudyID) REFERENCES StudyType(StudyID)
+  CONSTRAINT FK_UserStudy_StudyType_StudyID FOREIGN KEY (StudyID) REFERENCES StudyType(StudyID)，
+  CONSTRAINT FK_UserStudy_EducationType_EducationID FOREIGN KEY (EducationID) REFERENCES EducationType(EducationID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS Likes
