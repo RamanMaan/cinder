@@ -1,120 +1,131 @@
-CREATE TABLE IF NOT EXISTS Matches
+/***********************************************************************************************
+REFERENCE TABLES
+***********************************************************************************************/
+
+CREATE TABLE IF NOT EXISTS GenderType
 (
-  Match_ID INT NOT NULL AUTO_INCREMENT,
-  Match_Date DATETIME NOT NULL,
-  PRIMARY KEY (Match_ID)
+  GenderID INT NOT NULL AUTO_INCREMENT,
+  GenderType VARCHAR(254) NOT NULL,
+  CONSTRAINT PK_GenderType_GenderID PRIMARY KEY (GenderID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS Gender_Type
+CREATE TABLE IF NOT EXISTS EducationType
 (
-  Gender_ID INT NOT NULL AUTO_INCREMENT,
-  Gender_Type VARCHAR(254) NOT NULL,
-  PRIMARY KEY (Gender_ID)
+  EducationID INT NOT NULL AUTO_INCREMENT,
+  EducationType VARCHAR(254) NOT NULL,
+  CONSTRAINT PK_EducationType_EducationID PRIMARY KEY (EducationID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS Education_Type
+CREATE TABLE IF NOT EXISTS StudyType
 (
-  Education_ID INT NOT NULL AUTO_INCREMENT,
-  Education_Type VARCHAR(254) NOT NULL,
-  PRIMARY KEY (Education_ID)
+  StudyID INT NOT NULL AUTO_INCREMENT,
+  StudyType VARCHAR(254) NOT NULL,
+  CONSTRAINT PK_StudyType_StudyID PRIMARY KEY (StudyID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS Study_Type
+CREATE TABLE IF NOT EXISTS ReligionType
 (
-  Study_ID INT NOT NULL AUTO_INCREMENT,
-  Study_Type VARCHAR(254) NOT NULL,
-  PRIMARY KEY (Study_ID)
+  ReligionID INT NOT NULL AUTO_INCREMENT,
+  ReligionType VARCHAR(254) NOT NULL,
+  CONSTRAINT PK_ReligionType_ReligionID PRIMARY KEY (ReligionID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS Religion_Type
+CREATE TABLE IF NOT EXISTS InterestsType
 (
-  Religion_ID INT NOT NULL AUTO_INCREMENT,
-  Religion_Type VARCHAR(254) NOT NULL,
-  PRIMARY KEY (Religion_ID)
+  InterestID INT NOT NULL AUTO_INCREMENT,
+  InterestType VARCHAR(254) NOT NULL,
+  CONSTRAINT PK_InterestsType_InterestID PRIMARY KEY (InterestID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS Interests
-(
-  Interest_ID INT NOT NULL AUTO_INCREMENT,
-  Interest_Type VARCHAR(254) NOT NULL,
-  PRIMARY KEY (Interest_ID)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS Picture
-(
-  Picture_ID INT NOT NULL AUTO_INCREMENT,
-  Picture_Path VARCHAR(2083) NOT NULL,
-  PRIMARY KEY (Picture_ID)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS Location
-(
-  Location_ID INT NOT NULL AUTO_INCREMENT,
-  Latitude DECIMAL(10, 8) NOT NULL,
-  Longitude DECIMAL(11, 8) NOT NULL,
-  PRIMARY KEY (Location_ID)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/***********************************************************************************************
+USER TABLES
+***********************************************************************************************/
 
 CREATE TABLE IF NOT EXISTS Users
 (
-  User_ID INT NOT NULL AUTO_INCREMENT,
-  User_Email VARCHAR(254) NOT NULL,
-  User_Name VARCHAR(254) NOT NULL,
-  User_Password VARCHAR(254) NOT NULL,
+  UserID INT NOT NULL AUTO_INCREMENT,
+  UserEmail VARCHAR(254) NOT NULL,
+  UserPassword VARCHAR(254) NOT NULL,
+  CONSTRAINT PK_Users_UserID PRIMARY KEY (UserID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS UsersInfo
+(
+  UserID INT NOT NULL,
+  UserName VARCHAR(254) NOT NULL,
   Birthday DATE NOT NULL,
-  Age INT NOT NULL,
-  Bio INT,
-  Gender_ID INT NOT NULL,
-  Study_ID INT,
-  Religion_ID INT,
-  Interest_ID INT,
-  Location_ID INT NOT NULL,
-  PRIMARY KEY (User_ID),
-  FOREIGN KEY (Gender_ID) REFERENCES Gender_Type(Gender_ID),
-  FOREIGN KEY (Study_ID) REFERENCES Study_Type(Study_ID),
-  FOREIGN KEY (Religion_ID) REFERENCES Religion_Type(Religion_ID),
-  FOREIGN KEY (Interest_ID) REFERENCES Interests(Interest_ID),
-  FOREIGN KEY (Location_ID) REFERENCES Location(Location_ID)
+  GenderID INT NOT NULL,
+  Latitude DECIMAL(10, 8) NOT NULL,
+  Longitude DECIMAL(11, 8) NOT NULL,
+  Bio VARCHAR(1000),
+  ReligionID INT,
+  CONSTRAINT PK_UsersInfo_UserID PRIMARY KEY (UserID),
+  CONSTRAINT FK_UsersInfo_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID),
+  CONSTRAINT FK_UsersInfo_GenderType_GenderID FOREIGN KEY (GenderID) REFERENCES GenderType(GenderID),
+  CONSTRAINT FK_UsersInfo_ReligionType_ReligionID FOREIGN KEY (ReligionID) REFERENCES ReligionType(ReligionID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS Users_Info
+/***********************************************************************************************
+MEMBERSHIP TABLES
+***********************************************************************************************/
+
+CREATE TABLE IF NOT EXISTS Matches
 (
-  User_ID INT NOT NULL AUTO_INCREMENT,
-  User_Info VARCHAR(1000),
-  FOREIGN KEY (User_ID) REFERENCES Users(User_ID)
+  MatchID INT NOT NULL AUTO_INCREMENT,
+  MatchDate DATETIME NOT NULL,
+  MatchInfo VARCHAR(1000),
+  CONSTRAINT PK_Matches_MatchID PRIMARY KEY (MatchID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS User_Picutre
+CREATE TABLE IF NOT EXISTS UserPicture
 (
-  User_ID INT NOT NULL,
-  Picture_ID INT NOT NULL,
-  FOREIGN KEY (User_ID) REFERENCES Users(User_ID),
-  FOREIGN KEY (Picture_ID) REFERENCES Picture(Picture_ID)
+  PictureID INT NOT NULL AUTO_INCREMENT,
+  UserID INT NOT NULL,
+  PicturePath VARCHAR(2083) NOT NULL,
+  PrimaryPicture TINYINT NOT NULL,
+  CONSTRAINT PK_UserPicture_PictureID PRIMARY KEY (PictureID),
+  CONSTRAINT FK_UserPicture_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS Preference
+CREATE TABLE IF NOT EXISTS UserPreference
 (
-  User_ID INT NOT NULL,
-  Gender_ID INT NOT NULL,
-  FOREIGN KEY (User_ID) REFERENCES Users(User_ID),
-  FOREIGN KEY (Gender_ID) REFERENCES Gender_Type(Gender_ID)
+  UserID INT NOT NULL,
+  GenderID INT NOT NULL,
+  CONSTRAINT FK_Preference_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID),
+  CONSTRAINT FK_Preference_GenderType_GenderID FOREIGN KEY (GenderID) REFERENCES GenderType(GenderID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS Education
+CREATE TABLE IF NOT EXISTS UserStudy
 (
-  Education_ID INT NOT NULL,
-  User_ID INT NOT NULL,
-  FOREIGN KEY (Education_ID) REFERENCES Education_Type(Education_ID),
-  FOREIGN KEY (User_ID) REFERENCES Users(User_ID)
+  UserID INT NOT NULL,
+  StudyID INT NOT NULL,
+  EducationID INT NOT NULL,
+  CONSTRAINT FK_UserStudy_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID),
+  CONSTRAINT FK_UserStudy_StudyType_StudyID FOREIGN KEY (StudyID) REFERENCES StudyType(StudyID),
+  CONSTRAINT FK_UserStudy_EducationType_EducationID FOREIGN KEY (EducationID) REFERENCES EducationType(EducationID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS Likes
 (
-  User1_ID INT NOT NULL,
-  User2_ID INT NOT NULL,
-  User_Action TINYINT NOT NULL,
-  Match_ID INT,
-  CONSTRAINT FK_USER1 FOREIGN KEY (User1_ID) REFERENCES Users(User_ID),
-  CONSTRAINT FK_USER2 FOREIGN KEY (User2_ID) REFERENCES Users(User_ID),
-  FOREIGN KEY (Match_ID) REFERENCES Matches(Match_ID)
+  User1ID INT NOT NULL,
+  User2ID INT NOT NULL,
+  UserAction TINYINT NOT NULL,
+  CONSTRAINT FK_Likes_Users_User1ID FOREIGN KEY (User1ID) REFERENCES Users(UserID),
+  CONSTRAINT FK_Likes_Users_User2ID FOREIGN KEY (User2ID) REFERENCES Users(UserID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS UserInterests
+(
+ UserID INT NOT NULL,
+ InterestID INT NOT NULL,
+ CONSTRAINT FK_UserInterests_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID),
+ CONSTRAINT FK_UserInterests_InterestsType_InterestID FOREIGN KEY (InterestID) REFERENCES InterestsType(InterestID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS UserMatches
+(
+ UserID INT NOT NULL,
+ MatchID INT NOT NULL,
+ CONSTRAINT FK_UserMatches_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID),
+ CONSTRAINT FK_UserMatches_Matches_MatchID FOREIGN KEY (MatchID) REFERENCES Matches(MatchID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
