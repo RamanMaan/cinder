@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS UserStudy
   StudyID INT NOT NULL,
   EducationID INT NOT NULL,
   CONSTRAINT FK_UserStudy_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID),
-  CONSTRAINT FK_UserStudy_StudyType_StudyID FOREIGN KEY (StudyID) REFERENCES StudyType(StudyID)，
+  CONSTRAINT FK_UserStudy_StudyType_StudyID FOREIGN KEY (StudyID) REFERENCES StudyType(StudyID),
   CONSTRAINT FK_UserStudy_EducationType_EducationID FOREIGN KEY (EducationID) REFERENCES EducationType(EducationID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
