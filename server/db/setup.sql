@@ -61,13 +61,11 @@ CREATE TABLE IF NOT EXISTS UsersInfo
   Bio VARCHAR(1000),
   EducationID INT,
   ReligionID INT,
-  InterestID INT,
   CONSTRAINT PK_UsersInfo_UserID PRIMARY KEY (UserID),
   CONSTRAINT FK_UsersInfo_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID),
   CONSTRAINT FK_UsersInfo_GenderType_GenderID FOREIGN KEY (GenderID) REFERENCES GenderType(GenderID),
   CONSTRAINT FK_UsersInfo_EducationType_EducationID FOREIGN KEY (EducationID) REFERENCES EducationType(EducationID),
-  CONSTRAINT FK_UsersInfo_ReligionType_ReligionID FOREIGN KEY (ReligionID) REFERENCES ReligionType(ReligionID),
-  CONSTRAINT FK_UsersInfo_InterestsType_InterestID FOREIGN KEY (InterestID) REFERENCES InterestsType(InterestID)
+  CONSTRAINT FK_UsersInfo_ReligionType_ReligionID FOREIGN KEY (ReligionID) REFERENCES ReligionType(ReligionID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /***********************************************************************************************
