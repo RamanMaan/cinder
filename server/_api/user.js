@@ -5,22 +5,43 @@ const express = require('express');
 
 const router = express.Router();
 
-/**
- * This endpoint is an example endpoint that takes the current user and gets some data with it
- * View this at: localhost:5000/api/user/example
- */
-router.get('/example', (req, res) => {
-  // Note: This is an example of a promise using some data controller
-  // ExampleController.getSomeDate(req.user)
-  // .then(data => {
-  //   // once the data is received, send it with a server 200 response as a json file
-  //   res.status(200).json(data);
-  // });
-  res.status(200).json({
-    example:
-      'This is an example - this was sent from the server!!! From endpoint /api/user/example!',
-    data: ["Here's", 'Some', 'Date'],
-  });
+const mysql = require('promise-mysql');
+
+const MYSQLDB = {
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+};
+
+const ID_REGEX = /^[0-9]*$/;
+
+router.get('/', (req, res) => {
+  mysql.createConnection(MYSQLDB)
+    .then((conn) => {
+      const rows = conn.query('SELECT * FROM Users');
+      conn.end();
+      return rows;
+    })
+    .then((rows) => {
+      res.status(200).json(rows);
+    }).catch(err => console.error(err));
+});
+
+router.get('/:userID', (req, res) => {
+  const { userID } = req.params;
+  if (!userID.match(ID_REGEX)) {
+    return res.status(400).json({ response: 'Invalid user ID' });
+  }
+
+  return mysql.createConnection(MYSQLDB)
+    .then((conn) => {
+      const rows = conn.query('SELECT * FROM Users WHERE UserID = ?', [userID]);
+      conn.end();
+      return rows;
+    })
+    .then(rows => res.status(200).json(rows))
+    .catch(err => console.error(err));
 });
 
 router.post('/login', (req, res) => {
