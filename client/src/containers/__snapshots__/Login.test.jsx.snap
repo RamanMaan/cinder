@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Login /> renders correctly 1`] = `
+<div
+  className="Login"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="logo"
+    >
+      <h1
+        className="display-3"
+      >
+        cinder
+      </h1>
+      <img
+        alt="logo"
+        className="App-logo"
+        src="logo.svg"
+      />
+    </div>
+    <hr />
+    <form
+      className="login-form"
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          className=" form-control-label"
+          htmlFor="email"
+        >
+          Email
+        </label>
+        <input
+          className="form-control"
+          id="email"
+          name="email"
+          onChange={[Function]}
+          placeholder="Email"
+          required={true}
+          type="email"
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          className=" form-control-label"
+          htmlFor="password"
+        >
+          Password
+        </label>
+        <input
+          className="form-control"
+          id="password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Password"
+          required={true}
+          type="password"
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <button
+          className="btn btn-outline-dark btn-block"
+          id="submitBtn"
+          onClick={[Function]}
+          type="submit"
+        >
+          Log In
+        </button>
+        <a
+          className="btn btn-outline-secondary btn-block"
+          href="/"
+          id="signUpBtn"
+          onClick={[Function]}
+          type={undefined}
+        >
+          Sign Up
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+`;

@@ -44,4 +44,8 @@ router.get('/:userID', (req, res) => {
     .catch(err => console.error(err));
 });
 
+router.post('/login', (req, res) => {
+  res.status(200).json({ id: 1 });
+});
+
 module.exports = router;
