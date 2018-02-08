@@ -10,6 +10,6 @@ const userEndpoints = require('../_api/user.js');
 /**
  * Attach endpoints to route
  */
-router.use('/user', userEndpoints);
+router.use('/users', userEndpoints);
 
 module.exports = router;

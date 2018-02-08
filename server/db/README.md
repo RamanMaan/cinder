@@ -7,6 +7,10 @@
 
 use [setup.sql](setup.sql)
 
+``` mysql -u [username] -p < setup.sql```
+
 ## To insert all test data
 
 use [test-data.sql](test-data.sql)
+
+```mysql -u [username] -p < test-data.sql```
