@@ -30,9 +30,9 @@ Project Structure
 |           └── ...
 └── mobile/                     # contains our mobile application
     ├── app.js                  # entry point of app
+    ├── setup.js                # runs housekeeping - initial app setup before running app
     └── src/
         ├── app.js              # standard app route
-        ├── setup.js            # runs housekeeping - initial app setup before running app
         ├── components/         # React components are kept here
         |   └── ...
         ├── containers/         # React containers are kept here - pages
