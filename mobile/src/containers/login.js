@@ -13,6 +13,10 @@ export default class Login extends React.Component {
     };
   }
 
+  componentDidMount() {
+
+  }
+
   render() {
     return (
       <Container>
