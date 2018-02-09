@@ -30,16 +30,36 @@ Project Structure
 |           └── ...
 └── mobile/                     # contains our mobile application
     ├── app.js                  # entry point of app
-    ├── components/             # React components are kept here
-    |   └── ...
-    ├── containers/             # React containers are kept here - pages
-    |   └── ...
-    ├── assets/
-    |   └── ...
-    └── utils/
-        └── ...
+    └── src/
+        ├── app.js              # standard app route
+        ├── setup.js            # runs housekeeping - initial app setup before running app
+        ├── components/         # React components are kept here
+        |   └── ...
+        ├── containers/         # React containers are kept here - pages
+        |   └── ...
+        ├── theme/              # Native Base theme files live here
+        |   └── ...
+        └── assets/
+            └── ...
 ```
 
 How To Run
 ---
-```npm run dev``` in the ./server/ directory
+Whether you're running the web client or the mobile client, both will require the server to be running.
+
+To run server:
+
+    cd server
+    npm start
+
+- Note: The server requires a MySQL instance to be running on the host machine. A .env file should be configured with the required variables listed in the .env.example file
+
+To run web client:
+
+    cd web
+    npm start
+
+To run mobile client:
+
+    cd mobile
+    npm start

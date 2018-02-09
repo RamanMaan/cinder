@@ -1,5 +1,5 @@
 import React from 'react';
-import Setup from './src/util/setup';
+import Setup from './src/setup';
 
 export default () => (
   <Setup />
