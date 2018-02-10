@@ -1,7 +1,7 @@
 import React from 'react';
 import Expo from 'expo';
-import { StyleSheet, Text, View } from 'react-native';
-import { Container, Header, Content, Body, Title, Form, Item, Label, Input, Button } from 'native-base';
+import { StyleSheet, Text } from 'react-native';
+import { Container, H1, Content, Form, Item, Label, Input, Button } from 'native-base';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -13,32 +13,46 @@ export default class Login extends React.Component {
     };
   }
 
-  componentDidMount() {
-
+  userLogin() {
+    fetch('/api/user/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password,
+      }),
+    }).then((res) => {
+      // handle response here
+      if (res.status === 200) {
+        // all good
+        // execute login here
+      } else {
+        // handle error here
+        throw new Error(res.status);
+      }
+    }).catch(err => err);
   }
 
   render() {
     return (
-      <Container>
-        <Header>
-          <Body>
-            <Title>Login</Title>
-          </Body>
-        </Header>
-        <Content>
+      <Container style={styles.container}>
+        <Content style={styles.content}>
+          <H1 center>cinder</H1>
           <Form>
             <Item floatingLabel>
               <Label>Email</Label>
-              <Input />
+              <Input onChangeText={txt => this.setState({ email: txt })} />
             </Item>
-            <Item floatingLabel last>
+            <Item floatingLabel>
               <Label>Password</Label>
-              <Input />
+              <Input secureTextEntry onChangeText={txt => this.setState({ password: txt })} />
             </Item>
+            <Button bordered primary block >
+              <Text>Log In</Text>
+            </Button>
+            <Button bordered dark block>
+              <Text>Sign Up</Text>
+            </Button>
           </Form>
-          <Button primary>
-            <Text>Log In</Text>
-          </Button>
         </Content>
       </Container>
     );
@@ -48,9 +62,11 @@ export default class Login extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+  },
+  content: {
+    paddingLeft: 10,
+    paddingRight: 10,
   },
 });

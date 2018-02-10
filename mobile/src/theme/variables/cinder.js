@@ -28,6 +28,7 @@ export default {
   btnFontFamily: platform === 'ios' ? 'System' : 'Roboto_medium',
   btnDisabledBg: '#b5b5b5',
   buttonPadding: 6,
+  btnTopMargin: 15,
   get btnPrimaryBg() {
     return this.brandPrimary;
   },
@@ -59,7 +60,7 @@ export default {
     return this.inverseTextColor;
   },
   get btnTextSize() {
-    return platform === 'ios' ? this.fontSizeBase * 1.1 : this.fontSizeBase - 1;
+    return this.fontSizeBase * 1.1;
   },
   get btnTextSizeLarge() {
     return this.fontSizeBase * 1.5;
@@ -95,7 +96,7 @@ export default {
   checkboxTickColor: '#fff',
 
   // Color
-  brandPrimary: platform === 'ios' ? '#007aff' : '#3F51B5',
+  brandPrimary: '#007aff',
   brandInfo: '#62B1F6',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
@@ -219,7 +220,7 @@ export default {
   tabFontSize: 15,
 
   // Text
-  textColor: '#000',
+  textColor: '#222',
   inverseTextColor: '#fff',
   noteFontSize: 14,
   get defaultTextColor() {
@@ -234,7 +235,7 @@ export default {
   titleFontColor: platform === 'ios' ? '#000' : '#fff',
 
   // Other
-  borderRadiusBase: platform === 'ios' ? 5 : 2,
+  borderRadiusBase: 5,
   borderWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
   contentPadding: 10,
   dropdownLinkColor: '#414142',

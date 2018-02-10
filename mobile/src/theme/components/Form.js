@@ -48,7 +48,7 @@ export default (variables = variable) => {
           top: 6,
         },
         marginTop: 15,
-        marginLeft: 15,
+        marginLeft: 0,
       },
       '.regular': {
         'NativeBase.Label': {

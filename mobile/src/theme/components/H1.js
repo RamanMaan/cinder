@@ -5,6 +5,9 @@ export default (variables = variable) => {
     color: variables.textColor,
     fontSize: variables.fontSizeH1,
     lineHeight: variables.lineHeightH1,
+    '.center': {
+      textAlign: 'center',
+    },
   };
 
   return h1Theme;
