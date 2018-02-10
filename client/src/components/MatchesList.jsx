@@ -11,9 +11,16 @@ class MatchesList extends Component {
   }
 
   render() {
-    const listItems = this.props.matches.map(x => (
-      <MatchesListItem title={x} img={x} />
-    ));
+    const listItems = this.props.matches.map(
+      ({ title, subtitle, img, date }) => (
+        <MatchesListItem
+          title={title}
+          subtitle={subtitle}
+          img={img}
+          date={date}
+        />
+      )
+    );
     return (
       <div className="MatchesList">
         <h1>This is the MatchesList page</h1>

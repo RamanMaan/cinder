@@ -1,1 +1,64 @@
+$container-padding: 7px;
+$item-height: 64px;
+$border-color: #bbb;
+$subtitle-color: #aaa;
 
+.MatchesListItem {
+  width: 100%;
+  height: $item-height;
+  border-bottom: 1px solid $border-color;
+
+  display: flex;
+
+  .img-container {
+    flex: 1;
+    padding: $container-padding;
+    height: $item-height;
+    width: $item-height;
+
+    img {
+      height: 100%;
+      width: 100%;
+
+      &.circular {
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .details {
+    width: calc(100% - #{$item-height});
+    display: flex;
+    flex-direction: column;
+    padding: $container-padding;
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+
+      .left {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+
+        .title {
+          font-weight: bold;
+        }
+      }
+
+      .right {
+        white-space: nowrap;
+      }
+    }
+
+    .bottom {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+
+      .subtitle {
+        color: $subtitle-color;
+      }
+    }
+  }
+}

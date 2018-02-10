@@ -20,7 +20,31 @@ class Matches extends Component {
   }
 
   fetchUserMatches() {
-    this.setState({ matches: ['A', 'B', 'C', 'D'] });
+    this.setState({
+      matches: [
+        {
+          title: 'Kendrick Lamar',
+          subtitle: 'How u doin?',
+          date: new Date().toJSON(),
+          img: 'http://cache.umusic.com/_sites/kendricklamar.com/images/og.jpg'
+        },
+        {
+          title: 'Mac Miller | Larry Fisherman | Delusional Thomas',
+          subtitle:
+            ';););) Want to meet hot new singles? Click this totally legit link: www.gethotsingles.com',
+          date: new Date().toJSON(),
+          img:
+            'https://i.scdn.co/image/f4509fe9c589c12be5470653178f901bd697b97b'
+        },
+        {
+          title: 'Ian Simpson',
+          subtitle: 'What u wearin',
+          date: new Date().toJSON(),
+          img:
+            'https://media.pitchfork.com/photos/592997c25e6ef9596931f65a/1:1/w_300/e2fc485c.jpg'
+        }
+      ]
+    });
   }
 
   render() {
