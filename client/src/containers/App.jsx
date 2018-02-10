@@ -5,6 +5,7 @@ import './styles/App.css';
 
 import Home from './Home';
 import Login from './Login';
+import Matches from './Matches';
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/login" component={Login} />
+          <Route path="/matches" component={Matches} />
         </Switch>
       </div>
     );
