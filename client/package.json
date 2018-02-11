@@ -13,7 +13,6 @@
     "popper.js": "^1.12.9",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-images": "^0.5.17",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.0",
     "react-test-renderer": "^16.2.0",
