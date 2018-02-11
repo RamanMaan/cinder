@@ -11,6 +11,18 @@ class MatchesList extends Component {
   }
 
   render() {
+    if (!this.props.matches.length) {
+      return (
+        <div className="MatchesList">
+          <div className="empty">
+            <h3 className="msg align-self-center">
+              No matches yet. Get swiping!
+            </h3>
+          </div>
+        </div>
+      );
+    }
+
     const listItems = this.props.matches.map(
       ({ title, subtitle, img, date }) => (
         <MatchesListItem
@@ -21,9 +33,9 @@ class MatchesList extends Component {
         />
       )
     );
+
     return (
       <div className="MatchesList">
-        <h1>This is the MatchesList page</h1>
         <ul>{listItems}</ul>
       </div>
     );

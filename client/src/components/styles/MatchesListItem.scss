@@ -1,18 +1,58 @@
-$container-padding: 7px;
 $item-height: 64px;
-$border-color: #bbb;
+$item-padding: 7px;
+
 $subtitle-color: #aaa;
 
+$bg-color: #fff;
+$active-bg-color: darken($bg-color, 5%);
+
+$border-width: 65%;
+$active-border-width: 90%;
+
+$border-color: #ddd;
+$active-border-color: darken($border-color, 5%);
+
 .MatchesListItem {
+  display: flex;
+  position: relative;
   width: 100%;
   height: $item-height;
-  border-bottom: 1px solid $border-color;
+  background-color: $bg-color;
 
-  display: flex;
+  transition: background-color 300ms;
+
+  // render the underline
+  &::after {
+    content: '';
+    position: absolute;
+    width: $border-width;
+    height: 1px;
+    bottom: 0;
+    // calculate middle value
+    left: 50% - $border-width/2;
+    background-color: $border-color;
+
+    transition: all 300ms;
+  }
+
+  // don't render underline for last element
+  &:last-child::after {
+    width: 0;
+    height: 0;
+  }
+
+  &.active {
+    background-color: $active-bg-color;
+    &::after {
+      background-color: $active-border-color;
+      width: $active-border-width;
+      left: 50% - $active-border-width/2;
+    }
+  }
 
   .img-container {
     flex: 1;
-    padding: $container-padding;
+    padding: $item-padding;
     height: $item-height;
     width: $item-height;
 
@@ -30,7 +70,7 @@ $subtitle-color: #aaa;
     width: calc(100% - #{$item-height});
     display: flex;
     flex-direction: column;
-    padding: $container-padding;
+    padding: $item-padding;
 
     .top {
       display: flex;
@@ -48,6 +88,9 @@ $subtitle-color: #aaa;
 
       .right {
         white-space: nowrap;
+        .date {
+          color: $subtitle-color;
+        }
       }
     }
 
