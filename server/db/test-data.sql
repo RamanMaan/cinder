@@ -89,6 +89,13 @@ INSERT INTO UserPreference (UserID, GenderID) VALUES
 (4, 2),
 (4, 1);
 
+INSERT INTO UserPicture (PictureID, UserID, PicturePath, PrimaryPicture) VALUES 
+(1, 1, 'https://hypb.imgix.net/image/2018/02/wiz-khalifa-captain-video-1.jpg?fit=max&q=90&w=500&h=333&auto=compress%2Cformat', 1),
+(2, 2, 'https://usatftw.files.wordpress.com/2017/08/kawhi-leonard.jpg?w=1000&h=600&crop=1', 1),
+(3, 3, 'https://www.biography.com/.image/t_share/MTE1ODA0OTcxOTA3NTgxNDUz/hugh-jackman-16599916-1-402.jpg', 1),
+(4, 4, 'https://www.billboard.com/files/styles/1024x577/public/media/Eazy-E-1990-billboard-650.jpg', 1);
+
+
 /***********************************************************************************************
 INITIALIZE USER ACTIONS
 ***********************************************************************************************/
