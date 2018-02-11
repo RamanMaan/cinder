@@ -6,6 +6,8 @@ import sinon from 'sinon';
 
 import App from './App';
 import Matches from './Matches';
+import MatchesList from '../components/MatchesList';
+import UserDetail from '../components/UserDetail';
 
 describe('<Matches />', () => {
   it('renders without crashing', () => {
@@ -35,5 +37,25 @@ describe('<Matches />', () => {
       </MemoryRouter>
     );
     expect(wrapper.find(Matches)).toHaveLength(1);
+  });
+
+  it('should show the <MatchesList /> component be default', () => {
+    const wrapper = mount(
+      <MemoryRouter initialEntries={['/matches']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(wrapper.find(MatchesList)).toHaveLength(1);
+  });
+
+  it('should show the <UserDetail /> component be default', () => {
+    const wrapper = mount(
+      <MemoryRouter initialEntries={['/matches']}>
+        <App />
+      </MemoryRouter>
+    );
+    wrapper.setState({ userDetail: false });
+
+    expect(wrapper.find(UserDetail)).toHaveLength(1);
   });
 });
