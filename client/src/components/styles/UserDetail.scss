@@ -1,0 +1,62 @@
+$empty-msg-color: #aaa;
+$userImage-maxWidth: 300px;
+$userImage-maxHeight: 200px;
+$userGender-maxWidth: 20px;
+$userGender-maxHeight: 20px;
+$text-auto-wrap-maxwidth: 500px;
+$text-auto-wrap-padding: 12px;
+$userAge-margin-right: 30px;
+
+.UserDetail {
+  height: 100%;
+  width: 100%;
+
+  text-align: center;
+
+  .empty {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+
+    padding: 1em;
+
+    justify-content: center;
+
+    .msg {
+      color: $empty-msg-color;
+    }
+  }
+
+  .userImage {
+    display: inline-block;
+    max-width: $userImage-maxWidth;
+    max-height: $userImage-maxHeight;
+    width: auto;
+    height: auto;
+  }
+
+  .userAgeWithGender {
+    .userAge {
+      display: inline-block;
+      margin-right: $userAge-margin-right;
+    }
+
+    .userGender {
+      display: inline-block;
+      max-width: $userGender-maxWidth;
+      max-height: $userGender-maxHeight;
+      width: auto;
+      height: auto;
+    }
+  }
+
+  .titleStyle {
+    font-weight: bold;
+  }
+
+  .textAutoWrap {
+    margin: 0 auto;
+    max-width: $text-auto-wrap-maxwidth;
+    padding: $text-auto-wrap-padding;
+  }
+}
