@@ -41,7 +41,7 @@ describe('<Matches />', () => {
   beforeEach(() => {
     fetchMock.reset();
     fetchMock.restore();
-    fetchMock.getOnce(/\/api\/users\/[0-9]*\/matches/, testMatches);
+    fetchMock.get(/\/api\/users\/[0-9]*\/matches/, testMatches);
   });
 
   afterAll(() => {
