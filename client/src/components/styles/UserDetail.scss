@@ -1,4 +1,11 @@
 $empty-msg-color: #aaa;
+$userImage-maxWidth: 300px;
+$userImage-maxHeight: 200px;
+$userGender-maxWidth: 20px;
+$userGender-maxHeight: 20px;
+$text-auto-wrap-maxwidth: 500px;
+$text-auto-wrap-padding: 12px;
+$userAge-margin-right: 30px;
 
 .UserDetail {
   height: 100%;
@@ -22,8 +29,8 @@ $empty-msg-color: #aaa;
 
   .userImage {
     display: inline-block;
-    max-width: 300px;
-    max-height: 200px;
+    max-width: $userImage-maxWidth;
+    max-height: $userImage-maxHeight;
     width: auto;
     height: auto;
   }
@@ -31,13 +38,13 @@ $empty-msg-color: #aaa;
   .userAgeWithGender {
     .userAge {
       display: inline-block;
-      margin-right: 30px;
+      margin-right: $userAge-margin-right;
     }
 
     .userGender {
       display: inline-block;
-      max-width: 30px;
-      max-height: 20px;
+      max-width: $userGender-maxWidth;
+      max-height: $userGender-maxHeight;
       width: auto;
       height: auto;
     }
@@ -49,7 +56,7 @@ $empty-msg-color: #aaa;
 
   .textAutoWrap {
     margin: 0 auto;
-    max-width: 500px;
-    padding: 12px;
+    max-width: $text-auto-wrap-maxwidth;
+    padding: $text-auto-wrap-padding;
   }
 }

@@ -48,9 +48,10 @@ exports[`<UserDetail /> renders with props correctly 1`] = `
         Matched:
       </span>
        
-      2018-3-5
-       
-      16:23:15
+      <span>
+        2018-3-5 16:23:15
+         
+      </span>
     </p>
   </div>
   <div>

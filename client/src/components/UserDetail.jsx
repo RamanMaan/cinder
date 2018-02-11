@@ -8,10 +8,6 @@ import genderOther from '../assets/gender-other.svg';
 export default class UserDetail extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      genderPic: this.getGenderPic()
-    };
   }
 
   getGenderPic() {
@@ -21,6 +17,14 @@ export default class UserDetail extends React.Component {
     if (this.props.userDetail.userGender === 'Male') return genderMale;
     else if (this.props.userDetail.userGender === 'Female') return genderFemale;
     else return genderOther;
+  }
+
+  dateFormat() {
+    return (
+      this.props.userDetail.matchTime.toLocaleDateString() +
+      ' ' +
+      this.props.userDetail.matchTime.toLocaleTimeString()
+    );
   }
 
   render() {
@@ -42,13 +46,14 @@ export default class UserDetail extends React.Component {
         <h2>{this.props.userDetail.userName}</h2>
         <div className="userAgeWithGender">
           <span className="userAge">{this.props.userDetail.userAge}</span>
-          <img className="userGender" src={this.state.genderPic} />
+          <img className="userGender" src={this.getGenderPic()} />
         </div>
         <div>
           <p>
             <span className="titleStyle">Matched:</span>{' '}
-            {this.props.userDetail.matchTime.toLocaleDateString()}{' '}
-            {this.props.userDetail.matchTime.toLocaleTimeString()}
+            <span>
+              {this.props.userDetail.matchTime ? this.dateFormat() : 'Unkown'}{' '}
+            </span>
           </p>
         </div>
         <div>
