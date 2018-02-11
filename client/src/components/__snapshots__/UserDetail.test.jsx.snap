@@ -21,6 +21,7 @@ exports[`<UserDetail /> renders with props correctly 1`] = `
   className="UserDetail"
 >
   <img
+    alt=""
     className="userImage"
     src="http://markinternational.info/data/out/613/224320906-pic-of-animals.jpg"
   />
