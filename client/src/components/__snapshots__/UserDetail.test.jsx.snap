@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UserDetail /> renders with empty props correctly 1`] = `
+<div
+  className="UserDetail"
+>
+  <div
+    className="empty"
+  >
+    <h3
+      className="msg align-self-center"
+    >
+      No matches yet. Select one match from the list!
+    </h3>
+  </div>
+</div>
+`;
+
+exports[`<UserDetail /> renders with props correctly 1`] = `
+<div
+  className="UserDetail"
+>
+  <img
+    className="userImage"
+    src="http://markinternational.info/data/out/613/224320906-pic-of-animals.jpg"
+  />
+  <h2>
+    Abc Defg
+  </h2>
+  <div
+    className="userAgeWithGender"
+  >
+    <span
+      className="userAge"
+    >
+      22
+    </span>
+    <img
+      className="userGender"
+      src="gender-male.svg"
+    />
+  </div>
+  <div>
+    <p>
+      <span
+        className="titleStyle"
+      >
+        Matched:
+      </span>
+       
+      2018-3-5
+       
+      16:23:15
+    </p>
+  </div>
+  <div>
+    <span
+      className="titleStyle"
+    >
+      Bio:
+    </span>
+     
+    <p
+      className="textAutoWrap"
+    >
+      I am test user with test bio
+    </p>
+  </div>
+  <div>
+    <span
+      className="titleStyle"
+    >
+      Note:
+    </span>
+     
+    <p
+      className="textAutoWrap"
+    >
+      This is some test notes only related about this match
+    </p>
+  </div>
+</div>
+`;
