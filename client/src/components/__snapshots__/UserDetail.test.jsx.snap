@@ -10,7 +10,7 @@ exports[`<UserDetail /> renders with empty props correctly 1`] = `
     <h3
       className="msg align-self-center"
     >
-      No matches yet. Select one match from the list!
+      No match selected yet. Select one match from the list!
     </h3>
   </div>
 </div>
