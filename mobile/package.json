@@ -21,7 +21,12 @@
     "test": "node node_modules/jest/bin/jest.js"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "verbose": true,
+    "timers": "fake",
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|expo|react-navigation|native-base-shoutem-theme|@shoutem/theme|@shoutem/animation|@shoutem/ui|tcomb-form-native)"
+    ]
   },
   "dependencies": {
     "@expo/vector-icons": "^6.2.2",
