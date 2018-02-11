@@ -1,8 +1,24 @@
+$empty-msg-color: #aaa;
+
 .UserDetail {
   height: 100%;
   width: 100%;
 
   text-align: center;
+
+  .empty {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+
+    padding: 1em;
+
+    justify-content: center;
+
+    .msg {
+      color: $empty-msg-color;
+    }
+  }
 
   .userImage {
     display: inline-block;
@@ -25,5 +41,15 @@
       width: auto;
       height: auto;
     }
+  }
+
+  .titleStyle {
+    font-weight: bold;
+  }
+
+  .textAutoWrap {
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 12px;
   }
 }

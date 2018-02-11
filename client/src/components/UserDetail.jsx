@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './styles/UserDetail.css';
+import genderMale from '../assets/gender-male.svg';
+import genderFemale from '../assets/gender-female.svg';
+import genderOther from '../assets/gender-other.svg';
 
 export default class UserDetail extends React.Component {
   constructor(props) {
@@ -12,14 +15,27 @@ export default class UserDetail extends React.Component {
   }
 
   getGenderPic() {
-    if (this.props.userDetail.userGender == 'Male')
-      return 'https://image.freepik.com/free-icon/male-gender-symbol_318-32483.jpg';
-    else if (this.props.userDetail.userGender == 'Female')
-      return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqMOagH0yYRUxgDxkRXl_oO9pH_ADsYLmOQ-lhrLlEZCmG4EjG4g';
-    else return 'https://image.flaticon.com/icons/svg/14/14869.svg';
+    if (!this.props.userDetail || !this.props.userDetail.userName) {
+      return;
+    }
+    if (this.props.userDetail.userGender === 'Male') return genderMale;
+    else if (this.props.userDetail.userGender === 'Female') return genderFemale;
+    else return genderOther;
   }
 
   render() {
+    if (!this.props.userDetail || !this.props.userDetail.userName) {
+      return (
+        <div className="UserDetail">
+          <div className="empty">
+            <h3 className="msg align-self-center">
+              No match selected yet. Select one match from the list!
+            </h3>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="UserDetail">
         <img className="userImage" src={this.props.userDetail.userPics} />
@@ -30,16 +46,19 @@ export default class UserDetail extends React.Component {
         </div>
         <div>
           <p>
-            Matched: {this.props.userDetail.matchTime.toLocaleDateString()}{' '}
+            <span className="titleStyle">Matched:</span>{' '}
+            {this.props.userDetail.matchTime.toLocaleDateString()}{' '}
             {this.props.userDetail.matchTime.toLocaleTimeString()}
           </p>
         </div>
         <div>
-          <p>Bio: {this.props.userDetail.userBio}</p>
+          <span className="titleStyle">Bio:</span>{' '}
+          <p className="textAutoWrap">{this.props.userDetail.userBio}</p>
         </div>
 
         <div>
-          <p>Note: {this.props.userDetail.matchNote}</p>
+          <span className="titleStyle">Note:</span>{' '}
+          <p className="textAutoWrap">{this.props.userDetail.matchNote}</p>
         </div>
       </div>
     );
