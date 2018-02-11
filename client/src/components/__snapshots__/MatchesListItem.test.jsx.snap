@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MatchesListItem /> renders with empty props correctly 1`] = `
+<div
+  className="MatchesListItem"
+>
+  <div
+    className="img-container"
+  >
+    <img
+      alt=""
+      className="circular"
+      src={undefined}
+    />
+  </div>
+  <div
+    className="details"
+  >
+    <div
+      className="top"
+    >
+      <div
+        className="left"
+      >
+        <span
+          className="title"
+        />
+      </div>
+      <div
+        className="right"
+      >
+        <span
+          className="date"
+        />
+      </div>
+    </div>
+    <div
+      className="bottom"
+    >
+      <span
+        className="subtitle"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<MatchesListItem /> renders with props correctly 1`] = `
+<div
+  className="MatchesListItem"
+>
+  <div
+    className="img-container"
+  >
+    <img
+      alt=""
+      className="circular"
+      src="img"
+    />
+  </div>
+  <div
+    className="details"
+  >
+    <div
+      className="top"
+    >
+      <div
+        className="left"
+      >
+        <span
+          className="title"
+        >
+          Example title
+        </span>
+      </div>
+      <div
+        className="right"
+      >
+        <span
+          className="date"
+        >
+          2017-01-01
+        </span>
+      </div>
+    </div>
+    <div
+      className="bottom"
+    >
+      <span
+        className="subtitle"
+      >
+        Some subtitle
+      </span>
+    </div>
+  </div>
+</div>
+`;

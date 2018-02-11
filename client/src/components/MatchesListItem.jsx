@@ -14,7 +14,7 @@ const MatchesListItem = ({ title, subtitle, date, img }) => (
           <span className="title">{title}</span>
         </div>
         <div className="right">
-          <span className="date">{dateFormat(date)}</span>
+          <span className="date">{date ? dateFormat(date) : date}</span>
         </div>
       </div>
       <div className="bottom">

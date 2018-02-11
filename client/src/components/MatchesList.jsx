@@ -11,7 +11,7 @@ class MatchesList extends Component {
   }
 
   render() {
-    if (!this.props.matches.length) {
+    if (!this.props.matches || !this.props.matches.length) {
       return (
         <div className="MatchesList">
           <div className="empty">
@@ -24,8 +24,9 @@ class MatchesList extends Component {
     }
 
     const listItems = this.props.matches.map(
-      ({ title, subtitle, img, date }) => (
+      ({ id, title, subtitle, img, date }) => (
         <MatchesListItem
+          key={id}
           title={title}
           subtitle={subtitle}
           img={img}
