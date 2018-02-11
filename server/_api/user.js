@@ -41,7 +41,29 @@ router.get('/:userID', (req, res) => {
       return rows;
     })
     .then(rows => res.status(200).json(rows))
-    .catch(err => console.error(err));
+    .catch((err) => {
+      console.error(err);
+      res.status(500);
+    });
+});
+
+router.get('/:userID/potentials', (req, res) => {
+  const { userID } = req.params;
+  if (!userID.match(ID_REGEX)) {
+    return res.status(400).json({ response: 'Invalid user ID' });
+  }
+
+  return mysql.createConnection(MYSQLDB)
+    .then((conn) => {
+      const rows = conn.query('SELECT * FROM UsersInfo WHERE UserID != ?', [userID]);
+      conn.end();
+      return rows;
+    })
+    .then(rows => res.status(200).json(rows))
+    .catch((err) => {
+      console.error(err);
+      res.status(500);
+    });
 });
 
 router.post('/login', (req, res) => {
