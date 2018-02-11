@@ -3,8 +3,12 @@ import './styles/MatchesListItem.css';
 
 const dateFormat = date => new Date(date).toJSON().split('T')[0];
 
-const MatchesListItem = ({ title, subtitle, date, img }) => (
-  <div className="MatchesListItem">
+const MatchesListItem = ({ title, subtitle, date, img, active, onClick }) => (
+  <div
+    className={active ? 'MatchesListItem active' : 'MatchesListItem'}
+    tabIndex="0"
+    onClick={onClick}
+  >
     <div className="img-container">
       <img className="circular" src={img} alt="" />
     </div>

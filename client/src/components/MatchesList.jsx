@@ -7,7 +7,13 @@ class MatchesList extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      active: false
+    };
+  }
+
+  onListItemClick(id) {
+    this.setState({ active: id });
   }
 
   render() {
@@ -31,6 +37,9 @@ class MatchesList extends Component {
           subtitle={subtitle}
           img={img}
           date={date}
+          active={id === this.state.active}
+          // eslint-disable-next-line react/jsx-no-bind
+          onClick={this.onListItemClick.bind(this, id)}
         />
       )
     );

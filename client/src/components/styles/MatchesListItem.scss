@@ -3,14 +3,10 @@ $item-padding: 7px;
 
 $subtitle-color: #aaa;
 
+$focus-color: #a2a2a2;
+
 $bg-color: #fff;
 $active-bg-color: darken($bg-color, 5%);
-
-$border-width: 65%;
-$active-border-width: 90%;
-
-$border-color: #ddd;
-$active-border-color: darken($border-color, 5%);
 
 .MatchesListItem {
   display: flex;
@@ -19,35 +15,22 @@ $active-border-color: darken($border-color, 5%);
   height: $item-height;
   background-color: $bg-color;
 
-  transition: background-color 300ms;
+  transition: background-color 200ms;
 
-  // render the underline
-  &::after {
-    content: '';
-    position: absolute;
-    width: $border-width;
-    height: 1px;
-    bottom: 0;
-    // calculate middle value
-    left: 50% - $border-width/2;
-    background-color: $border-color;
-
-    transition: all 300ms;
-  }
-
-  // don't render underline for last element
-  &:last-child::after {
-    width: 0;
-    height: 0;
-  }
+  cursor: pointer;
 
   &.active {
     background-color: $active-bg-color;
-    &::after {
-      background-color: $active-border-color;
-      width: $active-border-width;
-      left: 50% - $active-border-width/2;
-    }
+  }
+
+  &:hover {
+    background-color: $active-bg-color;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 1px $focus-color;
+    z-index: 100;
   }
 
   .img-container {
