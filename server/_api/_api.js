@@ -7,13 +7,9 @@ const router = express.Router();
  */
 const userEndpoints = require('../_api/user.js');
 
-const matchEndpoints = require('../_api/match.js');
-
 /**
  * Attach endpoints to route
  */
 router.use('/users', userEndpoints);
-
-router.use('/matches', matchEndpoints);
 
 module.exports = router;
