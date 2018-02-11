@@ -5,7 +5,7 @@ import genderMale from '../assets/gender-male.svg';
 import genderFemale from '../assets/gender-female.svg';
 import genderOther from '../assets/gender-other.svg';
 
-export default class UserDetail extends React.Component {
+class UserDetail extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -42,7 +42,11 @@ export default class UserDetail extends React.Component {
 
     return (
       <div className="UserDetail">
-        <img className="userImage" src={this.props.userDetail.userPics} />
+        <img
+          className="userImage"
+          src={this.props.userDetail.userPics}
+          alt=""
+        />
         <h2>{this.props.userDetail.userName}</h2>
         <div className="userAgeWithGender">
           <span className="userAge">{this.props.userDetail.userAge}</span>
@@ -69,3 +73,5 @@ export default class UserDetail extends React.Component {
     );
   }
 }
+
+export default UserDetail;

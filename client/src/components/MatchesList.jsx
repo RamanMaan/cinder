@@ -14,6 +14,7 @@ class MatchesList extends Component {
 
   onListItemClick(id) {
     this.setState({ active: id });
+    this.props.clickHandler(id);
   }
 
   render() {
