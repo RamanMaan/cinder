@@ -3,6 +3,8 @@
 exports[`<MatchesListItem /> renders with empty props correctly 1`] = `
 <div
   className="MatchesListItem"
+  onClick={undefined}
+  tabIndex="0"
 >
   <div
     className="img-container"
@@ -48,6 +50,8 @@ exports[`<MatchesListItem /> renders with empty props correctly 1`] = `
 exports[`<MatchesListItem /> renders with props correctly 1`] = `
 <div
   className="MatchesListItem"
+  onClick={undefined}
+  tabIndex="0"
 >
   <div
     className="img-container"
