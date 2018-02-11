@@ -6,10 +6,6 @@ import genderFemale from '../assets/gender-female.svg';
 import genderOther from '../assets/gender-other.svg';
 
 class UserDetail extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   getGenderPic() {
     if (!this.props.userDetail || !this.props.userDetail.userName) {
       return;
@@ -50,7 +46,7 @@ class UserDetail extends React.Component {
         <h2>{this.props.userDetail.userName}</h2>
         <div className="userAgeWithGender">
           <span className="userAge">{this.props.userDetail.userAge}</span>
-          <img className="userGender" src={this.getGenderPic()} />
+          <img className="userGender" src={this.getGenderPic()} alt="" />
         </div>
         <div>
           <p>

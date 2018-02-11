@@ -37,6 +37,7 @@ exports[`<UserDetail /> renders with props correctly 1`] = `
       22
     </span>
     <img
+      alt=""
       className="userGender"
       src="gender-male.svg"
     />
