@@ -48,3 +48,52 @@ exports[`<PotentialMatch /> renders correctly 1`] = `
   </button>
 </div>
 `;
+
+exports[`<PotentialMatch /> renders with empty props correctly 1`] = `
+<div
+  className="PotentialMatchDetailContainer"
+>
+  <div
+    className="UserDetail"
+  >
+    <img
+      className="userImage"
+      src="http://cache.umusic.com/_sites/kendricklamar.com/images/og.jpg"
+    />
+    <br />
+    <div
+      className="UserInfo"
+    >
+      <span
+        className="UserNameAndAge"
+      >
+        Kendrick Lamar
+        ,
+         
+        30
+      </span>
+      <br />
+      <span
+        className="UserBio"
+      >
+        How u doin?
+      </span>
+    </div>
+  </div>
+  <br />
+  <button
+    className="NotButton btn btn-danger"
+    onClick={[Function]}
+    type="button"
+  >
+    NOT
+  </button>
+  <button
+    className="HotButton btn btn-success"
+    onClick={[Function]}
+    type="button"
+  >
+    HOT
+  </button>
+</div>
+`;

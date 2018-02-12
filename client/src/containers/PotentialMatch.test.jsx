@@ -59,8 +59,15 @@ describe('<PotentialMatch />', () => {
   });
 
   it('renders correctly', () => {
-    const component = renderer.create(<PotentialMatch />).toJSON();
+    const component = renderer
+      .create(<PotentialMatch potentialMatches={testPotentialMatches} />)
+      .toJSON();
 
+    expect(component).toMatchSnapshot();
+  });
+
+  it('renders with empty props correctly', () => {
+    const component = renderer.create(<PotentialMatch />).toJSON();
     expect(component).toMatchSnapshot();
   });
 });
