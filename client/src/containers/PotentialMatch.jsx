@@ -35,34 +35,20 @@ export default class PotentialMatch extends Component {
   }
 
   fetchPotentialMatches() {
-    this.setState({
-      potentialMatches: [
-        {
-          id: 0,
-          title: 'Kendrick Lamar',
-          age: 30,
-          subtitle: 'How u doin?',
-          img: 'http://cache.umusic.com/_sites/kendricklamar.com/images/og.jpg'
-        },
-        {
-          id: 1,
-          title: 'Mac Miller | Larry Fisherman | Delusional Thomas',
-          age: 26,
-          subtitle:
-            ';););) Want to meet hot new singles? Click this totally legit link: www.gethotsingles.com',
-          img:
-            'https://i.scdn.co/image/f4509fe9c589c12be5470653178f901bd697b97b'
-        },
-        {
-          id: 2,
-          title: 'Ian Simpson',
-          age: 21,
-          subtitle: 'What u wearin',
-          img:
-            'https://media.pitchfork.com/photos/592997c25e6ef9596931f65a/1:1/w_300/e2fc485c.jpg'
-        }
-      ]
-    });
+    const loggedInUserID = 1;
+    fetch(`/api/users/${loggedInUserID}/potentials`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          potentialMatches: res.map(x => ({
+            id: x.userID,
+            title: x.userName,
+            age: x.age,
+            img: x.primaryPic
+          }))
+        });
+      })
+      .catch(err => console.error(err));
   }
 
   render() {
