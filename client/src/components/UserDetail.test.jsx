@@ -12,8 +12,7 @@ describe('<UserDetail />', () => {
     userBio: 'I am test user with test bio',
     userPics:
       'http://markinternational.info/data/out/613/224320906-pic-of-animals.jpg',
-    matchTime: new Date(2018, 2, 5, 16, 23, 15),
-    matchNote: 'This is some test notes only related about this match'
+    matchTime: new Date(2018, 2, 5, 16, 23, 15)
   };
 
   it('renders without crashing', () => {

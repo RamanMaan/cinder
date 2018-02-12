@@ -60,11 +60,6 @@ class UserDetail extends React.Component {
           <span className="titleStyle">Bio:</span>{' '}
           <p className="textAutoWrap">{this.props.userDetail.userBio}</p>
         </div>
-
-        <div>
-          <span className="titleStyle">Note:</span>{' '}
-          <p className="textAutoWrap">{this.props.userDetail.matchNote}</p>
-        </div>
       </div>
     );
   }
