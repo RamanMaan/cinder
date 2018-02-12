@@ -65,18 +65,6 @@ CREATE TABLE IF NOT EXISTS UsersInfo
   CONSTRAINT FK_UsersInfo_ReligionType_ReligionID FOREIGN KEY (ReligionID) REFERENCES ReligionType(ReligionID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-/***********************************************************************************************
-MEMBERSHIP TABLES
-***********************************************************************************************/
-
-CREATE TABLE IF NOT EXISTS Matches
-(
-  MatchID INT NOT NULL AUTO_INCREMENT,
-  MatchDate DATETIME NOT NULL,
-  MatchInfo VARCHAR(1000),
-  CONSTRAINT PK_Matches_MatchID PRIMARY KEY (MatchID)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE IF NOT EXISTS UserPicture
 (
   PictureID INT NOT NULL AUTO_INCREMENT,
@@ -86,6 +74,10 @@ CREATE TABLE IF NOT EXISTS UserPicture
   CONSTRAINT PK_UserPicture_PictureID PRIMARY KEY (PictureID),
   CONSTRAINT FK_UserPicture_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/***********************************************************************************************
+MEMBERSHIP TABLES
+***********************************************************************************************/
 
 CREATE TABLE IF NOT EXISTS UserPreference
 (
@@ -109,7 +101,8 @@ CREATE TABLE IF NOT EXISTS Likes
 (
   User1ID INT NOT NULL,
   User2ID INT NOT NULL,
-  UserAction TINYINT NOT NULL,
+  UserAction CHAR NOT NULL,
+  ActionDate TIMESTAMP,
   CONSTRAINT FK_Likes_Users_User1ID FOREIGN KEY (User1ID) REFERENCES Users(UserID),
   CONSTRAINT FK_Likes_Users_User2ID FOREIGN KEY (User2ID) REFERENCES Users(UserID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -120,12 +113,4 @@ CREATE TABLE IF NOT EXISTS UserInterests
  InterestID INT NOT NULL,
  CONSTRAINT FK_UserInterests_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID),
  CONSTRAINT FK_UserInterests_InterestsType_InterestID FOREIGN KEY (InterestID) REFERENCES InterestsType(InterestID)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS UserMatches
-(
- UserID INT NOT NULL,
- MatchID INT NOT NULL,
- CONSTRAINT FK_UserMatches_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID),
- CONSTRAINT FK_UserMatches_Matches_MatchID FOREIGN KEY (MatchID) REFERENCES Matches(MatchID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
