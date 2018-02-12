@@ -96,7 +96,7 @@ router.get('/:userID/potentials', (req, res) => {
     });
 });
 
-router.get('/:userID/matches/:matchUserID/:action', (req, res) => {
+router.post('/:userID/matches/:matchUserID/:action', (req, res) => {
   const { userID, matchUserID, action } = req.params;
 
   if (!userID.match(ID_REGEX)) {
