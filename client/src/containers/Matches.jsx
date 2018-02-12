@@ -15,13 +15,13 @@ class Matches extends Component {
     this.state = {
       matches: [],
       userDetail: false,
-      rSelected: false
+      buttonSelected: false
     };
   }
 
-  onBackButtonClick(rSelected) {
-    this.setState({ rSelected });
-    this.state.userDetail = false;
+  onBackButtonClick() {
+    this.setState({ buttonSelected: true });
+    this.setState({ userDetail: false });
   }
 
   componentDidMount() {
@@ -161,8 +161,7 @@ class Matches extends Component {
             outline
             color="primary"
             className="BackButton"
-            onClick={() => this.onBackButtonClick(1)}
-            active={(this.state.rSelected = true)}
+            onClick={() => this.onBackButtonClick()}
           >
             Back
           </Button>
