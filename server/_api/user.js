@@ -58,8 +58,13 @@ router.get('/:userID/potentials', (req, res) => {
       const query = mysql.format(`
       SELECT 
         UI.UserID AS userID,
-        UI.UserName
+        UI.UserName AS userName,
+        TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS age,
+        UP.PicturePath AS primaryPic
       FROM UsersInfo UI
+        LEFT JOIN UserPicture UP
+          ON UI.UserID = UP.UserID
+          AND UP.PrimaryPicture
         LEFT JOIN (
           SELECT 
             L1.User2ID AS matchUserID
