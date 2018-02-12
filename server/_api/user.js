@@ -16,11 +16,8 @@ const MYSQLDB = {
 
 const ID_REGEX = /^[0-9]*$/;
 
-const MATCH_ACTION_REGEX = /(?i:like|pass)/;
+const MATCH_ACTION_REGEX = /(like|pass)/i;
 const MATCH_ACTION_LIKE_REGEX = /like/i;
-
-const MATCH_FOUND_JSON = '{"match":true}';
-const MATCH_NOT_FOUND_JSON = '{"match":false}';
 
 router.get('/', (req, res) => {
   mysql.createConnection(MYSQLDB)
@@ -100,9 +97,9 @@ router.get('/:userID/potentials', (req, res) => {
 });
 
 router.get('/:userID/matches/:matchUserID/:result', (req, res) => {
-  const { userID } = req.params.userID;
-  const { matchUserID } = req.params.matchUserID;
-  const { result } = req.params.result;
+  const { userID } = req.params;
+  const { matchUserID } = req.params;
+  const { result } = req.params;
 
   if (!userID.match(ID_REGEX)) {
     return res.status(400).json({ response: 'Invalid user ID' });
@@ -115,36 +112,47 @@ router.get('/:userID/matches/:matchUserID/:result', (req, res) => {
   }
 
   const userAction = result.match(MATCH_ACTION_LIKE_REGEX) ? 'L' : 'P';
+  var connection;
 
   return mysql.createConnection(MYSQLDB)
     .then((conn) => {
       const insert = mysql.format(`
-      INSERT INTO Like (User1ID, User2ID, UserAction)
-      VALUES (?, ?, ?);
-      `, [userID, matchUserID, userAction]);
+      INSERT INTO Likes (User1ID, User2ID, UserAction)
+      VALUES (?, ?, ?) 
+      ON DUPLICATE KEY UPDATE UserAction = ?;
+      `, [userID, matchUserID, userAction, userAction]);
 
-      conn.query(insert);
+      connection = conn;
 
-      return conn;
+      return conn.query(insert);
     })
-    .then((conn) => {
+    .catch((err) => {
+      if (connection && connection.end) connection.end();
+      console.error(err);
+      return res.status(500);
+    })
+    .then((rows) => {
       const checkMatchQuery = mysql.format(`
-      SELECT * 
+      SELECT 
+          COUNT(*) AS matched 
       FROM Likes L1 
           INNER JOIN Likes L2 
-              ON L1.User2ID = L2.User1ID 
       WHERE 
           L1.User1ID =  ? 
           AND L2.User2ID =  ? 
+          AND L1.User2ID =  ? 
+          AND L2.User1ID =  ? 
           AND L1.UserAction = 'L' 
           AND L2.UserAction = 'L';
-      `, [userID, matchUserID]);
+      `, [userID, userID, matchUserID, matchUserID]);
 
-      const isMatched = conn.query(query);
-      conn.end();
-      isMatched ? res.status(200).json(MATCH_FOUND_JSON) : res.status(200).json(MATCH_NOT_FOUND_JSON);
+      const result = connection.query(checkMatchQuery);
+      connection.end();
+      return result;
     })
+    .then(rows => res.status(200).json(rows))
     .catch((err) => {
+      if (connection && connection.end) connection.end();
       console.error(err);
       return res.status(500);
     });
