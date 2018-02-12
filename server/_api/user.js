@@ -188,4 +188,44 @@ router.get('/:userID/matches', (req, res) => {
     .catch(err => console.error(err));
 });
 
+router.get('/:userID/matches/:matchUserID', (req, res) => {
+  const { userID, matchUserID } = req.params;
+  if (!userID.match(ID_REGEX) || !matchUserID.match(ID_REGEX)) {
+    return res.status(400).json({ response: 'Invalid ID' });
+  }
+
+  return mysql.createConnection(MYSQLDB)
+    .then((conn) => {
+      const query = mysql.format(`
+      SELECT
+        UInfo.UserName as userName,
+        UInfo.UserID as userID,
+        TIMESTAMPDIFF(YEAR, UInfo.Birthday, CURDATE()) AS userAge,
+        Gender.GenderType as userGender,
+        UInfo.Bio as userBio,
+        Pics.PicturePath AS userPics,
+        Matches.MatchDate AS matchTime
+      FROM UsersInfo UInfo
+        LEFT JOIN UserPicture Pics
+          ON UInfo.UserID = Pics.UserID AND Pics.PrimaryPicture
+        INNER JOIN GenderType Gender
+          ON UInfo.GenderID = Gender.GenderID
+        INNER JOIN (
+          SELECT 
+            Likes.User1ID as CurrentUserID,
+            Likes.ActionDate as MatchDate
+           FROM Likes
+          WHERE (User1ID = ? AND User2ID = ? AND UserAction = 'L')) AS Matches       
+          ON UInfo.UserID = Matches.CurrentUserID
+    WHERE
+      UInfo.UserID = ?
+      `, [matchUserID, userID, matchUserID]);
+      
+      const rows = conn.query(query);
+      conn.end();
+      return rows;
+    }).then(rows => res.status(200).json(rows))
+    .catch(err => console.error(err));
+});
+
 module.exports = router;

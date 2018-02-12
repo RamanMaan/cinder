@@ -10,7 +10,7 @@
 
 Or use [setup.sql](setup.sql) directly:
 
-``` mysql -u [username] -p < setup.sql```
+``` mysql -u [username] -p [database name] < setup.sql```
 
 ## To insert all test data
 ```
@@ -19,4 +19,4 @@ Or use [setup.sql](setup.sql) directly:
 
 Or use [test-data.sql](test-data.sql) directly:
 
-```mysql -u [username] -p < test-data.sql```
+```mysql -u [username] -p [database name] < test-data.sql```
