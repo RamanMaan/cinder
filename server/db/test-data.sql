@@ -123,12 +123,12 @@ INSERT INTO UserPicture (PictureID, UserID, PicturePath, PrimaryPicture) VALUES
 INITIALIZE USER ACTIONS
 ***********************************************************************************************/
 
-INSERT INTO Likes (User1ID, User2ID, UserAction) VALUES
-(1, 2, 'L'),
-(1, 3, 'R'),
-(1, 4, 'R'),
-(2, 1, 'R'),
-(2, 4, 'R'),
-(4, 1, 'R'),
-(3, 1, 'R'),
-(4, 2, 'R');
+INSERT INTO Likes (User1ID, User2ID, UserAction, ActionDate) VALUES
+(1, 2, 'P', '2018-02-03 12:09:05'),
+(1, 3, 'L', '2018-02-04 15:03:02'),
+(1, 4, 'L', '2018-02-01 08:02:48'),
+(2, 1, 'L', '2018-02-05 08:02:48'),
+(2, 4, 'L', '2018-02-06 08:02:48'),
+(4, 1, 'L', '2018-02-08 08:02:48'),
+(3, 1, 'L', '2018-02-07 08:02:48'),
+(4, 2, 'L', '2018-02-10 08:02:48');
