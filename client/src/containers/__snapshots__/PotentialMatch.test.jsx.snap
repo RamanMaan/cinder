@@ -8,7 +8,7 @@ exports[`<PotentialMatch /> renders correctly 1`] = `
     className="UserDetail"
   >
     <img
-      className="UserProfilePic"
+      className="userImage"
       src="http://cache.umusic.com/_sites/kendricklamar.com/images/og.jpg"
     />
     <br />
@@ -19,7 +19,8 @@ exports[`<PotentialMatch /> renders correctly 1`] = `
         className="UserNameAndAge"
       >
         Kendrick Lamar
-        , 
+        ,
+         
         30
       </span>
       <br />
