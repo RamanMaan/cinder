@@ -40,16 +40,16 @@ describe('<PotentialMatch />', () => {
     }
   ];
 
-  //TODO - implement network test when hooked up to end point for fetching potential matches
+  //TODO
   // beforeEach(() => {
-  //     fetchMock.reset();
-  //     fetchMock.restore();
-  //     fetchMock.get(/\/api\/users\/[0-9]*\/matches/, testPotentialMatches);
+  //   fetchMock.reset();
+  //   fetchMock.restore();
+  //   fetchMock.get(/\/api\/users\/[0-9]*\/potentials/, testPotentialMatches);
   // });
 
   // afterAll(() => {
-  //     fetchMock.reset();
-  //     fetchMock.restore();
+  //   fetchMock.reset();
+  //   fetchMock.restore();
   // });
 
   it('renders without crashing', () => {
@@ -58,13 +58,16 @@ describe('<PotentialMatch />', () => {
     mount(<PotentialMatch />);
   });
 
-  it('renders correctly', () => {
-    const component = renderer
-      .create(<PotentialMatch potentialMatches={testPotentialMatches} />)
-      .toJSON();
+  // it('should show the <PotentialMatchDetail /> component be default', () => {
+  //   const wrapper = mount(
+  //     <MemoryRouter initialEntries={['']}>
+  //       <App />
+  //     </MemoryRouter>
+  //   );
+  //   wrapper.setState({ XX: false });
 
-    expect(component).toMatchSnapshot();
-  });
+  //   expect(wrapper.find(XX)).toHaveLength(1);
+  // });
 
   it('renders with empty props correctly', () => {
     const component = renderer.create(<PotentialMatch />).toJSON();
