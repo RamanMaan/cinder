@@ -51,7 +51,7 @@ exports[`<UserDetail /> renders with props correctly 1`] = `
       </span>
        
       <span>
-        2018-03-05 4:23:15 p.m.
+        2018-3-5 16:23:15
          
       </span>
     </p>
