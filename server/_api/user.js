@@ -56,16 +56,25 @@ router.get('/:userID/potentials', (req, res) => {
   return mysql.createConnection(MYSQLDB)
     .then((conn) => {
       const query = mysql.format(`
-      SELECT
-        UInfo.UserID as userID,
-        UInfo.UserName as userName
-      FROM UsersInfo UInfo
-        LEFT JOIN Likes
-          ON (Likes.User1ID = ? AND UInfo.UserID = Likes.User2ID)
-            OR (Likes.User2ID = ? AND UInfo.UserID = Likes.User1ID AND (Likes.UserAction = 0))
+      SELECT 
+        UI.UserID AS userID,
+        UI.UserName
+      FROM UsersInfo UI
+        LEFT JOIN (
+          SELECT 
+            L1.User2ID AS matchUserID
+          FROM Likes L1 
+            INNER JOIN Likes L2
+              ON L1.User2ID = L2.User1ID
+          WHERE 
+            L1.User1ID = ? 
+            AND L2.User2ID = ? 
+            AND L1.UserAction
+            AND L2.UserAction) AS CurrentMatches
+        ON UI.UserID = CurrentMatches.matchUserID
       WHERE
-        Likes.User1ID IS NULL
-        AND UInfo.UserID != ?
+        CurrentMatches.matchUserID IS NULL
+        AND UI.UserID != ?
      `, [userID, userID, userID]);
 
       const rows = conn.query(query);
