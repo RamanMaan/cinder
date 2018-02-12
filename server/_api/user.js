@@ -123,7 +123,7 @@ router.get('/:userID/matches/:matchUserID/:result', (req, res) => {
       VALUES (?, ?, ?);
       `, [userID, matchUserID, userAction]);
 
-      conn.query(insert)
+      conn.query(insert);
 
       return conn;
     })
