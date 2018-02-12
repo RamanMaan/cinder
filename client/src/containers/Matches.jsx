@@ -39,8 +39,7 @@ class Matches extends Component {
         userAge: 21,
         userGender: 'Male',
         matchTime: new Date(),
-        userBio: 'They got there early, and they got really good seats.',
-        matchNote: 'He didn’t want to go to the dentist, yet he went anyway.'
+        userBio: 'They got there early, and they got really good seats.'
       },
       {
         userID: 1,
@@ -50,9 +49,7 @@ class Matches extends Component {
         userAge: 24,
         userGender: 'Male',
         matchTime: new Date(),
-        userBio: 'The waves were crashing on the shore; it was a lovely sight.',
-        matchNote:
-          'I think I will buy the red car, or I will lease the blue one.'
+        userBio: 'The waves were crashing on the shore; it was a lovely sight.'
       },
       {
         userID: 2,
@@ -62,9 +59,7 @@ class Matches extends Component {
         userAge: 21,
         userGender: 'Male',
         matchTime: new Date(),
-        userBio: 'Hurry!',
-        matchNote:
-          'Malls are great places to shop; I can find everything I need under one roof.'
+        userBio: 'Hurry!'
       },
       {
         userID: 3,
@@ -75,8 +70,7 @@ class Matches extends Component {
         userGender: 'Male',
         matchTime: new Date(),
         userBio:
-          'A song can make or ruin a person’s day if they let it get to them.',
-        matchNote: 'Check back tomorrow; I will see if the book has arrived.'
+          'A song can make or ruin a person’s day if they let it get to them.'
       },
       {
         userID: 4,
@@ -87,8 +81,7 @@ class Matches extends Component {
         userGender: 'Male',
         matchTime: new Date(),
         userBio:
-          'She did not cheat on the test, for it was not the right thing to do.',
-        matchNote: 'I often see the time 11:11 or 12:34 on clocks.'
+          'She did not cheat on the test, for it was not the right thing to do.'
       },
       {
         userID: 5,
@@ -98,8 +91,7 @@ class Matches extends Component {
         userAge: 22,
         userGender: 'Male',
         matchTime: new Date(),
-        userBio: 'I really want to go to work, but I am too sick to drive.',
-        matchNote: 'They got there early, and they got really good seats.'
+        userBio: 'I really want to go to work, but I am too sick to drive.'
       },
       {
         userID: 6,
@@ -109,9 +101,7 @@ class Matches extends Component {
         userAge: 23,
         userGender: 'Male',
         matchTime: new Date(),
-        userBio: 'The stranger officiates the meal.',
-        matchNote:
-          'I will never be this young again. Ever. Oh damn… I just got older.'
+        userBio: 'The stranger officiates the meal.'
       },
       {
         userID: 7,
@@ -122,9 +112,7 @@ class Matches extends Component {
         userGender: 'Male',
         matchTime: new Date(),
         userBio:
-          'Last Friday in three week’s time I saw a spotted striped blue worm shake hands with a legless lizard.',
-        matchNote:
-          'Wednesday is hump day, but has anyone asked the camel if he’s happy about it?'
+          'Last Friday in three week’s time I saw a spotted striped blue worm shake hands with a legless lizard.'
       }
     ];
 
