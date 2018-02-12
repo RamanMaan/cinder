@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Matches from './Matches';
+import PotentialMatch from './PotentialMatch';
 import Navbar from '../components/NavigationBar';
 
 import './styles/Home.css';
