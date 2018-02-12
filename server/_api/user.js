@@ -16,6 +16,9 @@ const MYSQLDB = {
 
 const ID_REGEX = /^[0-9]*$/;
 
+const MATCH_ACTION_REGEX = /(like|pass)/i;
+const MATCH_ACTION_LIKE_REGEX = /like/i;
+
 router.get('/', (req, res) => {
   mysql.createConnection(MYSQLDB)
     .then((conn) => {
@@ -91,6 +94,55 @@ router.get('/:userID/potentials', (req, res) => {
       console.error(err);
       return res.status(500);
     });
+});
+
+router.get('/:userID/matches/:matchUserID/:action', (req, res) => {
+  const { userID, matchUserID, action } = req.params;
+
+  if (!userID.match(ID_REGEX)) {
+    return res.status(400).json({ response: 'Invalid user ID' });
+  }
+  if (!matchUserID.match(ID_REGEX)) {
+    return res.status(400).json({ response: 'Invalid match user ID' });
+  }
+  if (!action.match(MATCH_ACTION_REGEX)) {
+    return res.status(400).json({ response: 'Invalid match action' });
+  }
+
+  const userAction = action.match(MATCH_ACTION_LIKE_REGEX) ? 'L' : 'P';
+  let connection;
+
+  return mysql.createConnection(MYSQLDB)
+    .then((conn) => {
+      const insert = mysql.format(`
+      INSERT INTO Likes (User1ID, User2ID, UserAction)
+      VALUES (?, ?, ?) 
+      ON DUPLICATE KEY UPDATE UserAction = ?;
+      `, [userID, matchUserID, userAction, userAction]);
+
+      connection = conn;
+
+      return conn.query(insert);
+    })
+    .then((rows) => {
+      const checkMatchQuery = mysql.format(`
+      SELECT IF(COUNT(*) = 2, 'True', 'False') AS IsMatched
+      FROM Likes
+      WHERE (User1ID = ? AND User2ID = ? AND UserAction = 'L')
+      OR (User1ID = ? AND User2ID = ? AND UserAction = 'L')
+      `, [userID, matchUserID, matchUserID, userID]);
+
+      const result = connection.query(checkMatchQuery);
+      connection.end();
+      return result;
+    })
+    .then(rows => res.status(200).json(rows))
+    .catch((err) => {
+      if (connection && connection.end) connection.end();
+      console.error(err);
+      return res.status(500);
+    });
+
 });
 
 router.post('/login', (req, res) => {
