@@ -45,7 +45,7 @@ class UserDetail extends React.Component {
         />
         <h2>{this.props.userDetail.userName}</h2>
         <div className="userAgeWithGender">
-          <span className="userAge">{this.props.userDetail.userBirthday}</span>
+          <span className="userAge">{this.props.userDetail.userAge}</span>
           <img className="userGender" src={this.getGenderPic()} alt="" />
         </div>
         <div>

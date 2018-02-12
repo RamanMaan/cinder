@@ -32,17 +32,17 @@ class Matches extends Component {
     const loggedInUserID = 1;
     fetch(`/api/users/${loggedInUserID}/matches/${id}`)
       .then(res => res.json())
+      .then(res => res[0])
       .then(res => {
         this.setState({
           userDetail: {
-            userID: res[0].userID,
-            userName: res[0].userName,
-            userPics: res[0].userPics,
-            userAge: 21,
-            userGender: res[0].userGender,
+            userID: res.userID,
+            userName: res.userName,
+            userPics: res.userPics,
+            userAge: res.userAge,
+            userGender: res.userGender,
             matchTime: new Date(),
-            userBio: res[0].userBio ? res[0].userBio : 'No bio',
-            matchNote: 'To remove'
+            userBio: res.userBio ? res.userBio : 'No bio'
           }
         });
       })
