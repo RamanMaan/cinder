@@ -57,7 +57,7 @@ export default class PotentialMatch extends Component {
     if (!this.state.potentialMatches.length) {
       return (
         <div>
-          <h1>There's no one new around you. TEST</h1>
+          <h1>There's no one new around you.</h1>
         </div>
       );
     }
