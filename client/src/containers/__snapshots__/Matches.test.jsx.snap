@@ -52,7 +52,7 @@ exports[`<Matches /> renders correctly 1`] = `
                     <span
                       className="date"
                     >
-                      2018-02-11
+                      2018-02-12
                     </span>
                   </div>
                 </div>
@@ -102,7 +102,7 @@ exports[`<Matches /> renders correctly 1`] = `
                     <span
                       className="date"
                     >
-                      2018-02-11
+                      2018-02-12
                     </span>
                   </div>
                 </div>
@@ -152,7 +152,7 @@ exports[`<Matches /> renders correctly 1`] = `
                     <span
                       className="date"
                     >
-                      2018-02-11
+                      2018-02-12
                     </span>
                   </div>
                 </div>
@@ -202,7 +202,7 @@ exports[`<Matches /> renders correctly 1`] = `
                     <span
                       className="date"
                     >
-                      2018-02-11
+                      2018-02-12
                     </span>
                   </div>
                 </div>
@@ -252,7 +252,7 @@ exports[`<Matches /> renders correctly 1`] = `
                     <span
                       className="date"
                     >
-                      2018-02-11
+                      2018-02-12
                     </span>
                   </div>
                 </div>
@@ -302,7 +302,7 @@ exports[`<Matches /> renders correctly 1`] = `
                     <span
                       className="date"
                     >
-                      2018-02-11
+                      2018-02-12
                     </span>
                   </div>
                 </div>
@@ -352,7 +352,7 @@ exports[`<Matches /> renders correctly 1`] = `
                     <span
                       className="date"
                     >
-                      2018-02-11
+                      2018-02-12
                     </span>
                   </div>
                 </div>
@@ -402,7 +402,7 @@ exports[`<Matches /> renders correctly 1`] = `
                     <span
                       className="date"
                     >
-                      2018-02-11
+                      2018-02-12
                     </span>
                   </div>
                 </div>

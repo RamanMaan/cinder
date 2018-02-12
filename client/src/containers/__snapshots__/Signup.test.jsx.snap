@@ -1,0 +1,230 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Signup /> renders correctly 1`] = `
+<div
+  className="Login"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="logo"
+    >
+      <h1
+        className="display-3"
+      >
+        cinder
+      </h1>
+      <img
+        alt="logo"
+        className="App-logo"
+        src="logo.svg"
+      />
+    </div>
+    <hr />
+    <form
+      className="login-form"
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group"
+      >
+        <label
+          className=" form-control-label"
+          htmlFor="email"
+        >
+          Email Address
+        </label>
+        <input
+          className="form-control"
+          id="email"
+          name="email"
+          onChange={[Function]}
+          placeholder="Email Address"
+          required={true}
+          type="email"
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          className=" form-control-label"
+          htmlFor="userName"
+        >
+          User Name
+        </label>
+        <input
+          className="form-control"
+          id="userName"
+          name="userName"
+          onChange={[Function]}
+          placeholder="User Name"
+          required={true}
+          type="userName"
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          className=" form-control-label"
+          htmlFor="password"
+        >
+          Password
+        </label>
+        <input
+          className="form-control"
+          id="password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Password"
+          required={true}
+          type="password"
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          className=" form-control-label"
+          htmlFor="password"
+        >
+          Confirm Password
+        </label>
+        <input
+          className="form-control"
+          id="confirmPassword"
+          name="confirmPassword"
+          onChange={[Function]}
+          placeholder="Confirm Password"
+          required={true}
+          type="password"
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          className=" form-control-label"
+          htmlFor="exampleDate"
+        >
+          Birthday
+        </label>
+        <input
+          className="form-control"
+          id="birthday"
+          name="birthday"
+          placeholder="Birthday"
+          type="date"
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          className=" form-control-label"
+          htmlFor="gender"
+        >
+          Gender
+        </label>
+        <select
+          className="form-control"
+          id="gender"
+          name="gender"
+        >
+          <option />
+          <option>
+            1
+          </option>
+          <option>
+            2
+          </option>
+          <option>
+            3
+          </option>
+        </select>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          className=" form-control-label"
+          htmlFor="bio"
+        >
+          Bio
+        </label>
+        <textarea
+          className="form-control"
+          id="bio"
+          name="bio"
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          className=" form-control-label"
+          htmlFor="religion"
+        >
+          Religion
+        </label>
+        <select
+          className="form-control"
+          id="religion"
+          name="religion"
+        >
+          <option />
+          <option>
+            1
+          </option>
+          <option>
+            2
+          </option>
+          <option>
+            3
+          </option>
+        </select>
+      </div>
+      <div
+        className="form-group"
+      >
+        <label
+          className=" form-control-label"
+          htmlFor="userPics"
+        >
+          Picture
+        </label>
+        <input
+          className="form-control"
+          id="userPics"
+          name="userPics"
+          placeholder="Picture's URL"
+          type="url"
+        />
+      </div>
+      <div
+        className="form-group"
+      >
+        <button
+          className="btn btn-outline-dark btn-block"
+          id="submitBtn"
+          onClick={[Function]}
+          type="submit"
+        >
+          Sign up
+        </button>
+        <a
+          className="btn btn-outline-dark btn-block"
+          href="/login"
+          id="login"
+          onClick={[Function]}
+          type={undefined}
+        >
+          Back to Log in page
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+`;
