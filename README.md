@@ -47,6 +47,10 @@ How To Run
 ---
 Whether you're running the web client or the mobile client, both will require the server to be running.
 
+Run build script to initialize MySQLDB
+
+    ./build.sh
+
 To run server:
 
     cd server
@@ -56,7 +60,7 @@ To run server:
 
 To run web client:
 
-    cd web
+    cd client
     npm start
 
 To run mobile client:
