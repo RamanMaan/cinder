@@ -16,6 +16,7 @@ exports[`<Matches /> renders correctly 1`] = `
         <div
           className="MatchesList"
         >
+<<<<<<< HEAD
           <ul>
             <div
               className="MatchesListItem"
@@ -426,15 +427,26 @@ exports[`<Matches /> renders correctly 1`] = `
         <div
           className="UserDetail"
         >
+=======
+>>>>>>> master
           <div
             className="empty"
           >
             <h3
               className="msg align-self-center"
             >
-              No match selected yet. Select one match from the list!
+              No matches yet. Get swiping!
             </h3>
           </div>
+        </div>
+      </div>
+      <div
+        className="col col-sm-8"
+      >
+        <div>
+          <h1>
+            There's no one new around you.
+          </h1>
         </div>
       </div>
     </div>

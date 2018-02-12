@@ -5,11 +5,82 @@ exports[`<App /> renders correctly 1`] = `
   className="App"
 >
   <div
-    className="Home"
+    className="HomeContent"
   >
-    <h1>
-      This is the home page
-    </h1>
+    <div
+      className="NavigationBar"
+    >
+      <nav
+        className="navbar bg-faded"
+      >
+        <a
+          className="navbar-brand"
+          href="/"
+        >
+          cinder
+        </a>
+        <ul
+          className="navItem navbar-nav"
+        >
+          <li
+            className="nav-item"
+          >
+            <img
+              alt="User's Portrait"
+              className="UserImage"
+              src="https://mixtapemonkey.com/artistpic/278.jpg"
+            />
+          </li>
+          <li
+            className="nav-item"
+          >
+            <h5
+              className="UserName"
+            >
+              Ugly God
+            </h5>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div
+      className="Matches"
+    >
+      <div
+        className="container-fluid"
+      >
+        <div
+          className="full row"
+        >
+          <div
+            className="col col-sm-4"
+          >
+            <div
+              className="MatchesList"
+            >
+              <div
+                className="empty"
+              >
+                <h3
+                  className="msg align-self-center"
+                >
+                  No matches yet. Get swiping!
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div
+            className="col col-sm-8"
+          >
+            <div>
+              <h1>
+                There's no one new around you.
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
