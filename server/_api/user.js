@@ -59,7 +59,7 @@ router.get('/:userID/potentials', (req, res) => {
       SELECT 
         UI.UserID AS userID,
         UI.UserName AS userName,
-        TIMESTAMPDIFF(YEAR, UInfo.Birthday, CURDATE()) AS age,
+        TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS age,
         UP.PicturePath AS primaryPic
       FROM UsersInfo UI
         LEFT JOIN UserPicture UP
