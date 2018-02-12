@@ -45,7 +45,7 @@ class UserDetail extends React.Component {
         />
         <h2>{this.props.userDetail.userName}</h2>
         <div className="userAgeWithGender">
-          <span className="userAge">{this.props.userDetail.userAge}</span>
+          <span className="userAge">{this.props.userDetail.userBirthday}</span>
           <img className="userGender" src={this.getGenderPic()} alt="" />
         </div>
         <div>
@@ -59,11 +59,6 @@ class UserDetail extends React.Component {
         <div>
           <span className="titleStyle">Bio:</span>{' '}
           <p className="textAutoWrap">{this.props.userDetail.userBio}</p>
-        </div>
-
-        <div>
-          <span className="titleStyle">Note:</span>{' '}
-          <p className="textAutoWrap">{this.props.userDetail.matchNote}</p>
         </div>
       </div>
     );
