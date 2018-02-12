@@ -59,7 +59,7 @@ router.get('/:userID/potentials', (req, res) => {
       SELECT 
         UI.UserID AS userID,
         UI.UserName AS userName,
-        TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS age,
+        TIMESTAMPDIFF(YEAR, UInfo.Birthday, CURDATE()) AS age,
         UP.PicturePath AS primaryPic
       FROM UsersInfo UI
         LEFT JOIN UserPicture UP
@@ -137,30 +137,38 @@ router.get('/:userID/matches', (req, res) => {
 });
 
 router.get('/:userID/matches/:matchUserID', (req, res) => {
-  const {userID, matchUserID} = req.params;
+  const { userID, matchUserID } = req.params;
   if (!userID.match(ID_REGEX) || !matchUserID.match(ID_REGEX)) {
-    return res.status(400).json({ response: 'Invalid user ID' });
+    return res.status(400).json({ response: 'Invalid ID' });
   }
 
   return mysql.createConnection(MYSQLDB)
-    .then(conn => {
+    .then((conn) => {
       const query = mysql.format(`
       SELECT
         UInfo.UserName as userName,
         UInfo.UserID as userID,
-        UInfo.Birthday as userBirthday,
+        TIMESTAMPDIFF(YEAR, UInfo.Birthday, CURDATE()) AS userAge,
         Gender.GenderType as userGender,
         UInfo.Bio as userBio,
-        Pics.PicturePath AS userPics
+        Pics.PicturePath AS userPics,
+        Matches.MatchDate AS matchTime
       FROM UsersInfo UInfo
         LEFT JOIN UserPicture Pics
           ON UInfo.UserID = Pics.UserID AND Pics.PrimaryPicture
         INNER JOIN GenderType Gender
           ON UInfo.GenderID = Gender.GenderID
-      WHERE
-        UInfo.UserID = ?
-      `, [matchUserID]);
-
+        INNER JOIN (
+          SELECT 
+            Likes.User1ID as CurrentUserID,
+            Likes.ActionDate as MatchDate
+           FROM Likes
+          WHERE (User1ID = ? AND User2ID = ? AND UserAction = 'L')) AS Matches       
+          ON UInfo.UserID = Matches.CurrentUserID
+    WHERE
+      UInfo.UserID = ?
+      `, [matchUserID, userID, matchUserID]);
+      
       const rows = conn.query(query);
       conn.end();
       return rows;
