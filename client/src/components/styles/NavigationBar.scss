@@ -1,0 +1,25 @@
+.NavigationBar {
+  padding-bottom: 0.1%;
+  border-bottom: 1px solid #bbb;
+}
+
+.navbar-nav {
+  flex-direction: row;
+}
+.navbar-nav .nav-item {
+  display: inline-block;
+  padding-right: 0;
+  padding-left: 10px;
+}
+.navbar-nav .UserImage {
+  display: inline-block;
+  max-width: 50px;
+  max-height: 50px;
+  width: auto;
+  height: auto;
+  border-radius: 50%;
+}
+.navbar-nav .UserName {
+  padding-top: 14px;
+  color: #000000;
+}

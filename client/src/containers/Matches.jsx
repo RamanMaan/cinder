@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import { Button, Container, Row, Col } from 'reactstrap';
 
 import './styles/Matches.css';
+import PotentialMatch from './PotentialMatch';
 import MatchesList from '../components/MatchesList';
 import UserDetail from '../components/UserDetail';
 
@@ -10,11 +11,17 @@ class Matches extends Component {
     super(props);
 
     this.fetchUserDetail = this.fetchUserDetail.bind(this);
-
+    this.onBackButtonClick = this.onBackButtonClick.bind(this);
     this.state = {
       matches: [],
-      userDetail: false
+      userDetail: false,
+      buttonSelected: false
     };
+  }
+
+  onBackButtonClick() {
+    this.setState({ buttonSelected: true });
+    this.setState({ userDetail: false });
   }
 
   componentDidMount() {
@@ -143,6 +150,25 @@ class Matches extends Component {
   }
 
   render() {
+    let rightPane = null;
+
+    if (!this.state.userDetail) {
+      rightPane = <PotentialMatch />;
+    } else {
+      rightPane = (
+        <div>
+          <Button
+            outline
+            color="primary"
+            className="BackButton"
+            onClick={() => this.onBackButtonClick()}
+          >
+            Back
+          </Button>
+          <UserDetail userDetail={this.state.userDetail} />
+        </div>
+      );
+    }
     return (
       <div className="Matches">
         <Container fluid>
@@ -153,9 +179,7 @@ class Matches extends Component {
                 clickHandler={this.fetchUserDetail.bind(this)}
               />
             </Col>
-            <Col sm="8">
-              <UserDetail userDetail={this.state.userDetail} />
-            </Col>
+            <Col sm="8">{rightPane}</Col>
           </Row>
         </Container>
       </div>
