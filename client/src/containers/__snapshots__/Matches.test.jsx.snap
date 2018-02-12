@@ -31,17 +31,55 @@ exports[`<Matches /> renders correctly 1`] = `
         className="col col-sm-8"
       >
         <div
-          className="UserDetail"
+          className="PotentialMatchDetailContainer"
         >
           <div
-            className="empty"
+            className="UserDetail"
           >
-            <h3
-              className="msg align-self-center"
+            <img
+              alt=""
+              className="userImage"
+              src="http://cache.umusic.com/_sites/kendricklamar.com/images/og.jpg"
+            />
+            <br />
+            <div
+              className="UserInfo"
             >
-              No match selected yet. Select one match from the list!
-            </h3>
+              <span
+                className="UserNameAndAge"
+              >
+                Kendrick Lamar
+                ,
+                30
+              </span>
+              <br />
+              <span
+                className="UserBio"
+              >
+                How u doin?
+              </span>
+            </div>
+            <div
+              className="buttons"
+            >
+              <button
+                className="NotButton btn btn-danger btn-lg"
+                onClick={[Function]}
+                type="button"
+              >
+                NOT
+              </button>
+               
+              <button
+                className="HotButton btn btn-success btn-lg"
+                onClick={[Function]}
+                type="button"
+              >
+                HOT
+              </button>
+            </div>
           </div>
+          <br />
         </div>
       </div>
     </div>

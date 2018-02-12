@@ -8,8 +8,7 @@ import fetchMock from 'fetch-mock';
 import App from './App';
 import Matches from './Matches';
 import MatchesList from '../components/MatchesList';
-import UserDetail from '../components/UserDetail';
-
+import PotentialMatch from './PotentialMatch';
 describe('<Matches />', () => {
   const testMatches = [
     {
@@ -79,7 +78,7 @@ describe('<Matches />', () => {
     expect(wrapper.find(MatchesList)).toHaveLength(1);
   });
 
-  it('should show the <UserDetail /> component be default', () => {
+  it('should show the <PotentialMatch /> component be default', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={['/matches']}>
         <App />
@@ -87,6 +86,6 @@ describe('<Matches />', () => {
     );
     wrapper.setState({ userDetail: false });
 
-    expect(wrapper.find(UserDetail)).toHaveLength(1);
+    expect(wrapper.find(PotentialMatch)).toHaveLength(1);
   });
 });

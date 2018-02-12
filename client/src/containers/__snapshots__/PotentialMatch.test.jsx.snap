@@ -8,6 +8,7 @@ exports[`<PotentialMatch /> renders correctly 1`] = `
     className="UserDetail"
   >
     <img
+      alt=""
       className="userImage"
       src="http://cache.umusic.com/_sites/kendricklamar.com/images/og.jpg"
     />
@@ -20,7 +21,6 @@ exports[`<PotentialMatch /> renders correctly 1`] = `
       >
         Kendrick Lamar
         ,
-         
         30
       </span>
       <br />
@@ -30,22 +30,27 @@ exports[`<PotentialMatch /> renders correctly 1`] = `
         How u doin?
       </span>
     </div>
+    <div
+      className="buttons"
+    >
+      <button
+        className="NotButton btn btn-danger btn-lg"
+        onClick={[Function]}
+        type="button"
+      >
+        NOT
+      </button>
+       
+      <button
+        className="HotButton btn btn-success btn-lg"
+        onClick={[Function]}
+        type="button"
+      >
+        HOT
+      </button>
+    </div>
   </div>
   <br />
-  <button
-    className="NotButton btn btn-danger"
-    onClick={[Function]}
-    type="button"
-  >
-    NOT
-  </button>
-  <button
-    className="HotButton btn btn-success"
-    onClick={[Function]}
-    type="button"
-  >
-    HOT
-  </button>
 </div>
 `;
 
@@ -57,6 +62,7 @@ exports[`<PotentialMatch /> renders with empty props correctly 1`] = `
     className="UserDetail"
   >
     <img
+      alt=""
       className="userImage"
       src="http://cache.umusic.com/_sites/kendricklamar.com/images/og.jpg"
     />
@@ -69,7 +75,6 @@ exports[`<PotentialMatch /> renders with empty props correctly 1`] = `
       >
         Kendrick Lamar
         ,
-         
         30
       </span>
       <br />
@@ -79,21 +84,26 @@ exports[`<PotentialMatch /> renders with empty props correctly 1`] = `
         How u doin?
       </span>
     </div>
+    <div
+      className="buttons"
+    >
+      <button
+        className="NotButton btn btn-danger btn-lg"
+        onClick={[Function]}
+        type="button"
+      >
+        NOT
+      </button>
+       
+      <button
+        className="HotButton btn btn-success btn-lg"
+        onClick={[Function]}
+        type="button"
+      >
+        HOT
+      </button>
+    </div>
   </div>
   <br />
-  <button
-    className="NotButton btn btn-danger"
-    onClick={[Function]}
-    type="button"
-  >
-    NOT
-  </button>
-  <button
-    className="HotButton btn btn-success"
-    onClick={[Function]}
-    type="button"
-  >
-    HOT
-  </button>
 </div>
 `;
