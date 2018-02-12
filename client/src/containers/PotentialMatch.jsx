@@ -48,7 +48,6 @@ export default class PotentialMatch extends Component {
           }))
         });
       })
-      .then(console.log(this.state.potentialMatches))
       .catch(err => console.error(err));
   }
 

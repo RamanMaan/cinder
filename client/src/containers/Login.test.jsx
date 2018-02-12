@@ -71,6 +71,7 @@ describe('<Login />', () => {
       fetchMock.reset();
       fetchMock.restore();
       fetchMock.get(/\/api\/users\/[0-9]*\/matches/, testMatches);
+      fetchMock.get(/\/api\/users\/[0-9]*\/potentials/, []);
     });
 
     const wrapper = mount(

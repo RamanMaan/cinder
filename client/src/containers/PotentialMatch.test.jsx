@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
 import sinon from 'sinon';
+import fetchMock from 'fetch-mock';
 
 import App from './App';
 import PotentialMatch from './PotentialMatch';
@@ -40,17 +41,17 @@ describe('<PotentialMatch />', () => {
     }
   ];
 
-  //TODO
-  // beforeEach(() => {
-  //   fetchMock.reset();
-  //   fetchMock.restore();
-  //   fetchMock.get(/\/api\/users\/[0-9]*\/potentials/, testPotentialMatches);
-  // });
+  beforeEach(() => {
+    fetchMock.reset();
+    fetchMock.restore();
+    fetchMock.get(/\/api\/users\/[0-9]*\/matches/, []);
+    fetchMock.get(/\/api\/users\/[0-9]*\/potentials/, testPotentialMatches);
+  });
 
-  // afterAll(() => {
-  //   fetchMock.reset();
-  //   fetchMock.restore();
-  // });
+  afterAll(() => {
+    fetchMock.reset();
+    fetchMock.restore();
+  });
 
   it('renders without crashing', () => {
     // simple smoke test
@@ -58,16 +59,15 @@ describe('<PotentialMatch />', () => {
     mount(<PotentialMatch />);
   });
 
-  // it('should show the <PotentialMatchDetail /> component be default', () => {
-  //   const wrapper = mount(
-  //     <MemoryRouter initialEntries={['']}>
-  //       <App />
-  //     </MemoryRouter>
-  //   );
-  //   wrapper.setState({ XX: false });
+  it('should show the <PotentialMatch /> component by default', () => {
+    const wrapper = mount(
+      <MemoryRouter initialEntries={['']}>
+        <App />
+      </MemoryRouter>
+    );
 
-  //   expect(wrapper.find(XX)).toHaveLength(1);
-  // });
+    expect(wrapper.find(PotentialMatch)).toHaveLength(1);
+  });
 
   it('renders with empty props correctly', () => {
     const component = renderer.create(<PotentialMatch />).toJSON();
