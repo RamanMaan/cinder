@@ -96,10 +96,8 @@ router.get('/:userID/potentials', (req, res) => {
     });
 });
 
-router.get('/:userID/matches/:matchUserID/:result', (req, res) => {
-  const { userID } = req.params;
-  const { matchUserID } = req.params;
-  const { result } = req.params;
+router.get('/:userID/matches/:matchUserID/:action', (req, res) => {
+  const { userID, matchUserID, action } = req.params;
 
   if (!userID.match(ID_REGEX)) {
     return res.status(400).json({ response: 'Invalid user ID' });
@@ -107,12 +105,12 @@ router.get('/:userID/matches/:matchUserID/:result', (req, res) => {
   if (!matchUserID.match(ID_REGEX)) {
     return res.status(400).json({ response: 'Invalid match user ID' });
   }
-  if (!result.match(MATCH_ACTION_REGEX)) {
+  if (!action.match(MATCH_ACTION_REGEX)) {
     return res.status(400).json({ response: 'Invalid match action' });
   }
 
-  const userAction = result.match(MATCH_ACTION_LIKE_REGEX) ? 'L' : 'P';
-  var connection;
+  const userAction = action.match(MATCH_ACTION_LIKE_REGEX) ? 'L' : 'P';
+  let connection;
 
   return mysql.createConnection(MYSQLDB)
     .then((conn) => {
@@ -126,25 +124,13 @@ router.get('/:userID/matches/:matchUserID/:result', (req, res) => {
 
       return conn.query(insert);
     })
-    .catch((err) => {
-      if (connection && connection.end) connection.end();
-      console.error(err);
-      return res.status(500);
-    })
     .then((rows) => {
       const checkMatchQuery = mysql.format(`
-      SELECT 
-          COUNT(*) AS matched 
-      FROM Likes L1 
-          INNER JOIN Likes L2 
-      WHERE 
-          L1.User1ID =  ? 
-          AND L2.User2ID =  ? 
-          AND L1.User2ID =  ? 
-          AND L2.User1ID =  ? 
-          AND L1.UserAction = 'L' 
-          AND L2.UserAction = 'L';
-      `, [userID, userID, matchUserID, matchUserID]);
+      SELECT IF(COUNT(*) = 2, 'True', 'False') AS IsMatched
+      FROM Likes
+      WHERE (User1ID = ? AND User2ID = ? AND UserAction = 'L')
+      OR (User1ID = ? AND User2ID = ? AND UserAction = 'L')
+      `, [userID, matchUserID, matchUserID, userID]);
 
       const result = connection.query(checkMatchQuery);
       connection.end();
