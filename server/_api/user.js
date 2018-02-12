@@ -68,22 +68,14 @@ router.get('/:userID/potentials', (req, res) => {
         LEFT JOIN UserPicture UP
           ON UI.UserID = UP.UserID
           AND UP.PrimaryPicture
-        LEFT JOIN (
-          SELECT 
-            L1.User2ID AS matchUserID
-          FROM Likes L1 
-            INNER JOIN Likes L2
-              ON L1.User2ID = L2.User1ID
-          WHERE 
-            L1.User1ID = ? 
-            AND L2.User2ID = ? 
-            AND L1.UserAction = 'L'
-            AND L2.UserAction = 'L') AS CurrentMatches
-        ON UI.UserID = CurrentMatches.matchUserID
-      WHERE
-        CurrentMatches.matchUserID IS NULL
-        AND UI.UserID != ?
-     `, [userID, userID, userID]);
+        LEFT JOIN Likes L
+          ON UI.UserID = L.User2ID
+          AND L.User1ID = ?
+          AND L.UserAction = 'L'
+        WHERE
+          L.User2ID IS NULL
+          AND UI.UserID != ?
+     `, [userID, userID]);
 
       const rows = conn.query(query);
       conn.end();
