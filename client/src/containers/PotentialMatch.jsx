@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Button } from 'reactstrap';
 import PotentialMatchDetail from '../components/PotentialMatchDetail';
 
 export default class PotentialMatch extends Component {
@@ -68,22 +67,10 @@ export default class PotentialMatch extends Component {
           potentialMatchDetail={
             this.state.potentialMatches[this.state.matchIndex]
           }
+          handlePass={this.handleRejectedMatch.bind(this)}
+          handleLike={this.handleApprovedMatch.bind(this)}
         />
         <br />
-        <Button
-          className="NotButton"
-          color="danger"
-          onClick={this.handleRejectedMatch.bind(this)}
-        >
-          NOT
-        </Button>
-        <Button
-          className="HotButton"
-          color="success"
-          onClick={this.handleApprovedMatch.bind(this)}
-        >
-          HOT
-        </Button>
       </div>
     );
   }
