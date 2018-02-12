@@ -37,6 +37,7 @@ exports[`<Matches /> renders correctly 1`] = `
             className="UserDetail"
           >
             <img
+              alt=""
               className="userImage"
               src="http://cache.umusic.com/_sites/kendricklamar.com/images/og.jpg"
             />

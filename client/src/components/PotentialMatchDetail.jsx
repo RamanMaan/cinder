@@ -3,10 +3,6 @@ import { Button } from 'reactstrap';
 import './styles/PotentialMatchDetail.css';
 
 export default class PotentialMatchDetail extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     if (!this.props.potentialMatchDetail) {
       return (
@@ -22,7 +18,11 @@ export default class PotentialMatchDetail extends React.Component {
 
     return (
       <div className="UserDetail">
-        <img className="userImage" src={this.props.potentialMatchDetail.img} />
+        <img
+          className="userImage"
+          src={this.props.potentialMatchDetail.img}
+          alt=""
+        />
         <br />
         <div className="UserInfo">
           <span className="UserNameAndAge">

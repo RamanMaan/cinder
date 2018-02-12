@@ -8,6 +8,7 @@ exports[`<PotentialMatch /> renders correctly 1`] = `
     className="UserDetail"
   >
     <img
+      alt=""
       className="userImage"
       src="http://cache.umusic.com/_sites/kendricklamar.com/images/og.jpg"
     />
@@ -61,6 +62,7 @@ exports[`<PotentialMatch /> renders with empty props correctly 1`] = `
     className="UserDetail"
   >
     <img
+      alt=""
       className="userImage"
       src="http://cache.umusic.com/_sites/kendricklamar.com/images/og.jpg"
     />
