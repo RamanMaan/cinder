@@ -41,7 +41,51 @@ router.get('/:userID', (req, res) => {
       return rows;
     })
     .then(rows => res.status(200).json(rows))
-    .catch(err => console.error(err));
+    .catch((err) => {
+      console.error(err);
+      return res.status(500);
+    });
+});
+
+router.get('/:userID/potentials', (req, res) => {
+  const { userID } = req.params;
+  if (!userID.match(ID_REGEX)) {
+    return res.status(400).json({ response: 'Invalid user ID' });
+  }
+
+  return mysql.createConnection(MYSQLDB)
+    .then((conn) => {
+      const query = mysql.format(`
+      SELECT 
+        UI.UserID AS userID,
+        UI.UserName
+      FROM UsersInfo UI
+        LEFT JOIN (
+          SELECT 
+            L1.User2ID AS matchUserID
+          FROM Likes L1 
+            INNER JOIN Likes L2
+              ON L1.User2ID = L2.User1ID
+          WHERE 
+            L1.User1ID = ? 
+            AND L2.User2ID = ? 
+            AND L1.UserAction
+            AND L2.UserAction) AS CurrentMatches
+        ON UI.UserID = CurrentMatches.matchUserID
+      WHERE
+        CurrentMatches.matchUserID IS NULL
+        AND UI.UserID != ?
+     `, [userID, userID, userID]);
+
+      const rows = conn.query(query);
+      conn.end();
+      return rows;
+    })
+    .then(rows => res.status(200).json(rows))
+    .catch((err) => {
+      console.error(err);
+      return res.status(500);
+    });
 });
 
 router.post('/login', (req, res) => {
