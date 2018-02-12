@@ -58,8 +58,13 @@ router.get('/:userID/potentials', (req, res) => {
       const query = mysql.format(`
       SELECT 
         UI.UserID AS userID,
-        UI.UserName
+        UI.UserName AS userName,
+        TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS age,
+        UP.PicturePath AS primaryPic
       FROM UsersInfo UI
+        LEFT JOIN UserPicture UP
+          ON UI.UserID = UP.UserID
+          AND UP.PrimaryPicture
         LEFT JOIN (
           SELECT 
             L1.User2ID AS matchUserID
@@ -69,8 +74,8 @@ router.get('/:userID/potentials', (req, res) => {
           WHERE 
             L1.User1ID = ? 
             AND L2.User2ID = ? 
-            AND L1.UserAction
-            AND L2.UserAction) AS CurrentMatches
+            AND L1.UserAction = 'L'
+            AND L2.UserAction = 'L') AS CurrentMatches
         ON UI.UserID = CurrentMatches.matchUserID
       WHERE
         CurrentMatches.matchUserID IS NULL
@@ -101,26 +106,28 @@ router.get('/:userID/matches', (req, res) => {
 
   return mysql.createConnection(MYSQLDB)
     .then((conn) => {
-      const rows = conn.query(`SELECT
-                  UI.UserName AS userName,
-                  UM2.UserID AS userID,
-                  M.MatchDate AS matchDate,
-                  UP.PicturePath AS primaryPic
-              FROM UserMatches UM1
-                  INNER JOIN UserMatches UM2
-                      ON UM1.MatchID = UM2.MatchID
-                  INNER JOIN Matches M
-                      ON UM2.MatchID = M.MatchID
-                  INNER JOIN UsersInfo UI
-                      ON UM2.UserID = UI.UserID
-                  LEFT JOIN UserPicture UP
-                      ON UM2.UserID = UP.UserID
-                      AND UP.PrimaryPicture
-              WHERE
-                  UM1.UserID != UM2.UserID
-                  AND UM1.UserID = ?
-              ORDER BY
-                  M.MatchDate`, [userID]);
+      const rows = conn.query(`
+      SELECT 
+        L1.User2ID AS userID,
+        UI.UserName AS userName,
+        GREATEST(L1.ActionDate, L2.ActionDate) AS matchDate,
+        UP.PicturePath AS primaryPic
+      FROM Likes L1 
+        INNER JOIN Likes L2
+          ON L1.User2ID = L2.User1ID
+        INNER JOIN UsersInfo UI
+          ON L1.User2ID = UI.UserID
+        LEFT JOIN UserPicture UP
+          ON UI.UserID = UP.UserID
+          AND UP.PrimaryPicture
+      WHERE 
+        L1.User1ID =  ? 
+        AND L2.User2ID =  ? 
+        AND L1.UserAction = 'L'
+        AND L2.UserAction = 'L'
+      ORDER BY
+        matchDate
+      `, [userID, userID]);
 
       conn.end();
       return rows;
