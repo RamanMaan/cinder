@@ -1,11 +1,8 @@
 import React from 'react';
+import { Button } from 'reactstrap';
 import './styles/PotentialMatchDetail.css';
 
 export default class PotentialMatchDetail extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     if (!this.props.potentialMatchDetail) {
       return (
@@ -21,17 +18,39 @@ export default class PotentialMatchDetail extends React.Component {
 
     return (
       <div className="UserDetail">
-        <img className="userImage" src={this.props.potentialMatchDetail.img} />
+        <img
+          className="userImage"
+          src={this.props.potentialMatchDetail.img}
+          alt=""
+        />
         <br />
         <div className="UserInfo">
           <span className="UserNameAndAge">
-            {this.props.potentialMatchDetail.title},{' '}
+            {this.props.potentialMatchDetail.title},
             {this.props.potentialMatchDetail.age}
           </span>
           <br />
           <span className="UserBio">
             {this.props.potentialMatchDetail.subtitle}
           </span>
+        </div>
+        <div className="buttons">
+          <Button
+            className="NotButton"
+            color="danger"
+            size="lg"
+            onClick={this.props.handlePass}
+          >
+            NOT
+          </Button>{' '}
+          <Button
+            className="HotButton"
+            color="success"
+            size="lg"
+            onClick={this.props.handleLike}
+          >
+            HOT
+          </Button>
         </div>
       </div>
     );

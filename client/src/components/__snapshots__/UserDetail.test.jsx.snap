@@ -69,18 +69,5 @@ exports[`<UserDetail /> renders with props correctly 1`] = `
       I am test user with test bio
     </p>
   </div>
-  <div>
-    <span
-      className="titleStyle"
-    >
-      Note:
-    </span>
-     
-    <p
-      className="textAutoWrap"
-    >
-      This is some test notes only related about this match
-    </p>
-  </div>
 </div>
 `;

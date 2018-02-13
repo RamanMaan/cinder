@@ -30,18 +30,10 @@ exports[`<Matches /> renders correctly 1`] = `
       <div
         className="col col-sm-8"
       >
-        <div
-          className="UserDetail"
-        >
-          <div
-            className="empty"
-          >
-            <h3
-              className="msg align-self-center"
-            >
-              No match selected yet. Select one match from the list!
-            </h3>
-          </div>
+        <div>
+          <h1>
+            There's no one new around you.
+          </h1>
         </div>
       </div>
     </div>
