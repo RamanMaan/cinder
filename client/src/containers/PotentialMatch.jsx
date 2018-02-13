@@ -5,8 +5,8 @@ export default class PotentialMatch extends Component {
   constructor(props) {
     super(props);
     this.fetchPotentialMatches = this.fetchPotentialMatches.bind(this);
-    this.handleApprovedMatch = this.handleApprovedMatch.bind(this);
-    this.handleRejectedMatch = this.handleRejectedMatch.bind(this);
+    this.handleLike = this.handleLike.bind(this);
+    this.handlePass = this.handlePass.bind(this);
 
     this.state = {
       potentialMatches: [],
@@ -18,20 +18,36 @@ export default class PotentialMatch extends Component {
     this.fetchPotentialMatches();
   }
 
-  increment() {
+  incrementPotentialMatchIndex() {
     this.setState(prevIndex => {
       return { matchIndex: prevIndex.matchIndex + 1 };
     });
   }
 
-  handleApprovedMatch() {
-    this.increment();
-    // api call to add to like table, sending the user id of the approved user
+  handlePass() {
+    this.submitUserAction('pass');
+    this.incrementPotentialMatchIndex();
   }
 
-  handleRejectedMatch() {
-    this.increment();
-    // api call to add to like table, sending the user id of the rejected user
+  handleLike() {
+    this.submitUserAction('like');
+    this.incrementPotentialMatchIndex();
+  }
+
+  submitUserAction(userAction) {
+    const loggedInUserID = 1;
+    const matchedUser = this.state.potentialMatches[this.state.matchIndex].id;
+
+    fetch(`/api/users/${loggedInUserID}/matches/${matchedUser}/${userAction}`, {
+      method: 'POST'
+    })
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          //TODO
+        });
+      })
+      .catch(err => console.error(err));
   }
 
   fetchPotentialMatches() {
@@ -66,8 +82,8 @@ export default class PotentialMatch extends Component {
           potentialMatchDetail={
             this.state.potentialMatches[this.state.matchIndex]
           }
-          handlePass={this.handleRejectedMatch.bind(this)}
-          handleLike={this.handleApprovedMatch.bind(this)}
+          handlePass={this.handlePass.bind(this)}
+          handleLike={this.handleLike.bind(this)}
         />
         <br />
       </div>
