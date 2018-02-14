@@ -7,8 +7,8 @@
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "precommit": "lint-staged",
     "build:db": "node db/utils/build_db.js",
-    "build:testdata": "node db/utils/add_test_data.js",
-    "build:characters": "node db/utils/generateCharacters.js"
+    "build:loaddata": "node db/utils/add_test_data.js",
+    "build:testdata": "node db/utils/generateTestData.js"
   },
   "description": "",
   "main": "server.js",
