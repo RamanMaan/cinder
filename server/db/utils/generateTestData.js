@@ -44,14 +44,14 @@ class UserBuilder {
     // UsersInfo Table Info
     this.name = name;
     this.birthday = birthday;
-    this.gender = refData.GenderType.findIndex(x => x.toLowerCase() === gender.toLowerCase());
+    this.gender = refData.GenderType.findIndex(x => x.toLowerCase() === gender.toLowerCase()) + 1;
     this.location = { lat: 49.880488, long: -97.161546 };
     this.bio = bio || `Bio of user ${name}`;
     // Pictures
     this.imgs = Array.isArray(img) ? img : [img];
     // Education and Study
-    this.education = education ? refData.EducationType.findIndex(x => x.toLowerCase() === education.toLowerCase()) : undefined;
-    this.study = study ? refData.StudyType.findIndex(x => x.toLowerCase() === study.toLowerCase()) : undefined;
+    this.education = education ? refData.EducationType.findIndex(x => x.toLowerCase() === education.toLowerCase()) + 1 : undefined;
+    this.study = study ? refData.StudyType.findIndex(x => x.toLowerCase() === study.toLowerCase()) + 1 : undefined;
   }
 }
 
