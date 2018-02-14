@@ -12,13 +12,13 @@ class NavigationBar extends Component {
           <Nav className="navItem" navbar>
             <NavItem>
               <img
-                src="https://mixtapemonkey.com/artistpic/278.jpg"
+                src={this.props.userIcon}
                 alt="User's Portrait"
                 className="UserImage"
               />
             </NavItem>
             <NavItem>
-              <h5 className="UserName">Ugly God</h5>
+              <h5 className="UserName">{this.props.userName}</h5>
             </NavItem>
           </Nav>
         </Navbar>

@@ -28,7 +28,7 @@ exports[`<App /> renders correctly 1`] = `
             <img
               alt="User's Portrait"
               className="UserImage"
-              src="https://mixtapemonkey.com/artistpic/278.jpg"
+              src="https://i.scdn.co/image/f4509fe9c589c12be5470653178f901bd697b97b"
             />
           </li>
           <li
@@ -37,7 +37,7 @@ exports[`<App /> renders correctly 1`] = `
             <h5
               className="UserName"
             >
-              Ugly God
+              Mac Miller
             </h5>
           </li>
         </ul>
