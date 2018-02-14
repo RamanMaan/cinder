@@ -17,14 +17,13 @@ class Signup extends Component {
       genderList: [],
       email: '',
       emailConfirm: '',
-      emailCheck: false,
       password: '',
       passwordConfirm: '',
       userName: '',
       birthday: '',
       gender: '',
       signnedUp: false,
-      signupBtnText: 'Sign up'
+      signupBtnText: 'Sign Up'
     };
   }
 
@@ -57,8 +56,9 @@ class Signup extends Component {
 
   userSignup(e) {
     e.preventDefault();
-
-    this.setState({ signnedUp: true });
+    this.setState({ signupBtnText: 'Signing up...' });
+    //TODO - adding signup connection with server
+    this.setState({ loginBtnText: 'Sign Up', signnedUp: true });
   }
 
   render() {
@@ -193,7 +193,7 @@ class Signup extends Component {
                   tag={Link}
                   to="/login"
                 >
-                  Log in
+                  Log In
                 </Button>
               </FormGroup>
             </Form>
