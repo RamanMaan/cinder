@@ -10,11 +10,11 @@ class Signup extends Component {
     super(props);
 
     this.setInput = this.setInput.bind(this);
-    this.fetchGenderOptions = this.fetchGenderOptions.bind(this);
-    this.validateForm = this.validateForm.bind(this);
+    this.fetchGenderList = this.fetchGenderList.bind(this);
     this.userSignup = this.userSignup.bind(this);
 
     this.state = {
+      genderList: [],
       email: '',
       emailConfirm: '',
       emailCheck: false,
@@ -28,27 +28,27 @@ class Signup extends Component {
     };
   }
 
-  fetchGenderOptions() {
-    // Integration with API
-    // fetch(`/api/reference/gender`)
-    //   .then(res => res.json())
-    //   .then(res => {
-    //     this.props.gender({
-    //       matches: res.map(x => ({
-    //         id: x.genderID,
-    //         genderType: x.genderType
-    //       }))
-    //     });
-    //   })
-    //   .catch(err => console.error(err));
+  componentDidMount() {
+    this.fetchGenderList();
   }
 
-  validateForm() {
-    return (
-      this.state.email.length > 0 &&
-      this.state.password.length > 0 &&
-      this.state.password === this.state.confirmPassword
-    );
+  fetchGenderList() {
+    this.setState({
+      genderList: [
+        {
+          id: 0,
+          type: 'Male'
+        },
+        {
+          id: 1,
+          type: 'Female'
+        },
+        {
+          id: 2,
+          type: 'Other'
+        }
+      ]
+    });
   }
 
   setInput(e) {
@@ -58,29 +58,7 @@ class Signup extends Component {
   userSignup(e) {
     e.preventDefault();
 
-    this.setState({ loginBtnText: 'Logging In...' });
-    fetch('/api/user/login', {
-      method: 'POST',
-      body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password
-      })
-    })
-      .then(res => {
-        if (res.status === 200) {
-          this.setState({ loginBtnText: 'Log In', loggedIn: true });
-        } else {
-          throw new Error(`Login Error: ${res.status}`);
-        }
-      })
-      .catch(err => {
-        this.setState({ loginBtnText: 'Log In' });
-        // TODO - better errors for user - what went wrong?
-        switch (err) {
-          default:
-            console.error(err);
-        }
-      });
+    this.setState({ signnedUp: true });
   }
 
   render() {
@@ -159,18 +137,34 @@ class Signup extends Component {
                 <div className="col-sm">
                   <FormGroup>
                     <Label for="gender">Gender</Label>
-                    <Input type="select" name="gender" id="gender" required>
-                      <option />
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
+                    <Input
+                      type="select"
+                      name="gender"
+                      id="gender"
+                      required
+                      onChange={this.setInput}
+                    >
+                      <option value="" />
+                      {this.state.genderList.map(opt => {
+                        return (
+                          <option key={opt.id} value={opt.id}>
+                            {opt.type}
+                          </option>
+                        );
+                      })}
                     </Input>
                   </FormGroup>
                 </div>
                 <div className="col-sm">
                   <FormGroup>
                     <Label for="birthday">Birthday</Label>
-                    <Input required type="date" name="birthday" id="birthday" />
+                    <Input
+                      required
+                      type="date"
+                      name="birthday"
+                      id="birthday"
+                      onChange={this.setInput}
+                    />
                   </FormGroup>
                 </div>
               </div>
