@@ -59,4 +59,40 @@ describe('<Signup />', () => {
       expect(wrapper.find(Login)).toHaveLength(1);
     });
   });
+
+  describe('submit signup', () => {
+    const wrapper = mount(
+      <MemoryRouter initialEntries={['/signup']}>
+        <App />
+      </MemoryRouter>
+    );
+    const signupBtn = wrapper.find('button#submitBtn').first();
+    const form = wrapper.find('form').first();
+
+    const testFormValues = {
+      email: 'foo@email.com',
+      emailConfirm: 'foo@email.com',
+      password: 'something',
+      passwordConfirm: 'something',
+      userName: 'foo',
+      birthday: '1990-01-02',
+      gender: '0',
+      handleSubmit: jest.fn()
+    };
+
+    it('starts on signup page', () => {
+      expect(wrapper.find(Signup)).toHaveLength(1);
+      expect(wrapper.find('form.signup-form')).toHaveLength(1);
+    });
+
+    it('does not submit with empty fields', () => {
+      signupBtn.simulate('click');
+      expect(wrapper.find(Signup)).toHaveLength(1);
+    });
+
+    // TODO
+    // it('submits with complete fields', () => {
+
+    // });
+  });
 });

@@ -47,6 +47,8 @@ How To Run
 ---
 Whether you're running the web client or the mobile client, both will require the server to be running.
 
+Setup a ```.env``` file in the server root directory with variables from the ```.env.example``` file. Set these variable values to whatever you prefer.
+
 Run build script to initialize MySQLDB
 
     ./build.sh

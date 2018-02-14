@@ -2,7 +2,7 @@
 
 exports[`<Signup /> renders correctly 1`] = `
 <div
-  className="Login"
+  className="Signup"
 >
   <div
     className="container"
@@ -22,209 +22,217 @@ exports[`<Signup /> renders correctly 1`] = `
       />
     </div>
     <hr />
-    <form
-      className="login-form"
-      onSubmit={[Function]}
+    <div
+      className="inputPart"
     >
-      <div
-        className="form-group"
+      <form
+        className="signup-form"
+        onSubmit={[Function]}
       >
-        <label
-          className=" form-control-label"
-          htmlFor="email"
+        <div
+          className="row"
         >
-          Email Address
-        </label>
-        <input
-          className="form-control"
-          id="email"
-          name="email"
-          onChange={[Function]}
-          placeholder="Email Address"
-          required={true}
-          type="email"
-        />
-      </div>
-      <div
-        className="form-group"
-      >
-        <label
-          className=" form-control-label"
-          htmlFor="userName"
+          <div
+            className="col-sm"
+          >
+            <div
+              className="form-group"
+            >
+              <label
+                className=" form-control-label"
+                htmlFor="email"
+              >
+                Email
+              </label>
+              <input
+                className="form-control"
+                id="email"
+                name="email"
+                onChange={[Function]}
+                required={true}
+                type="email"
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm"
+          >
+            <div
+              className="form-group"
+            >
+              <label
+                className=" form-control-label"
+                htmlFor="emailConfirm"
+              >
+                Please re-enter email
+              </label>
+              <input
+                className="form-control"
+                id="emailConfirm"
+                name="emailConfirm"
+                onChange={[Function]}
+                required={true}
+                type="email"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="row"
         >
-          User Name
-        </label>
-        <input
-          className="form-control"
-          id="userName"
-          name="userName"
-          onChange={[Function]}
-          placeholder="User Name"
-          required={true}
-          type="userName"
-        />
-      </div>
-      <div
-        className="form-group"
-      >
-        <label
-          className=" form-control-label"
-          htmlFor="password"
+          <div
+            className="col-sm"
+          >
+            <div
+              className="form-group"
+            >
+              <label
+                className=" form-control-label"
+                htmlFor="password"
+              >
+                Password
+              </label>
+              <input
+                className="form-control"
+                id="password"
+                name="password"
+                onChange={[Function]}
+                required={true}
+                type="password"
+              />
+            </div>
+          </div>
+          <div
+            className="col-sm"
+          >
+            <div
+              className="form-group"
+            >
+              <label
+                className=" form-control-label"
+                htmlFor="passwordConfirm"
+              >
+                Please re-enter password
+              </label>
+              <input
+                className="form-control"
+                id="passwordConfirm"
+                name="passwordConfirm"
+                onChange={[Function]}
+                required={true}
+                type="password"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="row"
         >
-          Password
-        </label>
-        <input
-          className="form-control"
-          id="password"
-          name="password"
-          onChange={[Function]}
-          placeholder="Password"
-          required={true}
-          type="password"
-        />
-      </div>
-      <div
-        className="form-group"
-      >
-        <label
-          className=" form-control-label"
-          htmlFor="password"
+          <div
+            className="col-sm"
+          >
+            <div
+              className="form-group"
+            >
+              <label
+                className=" form-control-label"
+                htmlFor="gender"
+              >
+                Gender
+              </label>
+              <select
+                className="form-control"
+                id="gender"
+                name="gender"
+                onChange={[Function]}
+                required={true}
+              >
+                <option
+                  value=""
+                />
+                <option
+                  value={0}
+                >
+                  Male
+                </option>
+                <option
+                  value={1}
+                >
+                  Female
+                </option>
+                <option
+                  value={2}
+                >
+                  Other
+                </option>
+              </select>
+            </div>
+          </div>
+          <div
+            className="col-sm"
+          >
+            <div
+              className="form-group"
+            >
+              <label
+                className=" form-control-label"
+                htmlFor="birthday"
+              >
+                Birthday
+              </label>
+              <input
+                className="form-control"
+                id="birthday"
+                name="birthday"
+                onChange={[Function]}
+                required={true}
+                type="date"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="form-group"
         >
-          Confirm Password
-        </label>
-        <input
-          className="form-control"
-          id="confirmPassword"
-          name="confirmPassword"
-          onChange={[Function]}
-          placeholder="Confirm Password"
-          required={true}
-          type="password"
-        />
-      </div>
-      <div
-        className="form-group"
-      >
-        <label
-          className=" form-control-label"
-          htmlFor="exampleDate"
+          <label
+            className=" form-control-label"
+            htmlFor="userName"
+          >
+            Name
+          </label>
+          <input
+            className="form-control"
+            id="userName"
+            name="userName"
+            onChange={[Function]}
+            placeholder="Just first name is enough"
+            required={true}
+            type="text"
+          />
+        </div>
+        <div
+          className="form-group"
         >
-          Birthday
-        </label>
-        <input
-          className="form-control"
-          id="birthday"
-          name="birthday"
-          placeholder="Birthday"
-          type="date"
-        />
-      </div>
-      <div
-        className="form-group"
-      >
-        <label
-          className=" form-control-label"
-          htmlFor="gender"
-        >
-          Gender
-        </label>
-        <select
-          className="form-control"
-          id="gender"
-          name="gender"
-        >
-          <option />
-          <option>
-            1
-          </option>
-          <option>
-            2
-          </option>
-          <option>
-            3
-          </option>
-        </select>
-      </div>
-      <div
-        className="form-group"
-      >
-        <label
-          className=" form-control-label"
-          htmlFor="bio"
-        >
-          Bio
-        </label>
-        <textarea
-          className="form-control"
-          id="bio"
-          name="bio"
-        />
-      </div>
-      <div
-        className="form-group"
-      >
-        <label
-          className=" form-control-label"
-          htmlFor="religion"
-        >
-          Religion
-        </label>
-        <select
-          className="form-control"
-          id="religion"
-          name="religion"
-        >
-          <option />
-          <option>
-            1
-          </option>
-          <option>
-            2
-          </option>
-          <option>
-            3
-          </option>
-        </select>
-      </div>
-      <div
-        className="form-group"
-      >
-        <label
-          className=" form-control-label"
-          htmlFor="userPics"
-        >
-          Picture
-        </label>
-        <input
-          className="form-control"
-          id="userPics"
-          name="userPics"
-          placeholder="Picture's URL"
-          type="url"
-        />
-      </div>
-      <div
-        className="form-group"
-      >
-        <button
-          className="btn btn-outline-dark btn-block"
-          id="submitBtn"
-          onClick={[Function]}
-          type="submit"
-        >
-          Sign up
-        </button>
-        <a
-          className="btn btn-outline-dark btn-block"
-          href="/login"
-          id="login"
-          onClick={[Function]}
-          type={undefined}
-        >
-          Back to Log in page
-        </a>
-      </div>
-    </form>
+          <button
+            className="btn btn-outline-dark btn-block"
+            id="submitBtn"
+            onClick={[Function]}
+            type="submit"
+          >
+            Sign Up
+          </button>
+          <a
+            className="btn btn-outline-dark btn-block"
+            href="/login"
+            id="login"
+            onClick={[Function]}
+            type={undefined}
+          >
+            Log In
+          </a>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 `;
