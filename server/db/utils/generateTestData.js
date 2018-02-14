@@ -60,7 +60,7 @@ class MatchMaker {
     this.user1 = user1.id;
     this.user2 = user2.id;
     this.action = genRandomNumber(0, 2, user1.name) === 0 ? 'L' : 'P';
-    this.date = genMatchDate(user1.name + user2.name);
+    this.date = genMatchDate(user1.name + user2.name).toISOString().slice(0, 19).replace('T', ' ');
   }
 }
 
@@ -74,11 +74,11 @@ request.get({ uri: URI })
       if (index === 0) return;
       const data = Array.from(el.children).filter(x => x.type !== 'text');
 
-      const personality = data[2].children[1].attribs.title;
-      const catchPhrase = data[5].children[1].firstChild.data.split('"')[1];
-      const species = data[3].children[1].attribs.title;
+      const personality = escape(data[2].children[1].attribs.title);
+      const catchPhrase = escape(data[5].children[1].firstChild.data.split('"')[1]);
+      const species = escape(data[3].children[1].attribs.title);
 
-      const name = data[0].children[1].firstChild.attribs.title.split('(')[0].trim();
+      const name = escape(data[0].children[1].firstChild.attribs.title.split('(')[0].trim());
       const birthday = genBirthday(name, data[4].firstChild.data.trim());
       const gender = data[2].children[1].firstChild.data.indexOf('♀') ? 'Female' : 'Male';
       const img = data[1].children[1].attribs.href;
@@ -90,7 +90,7 @@ request.get({ uri: URI })
     });
 
     return users.map((x, i) => {
-      x.id = i;
+      x.id = i + 1;
       return x;
     });
   })
