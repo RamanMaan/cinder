@@ -37,12 +37,12 @@ class Matches extends Component {
         this.setState({
           userDetail: {
             userID: res.userID,
-            userName: unescape(res.userName),
+            userName: res.userName,
             userPics: res.userPics,
             userAge: res.userAge,
             userGender: res.userGender,
             matchTime: new Date(),
-            userBio: res.userBio ? unescape(res.userBio) : 'No bio'
+            userBio: res.userBio ? res.userBio : 'No bio'
           }
         });
       })
@@ -57,7 +57,7 @@ class Matches extends Component {
         this.setState({
           matches: res.map(x => ({
             id: x.userID,
-            title: unescape(x.userName),
+            title: x.userName,
             subtitle: "You've just matched!",
             date: new Date(x.matchDate),
             img: x.primaryPic

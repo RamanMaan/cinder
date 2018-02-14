@@ -36,6 +36,33 @@ const genStudy = (name, edu) => {
   return edu === 0 ? undefined : studyTypes[genRandomNumber(0, studyTypes.length, name)];
 };
 
+const escapeSQL = (val) => {
+  val = val.replace(/[\0\n\r\b\t\\'"\x1a]/g, (s) => {
+    switch (s) {
+      case '\0':
+        return '\\0';
+      case '\n':
+        return '\\n';
+      case '\r':
+        return '\\r';
+      case '\b':
+        return '\\b';
+      case '\t':
+        return '\\t';
+      case '\x1a':
+        return '\\Z';
+      case "'":
+        return "''";
+      case '"':
+        return '""';
+      default:
+        return `\\${s}`;
+    }
+  });
+
+  return val;
+};
+
 class UserBuilder {
   constructor(name, birthday, gender, img, bio, education, study) {
     // Users Table Info
@@ -74,11 +101,11 @@ request.get({ uri: URI })
       if (index === 0) return;
       const data = Array.from(el.children).filter(x => x.type !== 'text');
 
-      const personality = escape(data[2].children[1].attribs.title);
-      const catchPhrase = escape(data[5].children[1].firstChild.data.split('"')[1]);
-      const species = escape(data[3].children[1].attribs.title);
+      const personality = escapeSQL(data[2].children[1].attribs.title);
+      const catchPhrase = escapeSQL(data[5].children[1].firstChild.data.split('"')[1]);
+      const species = escapeSQL(data[3].children[1].attribs.title);
 
-      const name = escape(data[0].children[1].firstChild.attribs.title.split('(')[0].trim());
+      const name = escapeSQL(data[0].children[1].firstChild.attribs.title.split('(')[0].trim());
       const birthday = genBirthday(name, data[4].firstChild.data.trim());
       const gender = data[2].children[1].firstChild.data.indexOf('♀') ? 'Female' : 'Male';
       const img = data[1].children[1].attribs.href;
@@ -97,7 +124,7 @@ request.get({ uri: URI })
   .then((users) => {
     const matchedUsers = users.filter(x => (x.id % 3 === 0));
     const matches = matchedUsers.reduce((totalMatches, curr, i, arr) => {
-      const set = arr.filter(x => x.id % 3 === i % 3).reduce((setMatches, x) => {
+      const set = arr.filter(x => x.id % 3 === i % 5).reduce((setMatches, x) => {
         if (x.name === curr.name) return setMatches;
         return [new MatchMaker(x, curr), ...setMatches];
       }, []);

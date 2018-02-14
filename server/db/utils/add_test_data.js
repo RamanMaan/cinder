@@ -49,5 +49,5 @@ mysql.createConnection({
   return res;
 }).then(() => console.log('---Successfully added test data---'))
   .catch((err) => {
-    console.error(err);
+    console.error(err.message);
   });
