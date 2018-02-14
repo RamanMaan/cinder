@@ -3,8 +3,9 @@
 - Database: MySQL v5.7.21
 
 ## To create database and all tables
+While in the `/server` directory:
 ```
- ./build_db.sh [database name] [new users name] [new users password]
+ npm run db:build
 ```
 
 Or use [setup.sql](setup.sql) directly:
@@ -13,9 +14,5 @@ Or use [setup.sql](setup.sql) directly:
 
 ## To insert all test data
 ```
- ./add_test_data.sh [database name] [username] [password]
+ npm run db:addTestData
 ```
-
-Or use [test-data.sql](test-data.sql) directly:
-
-```mysql -u [username] -p [database name] < test-data.sql```

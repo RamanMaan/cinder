@@ -5,7 +5,7 @@ const refData = require('../referenceData');
 
 // Variables for building animal crossing characters
 const URI = 'http://animalcrossing.wikia.com/wiki/Villager_list_(New_Leaf)';
-const MIN_BIRTHDAY_YEAR = 1975;
+const MIN_BIRTHDAY_YEAR = 1990;
 const MAX_BIRTHDAY_YEAR = 2000;
 const MIN_MATCH_DATE = new Date('01/01/2017');
 const MAX_MATCH_DATE = new Date('02/15/2018');
@@ -97,7 +97,7 @@ request.get({ uri: URI })
   .then((users) => {
     const matchedUsers = users.filter(x => (x.id % 3 === 0));
     const matches = matchedUsers.reduce((totalMatches, curr, i, arr) => {
-      const set = arr.filter(x => x.id % 5 === i % 7).reduce((setMatches, x) => {
+      const set = arr.filter(x => x.id % 3 === i % 3).reduce((setMatches, x) => {
         if (x.name === curr.name) return setMatches;
         return [new MatchMaker(x, curr), ...setMatches];
       }, []);

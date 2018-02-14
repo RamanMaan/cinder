@@ -29,7 +29,7 @@ class Matches extends Component {
   }
 
   fetchUserDetail(id) {
-    const loggedInUserID = 1;
+    const loggedInUserID = 3;
     fetch(`/api/users/${loggedInUserID}/matches/${id}`)
       .then(res => res.json())
       .then(res => res[0])
@@ -37,12 +37,12 @@ class Matches extends Component {
         this.setState({
           userDetail: {
             userID: res.userID,
-            userName: res.userName,
+            userName: unescape(res.userName),
             userPics: res.userPics,
             userAge: res.userAge,
             userGender: res.userGender,
             matchTime: new Date(),
-            userBio: res.userBio ? res.userBio : 'No bio'
+            userBio: res.userBio ? unescape(res.userBio) : 'No bio'
           }
         });
       })
@@ -50,14 +50,14 @@ class Matches extends Component {
   }
 
   fetchUserMatches() {
-    const loggedInUserID = 1;
+    const loggedInUserID = 3;
     fetch(`/api/users/${loggedInUserID}/matches`)
       .then(res => res.json())
       .then(res => {
         this.setState({
           matches: res.map(x => ({
             id: x.userID,
-            title: x.userName,
+            title: unescape(x.userName),
             subtitle: "You've just matched!",
             date: new Date(x.matchDate),
             img: x.primaryPic
