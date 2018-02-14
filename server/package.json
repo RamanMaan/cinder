@@ -5,7 +5,8 @@
     "client": "cd ../client && npm start && npm run watch-css",
     "server": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "build-db": "node db/build_db.js"
   },
   "description": "",
   "main": "server.js",
@@ -21,7 +22,8 @@
     "dotenv": "^5.0.0",
     "express": "^4.16.2",
     "mysql": "^2.15.0",
-    "promise-mysql": "^3.2.0"
+    "promise-mysql": "^3.2.0",
+    "require-sql": "^1.0.0"
   },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.2",

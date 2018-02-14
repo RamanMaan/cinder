@@ -8,44 +8,18 @@ INSERT INTO GenderType (GenderID, GenderType) VALUES
 (3, 'Other');
 
 INSERT INTO EducationType (EducationID, EducationType) VALUES
-(1, 'Bachelor''s Degree'),
-(2, 'Master''s Degree'),
-(3, 'Ph.D'),
-(4, 'High School');
+(1, 'High School'),
+(2, 'College Diploma'),
+(3, 'Bachelors'),
+(4, 'Masters'),
+(5, 'Ph.D');
 
 INSERT INTO StudyType (StudyID, StudyType) VALUES
-(1, 'Humanities'),
-(2, 'Arts'),
-(3, 'Performing arts'),
-(4, 'Visual arts'),
-(5, 'History'),
-(6, 'Languages'),
-(7, 'Literature'),
-(8, 'Philosophy'),
-(9, 'Theology'),
-(10, 'Social sciences'),
-(11, 'Anthropology'),
-(12, 'Economics'),
-(13, 'Human geography'),
-(14, 'Political science'),
-(15, 'Psychology'),
-(16, 'Sociology'),
-(17, 'Natural and social sciences'),
-(18, 'Geography'),
-(19, 'Natural sciences'),
-(20, 'Biology'),
-(21, 'Chemistry'),
-(22, 'Earth sciences'),
-(23, 'Space sciences'),
-(24, 'Physics'),
-(25, 'Formal sciences'),
-(26, 'Computer Science'),
-(27, 'Mathematics'),
-(28, 'Statistics'),
-(29, 'Professions'),
-(30, 'Engineering and technology'),
-(31, 'Medicine and health'),
-(32, 'Law');
+(1, 'Computer Science'),
+(2, 'English'),
+(3, 'Economics'),
+(4, 'Law'),
+(5, 'Mathematics');
 
 INSERT INTO ReligionType (ReligionID, ReligionType) VALUES
 (1, 'Pastafarianism'),
@@ -69,7 +43,12 @@ INSERT INTO Users (UserID, UserEmail, UserPassword) VALUES
 (5, 'rihanna@gmail.com', 'password5'),
 (6, 'katy.perry@gmail.com', 'password6'),
 (7, 'my.anaconda.dont@gmail.com', 'password7'),
-(8, 'cersei@gmail.com', 'password8');
+(8, 'cersei@gmail.com', 'password8'),
+(9, 'mac@miller.com', 'password'),
+(10, 'k@dot.com', 'password'),
+(11, 'kevin@brockhampton.io', 'password'),
+(12, 'j@smith.com', 'password');
+
 
 INSERT INTO UsersInfo (UserID, UserName, Birthday, GenderID, Latitude, Longitude, Bio) VALUES
 (1, 'Wiz', '1985-05-05', 1, 49.880488, -97.161546, 
@@ -135,20 +114,29 @@ and her father schemed his way into the role of a political counselor for the ne
 The Lannisters are the richest family in Westeros and helped him to win the Throne, which is why Robert 
 agreed to a marriage between them. Cersei has a twin brother, Jaime, with whom she has been involved in 
 an incestuous affair. All three of Cersei''s children are Jaime''s. Cersei''s main character attribute 
-is her desire for power and her ambition.');
+is her desire for power and her ambition.'),
+
+(9, 'Mac Miller', '1992-01-19', 1, 49.8150033, -97.1488722, 'aka Larry Fish aka Delusional Thomas aka that dude who raps.'),
+(10, 'Kendrick Lamar', '1985-04-10', 1, 49.8150033, -97.1488722, 'Call me Kenny.'),
+(11, 'Ian Simpson', '1995-03-30', 1, 49.8150033, -97.1488722, 'Ask me about my boyband.'),
+(12, 'Jaden Smith', '1999-02-23', 1, 49.8150033, -97.1488722, 'Icon tatted on my torso. (Note: icon is not, in fact, tatted on my torso.) ');
 
 INSERT INTO UserStudy (UserID, StudyID, EducationID) VALUES
-(1, 15, 1),
+(1, 2, 1),
 (2, 4, 2),
-(2, 13, 1),
-(3, 31, 3),
-(4, 25, 1),
-(4, 27, 1),
-(4, 27, 2),
-(5, 18, 1),
-(6, 19, 1),
-(7, 20, 1),
-(8, 21, 1);
+(2, 3, 1),
+(3, 3, 3),
+(4, 5, 1),
+(4, 4, 1),
+(4, 2, 2),
+(5, 3, 1),
+(6, 1, 1),
+(7, 4, 1),
+(8, 3, 1),
+(9, 2, 1),
+(10, 1, 1),
+(11, 1, 1),
+(12, 1, 1);
 
 INSERT INTO UserPreference (UserID, GenderID) VALUES
 (1, 2),
@@ -161,19 +149,26 @@ INSERT INTO UserPreference (UserID, GenderID) VALUES
 (6, 2),
 (6, 1),
 (7, 1),
-(8, 1);
+(8, 1),
+(9, 1),
+(10, 1),
+(11, 1),
+(12, 1);
 
 INSERT INTO UserPicture (PictureID, UserID, PicturePath, PrimaryPicture) VALUES 
-(1, 1, 'https://hypb.imgix.net/image/2018/02/wiz-khalifa-captain-video-1.jpg?fit=max&q=90&w=500&h=333&auto=compress%2Cformat', 1),
-(2, 2, 'https://usatftw.files.wordpress.com/2017/08/kawhi-leonard.jpg?w=1000&h=600&crop=1', 1),
-(3, 3, 'https://www.biography.com/.image/t_share/MTE1ODA0OTcxOTA3NTgxNDUz/hugh-jackman-16599916-1-402.jpg', 1),
-(4, 4, 'https://www.billboard.com/files/styles/1024x577/public/media/Eazy-E-1990-billboard-650.jpg', 1),
+(1, 1, 'https://iscale.iheart.com/v3/url/aHR0cDovL2ltYWdlLmloZWFydC5jb20vaW1hZ2VzL3JvdmkvMTA4MC8wMDA0LzAwNy9NSTAwMDQwMDczMDYuanBn', 1),
+(2, 2, 'http://www.espnsa.com/wp-content/uploads/2016/10/kwahi-e1477939536325.jpg', 1),
+(3, 3, 'https://www.alux.com/wp-content/uploads/2017/03/Hugh-Jackman-Net-Worth.jpg', 1),
+(4, 4, 'http://s3.amazonaws.com/hiphopdx-production/2015/03/Screen-Shot-2015-03-26-at-10.43.59-AM.png', 1),
 (5, 5, 'https://static01.nyt.com/images/2015/10/12/t-magazine/12tmag-rihanna-toc-t/12tmag-rihanna-toc-t-blog427.jpg', 1),
-(6, 6, 'http://www.radioandmusic.com/sites/www.radioandmusic.com/files/images/entertainment/2017/05/15/Katy%20Perry.jpg', 1),
-(7, 7, 'https://ssli.ulximg.com/image/740x493/cover/1513518963_aabd1d9dc9cd3e8454c30400e2830078.jpg/104170a82eb42936d6fa6a153692a8f6/1513518963_09b53ba32386fb366e4419a1bc974bb4.jpg', 1),
-(8, 8, 'https://orig00.deviantart.net/8907/f/2017/233/0/6/cersei_lannister_game_of_thrones_screencap_study_by_vlalizavladarose-dbkthx1.png', 1);
+(6, 6, 'https://pbs.twimg.com/profile_images/902653914465550336/QE3287ZJ_400x400.jpg', 1),
+(7, 7, 'https://www.biography.com/.image/t_share/MTQ3NTI2ODcxNDU2Njg3NTk4/nicki_minaj_photo_by_kevin_mazur_wireimage_getty_498353136.jpg', 1),
+(8, 8, 'https://typeset-beta.imgix.net/elite-daily/2017/07/11112059/cersei-kit-harrington.png', 1),
 
-
+(9, 9, 'https://i.scdn.co/image/f4509fe9c589c12be5470653178f901bd697b97b', 1),
+(10, 10, 'http://cache.umusic.com/_sites/kendricklamar.com/images/og.jpg', 1),
+(11, 11, 'http://images.genius.com/23dcab57a5e4a0d292a694f78a608fe5.966x966x1.jpg', 1),
+(12, 12, 'https://i0.wp.com/www.uselessdaily.com/wp-content/uploads/2016/01/Jaden-Smith-In-Sunglasses.jpg?resize=550%2C550&ssl=1', 1);
 
 /***********************************************************************************************
 INITIALIZE USER ACTIONS
@@ -188,4 +183,6 @@ INSERT INTO Likes (User1ID, User2ID, UserAction, ActionDate) VALUES
 (4, 1, 'L', '2018-02-08 08:02:48'),
 (3, 1, 'L', '2018-02-07 08:02:48'),
 (4, 2, 'L', '2018-02-10 08:02:48'),
-(7, 1, 'L', '2018-02-11 08:02:48');
+(7, 1, 'L', '2018-02-11 08:02:48'),
+(9, 1, 'L', '2018-02-03 12:09:05'),
+(1, 9, 'L', '2018-02-05 12:09:05');
