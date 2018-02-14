@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import {
+  Container,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  Row,
+  Col
+} from 'reactstrap';
 import { Redirect, Link } from 'react-router-dom';
 
 import './styles/Signup.css';
@@ -22,7 +31,7 @@ class Signup extends Component {
       userName: '',
       birthday: '',
       gender: '',
-      signnedUp: false,
+      signedUp: false,
       signupBtnText: 'Sign Up'
     };
   }
@@ -58,11 +67,11 @@ class Signup extends Component {
     e.preventDefault();
     this.setState({ signupBtnText: 'Signing up...' });
     //TODO - adding signup connection with server
-    this.setState({ loginBtnText: 'Sign Up', signnedUp: true });
+    this.setState({ loginBtnText: 'Sign Up', signedUp: true });
   }
 
   render() {
-    if (this.state.signnedUp) {
+    if (this.state.signedUp) {
       return <Redirect to="/login" />;
     }
 
@@ -75,129 +84,141 @@ class Signup extends Component {
           </div>
           <hr />
 
-          <div className="inputPart">
-            <Form className="signup-form" onSubmit={e => this.userSignup(e)}>
-              <div className="row">
-                <div className="col-sm">
-                  <FormGroup>
-                    <Label for="email">Email</Label>
-                    <Input
-                      required
-                      id="email"
-                      type="email"
-                      name="email"
-                      onChange={this.setInput}
-                    />
-                  </FormGroup>
-                </div>
-                <div className="col-sm">
-                  <FormGroup>
-                    <Label for="emailConfirm">Please re-enter email</Label>
-                    <Input
-                      required
-                      id="emailConfirm"
-                      type="email"
-                      name="emailConfirm"
-                      onChange={this.setInput}
-                    />
-                  </FormGroup>
-                </div>
-              </div>
+          <Form className="signup-form" onSubmit={e => this.userSignup(e)}>
+            <Row>
+              <Col sm={6}>
+                <FormGroup>
+                  <Label for="email">Email</Label>
+                  <Input
+                    required
+                    id="email"
+                    type="email"
+                    name="email"
+                    onChange={this.setInput}
+                  />
+                </FormGroup>
+              </Col>
+              <Col sm={6}>
+                <FormGroup>
+                  <Label for="emailConfirm">Please re-enter email</Label>
+                  <Input
+                    required
+                    id="emailConfirm"
+                    type="email"
+                    name="emailConfirm"
+                    onChange={this.setInput}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
 
-              <div className="row">
-                <div className="col-sm">
-                  <FormGroup>
-                    <Label for="password">Password</Label>
-                    <Input
-                      required
-                      id="password"
-                      type="password"
-                      name="password"
-                      onChange={this.setInput}
-                    />
-                  </FormGroup>
-                </div>
-                <div className="col-sm">
-                  <FormGroup>
-                    <Label for="passwordConfirm">
-                      Please re-enter password
-                    </Label>
-                    <Input
-                      required
-                      id="passwordConfirm"
-                      type="password"
-                      name="passwordConfirm"
-                      onChange={this.setInput}
-                    />
-                  </FormGroup>
-                </div>
-              </div>
+            <Row>
+              <Col sm={6}>
+                <FormGroup>
+                  <Label for="password">Password</Label>
+                  <Input
+                    required
+                    id="password"
+                    type="password"
+                    name="password"
+                    onChange={this.setInput}
+                  />
+                </FormGroup>
+              </Col>
+              <Col sm={6}>
+                <FormGroup>
+                  <Label for="passwordConfirm">Please re-enter password</Label>
+                  <Input
+                    required
+                    id="passwordConfirm"
+                    type="password"
+                    name="passwordConfirm"
+                    onChange={this.setInput}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
 
-              <div className="row">
-                <div className="col-sm">
-                  <FormGroup>
-                    <Label for="gender">Gender</Label>
-                    <Input
-                      type="select"
-                      name="gender"
-                      id="gender"
-                      required
-                      onChange={this.setInput}
-                    >
-                      <option value="" />
-                      {this.state.genderList.map(opt => {
-                        return (
-                          <option key={opt.id} value={opt.id}>
-                            {opt.type}
-                          </option>
-                        );
-                      })}
-                    </Input>
-                  </FormGroup>
-                </div>
-                <div className="col-sm">
-                  <FormGroup>
-                    <Label for="birthday">Birthday</Label>
-                    <Input
-                      required
-                      type="date"
-                      name="birthday"
-                      id="birthday"
-                      onChange={this.setInput}
-                    />
-                  </FormGroup>
-                </div>
-              </div>
+            <Row>
+              <Col sm={6}>
+                <FormGroup>
+                  <Label for="gender">Gender</Label>
+                  <Input
+                    type="select"
+                    name="gender"
+                    id="gender"
+                    required
+                    onChange={this.setInput}
+                  >
+                    <option value="" />
+                    {this.state.genderList.map(opt => {
+                      return (
+                        <option key={opt.id} value={opt.id}>
+                          {opt.type}
+                        </option>
+                      );
+                    })}
+                  </Input>
+                </FormGroup>
+              </Col>
 
-              <FormGroup>
-                <Label for="userName">Name</Label>
-                <Input
-                  required
-                  id="userName"
-                  name="userName"
-                  placeholder="Just first name is enough"
-                  onChange={this.setInput}
-                />
-              </FormGroup>
+              <Col sm={6}>
+                <FormGroup>
+                  <Label for="birthday">Birthday</Label>
+                  <Input
+                    required
+                    type="date"
+                    name="birthday"
+                    id="birthday"
+                    onChange={this.setInput}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
 
-              <FormGroup>
-                <Button id="submitBtn" outline block color="dark" type="submit">
+            <Row>
+              <Col sm={12}>
+                <FormGroup>
+                  <Label for="userName">Name</Label>
+                  <Input
+                    required
+                    id="userName"
+                    name="userName"
+                    placeholder="Just first name is enough"
+                    onChange={this.setInput}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col sm={6}>
+                <Button
+                  id="submitBtn"
+                  outline
+                  color="dark"
+                  type="submit"
+                  size="md"
+                  className="float-right"
+                >
                   {this.state.signupBtnText}
                 </Button>
+              </Col>
 
+              <Col sm={6}>
                 <Button
                   id="login"
-                  outline
-                  block
                   color="dark"
-                  tag={Link}
                   to="/login"
+                  tag={Link}
+                  outline
+                  size="md"
                 >
                   Log In
                 </Button>
-              </FormGroup>
-            </Form>
-          </div>
+              </Col>
+            </Row>
+          </Form>
         </Container>
       </div>
     );
