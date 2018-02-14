@@ -77,7 +77,7 @@ exports[`<Login /> renders correctly 1`] = `
         </button>
         <a
           className="btn btn-outline-secondary btn-block"
-          href="/"
+          href="/signup"
           id="signUpBtn"
           onClick={[Function]}
           type={undefined}

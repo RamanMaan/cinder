@@ -1,0 +1,250 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Signup /> renders correctly 1`] = `
+<div
+  className="Signup"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="logo"
+    >
+      <h1
+        className="display-3"
+      >
+        cinder
+      </h1>
+      <img
+        alt="logo"
+        className="App-logo"
+        src="logo.svg"
+      />
+    </div>
+    <hr />
+    <form
+      className="signup-form"
+      onSubmit={[Function]}
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col col-sm-6"
+        >
+          <div
+            className="form-group"
+          >
+            <label
+              className=" form-control-label"
+              htmlFor="email"
+            >
+              Email
+            </label>
+            <input
+              className="form-control"
+              id="email"
+              name="email"
+              onChange={[Function]}
+              required={true}
+              type="email"
+            />
+          </div>
+        </div>
+        <div
+          className="col col-sm-6"
+        >
+          <div
+            className="form-group"
+          >
+            <label
+              className=" form-control-label"
+              htmlFor="emailConfirm"
+            >
+              Please re-enter email
+            </label>
+            <input
+              className="form-control"
+              id="emailConfirm"
+              name="emailConfirm"
+              onChange={[Function]}
+              required={true}
+              type="email"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col col-sm-6"
+        >
+          <div
+            className="form-group"
+          >
+            <label
+              className=" form-control-label"
+              htmlFor="password"
+            >
+              Password
+            </label>
+            <input
+              className="form-control"
+              id="password"
+              name="password"
+              onChange={[Function]}
+              required={true}
+              type="password"
+            />
+          </div>
+        </div>
+        <div
+          className="col col-sm-6"
+        >
+          <div
+            className="form-group"
+          >
+            <label
+              className=" form-control-label"
+              htmlFor="passwordConfirm"
+            >
+              Please re-enter password
+            </label>
+            <input
+              className="form-control"
+              id="passwordConfirm"
+              name="passwordConfirm"
+              onChange={[Function]}
+              required={true}
+              type="password"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col col-sm-6"
+        >
+          <div
+            className="form-group"
+          >
+            <label
+              className=" form-control-label"
+              htmlFor="gender"
+            >
+              Gender
+            </label>
+            <select
+              className="form-control"
+              id="gender"
+              name="gender"
+              onChange={[Function]}
+              required={true}
+            >
+              <option
+                value=""
+              />
+              <option
+                value={0}
+              >
+                Male
+              </option>
+              <option
+                value={1}
+              >
+                Female
+              </option>
+              <option
+                value={2}
+              >
+                Other
+              </option>
+            </select>
+          </div>
+        </div>
+        <div
+          className="col col-sm-6"
+        >
+          <div
+            className="form-group"
+          >
+            <label
+              className=" form-control-label"
+              htmlFor="birthday"
+            >
+              Birthday
+            </label>
+            <input
+              className="form-control"
+              id="birthday"
+              name="birthday"
+              onChange={[Function]}
+              required={true}
+              type="date"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col col-sm-12"
+        >
+          <div
+            className="form-group"
+          >
+            <label
+              className=" form-control-label"
+              htmlFor="userName"
+            >
+              Name
+            </label>
+            <input
+              className="form-control"
+              id="userName"
+              name="userName"
+              onChange={[Function]}
+              placeholder="Just first name is enough"
+              required={true}
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="row"
+      >
+        <div
+          className="col col-sm-6"
+        >
+          <button
+            className="float-right btn btn-outline-dark btn-md"
+            id="submitBtn"
+            onClick={[Function]}
+            type="submit"
+          >
+            Sign Up
+          </button>
+        </div>
+        <div
+          className="col col-sm-6"
+        >
+          <a
+            className="btn btn-outline-dark btn-md"
+            href="/login"
+            id="login"
+            onClick={[Function]}
+            type={undefined}
+          >
+            Log In
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;

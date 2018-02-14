@@ -102,7 +102,7 @@ class Login extends Component {
                 block
                 color="secondary"
                 tag={Link}
-                to="/"
+                to="/signup"
               >
                 Sign Up
               </Button>
