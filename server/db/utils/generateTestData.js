@@ -27,12 +27,12 @@ const genBirthday = (name, day) => {
 const genMatchDate = name => new Date(genRandomNumber(MIN_MATCH_DATE.getTime(), MAX_MATCH_DATE.getTime(), name));
 
 const genEducation = (name) => {
-  const eduTypes = refData.education;
+  const eduTypes = refData.EducationType;
   return eduTypes[genRandomNumber(0, eduTypes.length, name)];
 };
 
 const genStudy = (name, edu) => {
-  const studyTypes = refData.study;
+  const studyTypes = refData.StudyType;
   return edu === 0 ? undefined : studyTypes[genRandomNumber(0, studyTypes.length, name)];
 };
 
@@ -44,14 +44,14 @@ class UserBuilder {
     // UsersInfo Table Info
     this.name = name;
     this.birthday = birthday;
-    this.gender = refData.gender.findIndex(x => x.toLowerCase() === gender.toLowerCase());
+    this.gender = refData.GenderType.findIndex(x => x.toLowerCase() === gender.toLowerCase());
     this.location = { lat: 49.880488, long: -97.161546 };
     this.bio = bio || `Bio of user ${name}`;
     // Pictures
     this.imgs = Array.isArray(img) ? img : [img];
     // Education and Study
-    this.education = education ? refData.education.findIndex(x => x.toLowerCase() === education.toLowerCase()) : undefined;
-    this.study = study ? refData.study.findIndex(x => x.toLowerCase() === study.toLowerCase()) : undefined;
+    this.education = education ? refData.EducationType.findIndex(x => x.toLowerCase() === education.toLowerCase()) : undefined;
+    this.study = study ? refData.StudyType.findIndex(x => x.toLowerCase() === study.toLowerCase()) : undefined;
   }
 }
 
