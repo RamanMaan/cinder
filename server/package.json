@@ -6,7 +6,9 @@
     "server": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
     "precommit": "lint-staged",
-    "build-db": "node db/build_db.js"
+    "build:db": "node db/utils/build_db.js",
+    "build:testdata": "node db/utils/add_test_data.js",
+    "build:characters": "node db/utils/generateCharacters.js"
   },
   "description": "",
   "main": "server.js",
@@ -31,7 +33,6 @@
     "eslint": "^4.16.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
-    "gulp": "^3.9.1",
     "husky": "^0.14.3",
     "lint-staged": "^6.0.0",
     "nodemon": "^1.14.11",
