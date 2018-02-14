@@ -63,7 +63,7 @@ describe('<Matches />', () => {
 
   it('routes correctly', () => {
     const wrapper = mount(
-      <MemoryRouter initialEntries={['/matches']}>
+      <MemoryRouter initialEntries={['/']}>
         <App />
       </MemoryRouter>
     );
@@ -72,7 +72,7 @@ describe('<Matches />', () => {
 
   it('should show the <MatchesList /> component be default', () => {
     const wrapper = mount(
-      <MemoryRouter initialEntries={['/matches']}>
+      <MemoryRouter initialEntries={['/']}>
         <App />
       </MemoryRouter>
     );
@@ -81,7 +81,7 @@ describe('<Matches />', () => {
 
   it('should show the <PotentialMatch /> component be default', () => {
     const wrapper = mount(
-      <MemoryRouter initialEntries={['/matches']}>
+      <MemoryRouter initialEntries={['/']}>
         <App />
       </MemoryRouter>
     );

@@ -7,7 +7,7 @@ import fetchMock from 'fetch-mock';
 
 import App from './App';
 import Login from './Login';
-import SignUp from './Home'; // TODO change from home to redirect page
+import Signup from './Signup';
 
 describe('<Login />', () => {
   it('renders without crashing', () => {
@@ -83,7 +83,7 @@ describe('<Login />', () => {
 
     it('starts on login page', () => {
       expect(wrapper.find(Login)).toHaveLength(1);
-      expect(wrapper.find(SignUp)).toHaveLength(0);
+      expect(wrapper.find(Signup)).toHaveLength(0);
     });
 
     it('redirects to sign up page after click', () => {
@@ -91,7 +91,7 @@ describe('<Login />', () => {
       signUpBtn.simulate('click', { button: 0 });
 
       expect(wrapper.find(Login)).toHaveLength(0);
-      expect(wrapper.find(SignUp)).toHaveLength(1);
+      expect(wrapper.find(Signup)).toHaveLength(1);
     });
   });
 
