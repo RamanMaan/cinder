@@ -45,10 +45,14 @@ mysql.createConnection({
     user: 'root',
     password: MYSQLDB.rootPass,
     database: MYSQLDB.database,
+    multipleStatements: true,
   });
 }).then((conn) => {
   console.log(`---Connected to ${MYSQLDB.database} database---`);
-  const res = conn.query('CREATE USER IF NOT EXISTS ??@?? IDENTIFIED BY ?;', [MYSQLDB.user, MYSQLDB.host, MYSQLDB.password]);
+  const res = conn.query(
+    'CREATE USER IF NOT EXISTS ??@?? IDENTIFIED BY ?; GRANT ALL PRIVILEGES ON ??.* TO ??@?? WITH GRANT OPTION;'
+    , [MYSQLDB.user, MYSQLDB.host, MYSQLDB.password, MYSQLDB.database, MYSQLDB.user, MYSQLDB.host],
+  );
   conn.end();
   return res;
 })
@@ -85,5 +89,5 @@ mysql.createConnection({
   })
   .then(() => console.log('╔═════════════════════╗\n║ Database initalized ║\n╚═════════════════════╝'))
   .catch((err) => {
-    console.error(err);
+    console.error(err.message);
   });

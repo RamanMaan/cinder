@@ -1,5 +1,5 @@
-        # cinder 
-        #       ## Because everyone deserves a cinder-ella story...
+# cinder 
+### Because everyone deserves a cinder-ella story...
 [![Build Status](https://travis-ci.com/Raman-Maan/cinder.svg?token=yW9dwYrw65cdrdXoS86Y&branch=master)](https://travis-ci.com/Raman-Maan/cinder)
 
 Project Structure
