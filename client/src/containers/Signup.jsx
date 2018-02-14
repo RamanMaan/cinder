@@ -10,24 +10,37 @@ class Signup extends Component {
     super(props);
 
     this.setInput = this.setInput.bind(this);
+    this.fetchGenderOptions = this.fetchGenderOptions.bind(this);
+    this.validateForm = this.validateForm.bind(this);
+    this.userSignup = this.userSignup.bind(this);
 
     this.state = {
       email: '',
+      emailConfirm: '',
       emailCheck: false,
-      userName: '',
       password: '',
-      confirmPassword: '',
+      passwordConfirm: '',
+      userName: '',
       birthday: '',
       gender: '',
-      latitude: '',
-      longitude: '',
-      bio: '',
-      religion: '',
-      userPics: '',
-
       signnedUp: false,
       signupBtnText: 'Sign up'
     };
+  }
+
+  fetchGenderOptions() {
+    // Integration with API
+    // fetch(`/api/reference/gender`)
+    //   .then(res => res.json())
+    //   .then(res => {
+    //     this.props.gender({
+    //       matches: res.map(x => ({
+    //         id: x.genderID,
+    //         genderType: x.genderType
+    //       }))
+    //     });
+    //   })
+    //   .catch(err => console.error(err));
   }
 
   validateForm() {
@@ -42,13 +55,41 @@ class Signup extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  userSignup(e) {
+    e.preventDefault();
+
+    this.setState({ loginBtnText: 'Logging In...' });
+    fetch('/api/user/login', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
+      })
+    })
+      .then(res => {
+        if (res.status === 200) {
+          this.setState({ loginBtnText: 'Log In', loggedIn: true });
+        } else {
+          throw new Error(`Login Error: ${res.status}`);
+        }
+      })
+      .catch(err => {
+        this.setState({ loginBtnText: 'Log In' });
+        // TODO - better errors for user - what went wrong?
+        switch (err) {
+          default:
+            console.error(err);
+        }
+      });
+  }
+
   render() {
     if (this.state.signnedUp) {
       return <Redirect to="/login" />;
     }
 
     return (
-      <div className="Login">
+      <div className="Signup">
         <Container>
           <div className="logo">
             <h1 className="display-3">cinder</h1>
@@ -56,117 +97,113 @@ class Signup extends Component {
           </div>
           <hr />
 
-          <Form className="login-form" onSubmit={e => this.userLogin(e)}>
-            <FormGroup>
-              <Label for="email">Email Address</Label>
-              <Input
-                required
-                id="email"
-                type="email"
-                name="email"
-                placeholder="Email Address"
-                onChange={this.setInput}
-              />
-            </FormGroup>
+          <div className="inputPart">
+            <Form className="signup-form" onSubmit={e => this.userSignup(e)}>
+              <div className="row">
+                <div className="col-sm">
+                  <FormGroup>
+                    <Label for="email">Email</Label>
+                    <Input
+                      required
+                      id="email"
+                      type="email"
+                      name="email"
+                      onChange={this.setInput}
+                    />
+                  </FormGroup>
+                </div>
+                <div className="col-sm">
+                  <FormGroup>
+                    <Label for="emailConfirm">Please re-enter email</Label>
+                    <Input
+                      required
+                      id="emailConfirm"
+                      type="email"
+                      name="emailConfirm"
+                      onChange={this.setInput}
+                    />
+                  </FormGroup>
+                </div>
+              </div>
 
-            <FormGroup>
-              <Label for="userName">User Name</Label>
-              <Input
-                required
-                id="userName"
-                type="userName"
-                name="userName"
-                placeholder="User Name"
-                onChange={this.setInput}
-              />
-            </FormGroup>
+              <div className="row">
+                <div className="col-sm">
+                  <FormGroup>
+                    <Label for="password">Password</Label>
+                    <Input
+                      required
+                      id="password"
+                      type="password"
+                      name="password"
+                      onChange={this.setInput}
+                    />
+                  </FormGroup>
+                </div>
+                <div className="col-sm">
+                  <FormGroup>
+                    <Label for="passwordConfirm">
+                      Please re-enter password
+                    </Label>
+                    <Input
+                      required
+                      id="passwordConfirm"
+                      type="password"
+                      name="passwordConfirm"
+                      onChange={this.setInput}
+                    />
+                  </FormGroup>
+                </div>
+              </div>
 
-            <FormGroup>
-              <Label for="password">Password</Label>
-              <Input
-                required
-                id="password"
-                type="password"
-                name="password"
-                onChange={this.setInput}
-                placeholder="Password"
-              />
-            </FormGroup>
+              <div className="row">
+                <div className="col-sm">
+                  <FormGroup>
+                    <Label for="gender">Gender</Label>
+                    <Input type="select" name="gender" id="gender" required>
+                      <option />
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                    </Input>
+                  </FormGroup>
+                </div>
+                <div className="col-sm">
+                  <FormGroup>
+                    <Label for="birthday">Birthday</Label>
+                    <Input required type="date" name="birthday" id="birthday" />
+                  </FormGroup>
+                </div>
+              </div>
 
-            <FormGroup>
-              <Label for="password">Confirm Password</Label>
-              <Input
-                required
-                id="confirmPassword"
-                type="password"
-                name="confirmPassword"
-                onChange={this.setInput}
-                placeholder="Confirm Password"
-              />
-            </FormGroup>
+              <FormGroup>
+                <Label for="userName">Name</Label>
+                <Input
+                  required
+                  id="userName"
+                  name="userName"
+                  placeholder="Just first name is enough"
+                  onChange={this.setInput}
+                />
+              </FormGroup>
 
-            <FormGroup>
-              <Label for="exampleDate">Birthday</Label>
-              <Input
-                type="date"
-                name="birthday"
-                id="birthday"
-                placeholder="Birthday"
-              />
-            </FormGroup>
+              <FormGroup>
+                <Button id="submitBtn" outline block color="dark" type="submit">
+                  {this.state.signupBtnText}
+                </Button>
 
-            <FormGroup>
-              <Label for="gender">Gender</Label>
-              <Input type="select" name="gender" id="gender">
-                <option />
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-              </Input>
-            </FormGroup>
-
-            <FormGroup>
-              <Label for="bio">Bio</Label>
-              <Input type="textarea" name="bio" id="bio" />
-            </FormGroup>
-
-            <FormGroup>
-              <Label for="religion">Religion</Label>
-              <Input type="select" name="religion" id="religion">
-                <option />
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-              </Input>
-            </FormGroup>
-
-            <FormGroup>
-              <Label for="userPics">Picture</Label>
-              <Input
-                type="url"
-                name="userPics"
-                id="userPics"
-                placeholder="Picture's URL"
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Button id="submitBtn" outline block color="dark" type="submit">
-                {this.state.signupBtnText}
-              </Button>
-
-              <Button
-                id="login"
-                outline
-                block
-                color="dark"
-                tag={Link}
-                to="/login"
-              >
-                Back to Log in page
-              </Button>
-            </FormGroup>
-          </Form>
+                <Button
+                  id="login"
+                  outline
+                  block
+                  color="dark"
+                  tag={Link}
+                  to="/login"
+                >
+                  Log in
+                </Button>
+              </FormGroup>
+            </Form>
+          </div>
         </Container>
       </div>
     );
