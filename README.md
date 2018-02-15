@@ -5,39 +5,45 @@
 Project Structure
 ---
 ```
-├── server/                     # contains our web server
-|   ├── server.js               # manages the Node server handling the API and serving app content
-|   ├── db/                     # database configuration files
-|   |   ├── setup.sql           # creates all tables
-|   |   └── test-data.sql       # inserts all test data
+├── server/                             # contains our web server
+|   ├── server.js                       # manages the Node server handling the API and serving app content
+|   ├── .env                            # contains environment specific values. THIS IS NOT COMMITED
+|   ├── .env.example                    # an example of a .env file with the required variables
+|   ├── db/                             # database configuration files
+|   |   ├── setup.sql                   # defines database schema
+|   |   ├── referenceData.js            # defines reference data default values
+|   |   └── utils/                      # utilities for database management
+|   |       ├── generateTestData.js     # scrapes the animal crossing wiki and generates test data
+|   |       ├── build_db.js             # builds the database, a user to access it, and applies the schema
+|   |       └── add_test_data.js        # adds the test data to the database
 |   └── _api/
-|       ├── _api.js             # api controller - this controls api routes/endpoints
-|       └── user.js             # user related endpoints
-├── client/                     # contains our client-side code
+|       ├── _api.js                     # api controller - this controls api routes/endpoints
+|       └── user.js                     # user related endpoints
+├── client/                             # contains our client-side code
 |   ├── public/
-|   |   ├── index.html          # the root page of the React app
-|   |   └── manifest.json       # contains config options for android devices
+|   |   ├── index.html                  # the root page of the React app
+|   |   └── manifest.json               # contains config options for android devices
 |   └── src/
-|       ├── index.js            # initializes the app
-|       ├── api.js              # API requests are organized in here
-|       ├── components/         # React components are kept here
+|       ├── index.js                    # initializes the app
+|       ├── api.js                      # API requests are organized in here
+|       ├── components/                 # React components are kept here
 |       |   └── ...
-|       ├── containers/         # React containers are kept here - reference components
+|       ├── containers/                 # React containers are kept here - reference components
 |       |   └── ...
 |       ├── assets/
 |       |   └── ...
 |       └── utils/
 |           └── ...
-└── mobile/                     # contains our mobile application
-    ├── app.js                  # entry point of app
-    ├── setup.js                # runs housekeeping - initial app setup before running app
+└── mobile/                             # contains our mobile application
+    ├── app.js                          # entry point of app
+    ├── setup.js                        # runs housekeeping - initial app setup before running app
     └── src/
-        ├── app.js              # standard app route
-        ├── components/         # React components are kept here
+        ├── app.js                      # standard app route
+        ├── components/                 # React components are kept here
         |   └── ...
-        ├── containers/         # React containers are kept here - pages
+        ├── containers/                 # React containers are kept here - pages
         |   └── ...
-        ├── theme/              # Native Base theme files live here
+        ├── theme/                      # Native Base theme files live here
         |   └── ...
         └── assets/
             └── ...
@@ -49,9 +55,14 @@ Whether you're running the web client or the mobile client, both will require th
 
 Setup a ```.env``` file in the server root directory with variables from the ```.env.example``` file. Set these variable values to whatever you prefer.
 
-Run build script to initialize MySQLDB
+Install MYSQL according to your OS's specifications.
 
-    ./build.sh
+Setup database:
+
+    cd server
+    npm run db:build
+    
+    Note: to add test data as well run: npm run db:dev
 
 To run server:
 

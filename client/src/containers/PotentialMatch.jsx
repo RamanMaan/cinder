@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PotentialMatchDetail from '../components/PotentialMatchDetail';
+import Auth from '../utils/authService';
 
 export default class PotentialMatch extends Component {
   constructor(props) {
@@ -19,9 +20,7 @@ export default class PotentialMatch extends Component {
   }
 
   incrementPotentialMatchIndex() {
-    this.setState(prevIndex => {
-      return { matchIndex: prevIndex.matchIndex + 1 };
-    });
+    this.setState(prevIndex => ({ matchIndex: prevIndex.matchIndex + 1 }));
   }
 
   handlePass() {
@@ -35,24 +34,25 @@ export default class PotentialMatch extends Component {
   }
 
   submitUserAction(userAction) {
-    const loggedInUserID = 1;
     const matchedUser = this.state.potentialMatches[this.state.matchIndex].id;
 
-    fetch(`/api/users/${loggedInUserID}/matches/${matchedUser}/${userAction}`, {
-      method: 'POST'
-    })
+    fetch(
+      `/api/users/${Auth.loggedInUser.id}/matches/${matchedUser}/${userAction}`,
+      {
+        method: 'POST'
+      }
+    )
       .then(res => res.json())
       .then(res => {
         this.setState({
-          //TODO
+          // TODO
         });
       })
       .catch(err => console.error(err));
   }
 
   fetchPotentialMatches() {
-    const loggedInUserID = 1;
-    fetch(`/api/users/${loggedInUserID}/potentials`)
+    fetch(`/api/users/${Auth.loggedInUser.id}/potentials`)
       .then(res => res.json())
       .then(res => {
         this.setState({

@@ -1,36 +1,42 @@
+SET FOREIGN_KEY_CHECKS=0;
 /***********************************************************************************************
 REFERENCE TABLES
 ***********************************************************************************************/
 
-CREATE TABLE IF NOT EXISTS GenderType
+DROP TABLE IF EXISTS GenderType;
+CREATE TABLE GenderType
 (
   GenderID INT NOT NULL AUTO_INCREMENT,
   GenderType VARCHAR(254) NOT NULL,
   CONSTRAINT PK_GenderType_GenderID PRIMARY KEY (GenderID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS EducationType
+DROP TABLE IF EXISTS EducationType;
+CREATE TABLE EducationType
 (
   EducationID INT NOT NULL AUTO_INCREMENT,
   EducationType VARCHAR(254) NOT NULL,
   CONSTRAINT PK_EducationType_EducationID PRIMARY KEY (EducationID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS StudyType
+DROP TABLE IF EXISTS StudyType;
+CREATE TABLE StudyType
 (
   StudyID INT NOT NULL AUTO_INCREMENT,
   StudyType VARCHAR(254) NOT NULL,
   CONSTRAINT PK_StudyType_StudyID PRIMARY KEY (StudyID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS ReligionType
+DROP TABLE IF EXISTS ReligionType;
+CREATE TABLE ReligionType
 (
   ReligionID INT NOT NULL AUTO_INCREMENT,
   ReligionType VARCHAR(254) NOT NULL,
   CONSTRAINT PK_ReligionType_ReligionID PRIMARY KEY (ReligionID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS InterestsType
+DROP TABLE IF EXISTS InterestsType;
+CREATE TABLE InterestsType
 (
   InterestID INT NOT NULL AUTO_INCREMENT,
   InterestType VARCHAR(254) NOT NULL,
@@ -41,7 +47,8 @@ CREATE TABLE IF NOT EXISTS InterestsType
 USER TABLES
 ***********************************************************************************************/
 
-CREATE TABLE IF NOT EXISTS Users
+DROP TABLE IF EXISTS Users;
+CREATE TABLE Users
 (
   UserID INT NOT NULL AUTO_INCREMENT,
   UserEmail VARCHAR(254) NOT NULL,
@@ -49,7 +56,8 @@ CREATE TABLE IF NOT EXISTS Users
   CONSTRAINT PK_Users_UserID PRIMARY KEY (UserID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS UsersInfo
+DROP TABLE IF EXISTS UsersInfo;
+CREATE TABLE UsersInfo
 (
   UserID INT NOT NULL,
   UserName VARCHAR(254) NOT NULL,
@@ -65,7 +73,8 @@ CREATE TABLE IF NOT EXISTS UsersInfo
   CONSTRAINT FK_UsersInfo_ReligionType_ReligionID FOREIGN KEY (ReligionID) REFERENCES ReligionType(ReligionID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS UserPicture
+DROP TABLE IF EXISTS UserPicture;
+CREATE TABLE UserPicture
 (
   PictureID INT NOT NULL AUTO_INCREMENT,
   UserID INT NOT NULL,
@@ -79,7 +88,8 @@ CREATE TABLE IF NOT EXISTS UserPicture
 MEMBERSHIP TABLES
 ***********************************************************************************************/
 
-CREATE TABLE IF NOT EXISTS UserPreference
+DROP TABLE IF EXISTS UserPreference;
+CREATE TABLE UserPreference
 (
   UserID INT NOT NULL,
   GenderID INT NOT NULL,
@@ -87,7 +97,8 @@ CREATE TABLE IF NOT EXISTS UserPreference
   CONSTRAINT FK_Preference_GenderType_GenderID FOREIGN KEY (GenderID) REFERENCES GenderType(GenderID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS UserStudy
+DROP TABLE IF EXISTS UserStudy;
+CREATE TABLE UserStudy
 (
   UserID INT NOT NULL,
   StudyID INT NOT NULL,
@@ -97,21 +108,25 @@ CREATE TABLE IF NOT EXISTS UserStudy
   CONSTRAINT FK_UserStudy_EducationType_EducationID FOREIGN KEY (EducationID) REFERENCES EducationType(EducationID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS Likes
+DROP TABLE IF EXISTS Likes;
+CREATE TABLE Likes
 (
   User1ID INT NOT NULL,
   User2ID INT NOT NULL,
   UserAction CHAR NOT NULL,
-  ActionDate TIMESTAMP NOT NULL,
+  ActionDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   CONSTRAINT PK_Likes_User1ID_User2ID PRIMARY KEY (User1ID, User2ID),
   CONSTRAINT FK_Likes_Users_User1ID FOREIGN KEY (User1ID) REFERENCES Users(UserID),
   CONSTRAINT FK_Likes_Users_User2ID FOREIGN KEY (User2ID) REFERENCES Users(UserID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS UserInterests
+DROP TABLE IF EXISTS UserInterests;
+CREATE TABLE UserInterests
 (
  UserID INT NOT NULL,
  InterestID INT NOT NULL,
  CONSTRAINT FK_UserInterests_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID),
  CONSTRAINT FK_UserInterests_InterestsType_InterestID FOREIGN KEY (InterestID) REFERENCES InterestsType(InterestID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+SET FOREIGN_KEY_CHECKS=1;

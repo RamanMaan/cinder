@@ -5,7 +5,11 @@
     "client": "cd ../client && npm start && npm run watch-css",
     "server": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "build:testdata": "node db/utils/generateTestData.js",
+    "db:build": "node db/utils/build_db.js",
+    "db:addTestData": "node db/utils/add_test_data.js",
+    "db:dev": "node db/utils/build_db.js && node db/utils/add_test_data.js"
   },
   "description": "",
   "main": "server.js",
@@ -21,7 +25,8 @@
     "dotenv": "^5.0.0",
     "express": "^4.16.2",
     "mysql": "^2.15.0",
-    "promise-mysql": "^3.2.0"
+    "promise-mysql": "^3.2.0",
+    "require-sql": "^1.0.0"
   },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.2",
@@ -29,7 +34,6 @@
     "eslint": "^4.16.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
-    "gulp": "^3.9.1",
     "husky": "^0.14.3",
     "lint-staged": "^6.0.0",
     "nodemon": "^1.14.11",

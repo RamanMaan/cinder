@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+
+import Auth from '../utils/authService';
 import Matches from './Matches';
 import Navbar from '../components/NavigationBar';
 
@@ -8,7 +10,10 @@ class Home extends Component {
   render() {
     return (
       <div className="HomeContent">
-        <Navbar />
+        <Navbar
+          userIcon={Auth.loggedInUser.img}
+          userName={Auth.loggedInUser.userName}
+        />
         <Matches />
       </div>
     );

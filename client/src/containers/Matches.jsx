@@ -5,6 +5,7 @@ import './styles/Matches.css';
 import PotentialMatch from './PotentialMatch';
 import MatchesList from '../components/MatchesList';
 import UserDetail from '../components/UserDetail';
+import Auth from '../utils/authService';
 
 class Matches extends Component {
   constructor(props) {
@@ -29,8 +30,7 @@ class Matches extends Component {
   }
 
   fetchUserDetail(id) {
-    const loggedInUserID = 1;
-    fetch(`/api/users/${loggedInUserID}/matches/${id}`)
+    fetch(`/api/users/${Auth.loggedInUser.id}/matches/${id}`)
       .then(res => res.json())
       .then(res => res[0])
       .then(res => {
@@ -50,8 +50,7 @@ class Matches extends Component {
   }
 
   fetchUserMatches() {
-    const loggedInUserID = 1;
-    fetch(`/api/users/${loggedInUserID}/matches`)
+    fetch(`/api/users/${Auth.loggedInUser.id}/matches`)
       .then(res => res.json())
       .then(res => {
         this.setState({
