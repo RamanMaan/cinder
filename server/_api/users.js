@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 const mysql = require('promise-mysql');
 const util = require('./util');
+const responses = require('./responses');
 
 const MYSQLDB = {
   host: process.env.DB_HOST,
@@ -14,7 +15,7 @@ const MYSQLDB = {
 };
 
 router.post('/login', (req, res) => {
-  res.status(200).json({ id: 1 });
+  res.status(responses.SUCCESS).json({ id: 1 });
 });
 
 router.get('/', (req, res) => {
@@ -25,14 +26,14 @@ router.get('/', (req, res) => {
       return rows;
     })
     .then((rows) => {
-      res.status(200).json(rows);
+      res.status(responses.SUCCESS).json(rows);
     }).catch(err => console.error(err));
 });
 
 router.get('/:userID', (req, res) => {
   const { userID } = req.params;
   if (util.invalidID(userID)) {
-    return res.status(400).json({ response: 'Invalid user ID' });
+    return res.status(responses.BAD_REQUEST).json({ response: 'Invalid user ID' });
   }
 
   return mysql.createConnection(MYSQLDB)
@@ -41,17 +42,17 @@ router.get('/:userID', (req, res) => {
       conn.end();
       return rows;
     })
-    .then(rows => res.status(200).json(rows))
+    .then(rows => res.status(responses.SUCCESS).json(rows))
     .catch((err) => {
       console.error(err);
-      return res.status(500);
+      return res.status(responses.SERVER_ERROR);
     });
 });
 
 router.get('/:userID/potentials', (req, res) => {
   const { userID } = req.params;
   if (util.invalidID(userID)) {
-    return res.status(400).json({ response: 'Invalid user ID' });
+    return res.status(responses.BAD_REQUEST).json({ response: 'Invalid user ID' });
   }
 
   return mysql.createConnection(MYSQLDB)
@@ -79,10 +80,10 @@ router.get('/:userID/potentials', (req, res) => {
       conn.end();
       return rows;
     })
-    .then(rows => res.status(200).json(rows))
+    .then(rows => res.status(responses.SUCCESS).json(rows))
     .catch((err) => {
       console.error(err);
-      return res.status(500);
+      return res.status(responses.SERVER_ERROR);
     });
 });
 
