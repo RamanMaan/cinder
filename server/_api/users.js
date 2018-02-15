@@ -4,6 +4,7 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('promise-mysql');
+const util = require('./util');
 
 const MYSQLDB = {
   host: process.env.DB_HOST,
@@ -11,8 +12,6 @@ const MYSQLDB = {
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
 };
-
-const ID_REGEX =  /^[0-9]*$/;
 
 router.post('/login', (req, res) => {
   res.status(200).json({ id: 1 });
@@ -32,7 +31,7 @@ router.get('/', (req, res) => {
 
 router.get('/:userID', (req, res) => {
   const { userID } = req.params;
-  if (!userID.match(ID_REGEX)) {
+  if (util.invalidID(userID)) {
     return res.status(400).json({ response: 'Invalid user ID' });
   }
 
@@ -51,7 +50,7 @@ router.get('/:userID', (req, res) => {
 
 router.get('/:userID/potentials', (req, res) => {
   const { userID } = req.params;
-  if (!userID.match(ID_REGEX)) {
+  if (util.invalidID(userID)) {
     return res.status(400).json({ response: 'Invalid user ID' });
   }
 

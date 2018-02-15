@@ -4,6 +4,7 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 const mysql = require('promise-mysql');
+const util = require('./util');
 
 const MYSQLDB = {
   host: process.env.DB_HOST,
@@ -12,13 +13,9 @@ const MYSQLDB = {
   database: process.env.DB_NAME,
 };
 
-const ID_REGEX =  /^[0-9]*$/;
-const MATCH_ACTION_REGEX = /(like|pass)/i;
-const MATCH_ACTION_LIKE_REGEX = /like/i;
-
 router.get('/', (req, res) => {
   const { userID } = req.params;
-  if (!userID.match(ID_REGEX)) {
+  if (util.invalidID(userID)) {
     return res.status(400).json({ response: 'Invalid user ID' });
   }
 
@@ -56,7 +53,7 @@ router.get('/', (req, res) => {
 
 router.get('/:matchUserID', (req, res) => {
   const { userID, matchUserID } = req.params;
-  if (!userID.match(ID_REGEX) || !matchUserID.match(ID_REGEX)) {
+  if (util.invalidID(userID) || util.invalidID(matchUserID)) {
     return res.status(400).json({ response: 'Invalid ID' });
   }
 
@@ -97,17 +94,17 @@ router.get('/:matchUserID', (req, res) => {
 router.post('/:matchUserID/:action', (req, res) => {
   const { userID, matchUserID, action } = req.params;
 
-  if (!userID.match(ID_REGEX)) {
+  if (util.invalidID(userID)) {
     return res.status(400).json({ response: 'Invalid user ID' });
   }
-  if (!matchUserID.match(ID_REGEX)) {
+  if (util.invalidID(matchUserID)) {
     return res.status(400).json({ response: 'Invalid match user ID' });
   }
-  if (!action.match(MATCH_ACTION_REGEX)) {
+  if (util.invalidMatchAction(action)) {
     return res.status(400).json({ response: 'Invalid match action' });
   }
 
-  const userAction = action.match(MATCH_ACTION_LIKE_REGEX) ? 'L' : 'P';
+  const userAction = action.match(/like/i) ? 'L' : 'P';
   let connection;
 
   return mysql.createConnection(MYSQLDB)
