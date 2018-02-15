@@ -6,6 +6,7 @@
  * Success codes - 2xx
  */
 const SUCCESS = 200;
+const CREATED = 201;
 
 /**
  * Client errors - 4xx
@@ -20,5 +21,5 @@ const NOT_FOUND = 404;
 const SERVER_ERROR = 500;
 
 module.exports = {
-  SUCCESS, BAD_REQUEST, FORBIDDEN, NOT_FOUND, SERVER_ERROR
+  SUCCESS, CREATED, BAD_REQUEST, FORBIDDEN, NOT_FOUND, SERVER_ERROR
 };
