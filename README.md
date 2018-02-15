@@ -19,7 +19,7 @@ Project Structure
 |   └── _api/
 |       ├── _api.js                     # api controller - this controls api routes/endpoints
 |       └── user.js                     # user related endpoints
-├── client/                             # contains our client-side code
+├── web/                                # contains our web-client code
 |   ├── public/
 |   |   ├── index.html                  # the root page of the React app
 |   |   └── manifest.json               # contains config options for android devices
@@ -73,7 +73,7 @@ To run server:
 
 To run web client:
 
-    cd client
+    cd web
     npm start
 
 To run mobile client:
