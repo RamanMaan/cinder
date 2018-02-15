@@ -124,7 +124,7 @@ request.get({ uri: URI })
   .then((users) => {
     const matchedUsers = users.filter(x => (x.id % 3 === 0));
     const matches = matchedUsers.reduce((totalMatches, curr, i, arr) => {
-      const set = arr.filter(x => x.id % 3 === i % 5).reduce((setMatches, x) => {
+      const set = arr.filter(x => x.id % 3 === i % 3).reduce((setMatches, x) => {
         if (x.name === curr.name) return setMatches;
         return [new MatchMaker(x, curr), ...setMatches];
       }, []);
