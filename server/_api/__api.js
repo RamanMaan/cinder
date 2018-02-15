@@ -5,9 +5,9 @@ const router = express.Router();
 /**
  * Collection of different API endpoints organized by data model
  */
-const userEndpoints = require('./users');
-const matchEndpoints = require('./matches');
-const refEndpoints = require('./ref');
+const userEndpoints = require('./__users');
+const matchEndpoints = require('./__matches');
+const refEndpoints = require('./__ref');
 
 /**
  * Attach endpoints to route
