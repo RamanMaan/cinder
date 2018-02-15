@@ -25,7 +25,7 @@ router.get('/:matchUserID', (req, res, next) => {
   }
 
   return matchesDB.getMatch(userID, matchUserID)
-    .then(user => res.status(responses.SUCCESS).json(user))
+    .then(user => res.status(responses.SUCCESS).json(user[0]))
     .catch(next);
 });
 
@@ -46,7 +46,7 @@ router.get('/:matchUserID/:action', (req, res, next) => {
 
   return matchesDB.addUserSwipe(userID, matchUserID, userAction)
     .then(() => matchesDB.haveUsersMatched(userID, matchUserID))
-    .then(result => res.status(responses.CREATED).json(result))
+    .then(result => res.status(responses.CREATED).json(result[0]))
     .catch(next);
 });
 

@@ -7,10 +7,6 @@ const usersDB = require('./db/users');
 const util = require('./util');
 const responses = require('./responses');
 
-router.post('/login', (req, res) => {
-  res.status(responses.SUCCESS).json({ id: 1 });
-});
-
 router.get('/', (req, res, next) => {
   return usersDB.getUsers()
     .then((users) => res.status(responses.SUCCESS).json(users))
@@ -24,7 +20,7 @@ router.get('/:userID', (req, res, next) => {
   }
 
   return usersDB.getUser(userID)
-    .then(user => res.status(responses.SUCCESS).json(user))
+    .then(user => res.status(responses.SUCCESS).json(user[0]))
     .catch(next);
 });
 

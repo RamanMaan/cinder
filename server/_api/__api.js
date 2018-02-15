@@ -8,6 +8,7 @@ const router = express.Router();
 const userEndpoints = require('./__users');
 const matchEndpoints = require('./__matches');
 const refEndpoints = require('./__ref');
+const tasks = require('./__tasks');
 
 /**
  * Attach endpoints to route
@@ -15,5 +16,6 @@ const refEndpoints = require('./__ref');
 router.use('/users', userEndpoints);
 router.use('/users/:userID/matches', matchEndpoints);
 router.use('/ref', refEndpoints);
+router.use('/', tasks);
 
 module.exports = router;

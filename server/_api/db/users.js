@@ -16,7 +16,7 @@ module.exports = {
   getUsers() {
     return mysql.createConnection(MYSQLDB)
       .then((conn) => {
-        const rows = conn.query('SELECT * FROM Users');
+        const rows = conn.query('SELECT * FROM UsersInfo');
         conn.end();
         return rows;
       });
@@ -25,7 +25,7 @@ module.exports = {
   getUser(id) {
     return mysql.createConnection(MYSQLDB)
       .then((conn) => {
-        const rows = conn.query('SELECT * FROM Users WHERE UserID = ?', [id]);
+        const rows = conn.query('SELECT * FROM UsersInfo WHERE UserID = ?', [id]);
         conn.end();
         return rows;
       });
