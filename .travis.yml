@@ -7,16 +7,17 @@ cache:
   directories:
   - node_modules
 before_script:
-  - cd client
+  - cd web
   - npm install
   - npm run build-css
   - cd ../server
   - npm install
+  - npm run db:dev
   - cd ../mobile
   - npm install
   - cd ..
 script:
-  - cd client
+  - cd web
   - npm test
   - npm run build
   - cd ../mobile

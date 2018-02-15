@@ -2,9 +2,9 @@
   "name": "cinder",
   "version": "0.1.0",
   "scripts": {
-    "client": "cd ../client && npm start && npm run watch-css",
+    "web": "cd ../web && npm start && npm run watch-css",
     "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run web\"",
     "precommit": "lint-staged",
     "build:testdata": "node db/utils/generateTestData.js",
     "db:build": "node db/utils/build_db.js",
