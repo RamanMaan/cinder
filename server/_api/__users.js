@@ -35,7 +35,7 @@ router.get('/:userID/potentials', (req, res, next) => {
   }
 
   return usersDB.getUserPotentials(userID)
-    .then(rows => res.status(responses.SUCCESS).json(rows))
+    .then(potentials => res.status(responses.SUCCESS).json(potentials))
     .catch(next);
 });
 
