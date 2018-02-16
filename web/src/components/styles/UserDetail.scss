@@ -23,7 +23,7 @@ $button-spacing: 5em;
 
 $navbar-height: 62px;
 $back-button-height: 5em;
-$height-offset: $navbar-height + 2em;
+$height-offset: calc(#{$navbar-height} + 2em);
 
 .UserDetail {
   height: calc(100% - #{$height-offset});
