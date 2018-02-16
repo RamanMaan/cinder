@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Button, Container, Row, Col } from 'reactstrap';
 
-import './styles/Matches.css';
+import './styles/Home.css';
 import PotentialMatch from './PotentialMatch';
 import MatchesList from '../components/MatchesList';
 import UserDetail from '../components/UserDetail';
 import Auth from '../utils/authService';
 
-class Matches extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
 
@@ -86,7 +86,7 @@ class Matches extends Component {
       );
     }
     return (
-      <div className="Matches">
+      <div className="Home">
         <Container fluid>
           <Row className="full">
             <Col sm="4">
@@ -103,4 +103,4 @@ class Matches extends Component {
   }
 }
 
-export default Matches;
+export default Home;

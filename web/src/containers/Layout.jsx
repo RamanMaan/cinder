@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Auth from '../utils/authService';
-import Matches from './Matches';
+import Home from './Home';
 import Navbar from '../components/NavigationBar';
 
 import './styles/Layout.css';
@@ -14,7 +14,7 @@ class Layout extends Component {
           userIcon={Auth.loggedInUser.img}
           userName={Auth.loggedInUser.userName}
         />
-        <Matches />
+        <Home />
       </div>
     );
   }

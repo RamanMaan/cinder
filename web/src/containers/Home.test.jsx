@@ -6,10 +6,10 @@ import sinon from 'sinon';
 import fetchMock from 'fetch-mock';
 
 import App from './App';
-import Matches from './Matches';
+import Home from './Home';
 import MatchesList from '../components/MatchesList';
 import PotentialMatch from './PotentialMatch';
-describe('<Matches />', () => {
+describe('<Home />', () => {
   const testMatches = [
     {
       userName: 'Some Name 1',
@@ -51,12 +51,12 @@ describe('<Matches />', () => {
 
   it('renders without crashing', () => {
     // simple smoke test
-    shallow(<Matches />);
-    mount(<Matches />);
+    shallow(<Home />);
+    mount(<Home />);
   });
 
   it('renders correctly', () => {
-    const component = renderer.create(<Matches />).toJSON();
+    const component = renderer.create(<Home />).toJSON();
 
     expect(component).toMatchSnapshot();
   });
@@ -67,7 +67,7 @@ describe('<Matches />', () => {
         <App />
       </MemoryRouter>
     );
-    expect(wrapper.find(Matches)).toHaveLength(1);
+    expect(wrapper.find(Home)).toHaveLength(1);
   });
 
   it('should show the <MatchesList /> component be default', () => {
