@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import './styles/App.css';
 
-import Home from './Home';
+import Layout from './Layout';
 import Login from './Login';
 import Signup from './Signup';
 
@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <div className="App">
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/" component={Layout} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
         </Switch>

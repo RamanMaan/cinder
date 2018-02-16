@@ -4,12 +4,12 @@ import Auth from '../utils/authService';
 import Matches from './Matches';
 import Navbar from '../components/NavigationBar';
 
-import './styles/Home.css';
+import './styles/Layout.css';
 
-class Home extends Component {
+class Layout extends Component {
   render() {
     return (
-      <div className="HomeContent">
+      <div className="LayoutContent">
         <Navbar
           userIcon={Auth.loggedInUser.img}
           userName={Auth.loggedInUser.userName}
@@ -20,4 +20,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Layout;
