@@ -31,7 +31,7 @@ module.exports = {
       });
   },
 
-  getUserPotentials(id) {
+  getUserRecommendations(id) {
     return mysql.createConnection(MYSQLDB)
       .then((conn) => {
         const query = mysql.format(`

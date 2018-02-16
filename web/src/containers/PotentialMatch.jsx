@@ -47,7 +47,7 @@ export default class PotentialMatch extends Component {
   }
 
   fetchPotentialMatches() {
-    fetch(`/api/users/${Auth.loggedInUser.id}/potentials`)
+    fetch(`/api/users/${Auth.loggedInUser.id}/recommendations`)
       .then(res => res.json())
       .then(res => {
         this.setState({

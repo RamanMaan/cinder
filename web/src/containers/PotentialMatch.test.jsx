@@ -45,7 +45,7 @@ describe('<PotentialMatch />', () => {
     fetchMock.reset();
     fetchMock.restore();
     fetchMock.get(/\/api\/users\/[0-9]*\/matches/, []);
-    fetchMock.get(/\/api\/users\/[0-9]*\/potentials/, testPotentialMatches);
+    fetchMock.get(/\/api\/users\/[0-9]*\/recommendations/, testPotentialMatches);
   });
 
   afterAll(() => {

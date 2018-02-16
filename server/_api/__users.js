@@ -22,12 +22,12 @@ router.get('/:userID', (req, res, next) => {
     .catch(next);
 });
 
-router.get('/:userID/potentials', (req, res, next) => {
+router.get('/:userID/recommendations', (req, res, next) => {
   const { userID } = req.params;
   util.validateID(userID);
 
-  return usersDB.getUserPotentials(userID)
-    .then(potentials => res.status(responses.SUCCESS).json(potentials))
+  return usersDB.getUserRecommendations(userID)
+    .then(recommendations => res.status(responses.SUCCESS).json(recommendations))
     .catch(next);
 });
 
