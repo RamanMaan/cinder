@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Container, Row, Col } from 'reactstrap';
 
 import './styles/Home.css';
-import PotentialMatch from './PotentialMatch';
+import Recommendation from './Recommendation';
 import MatchesList from '../components/MatchesList';
 import UserDetail from '../components/UserDetail';
 import Auth from '../utils/authService';
@@ -69,7 +69,7 @@ class Home extends Component {
     let rightPane = null;
 
     if (!this.state.userDetail) {
-      rightPane = <PotentialMatch />;
+      rightPane = <Recommendation />;
     } else {
       rightPane = (
         <div>

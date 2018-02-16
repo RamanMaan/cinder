@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button } from 'reactstrap';
-import './styles/PotentialMatchDetail.css';
+import './styles/RecommendationDetail.css';
 
-export default class PotentialMatchDetail extends React.Component {
+export default class RecommendationDetail extends React.Component {
   render() {
     if (!this.props.potentialMatchDetail) {
       return (

@@ -6,10 +6,10 @@ import sinon from 'sinon';
 import fetchMock from 'fetch-mock';
 
 import App from './App';
-import PotentialMatch from './PotentialMatch';
-import PotentialMatchDetail from '../components/PotentialMatchDetail';
+import Recommendation from './Recommendation';
+import RecommendationDetail from '../components/RecommendationDetail';
 
-describe('<PotentialMatch />', () => {
+describe('<Recommendation />', () => {
   const testPotentialMatches = [
     {
       userName: 'Some Name 1',
@@ -55,22 +55,22 @@ describe('<PotentialMatch />', () => {
 
   it('renders without crashing', () => {
     // simple smoke test
-    shallow(<PotentialMatch />);
-    mount(<PotentialMatch />);
+    shallow(<Recommendation />);
+    mount(<Recommendation />);
   });
 
-  it('should show the <PotentialMatch /> component by default', () => {
+  it('should show the <Recommendation /> component by default', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={['']}>
         <App />
       </MemoryRouter>
     );
 
-    expect(wrapper.find(PotentialMatch)).toHaveLength(1);
+    expect(wrapper.find(Recommendation)).toHaveLength(1);
   });
 
   it('renders with empty props correctly', () => {
-    const component = renderer.create(<PotentialMatch />).toJSON();
+    const component = renderer.create(<Recommendation />).toJSON();
     expect(component).toMatchSnapshot();
   });
 });
