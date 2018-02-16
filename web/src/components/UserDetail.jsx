@@ -13,11 +13,17 @@ class UserDetail extends React.Component {
       <Button
         outline
         color="primary"
+        onClick={this.props.backButton}
       >Back to finding love</Button>
     ) : null;
 
     const contactComponent = this.props.matchDate ? (
-      <p className="contact detail">{'Phone: 111-222-3333'}</p>
+      <div>
+        <div className="divider">
+          <p>Contact Info</p>
+        </div>
+        <p className="contact detail">{'Phone: 111-222-3333'}</p>
+      </div>
     ) : null;
 
     const matchDateComponent = this.props.matchDate ? (
@@ -27,7 +33,7 @@ class UserDetail extends React.Component {
     ) : null;
 
     const matchBtns = this.props.matchBtns ? (
-      <div className="matchButtons">
+      <div className="matchBtns">
         <Button
           className="not"
           color="danger"
@@ -44,19 +50,26 @@ class UserDetail extends React.Component {
     ) : null;
 
     return (
-      <div className="UserDetail">
-        {backButtonComponent}
+      <div className="UserDetail container">
+        <div className="back">
+          {backButtonComponent}
+        </div>
 
-        <img
-          src={this.props.img}
-          alt=""
-        />
+        <div className="image">
+          <img
+            src={this.props.img}
+            alt=""
+          />
+        </div>
+
         <div className="header">
-          <h2 className="name">{this.props.name}</h2>
-          <h2 className="age">{this.props.age}</h2>
+          <h2 >{`${this.props.name}, ${this.props.age}`}</h2>
         </div>
 
         <div className="details">
+          <div className="divider">
+            <p>User Bio</p>
+          </div>
           <p className="bio detail">{this.props.bio}</p>
           {contactComponent}
         </div>

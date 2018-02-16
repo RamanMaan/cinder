@@ -12,7 +12,7 @@ class Home extends Component {
     super(props);
 
     this.fetchUserDetail = this.fetchUserDetail.bind(this);
-    this.onBackButtonClick = this.onBackButtonClick.bind(this);
+
     this.state = {
       matches: [],
       userDetail: false,
@@ -72,23 +72,14 @@ class Home extends Component {
       rightPane = <Recommendation />;
     } else {
       rightPane = (
-        <div>
-          <Button
-            outline
-            color="primary"
-            className="BackButton"
-            onClick={() => this.onBackButtonClick()}
-          >
-            Back
-          </Button>
-          <UserDetail
-            img={this.state.userDetail.userPics}
-            name={this.state.userDetail.name}
-            age={this.state.userDetail.userAge}
-            bio={this.state.userDetail.userBio}
-            matchDate={this.state.userDetail.matchTime}
-          />
-        </div>
+        <UserDetail
+          img={this.state.userDetail.userPics}
+          name={this.state.userDetail.userName}
+          age={this.state.userDetail.userAge}
+          bio={this.state.userDetail.userBio}
+          matchDate={this.state.userDetail.matchTime}
+          backButton={this.onBackButtonClick.bind(this)}
+        />
       );
     }
     return (

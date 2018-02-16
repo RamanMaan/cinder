@@ -2,25 +2,36 @@
 
 exports[`<UserDetail /> renders with empty props correctly 1`] = `
 <div
-  className="UserDetail"
+  className="UserDetail container"
 >
-  <img
-    alt=""
-    src={undefined}
+  <div
+    className="back"
   />
+  <div
+    className="image"
+  >
+    <img
+      alt=""
+      src={undefined}
+    />
+  </div>
   <div
     className="header"
   >
-    <h2
-      className="name"
-    />
-    <h2
-      className="age"
-    />
+    <h2>
+      undefined, undefined
+    </h2>
   </div>
   <div
     className="details"
   >
+    <div
+      className="divider"
+    >
+      <p>
+        User Bio
+      </p>
+    </div>
     <p
       className="bio detail"
     />
@@ -30,25 +41,36 @@ exports[`<UserDetail /> renders with empty props correctly 1`] = `
 
 exports[`<UserDetail /> renders with props correctly 1`] = `
 <div
-  className="UserDetail"
+  className="UserDetail container"
 >
-  <img
-    alt=""
-    src={undefined}
+  <div
+    className="back"
   />
+  <div
+    className="image"
+  >
+    <img
+      alt=""
+      src={undefined}
+    />
+  </div>
   <div
     className="header"
   >
-    <h2
-      className="name"
-    />
-    <h2
-      className="age"
-    />
+    <h2>
+      undefined, undefined
+    </h2>
   </div>
   <div
     className="details"
   >
+    <div
+      className="divider"
+    >
+      <p>
+        User Bio
+      </p>
+    </div>
     <p
       className="bio detail"
     />
