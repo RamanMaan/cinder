@@ -21,12 +21,16 @@ $body-font-size: 20px;
 
 $button-spacing: 5em;
 
+$navbar-height: 62px;
+$back-button-height: 5em;
+$height-offset: $navbar-height + 2em;
+
 .UserDetail {
-  height: 100%;
+  height: calc(100% - #{$height-offset});
   width: 100%;
 
   .back {
-    margin-bottom: 5em;
+    margin-bottom: $back-button-height;
 
     button {
       position: absolute;

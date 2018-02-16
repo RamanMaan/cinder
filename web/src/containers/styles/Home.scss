@@ -1,6 +1,8 @@
+$navbar-height: 62px;
+
 .Home {
   display: flex;
-  height: 100%;
+  height: calc(100% - #{$navbar-height});
   width: 100%;
 
   .container-fluid {
