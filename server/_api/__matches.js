@@ -29,7 +29,7 @@ router.get('/:matchUserID', (req, res, next) => {
     .catch(next);
 });
 
-router.get('/:matchUserID/:action', (req, res, next) => {
+router.post('/:matchUserID/:action', (req, res, next) => {
   const { userID, matchUserID, action } = req.params;
 
   if (util.invalidID(userID)) {
