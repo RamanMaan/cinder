@@ -15,9 +15,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:userID', (req, res, next) => {
   const { userID } = req.params;
-  if (util.invalidID(userID)) {
-    return res.status(responses.BAD_REQUEST).json({ response: 'Invalid user ID' });
-  }
+  util.validateID(userID);
 
   return usersDB.getUser(userID)
     .then(user => res.status(responses.SUCCESS).json(user[0]))
@@ -26,9 +24,7 @@ router.get('/:userID', (req, res, next) => {
 
 router.get('/:userID/potentials', (req, res, next) => {
   const { userID } = req.params;
-  if (util.invalidID(userID)) {
-    return res.status(responses.BAD_REQUEST).json({ response: 'Invalid user ID' });
-  }
+  util.validateID(userID);
 
   return usersDB.getUserPotentials(userID)
     .then(potentials => res.status(responses.SUCCESS).json(potentials))
@@ -38,6 +34,16 @@ router.get('/:userID/potentials', (req, res, next) => {
 /**
  * Error handler
  */
+router.use((err, req, res, next) => {
+  if(err.message.indexOf('[INTERNAL]')) {
+    //eslint-disable-next-line no-console
+    console.error(err.message);
+    return res.status(responses.BAD_REQUEST).send(err.message);
+  }
+
+  next(err);
+});
+
 router.use((err, req, res, next) => {
   //eslint-disable-next-line no-console
   console.error(err.message);
