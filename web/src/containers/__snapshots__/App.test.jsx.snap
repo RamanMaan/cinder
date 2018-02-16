@@ -72,9 +72,13 @@ exports[`<App /> renders correctly 1`] = `
           <div
             className="col col-sm-8"
           >
-            <div>
-              <h1>
-                There's no one new around you.
+            <div
+              className="empty"
+            >
+              <h1
+                className="msg"
+              >
+                There's no one new around you :(
               </h1>
             </div>
           </div>

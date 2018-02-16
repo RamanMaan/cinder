@@ -81,7 +81,13 @@ class Home extends Component {
           >
             Back
           </Button>
-          <UserDetail userDetail={this.state.userDetail} />
+          <UserDetail
+            img={this.state.userDetail.userPics}
+            name={this.state.userDetail.name}
+            age={this.state.userDetail.userAge}
+            bio={this.state.userDetail.userBio}
+            matchDate={this.state.userDetail.matchTime}
+          />
         </div>
       );
     }

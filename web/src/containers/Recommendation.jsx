@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import RecommendationDetail from '../components/RecommendationDetail';
+import UserDetail from '../components/UserDetail';
 import Auth from '../utils/authService';
 
 export default class Recommendation extends Component {
@@ -11,7 +11,8 @@ export default class Recommendation extends Component {
 
     this.state = {
       potentialMatches: [],
-      matchIndex: 0
+      matchIndex: 0,
+      currRecommendation: {}
     };
   }
 
@@ -21,6 +22,7 @@ export default class Recommendation extends Component {
 
   incrementPotentialMatchIndex() {
     this.setState(prevIndex => ({ matchIndex: prevIndex.matchIndex + 1 }));
+    this.setState({ currRecommendation: this.state.potentialMatches[this.state.matchIndex]});
   }
 
   handlePass() {
@@ -35,6 +37,7 @@ export default class Recommendation extends Component {
 
   submitUserAction(userAction) {
     const matchedUser = this.state.potentialMatches[this.state.matchIndex].id;
+    console.log(`Doing Action ${userAction} on ${this.state.currRecommendation.name}`);
 
     fetch(`/api/users/${Auth.loggedInUser.id}/matches/${matchedUser}/${userAction}`, { method: 'POST' })
       .then(res => res.json())
@@ -53,11 +56,13 @@ export default class Recommendation extends Component {
         this.setState({
           potentialMatches: res.map(x => ({
             id: x.userID,
-            title: x.userName,
+            name: x.userName,
             age: x.age,
-            img: x.primaryPic
+            img: x.primaryPic,
+            bio: x.userBio
           }))
         });
+        this.setState({ currRecommendation: this.state.potentialMatches[this.state.matchIndex]});
       })
       .catch(err => console.error(err));
   }
@@ -65,23 +70,25 @@ export default class Recommendation extends Component {
   render() {
     if (!this.state.potentialMatches.length) {
       return (
-        <div>
-          <h1>There's no one new around you.</h1>
+        <div className="empty">
+          <h1 className="msg">There's no one new around you :(</h1>
         </div>
       );
     }
 
+    const {img, name, age, bio} = this.state.currRecommendation;
+
     return (
-      <div className="PotentialMatchDetailContainer">
-        <RecommendationDetail
-          potentialMatchDetail={
-            this.state.potentialMatches[this.state.matchIndex]
-          }
-          handlePass={this.handlePass.bind(this)}
-          handleLike={this.handleLike.bind(this)}
-        />
-        <br />
-      </div>
+      <UserDetail
+        img={img}
+        name={name}
+        age={age}
+        bio={bio}
+        matchBtns={{
+          handleLike: this.handleLike.bind(this),
+          handlePass: this.handlePass.bind(this)
+        }}
+      />
     );
   }
 }

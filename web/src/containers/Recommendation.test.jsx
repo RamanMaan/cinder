@@ -2,12 +2,10 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
-import sinon from 'sinon';
 import fetchMock from 'fetch-mock';
 
 import App from './App';
 import Recommendation from './Recommendation';
-import RecommendationDetail from '../components/RecommendationDetail';
 
 describe('<Recommendation />', () => {
   const testPotentialMatches = [
