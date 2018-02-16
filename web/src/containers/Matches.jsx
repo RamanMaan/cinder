@@ -32,7 +32,6 @@ class Matches extends Component {
   fetchUserDetail(id) {
     fetch(`/api/users/${Auth.loggedInUser.id}/matches/${id}`)
       .then(res => res.json())
-      .then(res => res[0])
       .then(res => {
         this.setState({
           userDetail: {
@@ -57,7 +56,7 @@ class Matches extends Component {
           matches: res.map(x => ({
             id: x.userID,
             title: x.userName,
-            subtitle: "You've just matched!",
+            subtitle: 'You\'ve just matched!',
             date: new Date(x.matchDate),
             img: x.primaryPic
           }))

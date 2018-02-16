@@ -36,12 +36,7 @@ export default class PotentialMatch extends Component {
   submitUserAction(userAction) {
     const matchedUser = this.state.potentialMatches[this.state.matchIndex].id;
 
-    fetch(
-      `/api/users/${Auth.loggedInUser.id}/matches/${matchedUser}/${userAction}`,
-      {
-        method: 'POST'
-      }
-    )
+    fetch(`/api/users/${Auth.loggedInUser.id}/matches/${matchedUser}/${userAction}`, { method: 'POST' })
       .then(res => res.json())
       .then(res => {
         this.setState({
