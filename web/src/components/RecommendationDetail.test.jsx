@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 
-import PotentialMatchDetail from './PotentialMatchDetail';
+import RecommendationDetail from './RecommendationDetail';
 
-describe('<PotentialMatchDetail />', () => {
+describe('<RecommendationDetail />', () => {
   const testData = {
     userName: 'Abc Defg',
     userAge: 22,
@@ -16,17 +16,17 @@ describe('<PotentialMatchDetail />', () => {
 
   it('renders without crashing', () => {
     // simple smoke test
-    shallow(<PotentialMatchDetail />);
+    shallow(<RecommendationDetail />);
   });
 
   it('renders with empty props correctly', () => {
-    const component = renderer.create(<PotentialMatchDetail />).toJSON();
+    const component = renderer.create(<RecommendationDetail />).toJSON();
     expect(component).toMatchSnapshot();
   });
 
   it('renders with props correctly', () => {
     const component = renderer
-      .create(<PotentialMatchDetail userDetail={testData} />)
+      .create(<RecommendationDetail userDetail={testData} />)
       .toJSON();
     expect(component).toMatchSnapshot();
   });

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PotentialMatch /> renders with empty props correctly 1`] = `
+exports[`<Recommendation /> renders with empty props correctly 1`] = `
 <div>
   <h1>
     There's no one new around you.

@@ -5,7 +5,7 @@ exports[`<App /> renders correctly 1`] = `
   className="App"
 >
   <div
-    className="HomeContent"
+    className="LayoutContent"
   >
     <div
       className="NavigationBar"
@@ -44,7 +44,7 @@ exports[`<App /> renders correctly 1`] = `
       </nav>
     </div>
     <div
-      className="Matches"
+      className="Home"
     >
       <div
         className="container-fluid"

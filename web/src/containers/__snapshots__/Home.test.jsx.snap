@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Matches /> renders correctly 1`] = `
+exports[`<Home /> renders correctly 1`] = `
 <div
-  className="Matches"
+  className="Home"
 >
   <div
     className="container-fluid"

@@ -6,10 +6,10 @@ import sinon from 'sinon';
 import fetchMock from 'fetch-mock';
 
 import App from './App';
-import Matches from './Matches';
+import Home from './Home';
 import MatchesList from '../components/MatchesList';
-import PotentialMatch from './PotentialMatch';
-describe('<Matches />', () => {
+import Recommendation from './Recommendation';
+describe('<Home />', () => {
   const testMatches = [
     {
       userName: 'Some Name 1',
@@ -41,7 +41,7 @@ describe('<Matches />', () => {
     fetchMock.reset();
     fetchMock.restore();
     fetchMock.get(/\/api\/users\/[0-9]*\/matches/, testMatches);
-    fetchMock.get(/\/api\/users\/[0-9]*\/potentials/, []);
+    fetchMock.get(/\/api\/users\/[0-9]*\/recommendations/, []);
   });
 
   afterAll(() => {
@@ -51,12 +51,12 @@ describe('<Matches />', () => {
 
   it('renders without crashing', () => {
     // simple smoke test
-    shallow(<Matches />);
-    mount(<Matches />);
+    shallow(<Home />);
+    mount(<Home />);
   });
 
   it('renders correctly', () => {
-    const component = renderer.create(<Matches />).toJSON();
+    const component = renderer.create(<Home />).toJSON();
 
     expect(component).toMatchSnapshot();
   });
@@ -67,7 +67,7 @@ describe('<Matches />', () => {
         <App />
       </MemoryRouter>
     );
-    expect(wrapper.find(Matches)).toHaveLength(1);
+    expect(wrapper.find(Home)).toHaveLength(1);
   });
 
   it('should show the <MatchesList /> component be default', () => {
@@ -79,7 +79,7 @@ describe('<Matches />', () => {
     expect(wrapper.find(MatchesList)).toHaveLength(1);
   });
 
-  it('should show the <PotentialMatch /> component be default', () => {
+  it('should show the <Recommendation /> component be default', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={['/']}>
         <App />
@@ -87,6 +87,6 @@ describe('<Matches />', () => {
     );
     wrapper.setState({ userDetail: false });
 
-    expect(wrapper.find(PotentialMatch)).toHaveLength(1);
+    expect(wrapper.find(Recommendation)).toHaveLength(1);
   });
 });

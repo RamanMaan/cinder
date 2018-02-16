@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import PotentialMatchDetail from '../components/PotentialMatchDetail';
+import RecommendationDetail from '../components/RecommendationDetail';
 import Auth from '../utils/authService';
 
-export default class PotentialMatch extends Component {
+export default class Recommendation extends Component {
   constructor(props) {
     super(props);
     this.fetchPotentialMatches = this.fetchPotentialMatches.bind(this);
@@ -36,12 +36,7 @@ export default class PotentialMatch extends Component {
   submitUserAction(userAction) {
     const matchedUser = this.state.potentialMatches[this.state.matchIndex].id;
 
-    fetch(
-      `/api/users/${Auth.loggedInUser.id}/matches/${matchedUser}/${userAction}`,
-      {
-        method: 'POST'
-      }
-    )
+    fetch(`/api/users/${Auth.loggedInUser.id}/matches/${matchedUser}/${userAction}`, { method: 'POST' })
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -52,7 +47,7 @@ export default class PotentialMatch extends Component {
   }
 
   fetchPotentialMatches() {
-    fetch(`/api/users/${Auth.loggedInUser.id}/potentials`)
+    fetch(`/api/users/${Auth.loggedInUser.id}/recommendations`)
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -78,7 +73,7 @@ export default class PotentialMatch extends Component {
 
     return (
       <div className="PotentialMatchDetailContainer">
-        <PotentialMatchDetail
+        <RecommendationDetail
           potentialMatchDetail={
             this.state.potentialMatches[this.state.matchIndex]
           }

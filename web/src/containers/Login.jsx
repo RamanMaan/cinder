@@ -28,7 +28,7 @@ class Login extends Component {
     e.preventDefault();
 
     this.setState({ loginBtnText: 'Logging In...' });
-    fetch('/api/user/login', {
+    fetch('/api/login', {
       method: 'POST',
       body: JSON.stringify({
         email: this.state.email,
@@ -46,8 +46,8 @@ class Login extends Component {
         this.setState({ loginBtnText: 'Log In' });
         // TODO - better errors for user - what went wrong?
         switch (err) {
-          default:
-            console.error(err);
+        default:
+          console.error(err);
         }
       });
   }
