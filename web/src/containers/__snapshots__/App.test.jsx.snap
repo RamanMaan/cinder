@@ -7,42 +7,49 @@ exports[`<App /> renders correctly 1`] = `
   <div
     className="LayoutContent"
   >
-    <div
-      className="NavigationBar"
+    <nav
+      className="navbar-expand-md navbar-dark navbar bg-primary"
     >
-      <nav
-        className="navbar bg-faded"
+      <a
+        className="navbar-brand"
+        href="/"
       >
-        <a
-          className="navbar-brand"
-          href="/"
-        >
-          cinder
-        </a>
+        cinder
+      </a>
+      <button
+        className="navbar-toggler"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          className="navbar-toggler-icon"
+        />
+      </button>
+      <div
+        className="collapse navbar-collapse"
+        style={Object {}}
+      >
         <ul
-          className="navItem navbar-nav"
+          className="ml-auto navbar-nav"
         >
           <li
             className="nav-item"
           >
-            <img
-              alt="User's Portrait"
-              className="UserImage"
-              src="https://i.scdn.co/image/f4509fe9c589c12be5470653178f901bd697b97b"
-            />
-          </li>
-          <li
-            className="nav-item"
-          >
-            <h5
-              className="UserName"
+            <a
+              className="nav-link"
+              href="#"
+              onClick={[Function]}
             >
+              <img
+                alt=""
+                src="https://i.scdn.co/image/f4509fe9c589c12be5470653178f901bd697b97b"
+              />
               Mac Miller
-            </h5>
+            </a>
           </li>
         </ul>
-      </nav>
-    </div>
+      </div>
+    </nav>
     <div
       className="Home"
     >
@@ -53,7 +60,7 @@ exports[`<App /> renders correctly 1`] = `
           className="full row"
         >
           <div
-            className="col col-sm-4"
+            className="col col-md-4 col-lg-3"
           >
             <div
               className="MatchesList"
@@ -70,11 +77,15 @@ exports[`<App /> renders correctly 1`] = `
             </div>
           </div>
           <div
-            className="col col-sm-8"
+            className="col col-md-8 col-lg-9"
           >
-            <div>
-              <h1>
-                There's no one new around you.
+            <div
+              className="empty"
+            >
+              <h1
+                className="msg"
+              >
+                There's no one new around you :(
               </h1>
             </div>
           </div>

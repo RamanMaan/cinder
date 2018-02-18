@@ -39,7 +39,8 @@ module.exports = {
             UI.UserID AS userID,
             UI.UserName AS userName,
             TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS age,
-            UP.PicturePath AS primaryPic
+            UP.PicturePath AS primaryPic,
+            UI.Bio AS userBio
           FROM UsersInfo UI
             LEFT JOIN UserPicture UP
               ON UI.UserID = UP.UserID

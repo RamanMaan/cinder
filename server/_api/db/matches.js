@@ -20,6 +20,7 @@ module.exports = {
           SELECT 
             L1.User2ID AS userID,
             UI.UserName AS userName,
+            UI.Bio as userBio,
             GREATEST(L1.ActionDate, L2.ActionDate) AS matchDate,
             UP.PicturePath AS primaryPic
           FROM Likes L1 

@@ -1,28 +1,46 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand, Nav, NavItem } from 'reactstrap';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink } from 'reactstrap';
 
 import './styles/NavigationBar.css';
 
 class NavigationBar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+  toggle() {
+    this.setState(prev => (
+      {isOpen: !prev.isOpen}
+    ));
+  }
+
   render() {
     return (
-      <div className="NavigationBar">
-        <Navbar color="faded">
-          <NavbarBrand href="/">cinder</NavbarBrand>
-          <Nav className="navItem" navbar>
+      <Navbar color="primary" className="navbar-expand-md navbar-dark">
+        <NavbarBrand href="/">cinder</NavbarBrand>
+        <NavbarToggler onClick={this.toggle} />
+        <Collapse isOpen={this.state.isOpen} navbar>
+          <Nav className="ml-auto" navbar>
             <NavItem>
-              <img
-                src={this.props.userIcon}
-                alt="User's Portrait"
-                className="UserImage"
-              />
-            </NavItem>
-            <NavItem>
-              <h5 className="UserName">{this.props.userName}</h5>
+              <NavLink href="#">
+                <img src={this.props.userIcon} alt=""/>
+                {this.props.userName}
+              </NavLink>
             </NavItem>
           </Nav>
-        </Navbar>
-      </div>
+        </Collapse>
+      </Navbar>
     );
   }
 }
