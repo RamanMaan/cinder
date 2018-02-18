@@ -56,7 +56,7 @@ class Home extends Component {
           matches: res.map(x => ({
             id: x.userID,
             title: x.userName,
-            subtitle: 'You\'ve just matched!',
+            subtitle: x.userBio,
             date: new Date(x.matchDate),
             img: x.primaryPic
           }))
