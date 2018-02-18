@@ -1,0 +1,19 @@
+$bg-color: #ddd;
+$empty-msg-color: #aaa;
+
+.empty {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  background-color: $bg-color;
+
+  padding: 1em;
+
+  justify-content: center;
+  align-items: center;
+
+  .msg {
+    color: $empty-msg-color;
+  }
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import UserDetail from '../components/UserDetail';
 import Auth from '../utils/authService';
 
+import './styles/Recommendation.css';
 export default class Recommendation extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +23,9 @@ export default class Recommendation extends Component {
 
   incrementPotentialMatchIndex() {
     this.setState(prevIndex => ({ matchIndex: prevIndex.matchIndex + 1 }));
-    this.setState({ currRecommendation: this.state.potentialMatches[this.state.matchIndex]});
+    this.setState({
+      currRecommendation: this.state.potentialMatches[this.state.matchIndex]
+    });
   }
 
   handlePass() {
@@ -37,9 +40,14 @@ export default class Recommendation extends Component {
 
   submitUserAction(userAction) {
     const matchedUser = this.state.potentialMatches[this.state.matchIndex].id;
-    console.log(`Doing Action ${userAction} on ${this.state.currRecommendation.name}`);
+    console.log(
+      `Doing Action ${userAction} on ${this.state.currRecommendation.name}`
+    );
 
-    fetch(`/api/users/${Auth.loggedInUser.id}/matches/${matchedUser}/${userAction}`, { method: 'POST' })
+    fetch(
+      `/api/users/${Auth.loggedInUser.id}/matches/${matchedUser}/${userAction}`,
+      { method: 'POST' }
+    )
       .then(res => res.json())
       .then(res => {
         this.setState({
@@ -62,7 +70,9 @@ export default class Recommendation extends Component {
             bio: x.userBio
           }))
         });
-        this.setState({ currRecommendation: this.state.potentialMatches[this.state.matchIndex]});
+        this.setState({
+          currRecommendation: this.state.potentialMatches[this.state.matchIndex]
+        });
       })
       .catch(err => console.error(err));
   }
@@ -76,7 +86,7 @@ export default class Recommendation extends Component {
       );
     }
 
-    const {img, name, age, bio} = this.state.currRecommendation;
+    const { img, name, age, bio } = this.state.currRecommendation;
 
     return (
       <UserDetail
