@@ -1,6 +1,8 @@
+import * as types from '../actions/actionTypes';
+
 export function matchesHasErrored(state = false, action) {
   switch (action.type) {
-    case 'MATCHES_ERROR':
+    case types.MATCHES_ERROR:
       return action.error;
 
     default:
@@ -10,7 +12,7 @@ export function matchesHasErrored(state = false, action) {
 
 export function matchesIsLoading(state = false, action) {
   switch (action.type) {
-    case 'MATCHES_LOADING':
+    case types.MATCHES_LOADING:
       return action.loading;
 
     default:
@@ -20,7 +22,7 @@ export function matchesIsLoading(state = false, action) {
 
 export function matches(state = [], action) {
   switch (action.type) {
-    case 'MATCHES_FETCH_SUCCESS':
+    case types.MATCHES_FETCH_SUCCESS:
       return action.matches;
 
     default:

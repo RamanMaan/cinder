@@ -1,20 +1,22 @@
+import * as types from './actionTypes';
+
 export function errored(bool) {
   return {
-    type: 'MATCHES_ERROR',
+    type: types.MATCHES_ERROR,
     error: bool
   };
 }
 
 export function loading(bool) {
   return {
-    type: 'MATCHES_LOADING',
+    type: types.MATCHES_LOADING,
     loading: bool
   };
 }
 
 export function fetchSuccess(data) {
   return {
-    type: 'MATCHES_FETCH_SUCCESS',
+    type: types.MATCHES_FETCH_SUCCESS,
     matches: data
   };
 }
