@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import UserDetail from '../components/UserDetail';
+import { connect } from 'react-redux';
+import { matchesFetchData } from '../actions';
 import Auth from '../utils/authService';
 
 import './styles/Recommendation.css';
-export default class Recommendation extends Component {
+import UserDetail from '../components/UserDetail';
+
+class Recommendation extends Component {
   constructor(props) {
     super(props);
     this.fetchPotentialMatches = this.fetchPotentialMatches.bind(this);
@@ -50,9 +53,10 @@ export default class Recommendation extends Component {
     )
       .then(res => res.json())
       .then(res => {
-        this.setState({
-          // TODO
-        });
+        // eslint-disable-next-line eqeqeq
+        if (res.matched == 'true') {
+          this.props.fetchMatches(`/api/users/${Auth.loggedInUser.id}/matches`);
+        }
       })
       .catch(err => console.error(err));
   }
@@ -102,3 +106,11 @@ export default class Recommendation extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({});
+
+const mapDispatchToProps = dispatch => ({
+  fetchMatches: uri => dispatch(matchesFetchData(uri))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Recommendation);

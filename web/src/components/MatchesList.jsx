@@ -33,7 +33,7 @@ class MatchesList extends Component {
 
     if (
       this.props.errored ||
-      this.props.loading ||
+      (this.props.loading && !this.props.matches.length) ||
       !this.props.matches.length
     ) {
       return (
