@@ -25,10 +25,6 @@ class Home extends Component {
     this.setState({ userDetail: false });
   }
 
-  componentDidMount() {
-    this.fetchUserMatches();
-  }
-
   fetchUserDetail(id) {
     fetch(`/api/users/${Auth.loggedInUser.id}/matches/${id}`)
       .then(res => res.json())
@@ -48,29 +44,9 @@ class Home extends Component {
       .catch(err => err);
   }
 
-  fetchUserMatches() {
-    fetch(`/api/users/${Auth.loggedInUser.id}/matches`)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          matches: res.map(x => ({
-            id: x.userID,
-            title: x.userName,
-            subtitle: x.userBio,
-            date: new Date(x.matchDate),
-            img: x.primaryPic
-          }))
-        });
-      })
-      .catch(err => console.error(err));
-  }
-
   render() {
     const leftPane = (
-      <MatchesList
-        matches={this.state.matches}
-        clickHandler={this.fetchUserDetail.bind(this)}
-      />
+      <MatchesList clickHandler={this.fetchUserDetail.bind(this)} />
     );
 
     const rightPane = this.state.userDetail ? (
@@ -82,7 +58,9 @@ class Home extends Component {
         matchDate={this.state.userDetail.matchTime}
         backButton={this.onBackButtonClick.bind(this)}
       />
-    ) : (<Recommendation />);
+    ) : (
+      <Recommendation />
+    );
 
     return (
       <div className="Home">
