@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { matchesFetchData } from '../actions';
+import {
+  matchesFetchData,
+  fetchRecommendations,
+  popRecommendation
+} from '../actions';
 import Auth from '../utils/authService';
 
 import './styles/Recommendation.css';
@@ -9,26 +13,23 @@ import UserDetail from '../components/UserDetail';
 class Recommendation extends Component {
   constructor(props) {
     super(props);
-    this.fetchPotentialMatches = this.fetchPotentialMatches.bind(this);
     this.handleLike = this.handleLike.bind(this);
     this.handlePass = this.handlePass.bind(this);
 
     this.state = {
-      potentialMatches: [],
       matchIndex: 0,
       currRecommendation: {}
     };
   }
 
   componentDidMount() {
-    this.fetchPotentialMatches();
+    this.props.fetchRecommends(
+      `/api/users/${Auth.loggedInUser.id}/recommendations`
+    );
   }
 
   incrementPotentialMatchIndex() {
-    this.setState(prevIndex => ({ matchIndex: prevIndex.matchIndex + 1 }));
-    this.setState({
-      currRecommendation: this.state.potentialMatches[this.state.matchIndex]
-    });
+    this.props.popRecommend();
   }
 
   handlePass() {
@@ -42,13 +43,13 @@ class Recommendation extends Component {
   }
 
   submitUserAction(userAction) {
-    const matchedUser = this.state.potentialMatches[this.state.matchIndex].id;
-    console.log(
-      `Doing Action ${userAction} on ${this.state.currRecommendation.name}`
-    );
+    const matchedUser = this.props.recommendations[0];
+    console.log(`Doing Action ${userAction} on ${matchedUser.userName}`);
 
     fetch(
-      `/api/users/${Auth.loggedInUser.id}/matches/${matchedUser}/${userAction}`,
+      `/api/users/${Auth.loggedInUser.id}/matches/${
+        matchedUser.userID
+      }/${userAction}`,
       { method: 'POST' }
     )
       .then(res => res.json())
@@ -61,36 +62,31 @@ class Recommendation extends Component {
       .catch(err => console.error(err));
   }
 
-  fetchPotentialMatches() {
-    fetch(`/api/users/${Auth.loggedInUser.id}/recommendations`)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          potentialMatches: res.map(x => ({
-            id: x.userID,
-            name: x.userName,
-            age: x.age,
-            img: x.primaryPic,
-            bio: x.userBio
-          }))
-        });
-        this.setState({
-          currRecommendation: this.state.potentialMatches[this.state.matchIndex]
-        });
-      })
-      .catch(err => console.error(err));
-  }
-
   render() {
-    if (!this.state.potentialMatches.length) {
+    const msg = this.props.loading
+      ? 'Loading...'
+      : !this.props.recommendations.length
+        ? "There's no one new around you :("
+        : 'There was an error loading matches';
+
+    if (
+      this.props.errored ||
+      this.props.loading ||
+      !this.props.recommendations.length
+    ) {
       return (
         <div className="empty">
-          <h1 className="msg">There's no one new around you :(</h1>
+          <h3 className="msg align-self-center">{msg}</h3>
         </div>
       );
     }
 
-    const { img, name, age, bio } = this.state.currRecommendation;
+    const {
+      primaryPic: img,
+      userName: name,
+      age,
+      userBio: bio
+    } = this.props.recommendations[0];
 
     return (
       <UserDetail
@@ -107,10 +103,16 @@ class Recommendation extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  recommendations: state.recommendations,
+  errored: state.recommendationsHasErrored,
+  loading: state.recommendationsIsLoading
+});
 
 const mapDispatchToProps = dispatch => ({
-  fetchMatches: uri => dispatch(matchesFetchData(uri))
+  fetchMatches: uri => dispatch(matchesFetchData(uri)),
+  fetchRecommends: uri => dispatch(fetchRecommendations(uri)),
+  popRecommend: () => dispatch(popRecommendation())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recommendation);
