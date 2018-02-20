@@ -6,7 +6,7 @@ import Auth from '../utils/authService';
 import MatchesListItem from '../components/MatchesListItem';
 import './styles/MatchesList.css';
 
-class MatchesList extends Component {
+export class MatchesList extends Component {
   constructor(props) {
     super(props);
 

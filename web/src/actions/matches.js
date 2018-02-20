@@ -1,20 +1,20 @@
 import * as types from './actionTypes';
 
-export function errored(bool) {
+export function matchesErrored(bool) {
   return {
     type: types.MATCHES_ERROR,
     error: bool
   };
 }
 
-export function loading(bool) {
+export function matchesLoading(bool) {
   return {
     type: types.MATCHES_LOADING,
     loading: bool
   };
 }
 
-export function fetchSuccess(data) {
+export function matchesFetchSuccess(data) {
   return {
     type: types.MATCHES_FETCH_SUCCESS,
     matches: data
@@ -23,17 +23,17 @@ export function fetchSuccess(data) {
 
 export function matchesFetchData(uri) {
   return dispatch => {
-    dispatch(loading(true));
+    dispatch(matchesLoading(true));
 
     fetch(uri)
       .then(res => {
         if (!res.ok) {
           throw Error(res.statusText);
         }
-        dispatch(loading(false));
+        dispatch(matchesLoading(false));
         return res.json();
       })
-      .then(data => dispatch(fetchSuccess(data)))
-      .catch(() => dispatch(errored(true)));
+      .then(data => dispatch(matchesFetchSuccess(data)))
+      .catch(() => dispatch(matchesErrored(true)));
   };
 }

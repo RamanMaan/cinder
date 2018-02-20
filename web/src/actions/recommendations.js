@@ -1,20 +1,20 @@
 import * as types from './actionTypes';
 
-export function errored(bool) {
+export function recErrored(bool) {
   return {
     type: types.REC_ERROR,
     error: bool
   };
 }
 
-export function loading(bool) {
+export function recLoading(bool) {
   return {
     type: types.REC_LOADING,
     loading: bool
   };
 }
 
-export function fetchSuccess(data) {
+export function recFetchSuccess(data) {
   return {
     type: types.REC_FETCH_SUCCESS,
     recommendations: data
@@ -23,18 +23,18 @@ export function fetchSuccess(data) {
 
 export function fetchRecommendations(uri) {
   return dispatch => {
-    dispatch(loading(true));
+    dispatch(recLoading(true));
 
     fetch(uri)
       .then(res => {
         if (!res.ok) {
           throw Error(res.statusText);
         }
-        dispatch(loading(false));
+        dispatch(recLoading(false));
         return res.json();
       })
-      .then(data => dispatch(fetchSuccess(data)))
-      .catch(() => dispatch(errored(true)));
+      .then(data => dispatch(recFetchSuccess(data)))
+      .catch(() => dispatch(recErrored(true)));
   };
 }
 

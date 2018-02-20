@@ -10,7 +10,7 @@ import Auth from '../utils/authService';
 import './styles/Recommendation.css';
 import UserDetail from '../components/UserDetail';
 
-class Recommendation extends Component {
+export class Recommendation extends Component {
   constructor(props) {
     super(props);
     this.handleLike = this.handleLike.bind(this);

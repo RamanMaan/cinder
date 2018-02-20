@@ -7,7 +7,7 @@ import MatchesList from '../components/MatchesList';
 import UserDetail from '../components/UserDetail';
 import Auth from '../utils/authService';
 
-class Home extends Component {
+export class Home extends Component {
   constructor(props) {
     super(props);
 
