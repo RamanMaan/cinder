@@ -1,63 +1,132 @@
-$empty-msg-color: #aaa;
-$userImage-maxWidth: 300px;
-$userImage-maxHeight: 200px;
-$userGender-maxWidth: 20px;
-$userGender-maxHeight: 20px;
-$text-auto-wrap-maxwidth: 500px;
-$text-auto-wrap-padding: 12px;
-$userAge-margin-right: 30px;
+$white: var(--white);
+$gray: var(--gray);
+$light: var(--light);
+$image-size: 300px;
+$border-size: 8px;
+
+$box-shadow-x: 2px;
+$box-shadow-y: 4px;
+$box-shadow-blur: 10px;
+$box-shadow-colour: rgba(0, 0, 0, 0.3);
+
+$hover-shadow-colour: rgba(0, 0, 0, 0.4);
+$hover-shadow-y: 6px;
+
+$box-shadow: $box-shadow-x $box-shadow-y $box-shadow-blur $box-shadow-colour;
+$hover-box-shadow: $box-shadow-x $hover-shadow-y $box-shadow-blur $box-shadow-colour;
+
+$spacing: 1em 0;
+
+$body-font-size: 20px;
+
+$button-spacing: 5em;
+
+$navbar-height: 62px;
+$back-button-height: 5em;
+$height-offset: calc(#{$navbar-height} + 2em);
 
 .UserDetail {
-  height: 100%;
+  height: calc(100% - #{$height-offset});
   width: 100%;
 
+  .back {
+    margin-bottom: $back-button-height;
+
+    button {
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: 1em;
+    }
+  }
+
+  .image {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+
+    margin-left: auto;
+    margin-right: auto;
+    
+    height: $image-size;
+    width: $image-size;
+    border-radius: 50%;
+
+    border: $border-size solid $white;
+    box-shadow: $box-shadow;
+
+    transition: box-shadow 150ms ease-out;
+
+    img {
+      width: calc(100% - #{$border-size});
+      height: calc(100% - #{$border-size});
+      border-radius: 50%;
+      background-color: $light;
+      object-fit: scale-down;
+    }
+
+    &:hover {
+      box-shadow: $hover-box-shadow;
+    }
+  }
+
+  .header {
+    font-weight: bold;
+    text-align: center;
+    margin: $spacing;
+  }
+
+  .details {
+    font-size: $body-font-size;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    & > .detail {
+      margin: $spacing;
+    }
+  }
+
+  .matchBtns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > button {
+      margin: 0 $button-spacing;
+    }
+  }
+
+  .matchDate {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-bottom: 1em;
+    color: $gray;
+  }
+}
+
+.divider {
+  position: relative;
+  width: 100%;
   text-align: center;
 
-  .empty {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-
-    padding: 1em;
-
-    justify-content: center;
-
-    .msg {
-      color: $empty-msg-color;
-    }
-  }
-
-  .userImage {
-    display: inline-block;
-    max-width: $userImage-maxWidth;
-    max-height: $userImage-maxHeight;
-    width: auto;
-    height: auto;
-    border-radius: 50%;
-  }
-
-  .userAgeWithGender {
-    .userAge {
-      display: inline-block;
-      margin-right: $userAge-margin-right;
-    }
-
-    .userGender {
-      display: inline-block;
-      max-width: $userGender-maxWidth;
-      max-height: $userGender-maxHeight;
-      width: auto;
-      height: auto;
-    }
-  }
-
-  .titleStyle {
+  p {
+    display: inline;
+    background-color: $white;
+    padding: 0.5em;
     font-weight: bold;
   }
 
-  .textAutoWrap {
-    margin: 0 auto;
-    max-width: $text-auto-wrap-maxwidth;
-    padding: $text-auto-wrap-padding;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: $gray;
+    z-index: -1;
   }
 }

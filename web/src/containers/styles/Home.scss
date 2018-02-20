@@ -1,12 +1,18 @@
+$navbar-height: 62px;
+
 .Home {
   display: flex;
-  height: 100%;
+  height: calc(100% - #{$navbar-height});
   width: 100%;
 
   .container-fluid {
+    padding: 0;
+    
     .row.full {
       width: 100%;
       height: 100%;
+      margin: 0;
+      
       .col {
         padding: 0;
       }

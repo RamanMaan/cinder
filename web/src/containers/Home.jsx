@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 
 import './styles/Home.css';
 import Recommendation from './Recommendation';
@@ -12,7 +12,7 @@ class Home extends Component {
     super(props);
 
     this.fetchUserDetail = this.fetchUserDetail.bind(this);
-    this.onBackButtonClick = this.onBackButtonClick.bind(this);
+
     this.state = {
       matches: [],
       userDetail: false,
@@ -56,7 +56,7 @@ class Home extends Component {
           matches: res.map(x => ({
             id: x.userID,
             title: x.userName,
-            subtitle: 'You\'ve just matched!',
+            subtitle: x.userBio,
             date: new Date(x.matchDate),
             img: x.primaryPic
           }))
@@ -66,36 +66,34 @@ class Home extends Component {
   }
 
   render() {
-    let rightPane = null;
+    const leftPane = (
+      <MatchesList
+        matches={this.state.matches}
+        clickHandler={this.fetchUserDetail.bind(this)}
+      />
+    );
 
-    if (!this.state.userDetail) {
-      rightPane = <Recommendation />;
-    } else {
-      rightPane = (
-        <div>
-          <Button
-            outline
-            color="primary"
-            className="BackButton"
-            onClick={() => this.onBackButtonClick()}
-          >
-            Back
-          </Button>
-          <UserDetail userDetail={this.state.userDetail} />
-        </div>
-      );
-    }
+    const rightPane = this.state.userDetail ? (
+      <UserDetail
+        img={this.state.userDetail.userPics}
+        name={this.state.userDetail.userName}
+        age={this.state.userDetail.userAge}
+        bio={this.state.userDetail.userBio}
+        matchDate={this.state.userDetail.matchTime}
+        backButton={this.onBackButtonClick.bind(this)}
+      />
+    ) : (<Recommendation />);
+
     return (
       <div className="Home">
         <Container fluid>
           <Row className="full">
-            <Col sm="4">
-              <MatchesList
-                matches={this.state.matches}
-                clickHandler={this.fetchUserDetail.bind(this)}
-              />
+            <Col md="4" lg="3">
+              {leftPane}
             </Col>
-            <Col sm="8">{rightPane}</Col>
+            <Col md="8" lg="9">
+              {rightPane}
+            </Col>
           </Row>
         </Container>
       </div>
