@@ -14,16 +14,16 @@ describe('<Recommendation />', () => {
     { userName: 'C', primaryPic: 'C' }
   ].map((x, i) => ({ userID: i, age: i, userBio: `Bio:${x.userName}`, ...x }));
   let mockFetchRecommends = jest.fn();
-  let mockFetchMatches = jest.fn();
   let mockPopRecommend = jest.fn();
+  let mockSubmitRecommendation = jest.fn();
 
   beforeEach(() => {
     wrapper = mount(
       <Recommendation
         recommendations={mockRecommendations}
-        fetchMatches={mockFetchMatches}
         fetchRecommends={mockFetchRecommends}
         popRecommend={mockPopRecommend}
+        submitRecommendation={mockSubmitRecommendation}
       />
     );
     fetchMock.reset();
@@ -33,7 +33,7 @@ describe('<Recommendation />', () => {
 
   it('should fetch recommendations on render', () => {
     expect(mockFetchRecommends.mock.calls.length).toBe(1);
-    expect(mockFetchMatches.mock.calls.length).toBe(0);
+    expect(mockSubmitRecommendation.mock.calls.length).toBe(0);
     expect(mockPopRecommend.mock.calls.length).toBe(0);
   });
 
@@ -44,7 +44,7 @@ describe('<Recommendation />', () => {
   describe('going through all recommendations', () => {
     beforeAll(() => {
       mockFetchRecommends = jest.fn();
-      mockFetchMatches = jest.fn();
+      mockSubmitRecommendation = jest.fn();
       mockPopRecommend = jest.fn();
     });
 
@@ -56,7 +56,7 @@ describe('<Recommendation />', () => {
           .text()
       ).toEqual('A, 0');
       expect(mockFetchRecommends.mock.calls.length).toBe(1);
-      expect(mockFetchMatches.mock.calls.length).toBe(0);
+      expect(mockSubmitRecommendation.mock.calls.length).toBe(0);
       expect(mockPopRecommend.mock.calls.length).toBe(0);
 
       wrapper.find('Button.hot').simulate('click');
@@ -65,14 +65,14 @@ describe('<Recommendation />', () => {
       wrapper = mount(
         <Recommendation
           recommendations={mockRecommendations}
-          fetchMatches={mockFetchMatches}
+          fetchMatches={mockSubmitRecommendation}
           fetchRecommends={mockFetchRecommends}
           popRecommend={mockPopRecommend}
         />
       );
 
       expect(mockFetchRecommends.mock.calls.length).toBe(2);
-      expect(mockFetchMatches.mock.calls.length).toBe(0);
+      expect(mockSubmitRecommendation.mock.calls.length).toBe(1);
       expect(mockPopRecommend.mock.calls.length).toBe(1);
     });
 
@@ -84,7 +84,7 @@ describe('<Recommendation />', () => {
           .text()
       ).toEqual('B, 1');
       expect(mockFetchRecommends.mock.calls.length).toBe(3);
-      expect(mockFetchMatches.mock.calls.length).toBe(0);
+      expect(mockSubmitRecommendation.mock.calls.length).toBe(1);
       expect(mockPopRecommend.mock.calls.length).toBe(1);
     });
 
@@ -92,7 +92,7 @@ describe('<Recommendation />', () => {
       wrapper = mount(
         <Recommendation
           recommendations={[]}
-          fetchMatches={mockFetchMatches}
+          fetchMatches={mockSubmitRecommendation}
           fetchRecommends={mockFetchRecommends}
           popRecommend={mockPopRecommend}
         />
@@ -100,7 +100,7 @@ describe('<Recommendation />', () => {
 
       expect(wrapper.text()).toEqual("There's no one new around you :(");
       expect(mockFetchRecommends.mock.calls.length).toBe(5);
-      expect(mockFetchMatches.mock.calls.length).toBe(0);
+      expect(mockSubmitRecommendation.mock.calls.length).toBe(1);
       expect(mockPopRecommend.mock.calls.length).toBe(1);
     });
   });
