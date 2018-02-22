@@ -21,11 +21,11 @@ export function matchesFetchSuccess(data) {
   };
 }
 
-export function matchesFetchData(uri) {
+export function matchesFetchData(userID) {
   return dispatch => {
     dispatch(matchesLoading(true));
 
-    fetch(uri)
+    fetch(`/api/users/${userID}/matches`)
       .then(res => {
         if (!res.ok) {
           throw Error(res.statusText);

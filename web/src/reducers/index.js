@@ -4,6 +4,7 @@ import { matchesHasErrored, matchesIsLoading, matches } from './matches';
 import {
   recommendationsHasErrored,
   recommendationsIsLoading,
+  recommendationSubmitted,
   recommendations
 } from './recommendations';
 
@@ -15,6 +16,7 @@ export default combineReducers({
   matchesIsLoading,
 
   recommendations,
+  recommendationSubmitted,
   recommendationsHasErrored,
   recommendationsIsLoading
 });

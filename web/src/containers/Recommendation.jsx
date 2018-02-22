@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  matchesFetchData,
   fetchRecommendations,
-  popRecommendation
+  popRecommendation,
+  submitRecommendation
 } from '../actions';
 import Auth from '../utils/authService';
 
@@ -33,33 +33,22 @@ export class Recommendation extends Component {
   }
 
   handlePass() {
-    this.submitUserAction('pass');
+    this.submitUserAction(false);
     this.incrementPotentialMatchIndex();
   }
 
   handleLike() {
-    this.submitUserAction('like');
+    this.submitUserAction(true);
     this.incrementPotentialMatchIndex();
   }
 
-  submitUserAction(userAction) {
+  submitUserAction(like) {
     const matchedUser = this.props.recommendations[0];
-    console.log(`Doing Action ${userAction} on ${matchedUser.userName}`);
-
-    fetch(
-      `/api/users/${Auth.loggedInUser.id}/matches/${
-        matchedUser.userID
-      }/${userAction}`,
-      { method: 'POST' }
-    )
-      .then(res => res.json())
-      .then(res => {
-        // eslint-disable-next-line eqeqeq
-        if (res.matched == 'true') {
-          this.props.fetchMatches(`/api/users/${Auth.loggedInUser.id}/matches`);
-        }
-      })
-      .catch(err => console.error(err));
+    this.props.submitRecommendation(
+      Auth.loggedInUser.id,
+      matchedUser.userID,
+      like
+    );
   }
 
   render() {
@@ -110,9 +99,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchMatches: uri => dispatch(matchesFetchData(uri)),
   fetchRecommends: uri => dispatch(fetchRecommendations(uri)),
-  popRecommend: () => dispatch(popRecommendation())
+  popRecommend: () => dispatch(popRecommendation()),
+  submitRecommendation: (user1, user2, like) =>
+    dispatch(submitRecommendation(user1, user2, like))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recommendation);

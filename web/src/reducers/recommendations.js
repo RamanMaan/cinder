@@ -20,6 +20,16 @@ export function recommendationsIsLoading(state = false, action) {
   }
 }
 
+export function recommendationSubmitted(state = false, action) {
+  switch (action.type) {
+    case types.REC_SUBMIT_SUCCESS:
+      return action.result;
+
+    default:
+      return state;
+  }
+}
+
 export function recommendations(state = [], action) {
   switch (action.type) {
     case types.REC_FETCH_SUCCESS:
