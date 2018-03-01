@@ -1,10 +1,13 @@
 import * as Expo from 'expo';
 import React, { Component } from 'react';
 import { StyleProvider } from 'native-base';
+import { Provider } from 'react-redux';
 
 import App from './src/App';
 import getTheme from './src/theme/components';
 import variables from './src/theme/variables/cinder';
+
+import store from './src/store';
 
 export default class Setup extends Component {
   constructor() {
@@ -33,7 +36,9 @@ export default class Setup extends Component {
     }
     return (
       <StyleProvider style={getTheme(variables)}>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </StyleProvider>
     );
   }
