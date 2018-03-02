@@ -1,22 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { Container } from 'native-base';
+
+import cinder from '../theme/variables/cinder';
+import Recommendations from '../components/Recommendations';
 
 export default class Home extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Home Page</Text>
-        <Text>Test test!!!</Text>
-      </View>
+      <Container>
+        <Recommendations />
+      </Container>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

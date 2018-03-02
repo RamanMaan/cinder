@@ -9,6 +9,9 @@ export default (variables = variable) => {
       color: '#a7a7a7',
       fontSize: variables.noteFontSize,
     },
+    '.bold': {
+      fontWeight: 'bold',
+    },
   };
 
   return textTheme;
