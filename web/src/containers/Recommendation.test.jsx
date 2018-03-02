@@ -1,74 +1,107 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import renderer from 'react-test-renderer';
-import { MemoryRouter } from 'react-router-dom';
 import fetchMock from 'fetch-mock';
 
 import App from './App';
-import Recommendation from './Recommendation';
+import { Recommendation } from './Recommendation';
+import UserDetail from '../components/UserDetail';
 
 describe('<Recommendation />', () => {
-  const testPotentialMatches = [
-    {
-      userName: 'Some Name 1',
-      userID: 1,
-      age: 21,
-      matchDate: '2018-02-03T18:09:05.000Z',
-      primaryPic: null
-    },
-    {
-      userName: 'Some Name 2',
-      userID: 5,
-      age: 22,
-      matchDate: '2018-01-03T18:09:05.000Z',
-      primaryPic: 'http://c.min.ms/m/b/13/13022/e8250eba.jpeg'
-    },
-    {
-      userName: 'Some Name 3',
-      userID: 3,
-      age: 23,
-      matchDate: '2018-02-06T18:09:05.000Z',
-      primaryPic: null
-    },
-    {
-      userName: 'Some Name 4',
-      userID: 2,
-      age: 24,
-      matchDate: '2018-02-04T18:09:05.000Z',
-      primaryPic: 'http://c.min.ms/m/b/13/13022/e8250eba.jpeg'
-    }
-  ];
+  let wrapper;
+  let mockRecommendations = [
+    { userName: 'A', primaryPic: 'A' },
+    { userName: 'B', primaryPic: 'B' },
+    { userName: 'C', primaryPic: 'C' }
+  ].map((x, i) => ({ userID: i, age: i, userBio: `Bio:${x.userName}`, ...x }));
+  let mockFetchRecommends = jest.fn();
+  let mockPopRecommend = jest.fn();
+  let mockSubmitRecommendation = jest.fn();
 
   beforeEach(() => {
-    fetchMock.reset();
-    fetchMock.restore();
-    fetchMock.get(/\/api\/users\/[0-9]*\/matches/, []);
-    fetchMock.get(/\/api\/users\/[0-9]*\/recommendations/, testPotentialMatches);
-  });
-
-  afterAll(() => {
-    fetchMock.reset();
-    fetchMock.restore();
-  });
-
-  it('renders without crashing', () => {
-    // simple smoke test
-    shallow(<Recommendation />);
-    mount(<Recommendation />);
-  });
-
-  it('should show the <Recommendation /> component by default', () => {
-    const wrapper = mount(
-      <MemoryRouter initialEntries={['']}>
-        <App />
-      </MemoryRouter>
+    wrapper = mount(
+      <Recommendation
+        recommendations={mockRecommendations}
+        fetchRecommends={mockFetchRecommends}
+        popRecommend={mockPopRecommend}
+        submitRecommendation={mockSubmitRecommendation}
+      />
     );
-
-    expect(wrapper.find(Recommendation)).toHaveLength(1);
+    fetchMock.reset();
+    fetchMock.restore();
+    fetchMock.post(/\/api\/users\/[0-9]*\/matches\/[a-z]*/, []);
   });
 
-  it('renders with empty props correctly', () => {
-    const component = renderer.create(<Recommendation />).toJSON();
-    expect(component).toMatchSnapshot();
+  it('should fetch recommendations on render', () => {
+    expect(mockFetchRecommends.mock.calls.length).toBe(1);
+    expect(mockSubmitRecommendation.mock.calls.length).toBe(0);
+    expect(mockPopRecommend.mock.calls.length).toBe(0);
+  });
+
+  it('should show the <UserDetail /> component', () => {
+    expect(wrapper.find(UserDetail)).toHaveLength(1);
+  });
+
+  describe('going through all recommendations', () => {
+    beforeAll(() => {
+      mockFetchRecommends = jest.fn();
+      mockSubmitRecommendation = jest.fn();
+      mockPopRecommend = jest.fn();
+    });
+
+    it('should show the first recommendation in the list', () => {
+      expect(
+        wrapper
+          .find(UserDetail)
+          .find('div.header')
+          .text()
+      ).toEqual('A, 0');
+      expect(mockFetchRecommends.mock.calls.length).toBe(1);
+      expect(mockSubmitRecommendation.mock.calls.length).toBe(0);
+      expect(mockPopRecommend.mock.calls.length).toBe(0);
+
+      wrapper.find('Button.hot').simulate('click');
+
+      mockRecommendations = mockRecommendations.slice(1);
+      wrapper = mount(
+        <Recommendation
+          recommendations={mockRecommendations}
+          fetchMatches={mockSubmitRecommendation}
+          fetchRecommends={mockFetchRecommends}
+          popRecommend={mockPopRecommend}
+        />
+      );
+
+      expect(mockFetchRecommends.mock.calls.length).toBe(2);
+      expect(mockSubmitRecommendation.mock.calls.length).toBe(1);
+      expect(mockPopRecommend.mock.calls.length).toBe(1);
+    });
+
+    it('should show the second recommendation in the list', () => {
+      expect(
+        wrapper
+          .find(UserDetail)
+          .find('div.header')
+          .text()
+      ).toEqual('B, 1');
+      expect(mockFetchRecommends.mock.calls.length).toBe(3);
+      expect(mockSubmitRecommendation.mock.calls.length).toBe(1);
+      expect(mockPopRecommend.mock.calls.length).toBe(1);
+    });
+
+    it('should be displaying empty', () => {
+      wrapper = mount(
+        <Recommendation
+          recommendations={[]}
+          fetchMatches={mockSubmitRecommendation}
+          fetchRecommends={mockFetchRecommends}
+          popRecommend={mockPopRecommend}
+        />
+      );
+
+      expect(wrapper.text()).toEqual("There's no one new around you :(");
+      expect(mockFetchRecommends.mock.calls.length).toBe(5);
+      expect(mockSubmitRecommendation.mock.calls.length).toBe(1);
+      expect(mockPopRecommend.mock.calls.length).toBe(1);
+    });
   });
 });

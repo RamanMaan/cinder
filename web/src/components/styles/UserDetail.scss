@@ -13,13 +13,12 @@ $hover-shadow-colour: rgba(0, 0, 0, 0.4);
 $hover-shadow-y: 6px;
 
 $box-shadow: $box-shadow-x $box-shadow-y $box-shadow-blur $box-shadow-colour;
-$hover-box-shadow: $box-shadow-x $hover-shadow-y $box-shadow-blur $box-shadow-colour;
+$hover-box-shadow: $box-shadow-x $hover-shadow-y $box-shadow-blur
+  $box-shadow-colour;
 
 $spacing: 1em 0;
 
 $body-font-size: 20px;
-
-$button-spacing: 5em;
 
 $navbar-height: 62px;
 $back-button-height: 5em;
@@ -48,7 +47,7 @@ $height-offset: calc(#{$navbar-height} + 2em);
 
     margin-left: auto;
     margin-right: auto;
-    
+
     height: $image-size;
     width: $image-size;
     border-radius: 50%;
@@ -90,12 +89,8 @@ $height-offset: calc(#{$navbar-height} + 2em);
 
   .matchBtns {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-
-    & > button {
-      margin: 0 $button-spacing;
-    }
   }
 
   .matchDate {

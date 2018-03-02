@@ -1,32 +1,40 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import renderer from 'react-test-renderer';
+import { mount } from 'enzyme';
 
-import MatchesList from './MatchesList';
+import { MatchesList } from './MatchesList';
 
 describe('<MatchesList />', () => {
+  let wrapper;
   const testMatches = ['A', 'B', 'C', 'D', 'E'].map((x, index) => ({
-    id: index,
-    title: x,
-    subtitle: x,
-    img: x,
-    date: new Date(`01/0${index + 1}/2018`)
+    userID: index,
+    userName: x,
+    userBio: x,
+    primaryPic: x,
+    matchDate: new Date(`01/0${index + 1}/2018`)
   }));
 
-  it('renders without crashing', () => {
-    // simple smoke test
-    shallow(<MatchesList />);
+  let mockFetchData = jest.fn();
+  let mockClickHandler = jest.fn();
+
+  beforeEach(() => {
+    wrapper = mount(
+      <MatchesList
+        matches={testMatches}
+        fetchData={mockFetchData}
+        clickHandler={mockClickHandler}
+      />
+    );
   });
 
-  it('renders with no matches correctly', () => {
-    const component = renderer.create(<MatchesList />).toJSON();
-    expect(component).toMatchSnapshot();
-  });
+  it('should display all matches', () => {
+    wrapper
+      .find('.MatchesListItem')
+      .find('span.title')
+      .forEach(title => {
+        expect(testMatches.find(match => match.userName === title.text()));
+      });
 
-  it('renders with matches correctly', () => {
-    const component = renderer
-      .create(<MatchesList matches={testMatches} />)
-      .toJSON();
-    expect(component).toMatchSnapshot();
+    expect(mockFetchData.mock.calls.length).toBe(1);
+    expect(mockClickHandler.mock.calls.length).toBe(0);
   });
 });
