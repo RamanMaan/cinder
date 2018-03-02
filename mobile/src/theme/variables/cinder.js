@@ -97,7 +97,7 @@ export default {
   checkboxTickColor: '#fff',
 
   // Color
-  brandPrimary: '#007aff',
+  brandPrimary: '#ff612c',
   brandInfo: '#62B1F6',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
@@ -132,14 +132,14 @@ export default {
   tabActiveBgColor: platform === 'ios' ? '#cde1f9' : '#3F51B5',
 
   // Header
-  toolbarBtnColor: platform === 'ios' ? '#007aff' : '#fff',
-  toolbarDefaultBg: platform === 'ios' ? '#F8F8F8' : '#3F51B5',
+  toolbarBtnColor: '#007aff',
+  toolbarDefaultBg: '#F8F8F8',
   toolbarHeight: platform === 'ios' ? (isIphoneX ? 88 : 64) : 56,
-  toolbarSearchIconSize: platform === 'ios' ? 20 : 23,
-  toolbarInputColor: platform === 'ios' ? '#CECDD2' : '#fff',
+  toolbarSearchIconSize: 20,
+  toolbarInputColor: '#CECDD2',
   searchBarHeight: platform === 'ios' ? 30 : 40,
   searchBarInputHeight: platform === 'ios' ? 30 : 50,
-  toolbarBtnTextColor: platform === 'ios' ? '#007aff' : '#fff',
+  toolbarBtnTextColor: '#007aff',
   iosStatusbar: 'dark-content',
   toolbarDefaultBorder: platform === 'ios' ? '#a7a6ab' : '#3F51B5',
   get statusBarColor() {
@@ -155,8 +155,9 @@ export default {
 
   // Icon
   iconFamily: 'Ionicons',
-  iconFontSize: platform === 'ios' ? 30 : 28,
-  iconHeaderSize: platform === 'ios' ? 33 : 24,
+  iconFontSize: 32,
+  iconHeaderSize: 10,
+  iconMarginSize: 15,
 
   // InputGroup
   inputFontSize: 17,
@@ -233,7 +234,7 @@ export default {
   titleFontSize: platform === 'ios' ? 17 : 19,
   subTitleFontSize: platform === 'ios' ? 12 : 14,
   subtitleColor: platform === 'ios' ? '#000' : '#fff',
-  titleFontColor: platform === 'ios' ? '#000' : '#fff',
+  titleFontColor: '#000',
 
   // Other
   borderRadiusBase: 5,

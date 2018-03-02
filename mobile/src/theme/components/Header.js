@@ -213,7 +213,7 @@ export default (variables = variable) => {
     },
     'NativeBase.Body': {
       flex: 1,
-      alignItems: platform === 'ios' && platformStyle !== 'material' ? 'center' : 'flex-start',
+      alignItems: 'center',
       alignSelf: 'center',
       'NativeBase.Segment': {
         borderWidth: 0,
