@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, ScrollView, TouchableOpacity, Animated, Easing } from 'react-native';
 import { Container, View, DeckSwiper, Card, CardItem, H3, Text, Left, Body, Icon, Button } from 'native-base';
 
 import cinder from '../theme/variables/cinder';
@@ -78,11 +78,29 @@ export default class Recommendations extends React.Component {
     this.renderEmpty = this.renderEmpty.bind(this);
     this.renderRecommendation = this.renderRecommendation.bind(this);
     this.renderButtons = this.renderButtons.bind(this);
+    this.bounce = this.bounce.bind(this);
 
     this.swiper = null;
     this.scrollView = null;
+
+    this.bounceValue = new Animated.Value(0);
   }
 
+  componentDidMount() {
+    this.bounce();
+  }
+
+  bounce() {
+    this.bounceValue.setValue(0);
+    Animated.timing(
+      this.bounceValue,
+      {
+        toValue: 1,
+        duration: 1000,
+        easing: Easing.linear,
+      },
+    ).start(() => this.bounce());
+  }
 
   setSwiper(ref) {
     this.swiper = ref;
@@ -101,6 +119,10 @@ export default class Recommendations extends React.Component {
   }
 
   renderRecommendation(item) {
+    const bounce = this.bounceValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '360deg'],
+    });
     return (
       <Card style={styles.recommends__card}>
         <ScrollView ref={this.setScrollView} style={{ flex: 1, maxHeight: 500, flexGrow: 0 }}>
@@ -110,9 +132,11 @@ export default class Recommendations extends React.Component {
               <Text bold style={styles.recommends__details_text}>{item.name}</Text>
               <Text style={styles.recommends__details_text}>{`, ${item.age}`}</Text>
             </View>
-            <TouchableOpacity onPress={() => this.scrollView.scrollToEnd()}>
-              <Icon name="ios-arrow-down" style={{ color: 'white', padding: 0, fontSize: 24 }} />
-            </TouchableOpacity>
+            <Animated.View style={{ transform: [{ rotate: bounce }] }} >
+              <TouchableOpacity onPress={() => this.scrollView.scrollToEnd()}>
+                <Icon name="ios-arrow-down" style={{ color: 'white', padding: 0, fontSize: 24 }} />
+              </TouchableOpacity>
+            </Animated.View>
           </View>
           <CardItem details style={styles.recommends__about}>
             <H3>{`About ${item.name.split(' ')[0]}`}</H3>
