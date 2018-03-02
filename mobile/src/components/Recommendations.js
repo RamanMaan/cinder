@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, ScrollView } from 'react-native';
+import { StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { Container, View, DeckSwiper, Card, CardItem, H3, Text, Left, Body, Icon, Button } from 'native-base';
 
 import cinder from '../theme/variables/cinder';
@@ -29,15 +29,16 @@ const styles = StyleSheet.create({
   },
   recommends__card: {
     overflow: 'hidden',
+    backgroundColor: 'transparent',
   },
   recommends_details: {
     flexDirection: 'row',
     flex: 1,
     position: 'absolute',
-    top: 458,
+    top: 459,
     left: 0,
     right: 0,
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     padding: 10,
     backgroundColor: 'rgba(0, 0, 0, 0.3)',
     borderBottomLeftRadius: cinder.cardBorderRadius,
@@ -45,6 +46,11 @@ const styles = StyleSheet.create({
   },
   recommends__details_text: {
     color: '#fff',
+  },
+  recommends__about: {
+    maxHeight: 400,
+    flexDirection: 'column',
+    backgroundColor: 'white',
   },
   recommends__image: {
     height: 500,
@@ -68,21 +74,28 @@ export default class Recommendations extends React.Component {
     super(props);
 
     this.setSwiper = this.setSwiper.bind(this);
+    this.setScrollView = this.setScrollView.bind(this);
     this.renderEmpty = this.renderEmpty.bind(this);
     this.renderRecommendation = this.renderRecommendation.bind(this);
     this.renderButtons = this.renderButtons.bind(this);
 
     this.swiper = null;
+    this.scrollView = null;
   }
+
 
   setSwiper(ref) {
     this.swiper = ref;
   }
 
+  setScrollView(ref) {
+    this.scrollView = ref;
+  }
+
   renderEmpty() {
     return (
       <View style={{ alignSelf: 'center' }}>
-        <Text>Over</Text>
+        <Text>No recommendations left! :(</Text>
       </View>
     );
   }
@@ -90,18 +103,21 @@ export default class Recommendations extends React.Component {
   renderRecommendation(item) {
     return (
       <Card style={styles.recommends__card}>
-        <ScrollView style={{ maxHeight: 500, flexGrow: 0 }}>
-          <View style={styles.container__view}>
-            <Image style={styles.recommends__image} source={{ uri: item.image }} />
-            <View style={styles.recommends_details}>
+        <ScrollView ref={this.setScrollView} style={{ flex: 1, maxHeight: 500, flexGrow: 0 }}>
+          <Image style={styles.recommends__image} source={{ uri: item.image }} />
+          <View style={styles.recommends_details}>
+            <View style={{ flexDirection: 'row' }}>
               <Text bold style={styles.recommends__details_text}>{item.name}</Text>
               <Text style={styles.recommends__details_text}>{`, ${item.age}`}</Text>
             </View>
-            <CardItem details style={{ maxHeight: 400, flexDirection: 'column' }}>
-              <H3>{`About ${item.name.split(' ')[0]}`}</H3>
-              <Text left>{item.name}</Text>
-            </CardItem>
+            <TouchableOpacity onPress={() => this.scrollView.scrollToEnd()}>
+              <Icon name="ios-arrow-down" style={{ color: 'white', padding: 0, fontSize: 24 }} />
+            </TouchableOpacity>
           </View>
+          <CardItem details style={styles.recommends__about}>
+            <H3>{`About ${item.name.split(' ')[0]}`}</H3>
+            <Text left>{item.name}</Text>
+          </CardItem>
         </ScrollView>
       </Card>
     );
