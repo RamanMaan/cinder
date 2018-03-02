@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Image } from 'react-native';
-import { Container, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Button } from 'native-base';
+import { StyleSheet, Image, ScrollView } from 'react-native';
+import { Container, View, DeckSwiper, Card, CardItem, H3, Text, Left, Body, Icon, Button } from 'native-base';
 
 import cinder from '../theme/variables/cinder';
 
@@ -28,12 +28,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   recommends__card: {
+    overflow: 'hidden',
   },
   recommends_details: {
     flexDirection: 'row',
     flex: 1,
     position: 'absolute',
-    bottom: 0,
+    top: 458,
     left: 0,
     right: 0,
     justifyContent: 'flex-start',
@@ -89,13 +90,19 @@ export default class Recommendations extends React.Component {
   renderRecommendation(item) {
     return (
       <Card style={styles.recommends__card}>
-        <View style={styles.container__view}>
-          <Image style={styles.recommends__image} source={{ uri: item.image }} />
-          <View style={styles.recommends_details}>
-            <Text bold style={styles.recommends__details_text}>{item.name}</Text>
-            <Text style={styles.recommends__details_text}>{`, ${item.age}`}</Text>
+        <ScrollView style={{ maxHeight: 500, flexGrow: 0 }}>
+          <View style={styles.container__view}>
+            <Image style={styles.recommends__image} source={{ uri: item.image }} />
+            <View style={styles.recommends_details}>
+              <Text bold style={styles.recommends__details_text}>{item.name}</Text>
+              <Text style={styles.recommends__details_text}>{`, ${item.age}`}</Text>
+            </View>
+            <CardItem details style={{ maxHeight: 400, flexDirection: 'column' }}>
+              <H3>{`About ${item.name.split(' ')[0]}`}</H3>
+              <Text left>{item.name}</Text>
+            </CardItem>
           </View>
-        </View>
+        </ScrollView>
       </Card>
     );
   }
