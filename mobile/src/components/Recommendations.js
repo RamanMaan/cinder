@@ -78,37 +78,41 @@ export default class Recommendations extends React.Component {
     this.renderEmpty = this.renderEmpty.bind(this);
     this.renderRecommendation = this.renderRecommendation.bind(this);
     this.renderButtons = this.renderButtons.bind(this);
-    this.bounce = this.bounce.bind(this);
 
     this.swiper = null;
     this.scrollView = null;
 
-    this.bounceValue = new Animated.Value(0);
+    this.animatedValue = new Animated.Value(0);
   }
 
   componentDidMount() {
-    this.bounce();
+    this.animate();
   }
 
-  bounce() {
-    this.bounceValue.setValue(0);
-    Animated.timing(
-      this.bounceValue,
-      {
-        toValue: 1,
-        duration: 1000,
-        easing: Easing.linear,
-      },
-    ).start(() => this.bounce());
+  setScrollView(ref) {
+    this.scrollView = ref;
   }
 
   setSwiper(ref) {
     this.swiper = ref;
   }
 
-  setScrollView(ref) {
-    this.scrollView = ref;
+  animate() {
+    this.animatedValue.setValue(0);
+    Animated.sequence([
+      Animated.timing(this.animatedValue, {
+        toValue: 1,
+        duration: 1000,
+        easing: Easing.ease,
+      }),
+      Animated.timing(this.animatedValue, {
+        toValue: 0,
+        duration: 1000,
+        easing: Easing.ease,
+      }),
+    ]).start(() => this.animate());
   }
+
 
   renderEmpty() {
     return (
@@ -119,10 +123,16 @@ export default class Recommendations extends React.Component {
   }
 
   renderRecommendation(item) {
-    const bounce = this.bounceValue.interpolate({
+    const bounce = this.animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: ['0deg', '360deg'],
+      outputRange: [0, 3],
     });
+
+    const scale = this.animatedValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0.9, 1],
+    });
+
     return (
       <Card style={styles.recommends__card}>
         <ScrollView ref={this.setScrollView} style={{ flex: 1, maxHeight: 500, flexGrow: 0 }}>
@@ -132,7 +142,7 @@ export default class Recommendations extends React.Component {
               <Text bold style={styles.recommends__details_text}>{item.name}</Text>
               <Text style={styles.recommends__details_text}>{`, ${item.age}`}</Text>
             </View>
-            <Animated.View style={{ transform: [{ rotate: bounce }] }} >
+            <Animated.View style={{ transform: [{ translateY: bounce }, { scale }] }}>
               <TouchableOpacity onPress={() => this.scrollView.scrollToEnd()}>
                 <Icon name="ios-arrow-down" style={{ color: 'white', padding: 0, fontSize: 24 }} />
               </TouchableOpacity>
