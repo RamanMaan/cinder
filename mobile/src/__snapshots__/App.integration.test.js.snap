@@ -167,6 +167,7 @@ exports[`renders without crashing 1`] = `
                             "shadowRadius": 1.5,
                           },
                           Object {
+                            "backgroundColor": "transparent",
                             "overflow": "hidden",
                           },
                         ]
@@ -176,53 +177,54 @@ exports[`renders without crashing 1`] = `
                       <RCTScrollView
                         style={
                           Object {
+                            "flex": 1,
                             "flexGrow": 0,
                             "maxHeight": 500,
                           }
                         }
                       >
                         <View>
+                          <Image
+                            source={
+                              Object {
+                                "uri": "http://cache.umusic.com/_sites/kendricklamar.com/images/og.jpg",
+                              }
+                            }
+                            style={
+                              Object {
+                                "borderRadius": 20,
+                                "flex": 1,
+                                "height": 500,
+                              }
+                            }
+                          />
                           <View
                             style={
                               Array [
                                 Object {},
                                 Object {
+                                  "backgroundColor": "rgba(0, 0, 0, 0.3)",
+                                  "borderBottomLeftRadius": 20,
+                                  "borderBottomRightRadius": 20,
                                   "flex": 1,
+                                  "flexDirection": "row",
+                                  "justifyContent": "space-between",
+                                  "left": 0,
+                                  "padding": 10,
+                                  "position": "absolute",
+                                  "right": 0,
+                                  "top": 456,
                                 },
                               ]
                             }
                             virtual={undefined}
                           >
-                            <Image
-                              source={
-                                Object {
-                                  "uri": "http://cache.umusic.com/_sites/kendricklamar.com/images/og.jpg",
-                                }
-                              }
-                              style={
-                                Object {
-                                  "borderRadius": 20,
-                                  "flex": 1,
-                                  "height": 500,
-                                }
-                              }
-                            />
                             <View
                               style={
                                 Array [
                                   Object {},
                                   Object {
-                                    "backgroundColor": "rgba(0, 0, 0, 0.3)",
-                                    "borderBottomLeftRadius": 20,
-                                    "borderBottomRightRadius": 20,
-                                    "flex": 1,
                                     "flexDirection": "row",
-                                    "justifyContent": "flex-start",
-                                    "left": 0,
-                                    "padding": 10,
-                                    "position": "absolute",
-                                    "right": 0,
-                                    "top": 458,
                                   },
                                 ]
                               }
@@ -273,60 +275,139 @@ exports[`renders without crashing 1`] = `
                               </Text>
                             </View>
                             <View
-                              details={true}
+                              collapsable={undefined}
                               style={
-                                Array [
+                                Object {
+                                  "transform": Array [
+                                    Object {
+                                      "translateY": 0,
+                                    },
+                                    Object {
+                                      "scale": 0.9,
+                                    },
+                                  ],
+                                }
+                              }
+                            >
+                              <View
+                                accessibilityComponentType={undefined}
+                                accessibilityLabel={undefined}
+                                accessibilityTraits={undefined}
+                                accessible={true}
+                                collapsable={undefined}
+                                hasTVPreferredFocus={undefined}
+                                hitSlop={undefined}
+                                isTVSelectable={true}
+                                nativeID={undefined}
+                                onLayout={undefined}
+                                onResponderGrant={[Function]}
+                                onResponderMove={[Function]}
+                                onResponderRelease={[Function]}
+                                onResponderTerminate={[Function]}
+                                onResponderTerminationRequest={[Function]}
+                                onStartShouldSetResponder={[Function]}
+                                style={
                                   Object {
-                                    "alignItems": "center",
-                                    "backgroundColor": "#fff",
-                                    "borderRadius": 2,
-                                    "flexDirection": "row",
-                                    "paddingBottom": 10,
-                                    "paddingLeft": 15,
-                                    "paddingRight": 15,
-                                    "paddingTop": 10,
-                                  },
-                                  Object {
-                                    "flexDirection": "column",
-                                    "maxHeight": 400,
-                                  },
-                                ]
+                                    "opacity": 1,
+                                  }
+                                }
+                                testID={undefined}
+                                tvParallaxProperties={undefined}
+                              >
+                                <Text
+                                  accessible={true}
+                                  allowFontScaling={false}
+                                  ellipsizeMode="tail"
+                                  style={
+                                    Array [
+                                      Object {
+                                        "color": undefined,
+                                        "fontSize": 12,
+                                      },
+                                      Array [
+                                        Object {
+                                          "color": "#000",
+                                          "fontSize": 30,
+                                        },
+                                        Object {
+                                          "color": "#000",
+                                          "fontSize": 30,
+                                        },
+                                        Object {
+                                          "color": "white",
+                                          "fontSize": 24,
+                                          "padding": 0,
+                                        },
+                                      ],
+                                      Object {
+                                        "fontFamily": "Ionicons",
+                                        "fontStyle": "normal",
+                                        "fontWeight": "normal",
+                                      },
+                                    ]
+                                  }
+                                  virtual={undefined}
+                                >
+                                  
+                                </Text>
+                              </View>
+                            </View>
+                          </View>
+                          <View
+                            details={true}
+                            style={
+                              Array [
+                                Object {
+                                  "alignItems": "center",
+                                  "backgroundColor": "#fff",
+                                  "borderRadius": 2,
+                                  "flexDirection": "row",
+                                  "paddingBottom": 10,
+                                  "paddingLeft": 15,
+                                  "paddingRight": 15,
+                                  "paddingTop": 10,
+                                },
+                                Object {
+                                  "backgroundColor": "white",
+                                  "flexDirection": "column",
+                                  "maxHeight": 400,
+                                },
+                              ]
+                            }
+                            virtual={undefined}
+                          >
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              style={
+                                Object {
+                                  "color": "#000",
+                                  "fontSize": 21,
+                                  "lineHeight": 22,
+                                }
                               }
                               virtual={undefined}
                             >
-                              <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                ellipsizeMode="tail"
-                                style={
-                                  Object {
-                                    "color": "#000",
-                                    "fontSize": 21,
-                                    "lineHeight": 22,
-                                  }
+                              About Kendrick
+                            </Text>
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              left={true}
+                              style={
+                                Object {
+                                  "color": "#000",
+                                  "fontFamily": "System",
+                                  "fontSize": 16,
                                 }
-                                virtual={undefined}
-                              >
-                                About Kendrick
-                              </Text>
-                              <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                ellipsizeMode="tail"
-                                left={true}
-                                style={
-                                  Object {
-                                    "color": "#000",
-                                    "fontFamily": "System",
-                                    "fontSize": 16,
-                                  }
-                                }
-                                uppercase={false}
-                                virtual={undefined}
-                              >
-                                Kendrick Lamar
-                              </Text>
-                            </View>
+                              }
+                              uppercase={false}
+                              virtual={undefined}
+                            >
+                              Kendrick Lamar
+                            </Text>
                           </View>
                         </View>
                       </RCTScrollView>
@@ -394,6 +475,7 @@ exports[`renders without crashing 1`] = `
                             "shadowRadius": 1.5,
                           },
                           Object {
+                            "backgroundColor": "transparent",
                             "overflow": "hidden",
                           },
                         ]
@@ -403,53 +485,54 @@ exports[`renders without crashing 1`] = `
                       <RCTScrollView
                         style={
                           Object {
+                            "flex": 1,
                             "flexGrow": 0,
                             "maxHeight": 500,
                           }
                         }
                       >
                         <View>
+                          <Image
+                            source={
+                              Object {
+                                "uri": "https://i.scdn.co/image/f4509fe9c589c12be5470653178f901bd697b97b",
+                              }
+                            }
+                            style={
+                              Object {
+                                "borderRadius": 20,
+                                "flex": 1,
+                                "height": 500,
+                              }
+                            }
+                          />
                           <View
                             style={
                               Array [
                                 Object {},
                                 Object {
+                                  "backgroundColor": "rgba(0, 0, 0, 0.3)",
+                                  "borderBottomLeftRadius": 20,
+                                  "borderBottomRightRadius": 20,
                                   "flex": 1,
+                                  "flexDirection": "row",
+                                  "justifyContent": "space-between",
+                                  "left": 0,
+                                  "padding": 10,
+                                  "position": "absolute",
+                                  "right": 0,
+                                  "top": 456,
                                 },
                               ]
                             }
                             virtual={undefined}
                           >
-                            <Image
-                              source={
-                                Object {
-                                  "uri": "https://i.scdn.co/image/f4509fe9c589c12be5470653178f901bd697b97b",
-                                }
-                              }
-                              style={
-                                Object {
-                                  "borderRadius": 20,
-                                  "flex": 1,
-                                  "height": 500,
-                                }
-                              }
-                            />
                             <View
                               style={
                                 Array [
                                   Object {},
                                   Object {
-                                    "backgroundColor": "rgba(0, 0, 0, 0.3)",
-                                    "borderBottomLeftRadius": 20,
-                                    "borderBottomRightRadius": 20,
-                                    "flex": 1,
                                     "flexDirection": "row",
-                                    "justifyContent": "flex-start",
-                                    "left": 0,
-                                    "padding": 10,
-                                    "position": "absolute",
-                                    "right": 0,
-                                    "top": 458,
                                   },
                                 ]
                               }
@@ -500,60 +583,139 @@ exports[`renders without crashing 1`] = `
                               </Text>
                             </View>
                             <View
-                              details={true}
+                              collapsable={undefined}
                               style={
-                                Array [
+                                Object {
+                                  "transform": Array [
+                                    Object {
+                                      "translateY": 0,
+                                    },
+                                    Object {
+                                      "scale": 0.9,
+                                    },
+                                  ],
+                                }
+                              }
+                            >
+                              <View
+                                accessibilityComponentType={undefined}
+                                accessibilityLabel={undefined}
+                                accessibilityTraits={undefined}
+                                accessible={true}
+                                collapsable={undefined}
+                                hasTVPreferredFocus={undefined}
+                                hitSlop={undefined}
+                                isTVSelectable={true}
+                                nativeID={undefined}
+                                onLayout={undefined}
+                                onResponderGrant={[Function]}
+                                onResponderMove={[Function]}
+                                onResponderRelease={[Function]}
+                                onResponderTerminate={[Function]}
+                                onResponderTerminationRequest={[Function]}
+                                onStartShouldSetResponder={[Function]}
+                                style={
                                   Object {
-                                    "alignItems": "center",
-                                    "backgroundColor": "#fff",
-                                    "borderRadius": 2,
-                                    "flexDirection": "row",
-                                    "paddingBottom": 10,
-                                    "paddingLeft": 15,
-                                    "paddingRight": 15,
-                                    "paddingTop": 10,
-                                  },
-                                  Object {
-                                    "flexDirection": "column",
-                                    "maxHeight": 400,
-                                  },
-                                ]
+                                    "opacity": 1,
+                                  }
+                                }
+                                testID={undefined}
+                                tvParallaxProperties={undefined}
+                              >
+                                <Text
+                                  accessible={true}
+                                  allowFontScaling={false}
+                                  ellipsizeMode="tail"
+                                  style={
+                                    Array [
+                                      Object {
+                                        "color": undefined,
+                                        "fontSize": 12,
+                                      },
+                                      Array [
+                                        Object {
+                                          "color": "#000",
+                                          "fontSize": 30,
+                                        },
+                                        Object {
+                                          "color": "#000",
+                                          "fontSize": 30,
+                                        },
+                                        Object {
+                                          "color": "white",
+                                          "fontSize": 24,
+                                          "padding": 0,
+                                        },
+                                      ],
+                                      Object {
+                                        "fontFamily": "Ionicons",
+                                        "fontStyle": "normal",
+                                        "fontWeight": "normal",
+                                      },
+                                    ]
+                                  }
+                                  virtual={undefined}
+                                >
+                                  
+                                </Text>
+                              </View>
+                            </View>
+                          </View>
+                          <View
+                            details={true}
+                            style={
+                              Array [
+                                Object {
+                                  "alignItems": "center",
+                                  "backgroundColor": "#fff",
+                                  "borderRadius": 2,
+                                  "flexDirection": "row",
+                                  "paddingBottom": 10,
+                                  "paddingLeft": 15,
+                                  "paddingRight": 15,
+                                  "paddingTop": 10,
+                                },
+                                Object {
+                                  "backgroundColor": "white",
+                                  "flexDirection": "column",
+                                  "maxHeight": 400,
+                                },
+                              ]
+                            }
+                            virtual={undefined}
+                          >
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              style={
+                                Object {
+                                  "color": "#000",
+                                  "fontSize": 21,
+                                  "lineHeight": 22,
+                                }
                               }
                               virtual={undefined}
                             >
-                              <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                ellipsizeMode="tail"
-                                style={
-                                  Object {
-                                    "color": "#000",
-                                    "fontSize": 21,
-                                    "lineHeight": 22,
-                                  }
+                              About Mac
+                            </Text>
+                            <Text
+                              accessible={true}
+                              allowFontScaling={true}
+                              ellipsizeMode="tail"
+                              left={true}
+                              style={
+                                Object {
+                                  "color": "#000",
+                                  "fontFamily": "System",
+                                  "fontSize": 16,
                                 }
-                                virtual={undefined}
-                              >
-                                About Mac
-                              </Text>
-                              <Text
-                                accessible={true}
-                                allowFontScaling={true}
-                                ellipsizeMode="tail"
-                                left={true}
-                                style={
-                                  Object {
-                                    "color": "#000",
-                                    "fontFamily": "System",
-                                    "fontSize": 16,
-                                  }
-                                }
-                                uppercase={false}
-                                virtual={undefined}
-                              >
-                                Mac Miller
-                              </Text>
-                            </View>
+                              }
+                              uppercase={false}
+                              virtual={undefined}
+                            >
+                              Mac Miller
+                            </Text>
                           </View>
                         </View>
                       </RCTScrollView>

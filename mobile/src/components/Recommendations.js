@@ -4,25 +4,6 @@ import { Container, View, DeckSwiper, Card, CardItem, H3, Text, Left, Body, Icon
 
 import cinder from '../theme/variables/cinder';
 
-const cards = [
-  {
-    text: 'Card Uno',
-    name: 'Mac Miller',
-    age: 21,
-    image: 'https://i.scdn.co/image/f4509fe9c589c12be5470653178f901bd697b97b',
-  }, {
-    text: 'Card Two',
-    name: 'Kendrick Lamar',
-    age: 21,
-    image: 'http://cache.umusic.com/_sites/kendricklamar.com/images/og.jpg',
-  }, {
-    text: 'Card Three',
-    name: 'SZA',
-    age: 21,
-    image: 'https://media.pitchfork.com/photos/59298fe813d1975652136c25/1:1/w_300/05bc322d.jpg',
-  },
-];
-
 const styles = StyleSheet.create({
   container__view: {
     flex: 1,
@@ -83,6 +64,10 @@ export default class Recommendations extends React.Component {
     this.scrollView = null;
 
     this.animatedValue = new Animated.Value(0);
+
+    this.state = {
+      empty: !this.props.data || this.props.data.length === 0,
+    };
   }
 
   componentDidMount() {
@@ -123,12 +108,15 @@ export default class Recommendations extends React.Component {
 
   onSwipe(action) {
     // reset card to top of scroll view in case user scrolled previous card
-    if (!this.swiper._root.state.lastCard) { this.scrollView.scrollTo({ y: 0 }); }
+    if (!this.swiper._root.state.lastCard) {
+      this.scrollView.scrollTo({ y: 0 });
+    } else {
+      this.setState({ empty: true });
+    }
 
     // this is the user object that was swiped on
     const swipedUser = this.swiper._root.state.selectedItem;
-
-    // do something
+    this.props.onSwipe(action, swipedUser);
   }
 
   renderEmpty() {
@@ -206,14 +194,14 @@ export default class Recommendations extends React.Component {
           <DeckSwiper
             ref={this.setSwiper}
             looping={false}
-            dataSource={cards}
+            dataSource={this.props.data}
             renderEmpty={this.renderEmpty}
             renderItem={this.renderRecommendation}
             onSwipeLeft={() => this.swipeLeft()}
             onSwipeRight={() => this.swipeRight()}
           />
         </View>
-        {this.renderButtons()}
+        {this.state.empty ? null : this.renderButtons()}
       </Container>
     );
   }
