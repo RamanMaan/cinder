@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flex: 1,
     position: 'absolute',
-    top: 459,
+    top: 500 - (29 + cinder.fontSizeBase),
     left: 0,
     right: 0,
     justifyContent: 'space-between',
@@ -113,6 +113,23 @@ export default class Recommendations extends React.Component {
     ]).start(() => this.animate());
   }
 
+  swipeRight() {
+    this.onSwipe('like');
+  }
+
+  swipeLeft() {
+    this.onSwipe('pass');
+  }
+
+  onSwipe(action) {
+    // reset card to top of scroll view in case user scrolled previous card
+    if (!this.swiper._root.state.lastCard) { this.scrollView.scrollTo({ y: 0 }); }
+
+    // this is the user object that was swiped on
+    const swipedUser = this.swiper._root.state.selectedItem;
+
+    // do something
+  }
 
   renderEmpty() {
     return (
@@ -158,13 +175,23 @@ export default class Recommendations extends React.Component {
   }
 
   renderButtons() {
+    const passBtn = () => {
+      this.swiper._root.swipeLeft();
+      this.swipeLeft();
+    };
+
+    const likeBtn = () => {
+      this.swiper._root.swipeRight();
+      this.swipeRight();
+    };
+
     return (
       <View style={styles.buttons__container}>
-        <Button danger rounded bordered iconLeft onPress={() => this.swiper._root.swipeLeft()}>
+        <Button danger rounded bordered iconLeft onPress={passBtn}>
           <Icon name="close" />
           <Text>Pass</Text>
         </Button>
-        <Button primary rounded iconRight onPress={() => this.swiper._root.swipeRight()}>
+        <Button primary rounded iconRight onPress={likeBtn}>
           <Text>Like</Text>
           <Icon name="heart" />
         </Button>
@@ -178,10 +205,12 @@ export default class Recommendations extends React.Component {
         <View style={styles.container__view}>
           <DeckSwiper
             ref={this.setSwiper}
-            looping // TODO - set to false, only for testing
+            looping={false}
             dataSource={cards}
             renderEmpty={this.renderEmpty}
             renderItem={this.renderRecommendation}
+            onSwipeLeft={() => this.swipeLeft()}
+            onSwipeRight={() => this.swipeRight()}
           />
         </View>
         {this.renderButtons()}
