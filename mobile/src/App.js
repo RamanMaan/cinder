@@ -4,7 +4,7 @@ import { StackNavigator } from 'react-navigation';
 
 import Home from './containers/home';
 import Profile from './containers/blank';
-import Matches from './containers/blank';
+import Matches from './containers/matches';
 
 const RootStack = StackNavigator({
   Home: {
