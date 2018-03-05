@@ -1,33 +1,33 @@
-import * as types from './types';
+import types from '../actions';
 import { serverURL } from '../../env';
 
 export function matchesErrored(bool) {
   return {
     type: types.MATCHES_ERROR,
-    error: bool
+    error: bool,
   };
 }
 
 export function matchesLoading(bool) {
   return {
     type: types.MATCHES_LOADING,
-    loading: bool
+    loading: bool,
   };
 }
 
 export function matchesFetchSuccess(data) {
   return {
     type: types.MATCHES_FETCH_SUCCESS,
-    matches: data
+    matches: data,
   };
 }
 
 export function matchesFetchData(userID) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(matchesLoading(true));
 
     fetch(`${serverURL}/api/users/${userID}/matches`)
-      .then(res => {
+      .then((res) => {
         if (!res.ok) {
           throw Error(res.statusText);
         }
