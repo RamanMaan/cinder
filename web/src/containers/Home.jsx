@@ -7,7 +7,7 @@ import MatchesList from '../components/MatchesList';
 import UserDetail from '../components/UserDetail';
 import Auth from '../utils/authService';
 
-class Home extends Component {
+export class Home extends Component {
   constructor(props) {
     super(props);
 
@@ -23,10 +23,6 @@ class Home extends Component {
   onBackButtonClick() {
     this.setState({ buttonSelected: true });
     this.setState({ userDetail: false });
-  }
-
-  componentDidMount() {
-    this.fetchUserMatches();
   }
 
   fetchUserDetail(id) {
@@ -48,29 +44,9 @@ class Home extends Component {
       .catch(err => err);
   }
 
-  fetchUserMatches() {
-    fetch(`/api/users/${Auth.loggedInUser.id}/matches`)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          matches: res.map(x => ({
-            id: x.userID,
-            title: x.userName,
-            subtitle: x.userBio,
-            date: new Date(x.matchDate),
-            img: x.primaryPic
-          }))
-        });
-      })
-      .catch(err => console.error(err));
-  }
-
   render() {
     const leftPane = (
-      <MatchesList
-        matches={this.state.matches}
-        clickHandler={this.fetchUserDetail.bind(this)}
-      />
+      <MatchesList clickHandler={this.fetchUserDetail.bind(this)} />
     );
 
     const rightPane = this.state.userDetail ? (
@@ -82,7 +58,9 @@ class Home extends Component {
         matchDate={this.state.userDetail.matchTime}
         backButton={this.onBackButtonClick.bind(this)}
       />
-    ) : (<Recommendation />);
+    ) : (
+      <Recommendation />
+    );
 
     return (
       <div className="Home">

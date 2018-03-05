@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import './styles/MatchesList.css';
+import { connect } from 'react-redux';
+import { matchesFetchData } from '../actions';
+import Auth from '../utils/authService';
 
 import MatchesListItem from '../components/MatchesListItem';
+import './styles/MatchesList.css';
 
-class MatchesList extends Component {
+export class MatchesList extends Component {
   constructor(props) {
     super(props);
 
@@ -12,35 +15,47 @@ class MatchesList extends Component {
     };
   }
 
+  componentDidMount() {
+    this.props.fetchData(Auth.loggedInUser.id);
+  }
+
   onListItemClick(id) {
     this.setState({ active: id });
     this.props.clickHandler(id);
   }
 
   render() {
-    if (!this.props.matches || !this.props.matches.length) {
+    const msg = this.props.loading
+      ? 'Loading...'
+      : !this.props.matches.length
+        ? 'No matches yet. Get swiping!'
+        : 'There was an error loading matches';
+
+    if (
+      this.props.errored ||
+      (this.props.loading && !this.props.matches.length) ||
+      !this.props.matches.length
+    ) {
       return (
         <div className="MatchesList">
           <div className="empty">
-            <h3 className="msg align-self-center">
-              No matches yet. Get swiping!
-            </h3>
+            <h3 className="msg align-self-center">{msg}</h3>
           </div>
         </div>
       );
     }
 
     const listItems = this.props.matches.map(
-      ({ id, title, subtitle, img, date }) => (
+      ({ userID, userName, userBio, primaryPic, matchDate }) => (
         <MatchesListItem
-          key={id}
-          title={title}
-          subtitle={subtitle}
-          img={img}
-          date={date}
-          active={id === this.state.active}
+          key={userID}
+          title={userName}
+          subtitle={userBio}
+          img={primaryPic}
+          date={matchDate}
+          active={userID === this.state.active}
           // eslint-disable-next-line react/jsx-no-bind
-          onClick={this.onListItemClick.bind(this, id)}
+          onClick={this.onListItemClick.bind(this, userID)}
         />
       )
     );
@@ -53,4 +68,18 @@ class MatchesList extends Component {
   }
 }
 
-export default MatchesList;
+const mapStateToProps = state => {
+  return {
+    matches: state.matches,
+    errored: state.matchesHasErrored,
+    loading: state.matchesIsLoading
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchData: userID => dispatch(matchesFetchData(userID))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MatchesList);

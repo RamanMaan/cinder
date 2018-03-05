@@ -97,7 +97,7 @@ module.exports = {
     return mysql.createConnection(MYSQLDB)
       .then((conn) => {
         const result = conn.query(`
-          SELECT IF(COUNT(*) = 2, 'True', 'False') AS matched
+          SELECT IF(COUNT(*) = 2, 'true', 'false') AS matched
           FROM Likes
           WHERE (User1ID = ? AND User2ID = ? AND UserAction = 'L')
           OR (User1ID = ? AND User2ID = ? AND UserAction = 'L')

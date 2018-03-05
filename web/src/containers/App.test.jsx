@@ -49,15 +49,4 @@ describe('<App />', () => {
       </MemoryRouter>
     );
   });
-
-  it('renders correctly', () => {
-    const component = renderer
-      .create(
-        <MemoryRouter>
-          <App />
-        </MemoryRouter>
-      )
-      .toJSON();
-    expect(component).toMatchSnapshot();
-  });
 });

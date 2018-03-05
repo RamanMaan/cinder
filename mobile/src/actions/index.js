@@ -3,5 +3,6 @@
 // e.g. export * from './example'
 // if unsure refer to web client for example
 import * as types from './types';
+export * from './matches';
 
 export default types;
