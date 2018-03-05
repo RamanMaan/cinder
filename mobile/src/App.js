@@ -2,9 +2,9 @@ import React from 'react';
 import { View, StatusBar } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
-import Home from './containers/home';
+import Home from './containers/Home';
 import Profile from './containers/blank';
-import Matches from './containers/matches';
+import Matches from './containers/Matches';
 
 const RootStack = StackNavigator({
   Home: {
