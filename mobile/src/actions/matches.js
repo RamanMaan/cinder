@@ -26,7 +26,7 @@ export function matchesFetchData(userID) {
   return (dispatch) => {
     dispatch(matchesLoading(true));
 
-    fetch(`${serverURL}/api/users/${userID}/matches`)
+    return fetch(`${serverURL}/api/users/${userID}/matches`)
       .then((res) => {
         if (!res.ok) {
           throw Error(res.statusText);

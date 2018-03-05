@@ -89,11 +89,11 @@ export class Home extends React.Component {
   render() {
     const msg = this.props.loading
       ? 'Loading...'
-      : !this.props.recommendations.length
+      : (this.props.recommendations && !this.props.recommendations.length)
         ? 'No recommendations left! :('
         : 'There was an error loading recommendations';
 
-    if (this.props.errored || this.props.loading || !this.props.recommendations.length) {
+    if (this.props.errored || this.props.loading || !this.props.recommendations) {
       return (
         <Container style={styles.container}>
           <Text>{msg}</Text>
