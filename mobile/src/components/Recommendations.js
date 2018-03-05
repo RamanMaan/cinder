@@ -109,7 +109,7 @@ export default class Recommendations extends React.Component {
   onSwipe(action) {
     // reset card to top of scroll view in case user scrolled previous card
     if (!this.swiper._root.state.lastCard) {
-      this.scrollView.scrollTo({ y: 0 });
+      this.scrollView.scrollTo({ y: -1 });
     } else {
       this.setState({ empty: true });
     }
