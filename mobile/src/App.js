@@ -17,7 +17,7 @@ const RootStack = StackNavigator({
     screen: Matches,
   },
 }, {
-  initialRouteName: 'Matches',
+  initialRouteName: 'Home',
   navigationOptions: {
     title: 'cinder',
   },
