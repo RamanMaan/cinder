@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^6.2.2",
+    "enzyme": "^3.3.0",
     "eslint": "^4.17.0",
     "expo": "^25.0.0",
     "native-base": "^2.3.8",
