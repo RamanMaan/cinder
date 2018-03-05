@@ -83,7 +83,7 @@ export class Home extends React.Component {
   }
 
   onSwipe(action, user) {
-    console.log(action, user.name);
+    console.log(action, user.userName);
   }
 
   render() {

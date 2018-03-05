@@ -35,8 +35,12 @@ const styles = StyleSheet.create({
   },
   recommends__image: {
     height: 500,
+    width: null,
     flex: 1,
     borderRadius: cinder.cardBorderRadius,
+    backgroundColor: 'white',
+    resizeMode: 'contain',
+
   },
   buttons__container: {
     flexDirection: 'row',
