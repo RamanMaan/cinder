@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Image, ScrollView, TouchableOpacity, Animated, Easing } from 'react-native';
-import { Container, View, DeckSwiper, Card, CardItem, H3, Text, Left, Body, Icon, Button } from 'native-base';
+import { Container, View, DeckSwiper, Card, CardItem, H3, Text, Icon, Button } from 'native-base';
 
 import cinder from '../theme/variables/cinder';
 
@@ -141,10 +141,10 @@ export default class Recommendations extends React.Component {
     return (
       <Card style={styles.recommends__card}>
         <ScrollView ref={this.setScrollView} style={{ flex: 1, maxHeight: 500, flexGrow: 0 }}>
-          <Image style={styles.recommends__image} source={{ uri: item.image }} />
+          <Image style={styles.recommends__image} source={{ uri: item.primaryPic }} />
           <View style={styles.recommends_details}>
             <View style={{ flexDirection: 'row' }}>
-              <Text bold style={styles.recommends__details_text}>{item.name}</Text>
+              <Text bold style={styles.recommends__details_text}>{item.userName}</Text>
               <Text style={styles.recommends__details_text}>{`, ${item.age}`}</Text>
             </View>
             <Animated.View style={{ transform: [{ translateY: bounce }, { scale }] }}>
@@ -154,8 +154,8 @@ export default class Recommendations extends React.Component {
             </Animated.View>
           </View>
           <CardItem details style={styles.recommends__about}>
-            <H3>{`About ${item.name.split(' ')[0]}`}</H3>
-            <Text left>{item.name}</Text>
+            <H3>{`About ${item.userName.split(' ')[0]}`}</H3>
+            <Text left>{item.userBio}</Text>
           </CardItem>
         </ScrollView>
       </Card>

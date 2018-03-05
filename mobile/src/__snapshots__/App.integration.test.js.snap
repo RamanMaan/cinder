@@ -406,7 +406,7 @@ exports[`renders without crashing 1`] = `
                               uppercase={false}
                               virtual={undefined}
                             >
-                              Kendrick Lamar
+                              Bad dancer for real
                             </Text>
                           </View>
                         </View>
@@ -714,7 +714,7 @@ exports[`renders without crashing 1`] = `
                               uppercase={false}
                               virtual={undefined}
                             >
-                              Mac Miller
+                              He raps, he does some other stuff too but mostly just that
                             </Text>
                           </View>
                         </View>
