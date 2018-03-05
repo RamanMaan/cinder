@@ -1,4 +1,4 @@
-import variable from './../variables/platform';
+import variable from './../variables/cinder';
 
 export default (variables = variable) => {
   const platform = variables.platform;
@@ -178,7 +178,7 @@ export default (variables = variable) => {
     },
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 2,
+    borderRadius: variables.cardBorderRadius,
     padding: variables.listItemPadding + 5,
     paddingVertical: variables.listItemPadding,
     backgroundColor: variables.cardDefaultBg,
