@@ -26,6 +26,12 @@
     "timers": "fake",
     "transformIgnorePatterns": [
       "node_modules/(?!react-native|expo|react-navigation|native-base-shoutem-theme|@shoutem/theme|@shoutem/animation|@shoutem/ui|tcomb-form-native)"
+    ],
+    "testPathIgnorePatterns": [
+      "/__tests__/_config", "node_modules/"
+    ],
+    "setupFiles": [
+      "./__tests__/_config/setupTests.js"
     ]
   },
   "dependencies": {
@@ -39,6 +45,7 @@
     "react-navigation": "^1.2.1",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
+    "redux-mock-store": "^1.5.1",
     "redux-thunk": "^2.2.0"
   }
 }
