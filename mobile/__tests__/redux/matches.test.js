@@ -39,14 +39,14 @@ describe('Actions::Matches', () => {
   it('should handle fetching data - send correct actions', async () => {
     const response = '{"data": []}';
     fetch.mockResponseSuccess(response);
-    await store.dispatch(matchesFetchData(10));
+    await store.dispatch(matchesFetchData());
 
     expect(store.getActions()).toMatchSnapshot();
   });
 
   it('should handle fetching data - getting an error', async () => {
     fetch.mockResponseFailure(new Error('I am a bad bad error'));
-    await store.dispatch(matchesFetchData(10));
+    await store.dispatch(matchesFetchData());
 
     expect(store.getActions()).toMatchSnapshot();
   });
