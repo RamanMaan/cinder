@@ -37,7 +37,7 @@ module.exports = {
             AND L1.UserAction = 'L'
             AND L2.UserAction = 'L'
           ORDER BY
-            matchDate
+            matchDate DESC
           `, [userID, userID]);
 
         conn.end();
