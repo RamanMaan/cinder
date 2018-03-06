@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, Text } from 'react-native';
 import { H1 } from 'native-base';
 
 const userDetails = {
@@ -19,18 +19,39 @@ const styles = StyleSheet.create({
   	marginTop: 20,
   	borderRadius: 50
   },
+  filterContainer: {
+    marginTop: 40
+  },
   userName: {
   	marginTop:10
+  },
+  lineStyle:{
+        alignSelf: 'stretch',
+        borderWidth: 0.5,
+        borderColor:'grey',
+        marginTop: 15,
+        marginRight: 2,
+        marginLeft: 2
   }
 });
 
 export default class Profile extends React.Component {
+ 
+  static navigationOptions = {
+     title: 'My Profile'
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Image style={styles.image} source={{uri: userDetails.currUserPic}}/>
         <H1 style={styles.userName}>{userDetails.currUserName}</H1>
+        <View style = {styles.lineStyle}/>
+        <View style={styles.filterContainer}>
+         <Text>Filtering Options Here</Text>
+        </View>
       </View>
+
     );
   }
 }
