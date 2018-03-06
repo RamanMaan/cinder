@@ -3,7 +3,7 @@ import { View, StatusBar } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 import Home from './containers/Home';
-import Profile from './containers/blank';
+import Profile from './containers/profile';
 import Matches from './containers/Matches';
 
 const RootStack = StackNavigator({
