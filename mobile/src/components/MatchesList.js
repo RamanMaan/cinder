@@ -5,12 +5,11 @@ import { StyleSheet } from 'react-native';
 
 import { matchesFetchData } from '../actions';
 import MatchesListItem from './MatchesListItem';
-import { loggedInUser } from '../../env';
 
 
 export class MatchesList extends React.Component {
   componentDidMount() {
-    this.props.fetchData(loggedInUser);
+    this.props.fetchData();
   }
 
   render() {
@@ -59,7 +58,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: userID => dispatch(matchesFetchData(userID)),
+  fetchData: () => dispatch(matchesFetchData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MatchesList);

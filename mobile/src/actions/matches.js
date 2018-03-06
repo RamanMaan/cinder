@@ -1,5 +1,5 @@
 import types from '../actions';
-import { serverURL } from '../../env';
+import { serverURL, loggedInUser } from '../../env';
 
 export function matchesErrored(bool) {
   return {
@@ -22,11 +22,11 @@ export function matchesFetchSuccess(data) {
   };
 }
 
-export function matchesFetchData(userID) {
+export function matchesFetchData() {
   return (dispatch) => {
     dispatch(matchesLoading(true));
 
-    return fetch(`${serverURL}/api/users/${userID}/matches`)
+    return fetch(`${serverURL}/api/users/${loggedInUser}/matches`)
       .then((res) => {
         if (!res.ok) {
           throw Error(res.statusText);
@@ -36,5 +36,24 @@ export function matchesFetchData(userID) {
       })
       .then(data => dispatch(matchesFetchSuccess(data)))
       .catch(() => dispatch(matchesErrored(true)));
+  };
+}
+
+export function userMatchRedirected() {
+  return {
+    type: types.MATCHES_REDIRECTED,
+  };
+}
+
+export function usersMatched(bool) {
+  return (dispatch) => {
+    if (bool) {
+      dispatch(matchesFetchData());
+    }
+
+    dispatch({
+      type: types.MATCHES_MATCHED,
+      matched: bool,
+    });
   };
 }

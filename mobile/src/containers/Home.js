@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import { Container, Icon, Text } from 'native-base';
 
-import { fetchRecommendations } from '../actions';
+import { fetchRecommendations, submitRecommendation, userMatchRedirected } from '../actions';
 
 import cinder from '../theme/variables/cinder';
 import Recommendations from '../components/Recommendations';
@@ -60,8 +60,16 @@ export class Home extends React.Component {
     this.props.fetchRecommends();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.matched) {
+      this.props.navigation.navigate('Matches');
+      // have to set it to null again in case multiple matches in a row
+      this.props.redirected();
+    }
+  }
+
   onSwipe(action, user) {
-    console.log(action, user.userName);
+    this.props.submitRecommend(user.userID, action);
   }
 
   render() {
@@ -92,10 +100,13 @@ const mapStateToProps = state => ({
   recommendations: state.recommendations,
   errored: state.recommendationsHasErrored,
   loading: state.recommendationsIsLoading,
+  matched: state.usersMatched,
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchRecommends: () => dispatch(fetchRecommendations()),
+  submitRecommend: (recID, action) => dispatch(submitRecommendation(recID, action)),
+  redirected: () => dispatch(userMatchRedirected()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

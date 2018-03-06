@@ -20,6 +20,18 @@ export function matchesIsLoading(state = false, action) {
   }
 }
 
+export function usersMatched(state = null, action) {
+  switch (action.type) {
+    case types.MATCHES_MATCHED:
+      return action.matched;
+
+    case types.MATCHES_REDIRECTED:
+      return null;
+
+    default: return state;
+  }
+}
+
 export function matches(state = [], action) {
   switch (action.type) {
     case types.MATCHES_FETCH_SUCCESS:

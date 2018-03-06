@@ -31,3 +31,29 @@ Array [
   },
 ]
 `;
+
+exports[`Actions::Matches should handle the result of user submissions - did match 1`] = `
+Array [
+  Object {
+    "loading": true,
+    "type": "MATCHES_LOADING",
+  },
+  Object {
+    "matched": true,
+    "type": "MATCHES_USERS_MATCHED",
+  },
+  Object {
+    "loading": false,
+    "type": "MATCHES_LOADING",
+  },
+]
+`;
+
+exports[`Actions::Matches should handle the result of user submissions - did not match 1`] = `
+Array [
+  Object {
+    "matched": false,
+    "type": "MATCHES_USERS_MATCHED",
+  },
+]
+`;
