@@ -16,3 +16,8 @@ Or use [setup.sql](setup.sql) directly:
 ```
  npm run db:addTestData
 ```
+
+# To create database and initialize it AND insert test data:
+```
+ npm run db:dev
+```
