@@ -45,5 +45,32 @@ exports[`renders without crashing 1`] = `
   >
     Ugly God
   </Text>
+  <View
+    style={
+      Object {
+        "alignSelf": "stretch",
+        "borderColor": "grey",
+        "borderWidth": 0.5,
+        "marginLeft": 2,
+        "marginRight": 2,
+        "marginTop": 15,
+      }
+    }
+  />
+  <View
+    style={
+      Object {
+        "marginTop": 40,
+      }
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+    >
+      Filtering Options Here
+    </Text>
+  </View>
 </View>
 `;
