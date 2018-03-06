@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders without crashing 1`] = `
+exports[`App wide integration tests renders without crashing 1`] = `
 <View
   onLayout={[Function]}
   style={
@@ -192,9 +192,12 @@ exports[`renders without crashing 1`] = `
                             }
                             style={
                               Object {
+                                "backgroundColor": "white",
                                 "borderRadius": 20,
                                 "flex": 1,
                                 "height": 500,
+                                "resizeMode": "contain",
+                                "width": null,
                               }
                             }
                           />
@@ -500,9 +503,12 @@ exports[`renders without crashing 1`] = `
                             }
                             style={
                               Object {
+                                "backgroundColor": "white",
                                 "borderRadius": 20,
                                 "flex": 1,
                                 "height": 500,
+                                "resizeMode": "contain",
+                                "width": null,
                               }
                             }
                           />

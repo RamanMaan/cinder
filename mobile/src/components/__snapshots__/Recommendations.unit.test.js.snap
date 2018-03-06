@@ -1,70 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders when empty 1`] = `
-<View
-  style={
-    Object {
-      "flex": 1,
-      "height": 1334,
-    }
-  }
-  virtual={undefined}
->
-  <View
-    style={
-      Array [
-        Object {},
-        Object {
-          "flex": 1,
-        },
-      ]
-    }
-    virtual={undefined}
-  >
-    <View
-      style={
-        Object {
-          "flexDirection": "column",
-          "position": "relative",
-        }
-      }
-    >
-      <View>
-        <View
-          style={
-            Array [
-              Object {},
-              Object {
-                "alignSelf": "center",
-              },
-            ]
-          }
-          virtual={undefined}
-        >
-          <Text
-            accessible={true}
-            allowFontScaling={true}
-            ellipsizeMode="tail"
-            style={
-              Object {
-                "color": "#000",
-                "fontFamily": "System",
-                "fontSize": 16,
-              }
-            }
-            uppercase={false}
-            virtual={undefined}
-          >
-            No recommendations left! :(
-          </Text>
-        </View>
-      </View>
-    </View>
-  </View>
-</View>
-`;
-
-exports[`renders with cards 1`] = `
+exports[`<Recommendations /> renders with data 1`] = `
 <View
   style={
     Object {
@@ -175,9 +111,12 @@ exports[`renders with cards 1`] = `
                   }
                   style={
                     Object {
+                      "backgroundColor": "white",
                       "borderRadius": 20,
                       "flex": 1,
                       "height": 500,
+                      "resizeMode": "contain",
+                      "width": null,
                     }
                   }
                 />
@@ -483,9 +422,12 @@ exports[`renders with cards 1`] = `
                   }
                   style={
                     Object {
+                      "backgroundColor": "white",
                       "borderRadius": 20,
                       "flex": 1,
                       "height": 500,
+                      "resizeMode": "contain",
+                      "width": null,
                     }
                   }
                 />
@@ -923,6 +865,70 @@ exports[`renders with cards 1`] = `
       >
         
       </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<Recommendations /> should render when empty 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "height": 1334,
+    }
+  }
+  virtual={undefined}
+>
+  <View
+    style={
+      Array [
+        Object {},
+        Object {
+          "flex": 1,
+        },
+      ]
+    }
+    virtual={undefined}
+  >
+    <View
+      style={
+        Object {
+          "flexDirection": "column",
+          "position": "relative",
+        }
+      }
+    >
+      <View>
+        <View
+          style={
+            Array [
+              Object {},
+              Object {
+                "alignSelf": "center",
+              },
+            ]
+          }
+          virtual={undefined}
+        >
+          <Text
+            accessible={true}
+            allowFontScaling={true}
+            ellipsizeMode="tail"
+            style={
+              Object {
+                "color": "#000",
+                "fontFamily": "System",
+                "fontSize": 16,
+              }
+            }
+            uppercase={false}
+            virtual={undefined}
+          >
+            No recommendations left! :(
+          </Text>
+        </View>
+      </View>
     </View>
   </View>
 </View>

@@ -1,31 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { Container, Icon } from 'native-base';
+import { Container, Icon, Text } from 'native-base';
+
+import { fetchRecommendations } from '../actions';
 
 import cinder from '../theme/variables/cinder';
 import Recommendations from '../components/Recommendations';
-
-const cards = [
-  {
-    userID: 1,
-    userName: 'Mac Miller',
-    age: 21,
-    primaryPic: 'https://i.scdn.co/image/f4509fe9c589c12be5470653178f901bd697b97b',
-    userBio: 'He raps, he does some other stuff too but mostly just that',
-  }, {
-    userID: 2,
-    userName: 'Kendrick Lamar',
-    age: 21,
-    primaryPic: 'http://cache.umusic.com/_sites/kendricklamar.com/images/og.jpg',
-    userBio: 'Bad dancer for real',
-  }, {
-    userID: 3,
-    userName: 'SZA',
-    age: 21,
-    primaryPic: 'https://media.pitchfork.com/photos/59298fe813d1975652136c25/1:1/w_300/05bc322d.jpg',
-    userBio: 'She is very hot',
-  },
-];
 
 const styles = StyleSheet.create({
   container: {
@@ -42,7 +23,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Home extends React.Component {
+export class Home extends React.Component {
   static navigationOptions({ navigation }) {
     const leftItem = (
       <View style={styles.itemLeft}>
@@ -75,15 +56,46 @@ export default class Home extends React.Component {
     this.onSwipe = this.onSwipe.bind(this);
   }
 
+  componentDidMount() {
+    this.props.fetchRecommends();
+  }
+
   onSwipe(action, user) {
-    console.log(action, user.name);
+    console.log(action, user.userName);
   }
 
   render() {
+    const msg = this.props.loading
+      ? 'Loading...'
+      : this.props.errored
+        ? 'There was an error loading recommendations'
+        : 'No recommendations left! :(';
+
+
+    if (this.props.errored || this.props.loading || !this.props.recommendations || !this.props.recommendations.length) {
+      return (
+        <Container style={styles.container}>
+          <Text>{msg}</Text>
+        </Container>
+      );
+    }
+
     return (
       <Container>
-        <Recommendations data={cards} onSwipe={this.onSwipe} />
+        <Recommendations data={this.props.recommendations} onSwipe={this.onSwipe} />
       </Container>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  recommendations: state.recommendations,
+  errored: state.recommendationsHasErrored,
+  loading: state.recommendationsIsLoading,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchRecommends: () => dispatch(fetchRecommendations()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

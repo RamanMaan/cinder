@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Actions::Matches should handle fetching data - getting an error 1`] = `
+Array [
+  Object {
+    "loading": true,
+    "type": "MATCHES_LOADING",
+  },
+  Object {
+    "error": true,
+    "type": "MATCHES_ERROR",
+  },
+]
+`;
+
+exports[`Actions::Matches should handle fetching data - send correct actions 1`] = `
+Array [
+  Object {
+    "loading": true,
+    "type": "MATCHES_LOADING",
+  },
+  Object {
+    "loading": false,
+    "type": "MATCHES_LOADING",
+  },
+  Object {
+    "matches": Object {
+      "data": Array [],
+    },
+    "type": "MATCHES_FETCH_SUCCESS",
+  },
+]
+`;

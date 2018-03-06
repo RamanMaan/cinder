@@ -9,7 +9,6 @@ import { loggedInUser } from '../../env';
 
 
 export class MatchesList extends React.Component {
-
   componentDidMount() {
     this.props.fetchData(loggedInUser);
   }
@@ -33,15 +32,17 @@ export class MatchesList extends React.Component {
       );
     }
 
-    const listItems = this.props.matches.map(({ userID, userName, userBio, primaryPic, matchDate }) => 
-      <MatchesListItem 
+    const listItems = this.props.matches.map(({
+      userID, userName, userBio, primaryPic, matchDate,
+    }) =>
+      (<MatchesListItem
         key={userID}
-        userID={userID} 
-        userName={userName} 
-        userBio={userBio} 
+        userID={userID}
+        userName={userName}
+        userBio={userBio}
         primaryPic={primaryPic}
-        matchDate={matchDate}  />
-    );
+        matchDate={matchDate}
+      />));
 
     return (
       <List>
@@ -51,19 +52,15 @@ export class MatchesList extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    matches: state.matches,
-    errored: state.matchesHasErrored,
-    loading: state.matchesIsLoading
-  };
-};
+const mapStateToProps = state => ({
+  matches: state.matches,
+  errored: state.matchesHasErrored,
+  loading: state.matchesIsLoading,
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchData: userID => dispatch(matchesFetchData(userID))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  fetchData: userID => dispatch(matchesFetchData(userID)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(MatchesList);
 
@@ -74,5 +71,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
 });
