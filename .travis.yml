@@ -22,6 +22,7 @@ script:
   - npm run build
   - cd ../mobile
   - npm test
+  - cd .. 
 
 deploy:
   provider: elasticbeanstalk
