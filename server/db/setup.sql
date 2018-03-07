@@ -129,4 +129,20 @@ CREATE TABLE UserInterests
  CONSTRAINT FK_UserInterests_InterestsType_InterestID FOREIGN KEY (InterestID) REFERENCES InterestsType(InterestID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+/***********************************************************************************************
+FILTER TABLES
+***********************************************************************************************/
+
+DROP TABLE IF EXISTS AgeFilter;
+CREATE TABLE AgeFilter
+(
+  UserID INT NOT NULL,
+  MinAge INT NOT NULL DEFAULT 18,
+  MaxAge INT,
+  CONSTRAINT PK_AgeFilter_UserID PRIMARY KEY (UserID),
+  CONSTRAINT FK_AgeFilter_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 SET FOREIGN_KEY_CHECKS=1;
