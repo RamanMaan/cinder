@@ -32,3 +32,5 @@ deploy:
   app: "Cinder"
   env: "Cinder-env"
   bucket_name: "elasticbeanstalk-us-east-2-148400404701"
+    on:
+    branch: ContinuousDeployment
