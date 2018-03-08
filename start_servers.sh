@@ -3,12 +3,10 @@
 echo "Starting Cinder Server"
 cd server
 sh create_env.sh
-
+npm install
 # Add Test Data
 echo "Adding test data to the database"
 npm run db:dev
-
-npm install
 npm start &
 echo "Starting Web Server"
 cd ../web
