@@ -4,7 +4,7 @@ echo "Starting Cinder Server"
 cd server
 echo $DB_NAME
 sh create_env.sh
-cat create_env.sh
+cat .env
 npm install
 npm start &
 echo "Starting Web Server"
