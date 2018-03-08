@@ -68,22 +68,15 @@ mysql
   })
   .then(conn => {
     console.log(`---Connected to ${MYSQLDB.database} database---`);
-    console.log('I hope this works');
+    console.log('I hope this works 12q');
     const res = conn.query(
       'CREATE USER IF NOT EXISTS ' +
-        mysql.escapeId(MYSQLDB.user, true) +
+        MYSQLDB.user +
         '@' +
         mysql.escapeId(MYSQLDB.host, true) +
         ' IDENTIFIED BY ' +
         mysql.escapeId(MYSQLDB.password, true) +
-        '; GRANT ALL PRIVILEGES ON ' +
-        mysql.escapeId(MYSQLDB.database, true) +
-        '.* ' +
-        'TO ' +
-        mysql.escapeId(MYSQLDB.user, true) +
-        '@' +
-        mysql.escapeId(MYSQLDB.host, true) +
-        ' WITH GRANT OPTION;'
+        '; '
     );
     conn.end();
     return res;
