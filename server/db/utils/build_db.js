@@ -47,6 +47,10 @@ mysql
   })
   .then(conn => {
     console.log('---Connected to MYSQL---');
+    console.log(MYSQLDB.host);
+    console.log(MYSQLDB.rootUser);
+    console.log(MYSQLDB.rootPass);
+
     const res = conn.query('CREATE DATABASE IF NOT EXISTS ??', [
       MYSQLDB.database
     ]);
@@ -57,7 +61,7 @@ mysql
     console.log(`---Created ${MYSQLDB.database} database---`);
     return mysql.createConnection({
       host: MYSQLDB.host,
-      user: 'root',
+      user: MYSQLDB.rootUser,
       password: MYSQLDB.rootPass,
       database: MYSQLDB.database,
       multipleStatements: true
