@@ -69,7 +69,7 @@ mysql
   .then(conn => {
     console.log(`---Connected to ${MYSQLDB.database} database---`);
     const res = conn.query(
-      'CREATE USER IF NOT EXISTS "??"@"??" IDENTIFIED BY ?; GRANT ALL PRIVILEGES ON ??.* TO "??"@"??" WITH GRANT OPTION;',
+      'CREATE USER IF NOT EXISTS `??`@`??` IDENTIFIED BY ?; GRANT ALL PRIVILEGES ON ??.* TO `??`@`??` WITH GRANT OPTION;',
       [
         MYSQLDB.user,
         MYSQLDB.host,
