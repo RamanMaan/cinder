@@ -5,6 +5,7 @@ cd server
 sh create_env.sh
 
 # Add Test Data
+echo "Adding test data to the database"
 npm run db:dev
 
 npm install
