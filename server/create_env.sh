@@ -1,4 +1,15 @@
 #!/bin/bash
+# Database Parameters
+DB_HOST="$(/opt/elasticbeanstalk/bin/get-config environment -k DB_HOST)"
+DB_NAME="$(/opt/elasticbeanstalk/bin/get-config environment -k DB_NAME)"
+DB_PASSWORD="$(/opt/elasticbeanstalk/bin/get-config environment -k DB_PASSWORD)"
+DB_ROOT_PASSWORD="$(/opt/elasticbeanstalk/bin/get-config environment -k DB_ROOT_PASSWORD)"
+DB_USER="$(/opt/elasticbeanstalk/bin/get-config environment -k DB_USER)"
+SERVER_PORT="$(/opt/elasticbeanstalk/bin/get-config environment -k SERVER_PORT)"
+
+# Server Parameters
+ENV="$(/opt/elasticbeanstalk/bin/get-config environment -k ENV)"
+
 echo "NODE_ENV=$ENV
 
 # The port the server will run on
