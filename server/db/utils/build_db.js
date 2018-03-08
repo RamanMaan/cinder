@@ -38,6 +38,9 @@ const refTableQueries = [
 console.log('╔═══════════════════════╗');
 console.log('║ Initializing Database ║');
 console.log('╚═══════════════════════╝');
+console.log('Host: ' + MYSQLDB.host);
+console.log('Host: ' + MYSQLDB.rootUser);
+console.log('Host: ' + MYSQLDB.rootPass);
 
 mysql
   .createConnection({
@@ -47,10 +50,6 @@ mysql
   })
   .then(conn => {
     console.log('---Connected to MYSQL---');
-    console.log(MYSQLDB.host);
-    console.log(MYSQLDB.rootUser);
-    console.log(MYSQLDB.rootPass);
-
     const res = conn.query('CREATE DATABASE IF NOT EXISTS ??', [
       MYSQLDB.database
     ]);
