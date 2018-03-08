@@ -74,7 +74,6 @@ mysql
         mysql.escapeId(MYSQLDB.user, true) +
         '@' +
         mysql.escapeId(MYSQLDB.host, true) +
-        ';' +
         ' IDENTIFIED BY ' +
         mysql.escapeId(MYSQLDB.password, true) +
         '; GRANT ALL PRIVILEGES ON ' +
