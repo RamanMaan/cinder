@@ -2,7 +2,8 @@
 
 echo "Starting Cinder Server"
 cd server
-echo $DB_NAME
+echo $ENV
+echo $DB_HOST
 sh create_env.sh
 cat .env
 npm install
