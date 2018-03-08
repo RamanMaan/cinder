@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# I'm not sure why, but I have to call this command so it fails, so that permissions fix themselves \#bandaidthings
 DB_NAME="$(/opt/elasticbeanstalk/bin/get-config environment -k DB_NAME)"
 
 DB_NAME="$(/opt/elasticbeanstalk/bin/get-config environment -k DB_NAME)"
