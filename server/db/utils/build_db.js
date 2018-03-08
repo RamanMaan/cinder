@@ -70,19 +70,19 @@ mysql
     console.log(`---Connected to ${MYSQLDB.database} database---`);
     const res = conn.query(
       'CREATE USER IF NOT EXISTS ' +
-        conn.escapeId(MYSQLDB.user, true) +
+        mysql.escapeId(MYSQLDB.user, true) +
         '@' +
-        conn.escapeId(MYSQLDB.host, true) +
+        mysql.escapeId(MYSQLDB.host, true) +
         ';' +
         ' IDENTIFIED BY ' +
-        conn.escapeId(MYSQLDB.password, true) +
+        mysql.escapeId(MYSQLDB.password, true) +
         '; GRANT ALL PRIVILEGES ON ' +
-        conn.escapeId(MYSQLDB.database, true) +
+        mysql.escapeId(MYSQLDB.database, true) +
         '.* ' +
         'TO ' +
-        conn.escapeId(MYSQLDB.user, true) +
+        mysql.escapeId(MYSQLDB.user, true) +
         '@' +
-        conn.escapeId(MYSQLDB.host, true) +
+        mysql.escapeId(MYSQLDB.host, true) +
         ' WITH GRANT OPTION;'
     );
     conn.end();
