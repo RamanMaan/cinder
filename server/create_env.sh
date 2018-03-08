@@ -1,10 +1,10 @@
 #!/bin/bash
 
-DB_HOST="$(/opt/elasticbeanstalk/bin/get-config environment -k DB_HOST)"
 DB_NAME="$(/opt/elasticbeanstalk/bin/get-config environment -k DB_NAME)"
 DB_PASSWORD="$(/opt/elasticbeanstalk/bin/get-config environment -k DB_PASSWORD)"
 DB_ROOT_PASSWORD="$(/opt/elasticbeanstalk/bin/get-config environment -k DB_ROOT_PASSWORD)"
 DB_USER="$(/opt/elasticbeanstalk/bin/get-config environment -k DB_USER)"
+DB_HOST="$(/opt/elasticbeanstalk/bin/get-config environment -k DB_HOST)"
 SERVER_PORT="$(/opt/elasticbeanstalk/bin/get-config environment -k SERVER_PORT)"
 ENV="$(/opt/elasticbeanstalk/bin/get-config environment -k ENV)"
 
@@ -17,7 +17,7 @@ SERVER_PORT=$SERVER_PORT
 DB_NAME=$DB_NAME
 
 # The MYSQL host
-DB_HOST=$DB_HOST
+DB_HOST='$DB_HOST'
 
 # The user the server will use in its database accesses. Should not be root
 DB_USER=$DB_USER
