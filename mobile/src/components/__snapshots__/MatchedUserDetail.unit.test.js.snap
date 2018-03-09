@@ -3,13 +3,10 @@
 exports[`<MatchedUserDetail /> renders with data 1`] = `
 <View
   style={
-    Array [
-      Object {
-        "flex": 1,
-        "height": 1334,
-      },
-      Object {},
-    ]
+    Object {
+      "flex": 1,
+      "height": 1334,
+    }
   }
   virtual={undefined}
 >
@@ -140,7 +137,7 @@ exports[`<MatchedUserDetail /> renders with data 1`] = `
               virtual={undefined}
             >
                Matched on 
-              A lifetime ago.
+              2018-02-03
             </Text>
           </View>
           <View
@@ -161,7 +158,7 @@ exports[`<MatchedUserDetail /> renders with data 1`] = `
             <Image
               source={
                 Object {
-                  "uri": undefined,
+                  "uri": "https://i.scdn.co/image/f4509fe9c589c12be5470653178f901bd697b97b",
                 }
               }
               style={
@@ -211,14 +208,15 @@ exports[`<MatchedUserDetail /> renders with data 1`] = `
               uppercase={false}
               virtual={undefined}
             >
+              Mac Miller
               , 
+              21
             </Text>
           </View>
           <Text
             accessible={true}
             allowFontScaling={true}
             ellipsizeMode="tail"
-            numberOfLines={9}
             style={
               Array [
                 Object {
@@ -235,7 +233,9 @@ exports[`<MatchedUserDetail /> renders with data 1`] = `
             }
             uppercase={false}
             virtual={undefined}
-          />
+          >
+            He raps, he does some other stuff too but mostly just that
+          </Text>
         </View>
       </View>
     </RCTScrollView>

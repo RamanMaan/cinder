@@ -6,7 +6,6 @@ import { StyleSheet } from 'react-native';
 import { matchesFetchData } from '../actions';
 import MatchesListItem from './MatchesListItem';
 
-
 export class MatchesList extends React.Component {
   componentDidMount() {
     this.props.fetchData();
@@ -31,16 +30,15 @@ export class MatchesList extends React.Component {
       );
     }
 
-    const listItems = this.props.matches.map(({
-      userID, userName, userBio, primaryPic, matchDate,
-    }) =>
+    const listItems = this.props.matches.map(match =>
       (<MatchesListItem
-        key={userID}
-        userID={userID}
-        userName={userName}
-        userBio={userBio}
-        primaryPic={primaryPic}
-        matchDate={matchDate}
+        key={match.userID}
+        userID={match.userID}
+        userName={match.userName}
+        userBio={match.userBio}
+        primaryPic={match.primaryPic}
+        matchDate={match.matchDate}
+        onPress={() => this.props.openDetails(match)}
       />));
 
     return (
