@@ -14,11 +14,6 @@ describe('<MatchedUserDetail />', () => {
       matchDate: '2018-02-03T18:09:05.000Z',
     };
 
-  it('should render when empty', () => {
-    const rendered = renderer.create(<MatchedUserDetail data={[]} />).toJSON();
-    expect(rendered).toMatchSnapshot();
-  });
-
   it('renders with data', () => {
     const rendered = renderer.create(<MatchedUserDetail data={testData} />).toJSON();
     expect(rendered).toMatchSnapshot();
