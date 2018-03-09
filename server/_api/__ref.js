@@ -3,6 +3,7 @@
  */
 const express = require('express');
 const router = express.Router();
+const refDB = require('./db/ref');
 const responses = require('./responses');
 
 router.get('/', (req, res) => {
