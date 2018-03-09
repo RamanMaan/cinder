@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Text, Button, Icon, Left, Body } from 'native-base';
+import { Container, Content, Card, CardItem, Text } from 'native-base';
 
 import cinder from '../theme/variables/cinder';
 
 const styles = StyleSheet.create({
-  container: {
-
-  },
   header: {
     alignItems: 'center',
   },
@@ -42,26 +39,38 @@ const styles = StyleSheet.create({
 });
 
 export default class UserDetails extends Component {
-  formatMatchDate() {
-    return new Date(this.props.matchDate).toISOString().split('T')[0];
+  constructor(props) {
+    super(props);
+
+    const {
+      userName, userBio, primaryPic, matchDate, userAge,
+    } = this.props.navigation.state.params;
+
+    this.state = {
+      name: userName,
+      bio: userBio,
+      img: primaryPic,
+      matchDate: new Date(matchDate).toISOString().split('T')[0],
+      age: userAge,
+    };
   }
 
   render() {
     return (
-      <Container style={styles.container}>
+      <Container>
         <View style={styles.container__view}>
           <Content>
             <Card style={styles.card}>
               <CardItem header style={styles.header}>
-                <Text style={styles.user__matched_date}> Matched on {this.props.matchDate ? this.formatMatchDate() : 'A lifetime ago.'}</Text>
+                <Text style={styles.user__matched_date}> Matched on {this.state.matchDate}</Text>
               </CardItem>
               <CardItem>
-                <Image style={styles.user__image} source={{ uri: this.props.primaryPic }} />
+                <Image style={styles.user__image} source={{ uri: this.state.img }} />
               </CardItem>
               <CardItem>
-                <Text style={styles.user__age}>{this.props.userName}, {this.props.age}</Text>
+                <Text style={styles.user__age}>{this.state.name}, {this.state.age}</Text>
               </CardItem>
-              <Text numberOfLines={9} style={styles.user__about}>{this.props.userBio}</Text>
+              <Text style={styles.user__about}>{this.state.bio}</Text>
             </Card>
           </Content>
         </View>
