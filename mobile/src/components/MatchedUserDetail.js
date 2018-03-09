@@ -6,7 +6,7 @@ import cinder from '../theme/variables/cinder';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'black',
+
   },
   header: {
     alignItems: 'center',
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   user__about: {
     paddingLeft: '5%',
     paddingRight: '5%',
-    paddingBottom: '5%',
+    paddingBottom: '2%',
   },
   user__image: {
     height: 300,
@@ -35,6 +35,10 @@ const styles = StyleSheet.create({
   user__matched_date: {
     color: 'grey',
   },
+  card: {
+    alignItems: 'center',
+    marginBottom: '2%',
+  },
 });
 
 export default class UserDetails extends Component {
@@ -44,21 +48,23 @@ export default class UserDetails extends Component {
 
   render() {
     return (
-      <Container>
-        <Content>
-          <Card>
-            <CardItem header style={styles.header}>
-              <Text style={styles.user__matched_date}> Matched on {this.props.matchDate ? this.formatMatchDate() : 'A lifetime ago.'}</Text>
-            </CardItem>
-            <CardItem>
-              <Image style={styles.user__image} source={{ uri: this.props.primaryPic }} />
-            </CardItem>
-            <CardItem>
-              <Text style={styles.user__age}>{this.props.userName}, {this.props.age}</Text>
-            </CardItem>
-            <Text numberOfLines={9} style={styles.user__about}>{this.props.userBio}</Text>
-          </Card>
-        </Content>
+      <Container style={styles.container}>
+        <View style={styles.container__view}>
+          <Content>
+            <Card style={styles.card}>
+              <CardItem header style={styles.header}>
+                <Text style={styles.user__matched_date}> Matched on {this.props.matchDate ? this.formatMatchDate() : 'A lifetime ago.'}</Text>
+              </CardItem>
+              <CardItem>
+                <Image style={styles.user__image} source={{ uri: this.props.primaryPic }} />
+              </CardItem>
+              <CardItem>
+                <Text style={styles.user__age}>{this.props.userName}, {this.props.age}</Text>
+              </CardItem>
+              <Text numberOfLines={9} style={styles.user__about}>{this.props.userBio}</Text>
+            </Card>
+          </Content>
+        </View>
       </Container >
     );
   }
