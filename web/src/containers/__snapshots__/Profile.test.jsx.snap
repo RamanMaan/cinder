@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Profile /> Snapshot tests should be hidden if view is false 1`] = `<div />`;
+
+exports[`<Profile /> Snapshot tests should display if profile properties are all empty 1`] = `
+<div>
+  <div
+    className="profile modal"
+    onClick={[Function]}
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="modal-content"
+        onClick={[Function]}
+      >
+        <div
+          className="modal-header"
+        >
+          <h4
+            className="modal-title"
+          >
+            My Profile
+          </h4>
+          <button
+            aria-label="Close"
+            className="close"
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+            >
+              ×
+            </span>
+          </button>
+        </div>
+        <div
+          className="modal-body"
+        >
+          <div>
+            <div
+              className="name"
+            >
+              <h5>
+                Display Name
+              </h5>
+              <input
+                className="form-control"
+                defaultValue={null}
+                type="text"
+              />
+            </div>
+            <hr />
+            <div
+              className="birthday"
+            >
+              <h5>
+                Birthday
+              </h5>
+              <input
+                className="form-control"
+                defaultValue="1970-01-01"
+                type="date"
+              />
+            </div>
+            <hr />
+            <div
+              className="bio"
+            >
+              <h5>
+                User Bio
+              </h5>
+              <textarea
+                className="form-control"
+                defaultValue={null}
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="modal-footer"
+        >
+          <button
+            className="btn btn-outline-secondary"
+            onClick={[Function]}
+            type="button"
+          >
+            Discard Changes
+          </button>
+          <button
+            className="btn btn-primary"
+            onClick={[Function]}
+            type={undefined}
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Profile /> Snapshot tests should display profile properties by default 1`] = `
+<div>
+  <div
+    className="profile modal"
+    onClick={[Function]}
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="modal-content"
+        onClick={[Function]}
+      >
+        <div
+          className="modal-header"
+        >
+          <h4
+            className="modal-title"
+          >
+            My Profile
+          </h4>
+          <button
+            aria-label="Close"
+            className="close"
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+            >
+              ×
+            </span>
+          </button>
+        </div>
+        <div
+          className="modal-body"
+        >
+          <div>
+            <div
+              className="name"
+            >
+              <h5>
+                Display Name
+              </h5>
+              <input
+                className="form-control"
+                defaultValue="Test User"
+                type="text"
+              />
+            </div>
+            <hr />
+            <div
+              className="birthday"
+            >
+              <h5>
+                Birthday
+              </h5>
+              <input
+                className="form-control"
+                defaultValue="1991-10-18"
+                type="date"
+              />
+            </div>
+            <hr />
+            <div
+              className="bio"
+            >
+              <h5>
+                User Bio
+              </h5>
+              <textarea
+                className="form-control"
+                defaultValue="This is a test bio for a test user"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="modal-footer"
+        >
+          <button
+            className="btn btn-outline-secondary"
+            onClick={[Function]}
+            type="button"
+          >
+            Discard Changes
+          </button>
+          <button
+            className="btn btn-primary"
+            onClick={[Function]}
+            type={undefined}
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
