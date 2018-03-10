@@ -8,8 +8,7 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  Button
+  NavLink
 } from 'reactstrap';
 
 import './styles/NavigationBar.css';
