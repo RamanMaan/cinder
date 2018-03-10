@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Content } from 'native-base';
+import { Container } from 'native-base';
 
 import MatchesList from '../components/MatchesList';
 
@@ -10,10 +10,8 @@ export default class Matches extends React.Component {
 
   render() {
     return (
-      <Container>
-        <Content>
-          <MatchesList openDetails={this.openDetailsPage.bind(this)} />
-        </Content>
+      <Container style={{ backgroundColor: '#fff' }}>
+        <MatchesList openDetails={this.openDetailsPage.bind(this)} />
       </Container>
     );
   }
