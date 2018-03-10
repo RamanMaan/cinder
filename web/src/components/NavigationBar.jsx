@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { showProfile } from '../actions';
 import {
   Collapse,
   Navbar,
@@ -6,11 +8,13 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink } from 'reactstrap';
+  NavLink,
+  Button
+} from 'reactstrap';
 
 import './styles/NavigationBar.css';
 
-class NavigationBar extends Component {
+export class NavigationBar extends Component {
   constructor(props) {
     super(props);
 
@@ -20,9 +24,7 @@ class NavigationBar extends Component {
     };
   }
   toggle() {
-    this.setState(prev => (
-      {isOpen: !prev.isOpen}
-    ));
+    this.setState(prev => ({ isOpen: !prev.isOpen }));
   }
 
   render() {
@@ -32,9 +34,9 @@ class NavigationBar extends Component {
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
-            <NavItem>
+            <NavItem onClick={() => this.props.showProfile()}>
               <NavLink href="#">
-                <img src={this.props.userIcon} alt=""/>
+                <img src={this.props.userIcon} alt="" />
                 {this.props.userName}
               </NavLink>
             </NavItem>
@@ -45,4 +47,12 @@ class NavigationBar extends Component {
   }
 }
 
-export default NavigationBar;
+const mapStateToProps = state => ({
+  profile: state.profile
+});
+
+const mapDispatchToProps = dispatch => ({
+  showProfile: () => dispatch(showProfile())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar);
