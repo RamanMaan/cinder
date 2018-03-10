@@ -1,1 +1,6 @@
+@import '../../assets/bootstrap/overrides/variables';
 
+.profile.modal {
+  display: block;
+  background-color: $profile-modal-bg-color;
+}

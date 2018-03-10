@@ -16,10 +16,9 @@ export class Profile extends Component {
     this.toggle = this.toggle.bind(this);
   }
 
-  toggle() {
-    this.setState(prevState => ({
-      modal: !prevState.modal
-    }));
+  toggle(e) {
+    e.stopPropagation();
+    this.props.hideProfile();
   }
 
   componentDidMount() {
@@ -27,7 +26,21 @@ export class Profile extends Component {
   }
 
   render() {
-    const modal = !this.props.view ? null : <h1>Hello</h1>;
+    const modal = !this.props.view ? null : (
+      <div className="profile modal" onClick={e => this.toggle(e)}>
+        <div className="modal-dialog">
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <ModalHeader toggle={e => this.toggle(e)}>My Profile</ModalHeader>
+            <ModalBody>Hello there</ModalBody>
+            <ModalFooter>
+              <Button color="primary" onClick={e => this.toggle(e)}>
+                Something
+              </Button>
+            </ModalFooter>
+          </div>
+        </div>
+      </div>
+    );
 
     return <div>{modal}</div>;
   }
