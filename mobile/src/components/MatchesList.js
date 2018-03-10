@@ -14,13 +14,13 @@ export class MatchesList extends React.Component {
   render() {
     const msg = this.props.loading
       ? 'Loading...'
-      : !this.props.matches.length
-        ? 'No matches yet. Get swiping!'
-        : 'There was an error loading matches';
+      : this.props.errored
+        ? 'There was an error loading matches'
+        : 'No matches yet. Get swiping!';
 
     if (
       this.props.errored ||
-      (this.props.loading && !this.props.matches.length) ||
+      (this.props.loading && !(this.props.matches && this.props.matches.length)) ||
       !this.props.matches.length
     ) {
       return (
