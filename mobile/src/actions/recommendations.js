@@ -34,7 +34,7 @@ export function fetchRecommendations() {
   return (dispatch) => {
     dispatch(recLoading(true));
 
-    fetch(`${serverURL}/api/users/${loggedInUser}/recommendations`)
+    fetch(`${serverURL}/api/users/${loggedInUser}/recs`)
       .then((res) => {
         if (!res.ok) {
           throw Error(res.statusText);
