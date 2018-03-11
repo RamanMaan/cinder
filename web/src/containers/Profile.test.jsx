@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import renderer from 'react-test-renderer';
+import fetchMock from 'fetch-mock';
 
 import { Profile } from './Profile';
 
@@ -10,6 +11,8 @@ describe('<Profile />', () => {
     Birthday: '1991-10-18T05:00:00.000Z',
     UserName: 'Test User'
   };
+
+  fetchMock.get(/\/api\/ref\/[a-z]*/, []);
 
   describe('Snapshot tests', () => {
     it('should be hidden if view is false', () => {
