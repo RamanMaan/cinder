@@ -17,24 +17,24 @@ module.exports = {
     return mysql.createConnection(MYSQLDB).then(conn => {
       const query = mysql.format(
         `
-                    SELECT 
-                        UI.UserID AS userID,
-                        UI.UserName AS userName,
-                        TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS age,
-                        UP.PicturePath AS primaryPic,
-                        UI.Bio AS userBio
-                    FROM UsersInfo UI
-                        LEFT JOIN UserPicture UP
-                        ON UI.UserID = UP.UserID
-                        AND UP.PrimaryPicture
-                        LEFT JOIN Likes L
-                        ON UI.UserID = L.User2ID
-                        AND L.User1ID = ?
-                        AND L.UserAction = 'L'
-                        WHERE
-                        L.User2ID IS NULL
-                        AND UI.UserID != ?
-                    `,
+        SELECT 
+            UI.UserID AS userID,
+            UI.UserName AS userName,
+            TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS age,
+            UP.PicturePath AS primaryPic,
+            UI.Bio AS userBio 
+        FROM UsersInfo UI 
+            LEFT JOIN UserPicture UP 
+            ON UI.UserID = UP.UserID 
+            AND UP.PrimaryPicture 
+            LEFT JOIN Likes L 
+            ON UI.UserID = L.User2ID 
+            AND L.User1ID = ? 
+            AND L.UserAction = 'L'
+        WHERE 
+            L.User2ID IS NULL 
+            AND UI.UserID != ?
+        `,
         [id, id]
       );
 

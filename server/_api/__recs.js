@@ -2,7 +2,7 @@
  * These are the endpoints for user operations
  */
 const express = require('express');
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const recsDB = require('./db/recs');
 const util = require('./util');
 const responses = require('./responses');
