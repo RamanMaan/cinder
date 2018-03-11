@@ -68,12 +68,12 @@ mysql
   })
   .then(conn => {
     console.log(`---Connected to ${MYSQLDB.database} database---`);
-    const res = conn.query('GRANT ALL ON ??.* TO ??@?? IDENTIFIED BY ?', [
-      MYSQLDB.database,
-      MYSQLDB.user,
-      MYSQLDB.host,
-      MYSQLDB.password
-    ]);
+    const res = conn.query(
+      'GRANT ALL ON ??.* TO ??@' +
+        mysql.escapeId(MYSQLDB.host, true) +
+        ' IDENTIFIED BY ?',
+      [MYSQLDB.database, MYSQLDB.user, MYSQLDB.password]
+    );
     conn.end();
     return res;
   })
