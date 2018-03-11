@@ -10,7 +10,7 @@ const MYSQLDB = {
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   rootUser: process.env.DB_USER,
-  rootPass: process.env.MYSQL_ROOT_PASS
+  rootPass: process.env.DB_ROOT_PASSWORD
 };
 
 const buildPairs = (val, index) => `(${index + 1}, '${val}')`;
