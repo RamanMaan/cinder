@@ -98,22 +98,24 @@ export class Profile extends Component {
         <hr />
         <div className="filters">
           <h5>User Filters</h5>
-          <FilterElement
-            round
-            onChange={this.onElementToggle.bind(this, 'gender')}
-          >
-            <Dropdown
-              endpoint="/api/ref/gender"
-              onChange={this.onDropdownChange.bind(this, 'gender')}
-            />
-          </FilterElement>
+          <div className="gender">
+            <h7>Gender Filter</h7>
+            <FilterElement
+              round
+              onChange={this.onElementToggle.bind(this, 'gender')}
+            >
+              <Dropdown
+                endpoint="/api/ref/gender"
+                onChange={this.onDropdownChange.bind(this, 'gender')}
+              />
+            </FilterElement>
+          </div>
         </div>
       </div>
     );
   }
 
   render() {
-    console.log(this.state);
     const modal = !this.props.view ? null : (
       <div className="profile modal" onClick={e => this.toggle(e)}>
         <Container>

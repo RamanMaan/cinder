@@ -33,17 +33,37 @@ describe('<FilterElement />', () => {
 
   describe('Enzyme tests', () => {
     let wrapper;
+    let mockActiveChange;
 
     beforeEach(() => {
-      wrapper = mount(<FilterElement round />);
+      mockActiveChange = jest.fn();
+      wrapper = mount(<FilterElement round onChange={mockActiveChange} />);
     });
 
     it('should toggle', () => {
       expect(wrapper.find('.filter.element.disabled')).toHaveLength(1);
       expect(wrapper.state('disabled')).toEqual(true);
-      wrapper.find('input').simulate('change', { button: 0 });
+
+      expect(mockActiveChange.mock.calls).toHaveLength(0);
+      wrapper.find('input').simulate('change');
       expect(wrapper.find('filter.element.disabled')).toHaveLength(0);
       expect(wrapper.state('disabled')).toEqual(false);
+
+      expect(mockActiveChange.mock.calls).toHaveLength(1);
+    });
+
+    it('should trigger onChange on toggle', () => {
+      expect(mockActiveChange.mock.calls).toHaveLength(0);
+      wrapper.find('input').simulate('change');
+
+      expect(mockActiveChange.mock.calls).toHaveLength(1);
+      wrapper.find('input').simulate('change');
+
+      expect(mockActiveChange.mock.calls).toHaveLength(2);
+      wrapper.find('input').simulate('change');
+
+      expect(mockActiveChange.mock.calls).toHaveLength(3);
+      wrapper.find('input').simulate('change');
     });
   });
 });
