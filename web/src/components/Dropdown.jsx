@@ -20,6 +20,7 @@ export default class Dropdown extends React.Component {
     this.setState({
       value: value
     });
+    this.props.onChange(value);
   }
 
   fetchData() {

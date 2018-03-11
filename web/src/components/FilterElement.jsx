@@ -12,6 +12,7 @@ export default class FilterElement extends React.Component {
   }
 
   toggle() {
+    this.props.onChange(this.state.disabled);
     this.setState(prevState => {
       return { disabled: !prevState.disabled };
     });

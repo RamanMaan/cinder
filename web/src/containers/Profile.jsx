@@ -20,11 +20,53 @@ export class Profile extends Component {
     super(props);
 
     this.toggle = this.toggle.bind(this);
+
+    this.state = {
+      filters: {
+        gender: null
+      }
+    };
   }
 
   toggle(e) {
     e.stopPropagation();
     this.props.hideProfile();
+  }
+
+  onElementToggle(field, value) {
+    this.setState(prev => ({
+      ...prev,
+      filters: {
+        ...prev.filters,
+        [field]: {
+          ...prev.filters[field],
+          active: value
+        }
+      }
+    }));
+  }
+
+  onDropdownChange(field, value) {
+    if (!value || !value.length) {
+      this.setState(prev => ({
+        ...prev,
+        filters: {
+          ...prev.filters,
+          [field]: null
+        }
+      }));
+    } else {
+      this.setState(prev => ({
+        ...prev,
+        filters: {
+          ...prev.filters,
+          [field]: {
+            ...prev.filters[field],
+            values: value
+          }
+        }
+      }));
+    }
   }
 
   componentDidMount() {
@@ -56,8 +98,14 @@ export class Profile extends Component {
         <hr />
         <div className="filters">
           <h5>User Filters</h5>
-          <FilterElement round>
-            <Dropdown endpoint="/api/ref/gender" />
+          <FilterElement
+            round
+            onChange={this.onElementToggle.bind(this, 'gender')}
+          >
+            <Dropdown
+              endpoint="/api/ref/gender"
+              onChange={this.onDropdownChange.bind(this, 'gender')}
+            />
           </FilterElement>
         </div>
       </div>
@@ -65,6 +113,7 @@ export class Profile extends Component {
   }
 
   render() {
+    console.log(this.state);
     const modal = !this.props.view ? null : (
       <div className="profile modal" onClick={e => this.toggle(e)}>
         <Container>
