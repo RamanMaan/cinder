@@ -10,6 +10,9 @@ import {
 } from 'reactstrap';
 import { fetchProfile, hideProfile } from '../actions';
 
+import FilterElement from '../components/FilterElement';
+import Dropdown from '../components/Dropdown';
+
 import './styles/Profile.css';
 
 export class Profile extends Component {
@@ -49,6 +52,13 @@ export class Profile extends Component {
         <div className="bio">
           <h5>User Bio</h5>
           <Input type="textarea" defaultValue={this.props.profile.Bio} />
+        </div>
+        <hr />
+        <div className="filters">
+          <h5>User Filters</h5>
+          <FilterElement round>
+            <Dropdown endpoint="/api/ref/gender" />
+          </FilterElement>
         </div>
       </div>
     );
