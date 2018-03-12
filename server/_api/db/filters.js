@@ -120,7 +120,7 @@ const saveGenderFilter = (id, genderFilter) => {
     
     if (genderFilter.preference && genderFilter.preference.length) {
       insertFilterQuery = `INSERT INTO GenderFilter (UserID, GenderID) ` + 
-      genderFilter.preference.map(x => mysql.format(` SELECT ? AS UserID, ?  AS GenderID `, [id, x.GenderID]))
+      genderFilter.preference.map(x => mysql.format(` SELECT ? AS UserID, ?  AS GenderID `, [id, x.genderID]))
       .join(` UNION ALL `) + `;`;
     } 
     
