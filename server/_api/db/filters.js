@@ -31,7 +31,7 @@ const getAgeFilter = (id) => {
     const result = conn.query(query).then((rows) => {
       if (rows && rows.length) {
         return { 
-          state: rows[0].state == 1,
+          state: rows[0].state === 1,
           minAge: rows[0].minAge,
           maxAge: rows[0].maxAge
         }
@@ -94,7 +94,7 @@ const getGenderFilter = (id) => {
     const result = conn.query(query).then((rows) => {
       if (rows && rows.length) {
         return { 
-          state: rows[0].state == 1,
+          state: rows[0].state === 1,
           preference: rows.map(x => { return { genderID: x.genderID, genderName: x.genderName } })
         }
       }
