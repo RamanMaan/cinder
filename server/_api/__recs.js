@@ -2,25 +2,18 @@
  * These are the endpoints for user operations
  */
 const express = require('express');
-const router = express.Router();
-const usersDB = require('./db/users');
+const router = express.Router({ mergeParams: true });
+const recsDB = require('./db/recs');
 const util = require('./util');
 const responses = require('./responses');
 
 router.get('/', (req, res, next) => {
-  return usersDB
-    .getUsers()
-    .then(users => res.status(responses.SUCCESS).json(users))
-    .catch(next);
-});
-
-router.get('/:userID', (req, res, next) => {
   const { userID } = req.params;
   util.validateID(userID);
 
-  return usersDB
-    .getUser(userID)
-    .then(user => res.status(responses.SUCCESS).json(user[0]))
+  return recsDB
+    .getRecs(userID)
+    .then(recs => res.status(responses.SUCCESS).json(recs))
     .catch(next);
 });
 
