@@ -20,7 +20,6 @@ const prepareQuery = arr => (arr.map(buildPairs).join(', '));
 const refTableQueries = [
   `INSERT INTO GenderType (GenderID, GenderType) VALUES ${prepareQuery(refData.GenderType)};`,
   `INSERT INTO EducationType (EducationID, EducationType) VALUES ${prepareQuery(refData.EducationType)};`,
-  `INSERT INTO StudyType (StudyID, StudyType) VALUES ${prepareQuery(refData.StudyType)};`,
   `INSERT INTO ReligionType (ReligionID, ReligionType) VALUES ${prepareQuery(refData.ReligionType)};`,
   `INSERT INTO InterestsType (InterestID, InterestType) VALUES ${prepareQuery(refData.InterestsType)};`,
 ];

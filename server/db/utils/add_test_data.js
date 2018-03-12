@@ -19,13 +19,13 @@ const prepareQuery = (arr, map) => (arr.map(map).join(', '));
 
 const users = testData.users.map(x => `(${x.id}, '${x.email}', '${x.password}')`).join(', ');
 const usersInfo = testData.users.map(x => `(${x.id}, '${x.name}', '${x.birthday}', ${x.gender}, ${x.location.lat}, ${x.location.long}, '${x.bio}')`).join(', ');
-const study = testData.users.map(x => `(${x.id}, ${x.study}, ${x.education})`).join(', ');
+const education = testData.users.map(x => `(${x.id}, ${x.education})`).join(', ');
 const pictures = testData.users.map((x, i) => `(${i + 1}, ${x.id}, '${x.imgs[0]}', 1)`).join(', ');
 
 const userQueries = [
   `INSERT INTO Users (UserID, UserEmail, UserPassword) VALUES ${users};`,
   `INSERT INTO UsersInfo (UserID, UserName, Birthday, GenderID, Latitude, Longitude, Bio) VALUES ${usersInfo};`,
-  `INSERT INTO UserStudy (UserID, StudyID, EducationID) VALUES ${study};`,
+  `INSERT INTO UserEducation (UserID, EducationID) VALUES ${education};`,
   `INSERT INTO UserPicture (PictureID, UserID, PicturePath, PrimaryPicture) VALUES ${pictures};`,
 ];
 
