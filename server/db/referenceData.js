@@ -5,10 +5,9 @@
 */
 const GenderType = ['Male', 'Female', 'Other'];
 const EducationType = ['High School', 'College Diploma', 'Bachelors', 'Masters', 'Ph.D'];
-const StudyType = ['Computer Science', 'English', 'Economics', 'Law', 'Mathematics'];
 const ReligionType = ['Pastafarnianism', 'Scientology', 'Agnostic', 'Athiest'];
 const InterestsType = ['Base Jumping', 'Basket Weaving', 'Wine Tasting', 'Video Games'];
 
 module.exports = {
-  GenderType, EducationType, StudyType, ReligionType, InterestsType,
+  GenderType, EducationType, ReligionType, InterestsType,
 };
