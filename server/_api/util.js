@@ -38,10 +38,9 @@ module.exports = {
   },
 
   validateGenderFilter(genderFilter) {
-    let genderFilters = genderFilter.split(',');
-    genderFilters.forEach(genderFilter => {
-      if (!genderFilter.match(GENDER_FILTER_REGEX)) {
-        throw new Error(`[INTERNAL]: Invalid Gender Filter: ${genderFilter}`);
+    genderFilter.forEach(gender => {
+      if (!gender.match(GENDER_FILTER_REGEX)) {
+        throw new Error(`[INTERNAL]: Invalid Gender Filter: ${gender}`);
       }
     });
   },

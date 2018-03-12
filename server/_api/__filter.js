@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
   const { userID } = req.params;
   util.validateID(userID);
 
-  let filters = { age, gender, location: null };
+  let filters = { age:null, gender:null, location: null };
 
   return filterDB
     .getAgeFilter(userID)
@@ -21,65 +21,61 @@ router.get('/', (req, res, next) => {
       return filters;
     })
     .then(filters => {
-      filters.gender = getGenderFilter(userID);
+      filters.gender = filterDB.getGenderFilter(userID);
       return filters;
     })
     .then(filters => res.status(responses.SUCCESS).json(filters))
     .catch(next);
 });
 
-router.post(
-  '/:gender_filter_switch/:gender_filter/:age_filter_switch/:age_min/:age_max/:distance_filter_swtich/:distance_filter',
-  (req, res, next) => {
-    const {
-      userID,
-      gender_filter_switch,
-      gender_filter,
-      age_filter_switch,
-      age_min,
-      age_max,
-      distance_filter_swtich,
-      distance_filter
-    } = req.params;
-    util.validateID(userID);
-    util.validateFilterSwitch([
-      gender_filter_switch,
-      age_filter_switch,
-      distance_filter_swtich
-    ]);
-    util.validateGenderFilter(gender_filter);
-    util.validateAgeFilter([age_min, age_max]);
-    util.validateDistanceFilter(distance_filter);
+router.post('/',(req, res, next) => {
+  const {userID} = req.params;
+  const {gender_filter_switch,
+    gender_filter,
+    age_filter_switch,
+    age_min,
+    age_max,
+    distance_filter_swtich,
+    distance_filter} = req.query;
 
-    let genderFilter = { state: 0, preference: [] };
-    let ageFilter = { state: 0, minAge: 0, maxAge: 0 };
-    // let distenceFilter = {state:0, distance:0};
-    let genderID = [];
+  util.validateID(userID);
+  util.validateFilterSwitch([
+    gender_filter_switch,
+    age_filter_switch,
+    distance_filter_swtich
+  ]);
+  util.validateGenderFilter(gender_filter);
+  util.validateAgeFilter([age_min, age_max]);
+  util.validateDistanceFilter(distance_filter);
 
-    ageFilter.state = age_filter_switch.match(/T/i) ? 0 : 1;
-    ageFilter.minAge = age_min;
-    ageFilter.maxAge = age_max;
+  let genderFilter = { state: 0, preference: [] };
+  let ageFilter = { state: 0, minAge: 0, maxAge: 0 };
+  // let distenceFilter = {state:0, distance:0};
 
-    genderFilter.state = gender_filter_switch.match(/T/i) ? 0 : 1;
-    let genders = gender_filter.split(',');
-    genders.forEach(gender => {
-      let genderPre = (genderPre.genderID = GenderType.indexOf(gender));
-      genderPre.genderName = gender;
-      genderFilter.preference.push(GenderID);
-    });
+  ageFilter.state = age_filter_switch.match(/T/i) ? 0 : 1;
+  ageFilter.minAge = age_min;
+  ageFilter.maxAge = age_max;
 
-    // distenceFilter.state = distance_filter_swtich.match(/T/i) ? 0 : 1;
-    // distenceFilter.distance = distance_filter;
+  genderFilter.state = gender_filter_switch.match(/T/i) ? 0 : 1;
+  gender_filter.forEach(gender => {
+    let genderPre = {genderID:0, genderName:null};
+    genderPre.genderID = refData.GenderType.indexOf(gender);
+    genderPre.genderName = gender;
+    genderFilter.preference.push(genderPre);
+  });
 
-    return (
-      filterDB
-        .saveGenderFilter(userID, genderFilter)
-        .then(() => filterDB.saveAgeFilter(userID, ageFilter))
-        // .then(() => filterDB.saveDistanceFilter(userID, distanceFilter))
-        .then(result => res.status(responses.CREATED).json(result[0]))
-        .catch(next)
-    );
-  }
+  // distenceFilter.state = distance_filter_swtich.match(/T/i) ? 0 : 1;
+  // distenceFilter.distance = distance_filter;
+
+  return (
+    filterDB
+      .saveGenderFilter(userID, genderFilter)
+      .then(() => filterDB.saveAgeFilter(userID, ageFilter))
+      // .then(() => filterDB.saveDistanceFilter(userID, distanceFilter))
+      .then(result => res.status(responses.CREATED).json(result[0]))
+      .catch(next)
+  );
+}
 );
 
 /**
