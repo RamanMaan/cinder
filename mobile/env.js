@@ -6,7 +6,6 @@
 //
 // Example: serverURL = `http://192.168.0.6:5000`;
 //
-
 export const serverURL = 'http://192.168.0.12:5000';
 
 // temporarily until auth is set up

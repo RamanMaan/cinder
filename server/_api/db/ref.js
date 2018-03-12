@@ -19,7 +19,7 @@ module.exports = {
           SELECT 
             GT.GenderID AS id, 
             GT.GenderType AS value 
-          FROM GenderType GT
+          FROM gendertype GT
           `);
       conn.end();
       return rows;
