@@ -1,4 +1,4 @@
-require('dotenv').load();
+require('../../utils/env').loadEnvFile();
 require('require-sql');
 const mysql = require('promise-mysql');
 const testData = require('../../testdata.json');

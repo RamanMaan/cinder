@@ -1,6 +1,6 @@
 const express = require('express');
 const ifaces = require('os').networkInterfaces();
-require('dotenv').load();
+require('./utils/env').loadEnvFile();
 
 const app = express();
 const port = process.env.SERVER_PORT || 5000;

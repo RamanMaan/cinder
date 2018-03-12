@@ -4,12 +4,13 @@
   "scripts": {
     "web": "cd ../web && npm start && npm run watch-css",
     "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run web\"",
+    "dev": "NODE_ENV=development concurrently --kill-others-on-fail \"npm run server\" \"npm run web\"",
+    "test": "NODE_ENV=test node db/utils/build_db.js && jest",
     "precommit": "lint-staged",
     "build:testdata": "node db/utils/generateTestData.js",
-    "db:build": "node db/utils/build_db.js",
-    "db:addTestData": "node db/utils/add_test_data.js",
-    "db:dev": "node db/utils/build_db.js && node db/utils/add_test_data.js"
+    "db:dev:build": "NODE_ENV=development node db/utils/build_db.js",
+    "db:dev:addTestData": "NODE_ENV=development node db/utils/add_test_data.js",
+    "db:dev": "NODE_ENV=development node db/utils/build_db.js && node db/utils/add_test_data.js"
   },
   "description": "",
   "main": "server.js",
@@ -33,6 +34,7 @@
     "concurrently": "^3.5.1",
     "eslint": "^4.16.0",
     "husky": "^0.14.3",
+    "jest": "^22.4.2",
     "lint-staged": "^6.0.0",
     "nodemon": "^1.14.11",
     "prettier": "^1.10.2",

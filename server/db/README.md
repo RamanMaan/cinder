@@ -5,7 +5,7 @@
 ## To create database and all tables
 While in the `/server` directory:
 ```
- npm run db:build
+ npm run db:dev:build
 ```
 
 Or use [setup.sql](setup.sql) directly:
@@ -14,7 +14,7 @@ Or use [setup.sql](setup.sql) directly:
 
 ## To insert all test data
 ```
- npm run db:addTestData
+ npm run db:dev:addTestData
 ```
 
 # To create database and initialize it AND insert test data:

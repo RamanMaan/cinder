@@ -5,6 +5,21 @@ This server manages the database and communicates with the clients through its A
 
 A Node.js server, leveraging Express for route management and MySQL for the database.
 
+Testing
+---
+_Note: The server tests requires a MySQL instance running on the host machine with a .env.test file configured with the required variables listed in the .env.example file_
+
+Install MYSQL according to your OS's specifications.
+
+### Configure .env.test variables
+Setup a ```.env.test``` file in the server root directory with variables from the ```.env.example``` file. Set these variable values to whatever you prefer.
+
+### Run tests
+From server root:
+
+    npm install
+    npm test
+
 How To Run
 ---
 _Note: The server requires a MySQL instance running on the host machine with a .env file configured with the required variables listed in the .env.example file_
@@ -14,11 +29,13 @@ Install MYSQL according to your OS's specifications.
 ### Configure .env variables
 Setup a ```.env``` file in the server root directory with variables from the ```.env.example``` file. Set these variable values to whatever you prefer.
 
+To avoid any potential conflicts, make sure you are not using the same database you used for testing.
+
 ### Build the database
 From server/ root:
 
     npm install
-    npm run db:build
+    npm run db:dev:build
 
 To add test data:
 
@@ -35,7 +52,10 @@ Structure
 └── server/
     ├── server.js                       # manages the Node server handling the API
     ├── .env                            # contains environment specific values. THIS IS NOT COMMITED
+    ├── .env.test                       # contains environment specific values for running tests. THIS IS NOT COMMITED
     ├── .env.example                    # an example of a .env file with the required variables
+    ├── utils/                          
+    |   ├── env.js                      # helper for loading the appropriate .env file based on NODE_ENV
     ├── db/                             # database configuration files
     |   ├── setup.sql                   # defines database schema
     |   ├── referenceData.js            # defines reference data default values

@@ -26,7 +26,7 @@ _More detailed instructions are included in each folders README._
 ```
     cd server
     npm install
-    npm run db:build
+    npm run db:dev:build
     
     npm run db:dev # this installs test data, optional
 ```
