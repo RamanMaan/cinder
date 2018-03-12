@@ -1,5 +1,5 @@
 /**
- * These are the endpoints for user operations
+ * These are the endpoints for user recommendation operations
  */
 const express = require('express');
 const router = express.Router({ mergeParams: true });
