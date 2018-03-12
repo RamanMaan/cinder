@@ -19,14 +19,6 @@ CREATE TABLE EducationType
   CONSTRAINT PK_EducationType_EducationID PRIMARY KEY (EducationID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS StudyType;
-CREATE TABLE StudyType
-(
-  StudyID INT NOT NULL AUTO_INCREMENT,
-  StudyType VARCHAR(254) NOT NULL,
-  CONSTRAINT PK_StudyType_StudyID PRIMARY KEY (StudyID)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 DROP TABLE IF EXISTS ReligionType;
 CREATE TABLE ReligionType
 (
@@ -88,18 +80,6 @@ CREATE TABLE UserPicture
 MEMBERSHIP TABLES
 ***********************************************************************************************/
 
-DROP TABLE IF EXISTS UserStudy;
-CREATE TABLE UserStudy
-(
-  UserID INT NOT NULL,
-  StudyID INT NOT NULL,
-  EducationID INT NOT NULL,
-  CONSTRAINT PK_UserStudy_UserID_StudyID_EducationID PRIMARY KEY (UserID, StudyID, EducationID),
-  CONSTRAINT FK_UserStudy_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID),
-  CONSTRAINT FK_UserStudy_StudyType_StudyID FOREIGN KEY (StudyID) REFERENCES StudyType(StudyID),
-  CONSTRAINT FK_UserStudy_EducationType_EducationID FOREIGN KEY (EducationID) REFERENCES EducationType(EducationID)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 DROP TABLE IF EXISTS Likes;
 CREATE TABLE Likes
 (
@@ -110,6 +90,16 @@ CREATE TABLE Likes
   CONSTRAINT PK_Likes_User1ID_User2ID PRIMARY KEY (User1ID, User2ID),
   CONSTRAINT FK_Likes_Users_User1ID FOREIGN KEY (User1ID) REFERENCES Users(UserID),
   CONSTRAINT FK_Likes_Users_User2ID FOREIGN KEY (User2ID) REFERENCES Users(UserID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS UserEducation;
+CREATE TABLE UserEducation
+(
+  UserID INT NOT NULL,
+  EducationID INT NOT NULL,
+  CONSTRAINT PK_UserEducation_UserID_EducationID PRIMARY KEY (UserID, EducationID),
+  CONSTRAINT FK_UserEducation_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID),
+  CONSTRAINT FK_UserEducation_EducationType_EducationID FOREIGN KEY (EducationID) REFERENCES EducationType(EducationID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS UserInterests;
