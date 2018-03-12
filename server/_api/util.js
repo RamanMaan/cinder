@@ -4,7 +4,7 @@ const MATCH_ACTION_REGEX = /(like|pass)/i;
 
 const FILTER_SWITCH_REGEX = /T|F/i;
 
-const GENDER_FILTER_REGEX = /M|F|O/i;
+const GENDER_FILTER_REGEX = /Male|Female|Other/i;
 
 const AGE_FILTER_REGEX = /^\d+$/;
 
