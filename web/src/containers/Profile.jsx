@@ -10,6 +10,9 @@ import {
 } from 'reactstrap';
 import { fetchProfile, hideProfile } from '../actions';
 
+import FilterElement from '../components/FilterElement';
+import Dropdown from '../components/Dropdown';
+
 import './styles/Profile.css';
 
 export class Profile extends Component {
@@ -17,11 +20,53 @@ export class Profile extends Component {
     super(props);
 
     this.toggle = this.toggle.bind(this);
+
+    this.state = {
+      filters: {
+        gender: null
+      }
+    };
   }
 
   toggle(e) {
     e.stopPropagation();
     this.props.hideProfile();
+  }
+
+  onElementToggle(field, value) {
+    this.setState(prev => ({
+      ...prev,
+      filters: {
+        ...prev.filters,
+        [field]: {
+          ...prev.filters[field],
+          active: value
+        }
+      }
+    }));
+  }
+
+  onDropdownChange(field, value) {
+    if (!value || !value.length) {
+      this.setState(prev => ({
+        ...prev,
+        filters: {
+          ...prev.filters,
+          [field]: null
+        }
+      }));
+    } else {
+      this.setState(prev => ({
+        ...prev,
+        filters: {
+          ...prev.filters,
+          [field]: {
+            ...prev.filters[field],
+            values: value
+          }
+        }
+      }));
+    }
   }
 
   componentDidMount() {
@@ -49,6 +94,22 @@ export class Profile extends Component {
         <div className="bio">
           <h5>User Bio</h5>
           <Input type="textarea" defaultValue={this.props.profile.Bio} />
+        </div>
+        <hr />
+        <div className="filters">
+          <h5>User Filters</h5>
+          <div className="gender">
+            <h7>Gender Filter</h7>
+            <FilterElement
+              round
+              onChange={this.onElementToggle.bind(this, 'gender')}
+            >
+              <Dropdown
+                endpoint="/api/ref/gender"
+                onChange={this.onDropdownChange.bind(this, 'gender')}
+              />
+            </FilterElement>
+          </div>
         </div>
       </div>
     );

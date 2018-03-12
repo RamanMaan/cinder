@@ -77,6 +77,137 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
                 defaultValue={null}
               />
             </div>
+            <hr />
+            <div
+              className="filters"
+            >
+              <h5>
+                User Filters
+              </h5>
+              <div
+                className="gender"
+              >
+                <h7>
+                  Gender Filter
+                </h7>
+                <div
+                  className="filter element disabled"
+                >
+                  <div
+                    className="toggle"
+                  >
+                    <label
+                      className="switch"
+                    >
+                      <input
+                        checked={undefined}
+                        onChange={[Function]}
+                        type="checkbox"
+                      />
+                      <div
+                        className="slider round"
+                      />
+                    </label>
+                  </div>
+                  <div
+                    className="content"
+                  >
+                    <div>
+                      <div
+                        className="Select is-clearable is-loading is-searchable Select--multi"
+                        style={undefined}
+                      >
+                        <div
+                          className="Select-control"
+                          onKeyDown={[Function]}
+                          onMouseDown={[Function]}
+                          onTouchEnd={[Function]}
+                          onTouchMove={[Function]}
+                          onTouchStart={[Function]}
+                          style={undefined}
+                        >
+                          <span
+                            className="Select-multi-value-wrapper"
+                            id="react-select-2--value"
+                          >
+                            <div
+                              className="Select-placeholder"
+                            >
+                              Loading...
+                            </div>
+                            <div
+                              className="Select-input"
+                              style={
+                                Object {
+                                  "display": "inline-block",
+                                }
+                              }
+                            >
+                              <input
+                                aria-activedescendant="react-select-2--value"
+                                aria-describedby={undefined}
+                                aria-expanded="false"
+                                aria-haspopup="false"
+                                aria-label={undefined}
+                                aria-labelledby={undefined}
+                                aria-owns=""
+                                className={undefined}
+                                id={undefined}
+                                onBlur={[Function]}
+                                onChange={[Function]}
+                                onFocus={[Function]}
+                                required={false}
+                                role="combobox"
+                                style={
+                                  Object {
+                                    "boxSizing": "content-box",
+                                    "width": "5px",
+                                  }
+                                }
+                                tabIndex={undefined}
+                                value=""
+                              />
+                              <div
+                                style={
+                                  Object {
+                                    "height": 0,
+                                    "left": 0,
+                                    "overflow": "scroll",
+                                    "position": "absolute",
+                                    "top": 0,
+                                    "visibility": "hidden",
+                                    "whiteSpace": "pre",
+                                  }
+                                }
+                              >
+                                
+                              </div>
+                            </div>
+                          </span>
+                          <span
+                            aria-hidden="true"
+                            className="Select-loading-zone"
+                          >
+                            <span
+                              className="Select-loading"
+                            />
+                          </span>
+                          <span
+                            className="Select-arrow-zone"
+                            onMouseDown={[Function]}
+                          >
+                            <span
+                              className="Select-arrow"
+                              onMouseDown={[Function]}
+                            />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -177,6 +308,137 @@ exports[`<Profile /> Snapshot tests should display profile properties by default
                 className="form-control"
                 defaultValue="This is a test bio for a test user"
               />
+            </div>
+            <hr />
+            <div
+              className="filters"
+            >
+              <h5>
+                User Filters
+              </h5>
+              <div
+                className="gender"
+              >
+                <h7>
+                  Gender Filter
+                </h7>
+                <div
+                  className="filter element disabled"
+                >
+                  <div
+                    className="toggle"
+                  >
+                    <label
+                      className="switch"
+                    >
+                      <input
+                        checked={undefined}
+                        onChange={[Function]}
+                        type="checkbox"
+                      />
+                      <div
+                        className="slider round"
+                      />
+                    </label>
+                  </div>
+                  <div
+                    className="content"
+                  >
+                    <div>
+                      <div
+                        className="Select is-clearable is-loading is-searchable Select--multi"
+                        style={undefined}
+                      >
+                        <div
+                          className="Select-control"
+                          onKeyDown={[Function]}
+                          onMouseDown={[Function]}
+                          onTouchEnd={[Function]}
+                          onTouchMove={[Function]}
+                          onTouchStart={[Function]}
+                          style={undefined}
+                        >
+                          <span
+                            className="Select-multi-value-wrapper"
+                            id="react-select-3--value"
+                          >
+                            <div
+                              className="Select-placeholder"
+                            >
+                              Loading...
+                            </div>
+                            <div
+                              className="Select-input"
+                              style={
+                                Object {
+                                  "display": "inline-block",
+                                }
+                              }
+                            >
+                              <input
+                                aria-activedescendant="react-select-3--value"
+                                aria-describedby={undefined}
+                                aria-expanded="false"
+                                aria-haspopup="false"
+                                aria-label={undefined}
+                                aria-labelledby={undefined}
+                                aria-owns=""
+                                className={undefined}
+                                id={undefined}
+                                onBlur={[Function]}
+                                onChange={[Function]}
+                                onFocus={[Function]}
+                                required={false}
+                                role="combobox"
+                                style={
+                                  Object {
+                                    "boxSizing": "content-box",
+                                    "width": "5px",
+                                  }
+                                }
+                                tabIndex={undefined}
+                                value=""
+                              />
+                              <div
+                                style={
+                                  Object {
+                                    "height": 0,
+                                    "left": 0,
+                                    "overflow": "scroll",
+                                    "position": "absolute",
+                                    "top": 0,
+                                    "visibility": "hidden",
+                                    "whiteSpace": "pre",
+                                  }
+                                }
+                              >
+                                
+                              </div>
+                            </div>
+                          </span>
+                          <span
+                            aria-hidden="true"
+                            className="Select-loading-zone"
+                          >
+                            <span
+                              className="Select-loading"
+                            />
+                          </span>
+                          <span
+                            className="Select-arrow-zone"
+                            onMouseDown={[Function]}
+                          >
+                            <span
+                              className="Select-arrow"
+                              onMouseDown={[Function]}
+                            />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
