@@ -26,13 +26,29 @@ module.exports = {
     }
   },
 
+  validateFilters(filters) {
+    if(filters && filters.length) {
+      if(filters.age && filters.age.length) {
+        this.validateFilterSwitch(filters.age.state);
+        this.validateAgeFilter([filters.age.minAge, filters.age.maxAge]);
+      } else {
+        throw new Error(`[INTERNAL]: Cannot find age filter: ${filters}`);
+      }
+
+      if(filters.gender && filters.gender.length) {
+        this.validateFilterSwitch(filters.gender.state);
+        this.validateGenderFilter(filters.gender.preference);
+      } else {
+        throw new Error(`[INTERNAL]: Cannot find gender filter: ${filters}`);
+      }
+    }
+  },
+
   validateFilterSwitch(filterSwitch) {
     let filterSwitches = [].concat(filterSwitch);
     filterSwitches.forEach(filterSwitch => {
       if (!filterSwitch.match(FILTER_SWITCH_REGEX)) {
-        throw new Error(
-          `[INTERNAL]: Invalid Filter Switch Condition: ${filterSwitch}`
-        );
+        throw new Error(`[INTERNAL]: Invalid Filter Switch Condition: ${filterSwitch}`);
       }
     });
   },

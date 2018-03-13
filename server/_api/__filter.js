@@ -2,76 +2,59 @@
  * These are the endpoints for user filter operations
  */
 const express = require('express');
+const bodyParser = require('body-parser');
 const router = express.Router({ mergeParams: true });
-const filterDB = require('./db/filter');
+const filterDB = require('./db/filters');
 const refData = require('../db/referenceData');
 const util = require('./util');
 const responses = require('./responses');
+
+router.use(bodyParser.json());
 
 router.get('/', (req, res, next) => {
   const { userID } = req.params;
   util.validateID(userID);
 
-  let filters = { age:null, gender:null, location: null };
+  let filters = { age:null, gender:null };
 
-  return filterDB
-    .getAgeFilter(userID)
+  return filterDB.getAgeFilter(userID)
     .then(ageResult => {
       filters.age = ageResult;
-      return filters;
     })
-    .then(filters => {
-      filters.gender = filterDB.getGenderFilter(userID);
-      return filters;
+    .then(() => filterDB.getGenderFilter(userID))
+    .then(genderResult => {
+      filters.gender = genderResult;
     })
-    .then(filters => res.status(responses.SUCCESS).json(filters))
+    .then(() => res.status(responses.SUCCESS).json(filters))
     .catch(next);
 });
 
-router.post('/',(req, res, next) => {
+router.post('/', (req, res, next) => {
   const {userID} = req.params;
-  const {gender_filter_switch,
-    gender_filter,
-    age_filter_switch,
-    age_min,
-    age_max,
-    distance_filter_swtich,
-    distance_filter} = req.query;
-
   util.validateID(userID);
-  util.validateFilterSwitch([
-    gender_filter_switch,
-    age_filter_switch,
-    distance_filter_swtich
-  ]);
-  util.validateGenderFilter(gender_filter);
-  util.validateAgeFilter([age_min, age_max]);
-  util.validateDistanceFilter(distance_filter);
+
+  const filters = req.body;
+
+  util.validateFilters(filters);
 
   let genderFilter = { state: 0, preference: [] };
-  let ageFilter = { state: 0, minAge: 0, maxAge: 0 };
-  // let distenceFilter = {state:0, distance:0};
+  let ageFilter = filters.age;
+  const genderPref = filters.gender.preference;
 
-  ageFilter.state = age_filter_switch.match(/T/i) ? 0 : 1;
-  ageFilter.minAge = age_min;
-  ageFilter.maxAge = age_max;
+  ageFilter.state = JSON.stringify(ageFilter.state).match(/T/i) ? 1 : 0;
 
-  genderFilter.state = gender_filter_switch.match(/T/i) ? 0 : 1;
-  gender_filter.forEach(gender => {
+  genderFilter.state = JSON.stringify(filters.gender.state).match(/T/i) ? 1 : 0;
+  genderPref.forEach(gender => {
     let genderPre = {genderID:0, genderName:null};
-    genderPre.genderID = refData.GenderType.indexOf(gender);
+    genderPre.genderID = refData.GenderType.indexOf(gender)+1;
     genderPre.genderName = gender;
     genderFilter.preference.push(genderPre);
   });
-
-  // distenceFilter.state = distance_filter_swtich.match(/T/i) ? 0 : 1;
-  // distenceFilter.distance = distance_filter;
 
   return (
     filterDB
       .saveGenderFilter(userID, genderFilter)
       .then(() => filterDB.saveAgeFilter(userID, ageFilter))
-      // .then(() => filterDB.saveDistanceFilter(userID, distanceFilter))
       .then(result => res.status(responses.CREATED).json(result[0]))
       .catch(next)
   );
