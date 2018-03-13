@@ -15,10 +15,6 @@ const loadEnvFile = () => {
       result = dotenv.config({path: '.env'});
       break;
   }
-
-  if (result.error) {
-    throw result.error;
-  }
 };
 
 module.exports = {
