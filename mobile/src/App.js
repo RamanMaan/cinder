@@ -5,6 +5,7 @@ import { StackNavigator } from 'react-navigation';
 import Home from './containers/Home';
 import Profile from './containers/profile';
 import Matches from './containers/Matches';
+import Details from './components/MatchedUserDetail';
 
 const RootStack = StackNavigator({
   Home: {
@@ -15,6 +16,9 @@ const RootStack = StackNavigator({
   },
   Matches: {
     screen: Matches,
+  },
+  Details: {
+    screen: Details,
   },
 }, {
   initialRouteName: 'Home',

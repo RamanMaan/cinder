@@ -1,0 +1,19 @@
+@import '../../assets/bootstrap/bootstrap.scss';
+
+.Select-control {
+  .Select-value {
+    color: $primary;
+    border-color: rgba($primary, 0.24);
+    background-color: rgba($primary, 0.05);
+  }
+}
+
+.filter.element.disabled {
+  .Select-control {
+    .Select-value {
+      color: $dark;
+      border-color: rgba($dark, 0.24);
+      background-color: rgba($dark, 0.05);
+    }
+  }
+}
