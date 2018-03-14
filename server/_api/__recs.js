@@ -4,6 +4,7 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
 const recsDB = require('./db/recs');
+const filterDB = require('./db/filters');
 const util = require('./util');
 const responses = require('./responses');
 
@@ -11,8 +12,24 @@ router.get('/', (req, res, next) => {
   const { userID } = req.params;
   util.validateID(userID);
 
+  let allRecs;
+  let prefGender, recsGenderFiltered;
+
   return recsDB
     .getRecs(userID)
+    .then(recs => {
+      allRecs = recs;
+    })
+    .then(() => filterDB.getGenderFilter(userID))
+    .then(genderResult => {
+      if (genderResult && genderResult.length) {
+        prefGender = genderResult.map(x => x.genderID);
+        recsGenderFiltered = allRecs.filter(x => prefGender.some(x.genderID));
+      } else {
+        recsGenderFiltered = allRecs;
+      }
+      return recsGenderFiltered;
+    })
     .then(recs => res.status(responses.SUCCESS).json(recs))
     .catch(next);
 });
