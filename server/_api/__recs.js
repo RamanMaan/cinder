@@ -22,9 +22,8 @@ router.get('/', (req, res, next) => {
     })
     .then(() => filterDB.getGenderFilter(userID))
     .then(genderResult => {
-      if (genderResult) {
-        prefGender = genderResult.preference.map(x => x.genderID+0);
-        console.log(prefGender);
+      if (genderResult && genderResult.state) {
+        prefGender = genderResult.preference.map(x => {return x.genderID});
         recsGenderFiltered = allRecs.filter(x => prefGender.some(genderID => genderID === x.genderID));
       } else {
         recsGenderFiltered = allRecs;
