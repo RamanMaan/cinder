@@ -2,17 +2,11 @@
   "tests": "system_tests/*_test.js",
   "timeout": 10000,
   "output": "system_tests/output",
-  "helpers": {
-    "WebDriverIO": {
-      "url": "http://localhost:3000",
-      "show": true,
-      "browser": "chrome"
-    }
-  },
+  "helpers": {},
   "include": {
     "I": "system_tests/steps_file.js"
   },
   "bootstrap": false,
   "mocha": {},
-  "name": "web"
+  "name": "mobile"
 }
