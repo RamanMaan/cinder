@@ -35,21 +35,13 @@ router.post('/', (req, res, next) => {
 
   const filters = req.body;
 
-  util.validateFilters(filters);
-
   let genderFilter = { state: 0, preference: [] };
   let ageFilter = filters.age;
-  const genderPref = filters.gender.preference;
 
-  ageFilter.state = JSON.stringify(ageFilter.state).match(/T/i) ? 1 : 0;
+  ageFilter.state = JSON.stringify(ageFilter.state)==="true" ? 1 : 0;
+  genderFilter.state = JSON.stringify(filters.gender.state)==="true" ? 1 : 0;
 
-  genderFilter.state = JSON.stringify(filters.gender.state).match(/T/i) ? 1 : 0;
-  genderPref.forEach(gender => {
-    let genderPre = {genderID:0, genderName:null};
-    genderPre.genderID = refData.GenderType.indexOf(gender)+1;
-    genderPre.genderName = gender;
-    genderFilter.preference.push(genderPre);
-  });
+  genderFilter.preference = filters.gender.preference.map(x => ({genderID: x.genderID, genderName: x.genderName}))
 
   return (
     filterDB
