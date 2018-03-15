@@ -14,6 +14,7 @@ router.get('/', (req, res, next) => {
 
   let allRecs;
   let prefGender, recsGenderFiltered;
+  let prefAge, recsAgeFiltered;
 
   return recsDB
     .getRecs(userID)
@@ -23,12 +24,27 @@ router.get('/', (req, res, next) => {
     .then(() => filterDB.getGenderFilter(userID))
     .then(genderResult => {
       if (genderResult && genderResult.state) {
-        prefGender = genderResult.preference.map(x => {return x.genderID});
-        recsGenderFiltered = allRecs.filter(x => prefGender.some(genderID => genderID === x.genderID));
+        prefGender = genderResult.preference.map(x => {
+          return x.genderID;
+        });
+        recsGenderFiltered = allRecs.filter(x =>
+          prefGender.some(genderID => genderID === x.genderID)
+        );
       } else {
         recsGenderFiltered = allRecs;
       }
       return recsGenderFiltered;
+    })
+    .then(() => filterDB.getAgeFilter(userID))
+    .then(ageResult => {
+      if (ageResult && ageResult.state) {
+        recsAgeFiltered = recsGenderFiltered.filter(
+          x => x.age >= ageResult.minAge && x.age <= ageResult.maxAge
+        );
+      } else {
+        recsAgeFiltered = recsGenderFiltered;
+      }
+      return recsAgeFiltered;
     })
     .then(recs => res.status(responses.SUCCESS).json(recs))
     .catch(next);
