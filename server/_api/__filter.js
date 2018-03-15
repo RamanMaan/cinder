@@ -5,7 +5,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router({ mergeParams: true });
 const filterDB = require('./db/filters');
-const refData = require('../db/referenceData');
 const util = require('./util');
 const responses = require('./responses');
 
@@ -33,20 +32,10 @@ router.post('/', (req, res, next) => {
   const {userID} = req.params;
   util.validateID(userID);
 
-  const filters = req.body;
-
-  let genderFilter = { state: 0, preference: [] };
-  let ageFilter = filters.age;
-
-  ageFilter.state = JSON.stringify(ageFilter.state)==="true" ? 1 : 0;
-  genderFilter.state = JSON.stringify(filters.gender.state)==="true" ? 1 : 0;
-
-  genderFilter.preference = filters.gender.preference.map(x => ({genderID: x.genderID, genderName: x.genderName}))
-
   return (
     filterDB
-      .saveGenderFilter(userID, genderFilter)
-      .then(() => filterDB.saveAgeFilter(userID, ageFilter))
+      .saveGenderFilter(userID, req.body.gender)
+      .then(() => filterDB.saveAgeFilter(userID, req.body.age))
       .then(result => res.status(responses.CREATED).json(result[0]))
       .catch(next)
   );
