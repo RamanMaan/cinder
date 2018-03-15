@@ -11,5 +11,7 @@ npm start &
 echo "Starting Web Server"
 cd ../web
 npm install
-npm start
+npm run build
+npm install serve -g
+serve build
 echo "Server startup finished."
