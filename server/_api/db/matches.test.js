@@ -4,6 +4,7 @@
 require('dotenv').load();
 const mysql = require('promise-mysql');
 const matchesDB = require('./matches');
+const matchesData = require('./matches.testdata');
 
 const MYSQLDB = {
   host: process.env.DB_HOST,
@@ -15,79 +16,15 @@ const MYSQLDB = {
 
 const getYearMonthDay = x => x.toISOString().split('T')[0];
 
-const getBirthday = x => {
-  var currDate = new Date();
-  currDate = new Date(currDate.setFullYear(currDate.getFullYear() - x));
-  currDate = new Date(currDate.setDate(currDate.getDate() - 1));
-  return getYearMonthDay(currDate);
-};
-
-const usersTestData = [
-  { userID: 1, userName: 'User1', genderID: 1, userBio: 'Bio1', userAge: 27, birthday: getBirthday(27), primaryPic: 'path/to/pic1' },
-  { userID: 2, userName: 'User2', genderID: 1, userBio: 'Bio2', userAge: 22, birthday: getBirthday(22), primaryPic: 'path/to/pic2' },
-  { userID: 3, userName: 'User3', genderID: 1, userBio: 'Bio3', userAge: 36, birthday: getBirthday(36), primaryPic: 'path/to/pic3' },
-  { userID: 4, userName: 'User4', genderID: 2, userBio: 'Bio4', userAge: 20, birthday: getBirthday(20), primaryPic: 'path/to/pic4' },
-  { userID: 5, userName: 'User5', genderID: 2, userBio: 'Bio5', userAge: 44, birthday: getBirthday(44), primaryPic: 'path/to/pic5' },
-  { userID: 6, userName: 'User6', genderID: 2, userBio: 'Bio6', userAge: 23, birthday: getBirthday(23), primaryPic: 'path/to/pic6' },
-];
-
-const likesTestData = [
-  { user1ID: 1, user2ID: 2, userAction: 'L', actionDate: '1997-05-15' },
-  { user1ID: 1, user2ID: 3, userAction: 'L', actionDate: '1996-05-15' },
-  { user1ID: 1, user2ID: 4, userAction: 'L', actionDate: '1995-05-15' },
-  { user1ID: 1, user2ID: 5, userAction: 'L', actionDate: '1994-05-15' },
-  { user1ID: 2, user2ID: 1, userAction: 'L', actionDate: '1993-05-15' },
-  { user1ID: 3, user2ID: 1, userAction: 'P', actionDate: '1992-05-15' },
-  { user1ID: 4, user2ID: 1, userAction: 'L', actionDate: '1991-05-15' },
-  { user1ID: 5, user2ID: 1, userAction: 'P', actionDate: '1990-05-15' },
-];
-
-const insertUsers = `INSERT INTO Users (UserID, UserEmail, UserPassword) VALUES ` + 
-usersTestData.map(x => mysql.format(` (?, 'SomeEmail', 'SomePassword') `, [x.userID])).join(', ') + `;`;
-
-const insertUsersInfo = `INSERT INTO UsersInfo (UserID, UserName, Birthday, GenderID, Bio) VALUES ` + 
-usersTestData.map(x => mysql.format(` (?, ?, ? ,? ,?) `, [x.userID, x.userName, x.birthday, x.genderID, x.userBio])).join(`, `) + `;`;
-
-const insertPhotos = `INSERT INTO UserPicture (UserID, PicturePath, PrimaryPicture) VALUES ` + 
-usersTestData.map(x => mysql.format(` (?, ?, ?) `, [x.userID, x.primaryPic, 1])).join(`, `) + `;`;
-
-const insertLikes = `INSERT INTO Likes (User1ID, User2ID, UserAction, ActionDate) VALUES ` + 
-likesTestData.map(x => mysql.format(` (?, ?, ?, ?) `, [x.user1ID, x.user2ID, x.userAction, x.actionDate])).join(`, `) + `;`;
-
-const deleteUsers = `TRUNCATE TABLE Users;`;
-const deleteUsersInfo = `TRUNCATE TABLE UsersInfo;`;
-const deletePhotos = `TRUNCATE TABLE UserPicture;`;
-const deleteLikes = `TRUNCATE TABLE Likes;`;
-
-const testMatchList = (currUser, expectedMatches, actualMatches) => {
-  expect(expectedMatches).toHaveLength(actualMatches.length);
-  actualMatches.forEach((match, i) => {
-    expect(match.userID).toBe(expectedMatches[i].userID);
-    expect(match.userName).toBe(expectedMatches[i].userName);
-    expect(match.userBio).toBe(expectedMatches[i].userBio);
-    expect(match.userAge).toBe(expectedMatches[i].userAge);
-    expect(match.primaryPic).toBe(expectedMatches[i].primaryPic);
-
-    const matchDate1 = new Date(likesTestData.find(x => x.user1ID == match.userID && x.user2ID == currUser).actionDate);
-    const matchDate2 = new Date(likesTestData.find(x => x.user2ID == match.userID && x.user1ID == currUser).actionDate);
-    expect(getYearMonthDay(match.matchDate)).toBe(getYearMonthDay(new Date(Math.max(matchDate1, matchDate2))));
-  });
-}
-
-const testMatchObject = (expectedMatch, actualMatch, expectedMatchDate) => {
-  expect(actualMatch.userID).toBe(expectedMatch.userID);
-  expect(actualMatch.userName).toBe(expectedMatch.userName);
-  expect(actualMatch.userBio).toBe(expectedMatch.userBio);
-  expect(actualMatch.userAge).toBe(expectedMatch.userAge);
-  expect(actualMatch.userPics).toBe(expectedMatch.primaryPic);
-  expect(getYearMonthDay(actualMatch.matchTime)).toBe(expectedMatchDate);
-};
-
-
 beforeAll(() => {
   return mysql.createConnection(MYSQLDB)
   .then((conn) => {
-    const result = conn.query(insertUsers + insertUsersInfo + insertLikes + insertPhotos);
+    const result = conn.query(
+      matchesData.insertUsersQuery + 
+      matchesData.insertUsersInfoQuery + 
+      matchesData.insertLikesQuery + 
+      matchesData.insertPhotosQuery
+    );
     conn.end();
     return result;
   });
@@ -99,10 +36,10 @@ afterAll(() => {
   .then((conn) => {
     const result = conn.query(
       `SET FOREIGN_KEY_CHECKS=0;` +
-      deleteUsers +
-      deleteUsersInfo +
-      deletePhotos +
-      deleteLikes +
+      matchesData.deleteUsersQuery +
+      matchesData.deleteUsersInfoQuery +
+      matchesData.deletePhotosQuery +
+      matchesData.deleteLikesQuery +
       `SET FOREIGN_KEY_CHECKS=1;`);
     conn.end();
     return result;
@@ -111,16 +48,28 @@ afterAll(() => {
 
 
 describe('getUserMatches tests', () => {
+  const testMatchList = (currUser, expectedMatches, actualMatches) => {
+    expect(expectedMatches).toHaveLength(actualMatches.length);
+    actualMatches.forEach((match, i) => {
+      expect(match.userID).toBe(expectedMatches[i].userID);
+      expect(match.userName).toBe(expectedMatches[i].userName);
+      expect(match.userBio).toBe(expectedMatches[i].userBio);
+      expect(match.userAge).toBe(expectedMatches[i].userAge);
+      expect(match.primaryPic).toBe(expectedMatches[i].primaryPic);
+      expect(getYearMonthDay(match.matchDate)).toBe(matchesData.getMatchDate(match.userID, currUser));
+    });
+  }
+
   test(`matches are only those the userID liked and liked him/her back`, () => {
     const currUserID = 1;
     return matchesDB.getUserMatches(currUserID).then((matches) => {
-      const expectedMatches = [usersTestData[1], usersTestData[3]];
+      const expectedMatches = [matchesData.getUserByID(2), matchesData.getUserByID(4)];
       testMatchList(currUserID, expectedMatches, matches);
     });
   });
 
   test(`matching is two-way`, () => {
-    const expectedMatches = [usersTestData[0]];
+    const expectedMatches = [matchesData.getUserByID(1)];
     const currUserID = 2;
     return matchesDB.getUserMatches(currUserID).then((matches) => {
       testMatchList(currUserID, expectedMatches, matches);
@@ -148,13 +97,20 @@ describe('getUserMatches tests', () => {
 
 
 describe('getMatch tests', () => {
+  const testMatchObject = (expectedMatch, actualMatch, expectedMatchDate) => {
+    expect(actualMatch.userID).toBe(expectedMatch.userID);
+    expect(actualMatch.userName).toBe(expectedMatch.userName);
+    expect(actualMatch.userBio).toBe(expectedMatch.userBio);
+    expect(actualMatch.userAge).toBe(expectedMatch.userAge);
+    expect(actualMatch.userPics).toBe(expectedMatch.primaryPic);
+    expect(getYearMonthDay(actualMatch.matchTime)).toBe(expectedMatchDate);
+  };
+
   test(`correct record is returned if the users are matched`, () => {
     const currUserID = 1;
     const matchUserID = 2;
-    const expectedMatch = usersTestData[matchUserID - 1];
-    const matchDate1 = new Date(likesTestData.find(x => x.user1ID == currUserID && x.user2ID == matchUserID).actionDate);
-    const matchDate2 = new Date(likesTestData.find(x => x.user2ID == currUserID && x.user1ID == matchUserID).actionDate);
-    const expectedMatchDate = getYearMonthDay(new Date(Math.max(matchDate1, matchDate2)));
+    const expectedMatch = matchesData.getUserByID(matchUserID);
+    const expectedMatchDate = matchesData.getMatchDate(currUserID, matchUserID);
 
     return matchesDB.getMatch(currUserID, matchUserID).then((matches) => {
       expect(matches).toHaveLength(1);
@@ -163,7 +119,7 @@ describe('getMatch tests', () => {
     .then(() => {
       const currUserID = 2;
       const matchUserID = 1;
-      const expectedMatch = usersTestData[matchUserID - 1];
+      const expectedMatch = matchesData.getUserByID(matchUserID);
 
       return matchesDB.getMatch(currUserID, matchUserID).then((matches) => {
         expect(matches).toHaveLength(1);
