@@ -5,7 +5,7 @@
     "web": "cd ../web && npm start && npm run watch-css",
     "server": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run web\"",
-    "test": "jest -i",
+    "test": "node db/utils/build_db.js && jest -i",
     "precommit": "lint-staged",
     "build:testdata": "node db/utils/generateTestData.js",
     "db:build": "node db/utils/build_db.js",
