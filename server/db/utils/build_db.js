@@ -49,7 +49,7 @@ mysql.createConnection({
 }).then((conn) => {
   console.log(`---Connected to ${MYSQLDB.database} database---`);
   const res = conn.query(
-    'GRANT ALL ON ??.* TO ??@?? identified by ?',
+    'GRANT ALL ON ??.* TO ??@?? IDENTIFIED BY ?',
     [MYSQLDB.database, MYSQLDB.user, MYSQLDB.host, MYSQLDB.password]
   )
   conn.end();
