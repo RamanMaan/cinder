@@ -17,6 +17,4 @@ module.exports = {
       throw new Error(`[INTERNAL]: Invalid Match Action: ${action}`);
     }
   },
-
-  'SECRET_KEY': 'CINDER',
 };
