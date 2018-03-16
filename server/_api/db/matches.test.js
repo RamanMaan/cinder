@@ -23,12 +23,12 @@ const getBirthday = x => {
 };
 
 const usersTestData = [
-  { userID: 1, userName: 'User1', genderID: 1, userBio: 'Bio1', userAge: 27, birthday: getBirthday(27) },
-  { userID: 2, userName: 'User2', genderID: 1, userBio: 'Bio2', userAge: 22, birthday: getBirthday(22) },
-  { userID: 3, userName: 'User3', genderID: 1, userBio: 'Bio3', userAge: 36, birthday: getBirthday(36) },
-  { userID: 4, userName: 'User4', genderID: 2, userBio: 'Bio4', userAge: 20, birthday: getBirthday(20) },
-  { userID: 5, userName: 'User5', genderID: 2, userBio: 'Bio5', userAge: 44, birthday: getBirthday(44) },
-  { userID: 6, userName: 'User6', genderID: 2, userBio: 'Bio6', userAge: 23, birthday: getBirthday(23) },
+  { userID: 1, userName: 'User1', genderID: 1, userBio: 'Bio1', userAge: 27, birthday: getBirthday(27), primaryPic: 'path/to/pic1' },
+  { userID: 2, userName: 'User2', genderID: 1, userBio: 'Bio2', userAge: 22, birthday: getBirthday(22), primaryPic: 'path/to/pic2' },
+  { userID: 3, userName: 'User3', genderID: 1, userBio: 'Bio3', userAge: 36, birthday: getBirthday(36), primaryPic: 'path/to/pic3' },
+  { userID: 4, userName: 'User4', genderID: 2, userBio: 'Bio4', userAge: 20, birthday: getBirthday(20), primaryPic: 'path/to/pic4' },
+  { userID: 5, userName: 'User5', genderID: 2, userBio: 'Bio5', userAge: 44, birthday: getBirthday(44), primaryPic: 'path/to/pic5' },
+  { userID: 6, userName: 'User6', genderID: 2, userBio: 'Bio6', userAge: 23, birthday: getBirthday(23), primaryPic: 'path/to/pic6' },
 ];
 
 const likesTestData = [
@@ -48,11 +48,15 @@ usersTestData.map(x => mysql.format(` (?, 'SomeEmail', 'SomePassword') `, [x.use
 const insertUsersInfo = `INSERT INTO UsersInfo (UserID, UserName, Birthday, GenderID, Bio) VALUES ` + 
 usersTestData.map(x => mysql.format(` (?, ?, ? ,? ,?) `, [x.userID, x.userName, x.birthday, x.genderID, x.userBio])).join(`, `) + `;`;
 
+const insertPhotos = `INSERT INTO UserPicture (UserID, PicturePath, PrimaryPicture) VALUES ` + 
+usersTestData.map(x => mysql.format(` (?, ?, ?) `, [x.userID, x.primaryPic, 1])).join(`, `) + `;`;
+
 const insertLikes = `INSERT INTO Likes (User1ID, User2ID, UserAction, ActionDate) VALUES ` + 
 likesTestData.map(x => mysql.format(` (?, ?, ?, ?) `, [x.user1ID, x.user2ID, x.userAction, x.actionDate])).join(`, `) + `;`;
 
 const deleteUsers = `TRUNCATE TABLE Users;`;
 const deleteUsersInfo = `TRUNCATE TABLE UsersInfo;`;
+const deletePhotos = `TRUNCATE TABLE UserPicture;`;
 const deleteLikes = `TRUNCATE TABLE Likes;`;
 
 const testMatchList = (currUser, expectedMatches, actualMatches) => {
@@ -62,6 +66,7 @@ const testMatchList = (currUser, expectedMatches, actualMatches) => {
     expect(match.userName).toBe(expectedMatches[i].userName);
     expect(match.userBio).toBe(expectedMatches[i].userBio);
     expect(match.userAge).toBe(expectedMatches[i].userAge);
+    expect(match.primaryPic).toBe(expectedMatches[i].primaryPic);
 
     const matchDate1 = new Date(likesTestData.find(x => x.user1ID == match.userID && x.user2ID == currUser).actionDate);
     const matchDate2 = new Date(likesTestData.find(x => x.user2ID == match.userID && x.user1ID == currUser).actionDate);
@@ -74,6 +79,7 @@ const testMatchObject = (expectedMatch, actualMatch, expectedMatchDate) => {
   expect(actualMatch.userName).toBe(expectedMatch.userName);
   expect(actualMatch.userBio).toBe(expectedMatch.userBio);
   expect(actualMatch.userAge).toBe(expectedMatch.userAge);
+  expect(actualMatch.userPics).toBe(expectedMatch.primaryPic);
   expect(getYearMonthDay(actualMatch.matchTime)).toBe(expectedMatchDate);
 };
 
@@ -81,7 +87,7 @@ const testMatchObject = (expectedMatch, actualMatch, expectedMatchDate) => {
 beforeAll(() => {
   return mysql.createConnection(MYSQLDB)
   .then((conn) => {
-    const result = conn.query(insertUsers + insertUsersInfo + insertLikes);
+    const result = conn.query(insertUsers + insertUsersInfo + insertLikes + insertPhotos);
     conn.end();
     return result;
   });
@@ -95,6 +101,7 @@ afterAll(() => {
       `SET FOREIGN_KEY_CHECKS=0;` +
       deleteUsers +
       deleteUsersInfo +
+      deletePhotos +
       deleteLikes +
       `SET FOREIGN_KEY_CHECKS=1;`);
     conn.end();
