@@ -22,3 +22,5 @@ script:
   - npm run build
   - cd ../mobile
   - npm test
+  - cd ../server
+  - npm test
