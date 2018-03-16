@@ -24,7 +24,7 @@ export class Recommendation extends Component {
 
   componentDidMount() {
     this.props.fetchRecommends(
-      `/api/users/${Auth.loggedInUser.id}/recs`
+      `/api/users/${Auth.loggedInUser.id}/recommendations`
     );
   }
 

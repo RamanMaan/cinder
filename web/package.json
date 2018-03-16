@@ -5,6 +5,7 @@
   "proxy": "http://localhost:5000",
   "dependencies": {
     "bootstrap": "^4.0.0",
+    "codeceptjs": "^1.1.6",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "fetch-mock": "^6.0.0",
@@ -20,13 +21,14 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
     "react-scripts": "1.1.0",
-    "react-select": "^1.2.1",
     "react-test-renderer": "^16.2.0",
     "react-transition-group": "^2.2.1",
     "reactstrap": "^4.8.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "sinon": "^4.2.2"
+    "selenium-standalone": "^6.13.0",
+    "sinon": "^4.2.2",
+    "webdriverio": "^4.0.0"
   },
   "scripts": {
     "start-js": "react-scripts start",
@@ -37,11 +39,13 @@
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
     "build-css": "node-sass-chokidar --include-path ./src src/ -o src/",
-    "watch-css":
-      "npm run build-css && node-sass-chokidar --include-path ./src src/ -o src/ --watch --recursive"
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src src/ -o src/ --watch --recursive"
   },
   "lint-staged": {
-    "**/*.{js,jsx,json,scss}": ["prettier --single-quote --write", "git add"]
+    "**/*.{js,jsx,json,scss}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
   },
   "devDependencies": {
     "eslint": "^4.17.0",

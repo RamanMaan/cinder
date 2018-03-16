@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-
 import { matchesHasErrored, matchesIsLoading, matches } from './matches';
 import {
   recommendationsHasErrored,
@@ -8,12 +7,6 @@ import {
   recommendationSubmitted,
   recommendations
 } from './recommendations';
-import {
-  profile,
-  profileHasErrored,
-  profileIsLoading,
-  profileView
-} from './profile';
 
 export default combineReducers({
   routing: routerReducer,
@@ -25,10 +18,5 @@ export default combineReducers({
   recommendations,
   recommendationSubmitted,
   recommendationsHasErrored,
-  recommendationsIsLoading,
-
-  profile,
-  profileHasErrored,
-  profileIsLoading,
-  profileView
+  recommendationsIsLoading
 });

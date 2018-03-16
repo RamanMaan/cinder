@@ -47,14 +47,11 @@ Structure
         ├── __api.js                    # api controller - this controls api routes/endpoints
         ├── __users.js                  # user endpoints
         ├── __matches.js                # match endpoints
-        ├── __recs.js                   # recommendation endpoints
         ├── __ref.js                    # ref table endpoints
         ├── __tasks.js                  # server task endpoints
         ├── responses.js                # a collection of HTTP responses we use
         ├── util.js                     # API utility functions
         └── db/                         # each endpoints data access
             ├── matches.js              # match data access
-            ├── recs.js                 # recommendation data access
-            ├── ref.js                  # reference table data access
             └── users.js                # user data access
 ```
