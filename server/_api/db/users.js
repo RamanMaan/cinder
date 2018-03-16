@@ -27,5 +27,14 @@ module.exports = {
       conn.end();
       return rows;
     });
+  },
+
+  getUserID(email, password) {
+    return mysql.createConnection(MYSQLDB).then(conn => {
+      const rows = conn.query('SELECT UserID FROM Users WHERE UserEmail = ? and UserPassword = ?',
+        [email, password]);
+      conn.end();
+      return rows;
+    });
   }
 };
