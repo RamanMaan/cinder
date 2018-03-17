@@ -30,25 +30,32 @@ class Login extends Component {
     this.setState({ loginBtnText: 'Logging In...' });
     fetch('/api/login', {
       method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-type': 'application/json'
+      },
       body: JSON.stringify({
         email: this.state.email,
         password: this.state.password
       })
     })
+      .then(res => res.json())
       .then(res => {
         if (res.status === 200) {
           this.setState({ loginBtnText: 'Log In', loggedIn: true });
+          localStorage.setItem('token', res.token);
         } else {
-          throw new Error(`Login Error: ${res.status}`);
+          throw new Error(`${res.status} ${res.err}`);
         }
       })
       .catch(err => {
         this.setState({ loginBtnText: 'Log In' });
         // TODO - better errors for user - what went wrong?
-        switch (err) {
-        default:
-          console.error(err);
-        }
+        alert(err);
+        // switch (err) {
+        // default:
+        // console.error(err);
+        // }
       });
   }
 

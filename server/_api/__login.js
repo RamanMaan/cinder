@@ -15,11 +15,13 @@ router.post('/login', (req, res, next) => {
     .then(obj => {
       if (obj.length === 0)
         return res.status(responses.UNAUTHORIZED).json({
+          status: responses.UNAUTHORIZED,
           err: 'Authentication failed. User not found'
         });
       else {
         const token = jwt.sign({ id: obj[0].UserID }, SECRET_KEY, { expiresIn: '1h' });
         return res.status(responses.SUCCESS).json({
+          status: responses.SUCCESS,
           token
         });
       }
@@ -35,6 +37,7 @@ router.use((req, res, next) => {
     jwt.verify(token, SECRET_KEY, (err, decoded) => {
       if (err) {
         return res.status(responses.UNAUTHORIZED).json({
+          status: responses.UNAUTHORIZED,
           err: 'Authentication failed. User not found'
         });
       } else {
@@ -44,6 +47,7 @@ router.use((req, res, next) => {
     });
   } else {
     return res.status(responses.FORBIDDEN).json({
+      status: responses.FORBIDDEN,
       err: 'No token provided'
     });
   }
