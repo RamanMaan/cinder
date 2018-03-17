@@ -25,12 +25,18 @@ module.exports = {
     return mysql.createConnection(MYSQLDB).then(conn => {
       const rows = conn.query(`
         SELECT 
-          UI.*, 
-          UP.PicturePath as PrimaryPic 
+          UI.UserID as userID,
+          UI.UserName as userName,
+          TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS userAge,
+          G.GenderType as userGender,
+          UI.Bio as userBio,
+          UP.PicturePath as primaryPic 
         FROM UsersInfo UI
           LEFT JOIN UserPicture UP
             ON UI.UserID = UP.UserID
             AND UP.PrimaryPicture
+          INNER JOIN GenderType G
+            ON UI.GenderID = G.GenderID
         WHERE
           UI.UserID = ?
         `, [id]);

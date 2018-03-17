@@ -19,21 +19,30 @@ router.post('/login', (req, res, next) => {
           err: 'Authentication failed. User not found'
         });
       else {
-        const token = jwt.sign({ id: obj[0].UserID }, SECRET_KEY, { expiresIn: '1h' });
-        return res.status(responses.SUCCESS).json({
-          status: responses.SUCCESS,
-          token
-        });
+        //   const token = jwt.sign({ id: obj[0].UserID }, SECRET_KEY, { expiresIn: '1d' });
+        //   return res.status(responses.SUCCESS).json({
+        //     status: responses.SUCCESS,
+        //     token
+        //   });
+        return obj[0].UserID;
       }
+    })
+    .then(id => usersDB.getUser(id))
+    .then(user => {
+      const token = jwt.sign({ user: user[0]}, SECRET_KEY, { expiresIn: '1d'});
+      return res.status(responses.SUCCESS).json({
+        status: responses.SUCCESS,
+        token
+      });
     })
     .catch(next);
 });
 
 // middleware to protect other api endpoints
 router.use((req, res, next) => {
-  const token = req.body.token || req.query.token || req.headers['x-access-token'];
-
-  if (token) {
+  const bearerHeader = req.headers['authorization'];
+  if (bearerHeader) {
+    const token = bearerHeader.split(' ')[1];
     jwt.verify(token, SECRET_KEY, (err, decoded) => {
       if (err) {
         return res.status(responses.UNAUTHORIZED).json({
