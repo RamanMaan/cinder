@@ -39,6 +39,12 @@ const styles = StyleSheet.create({
 });
 
 export default class UserDetails extends Component {
+  static navigationOptions({ navigation }) {
+    return {
+      title: navigation.state.params.userName,
+    };
+  }
+
   constructor(props) {
     super(props);
 
