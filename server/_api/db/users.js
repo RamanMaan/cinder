@@ -23,7 +23,18 @@ module.exports = {
 
   getUser(id) {
     return mysql.createConnection(MYSQLDB).then(conn => {
-      const rows = conn.query('SELECT * FROM UsersInfo WHERE UserID = ?', [id]);
+      const rows = conn.query(`
+        SELECT 
+          UI.*, 
+          UP.PicturePath as PrimaryPic 
+        FROM UsersInfo UI
+          LEFT JOIN UserPicture UP
+            ON UI.UserID = UP.UserID
+            AND UP.PrimaryPicture
+        WHERE
+          UI.UserID = ?
+        `, [id]);
+
       conn.end();
       return rows;
     });
