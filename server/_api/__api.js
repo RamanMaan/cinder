@@ -13,7 +13,6 @@ const refEndpoints = require('./__ref');
 const login = require('./__login');
 /**
  * Attach endpoints to route
- * 
  * Token authentication middleware is inside login route
  * Put endpoints that require authentication below this
  */

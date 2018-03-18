@@ -19,21 +19,12 @@ router.post('/login', (req, res, next) => {
           err: 'Authentication failed. User not found'
         });
       else {
-        //   const token = jwt.sign({ id: obj[0].UserID }, SECRET_KEY, { expiresIn: '1d' });
-        //   return res.status(responses.SUCCESS).json({
-        //     status: responses.SUCCESS,
-        //     token
-        //   });
-        return obj[0].UserID;
+        const token = jwt.sign({ id: obj[0].UserID }, SECRET_KEY, { expiresIn: '1d' });
+        return res.status(responses.SUCCESS).json({
+          status: responses.SUCCESS,
+          token
+        });
       }
-    })
-    .then(id => usersDB.getUser(id))
-    .then(user => {
-      const token = jwt.sign({ user: user[0]}, SECRET_KEY, { expiresIn: '1d'});
-      return res.status(responses.SUCCESS).json({
-        status: responses.SUCCESS,
-        token
-      });
     })
     .catch(next);
 });

@@ -27,7 +27,7 @@ module.exports = {
         SELECT 
           UI.UserID as userID,
           UI.UserName as userName,
-          TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS userAge,
+          UI.Birthday as userBirthday,
           G.GenderType as userGender,
           UI.Bio as userBio,
           UP.PicturePath as primaryPic 
