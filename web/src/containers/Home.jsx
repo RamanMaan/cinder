@@ -26,7 +26,9 @@ export class Home extends Component {
   }
 
   fetchUserDetail(id) {
-    fetch(`/api/users/${Auth.loggedInUser.id}/matches/${id}`)
+    fetch(`/api/users/${Auth.userID}/matches/${id}`, {
+      headers: { Authorization: `Bearer ${Auth.token}` }
+    })
       .then(res => res.json())
       .then(res => {
         this.setState({

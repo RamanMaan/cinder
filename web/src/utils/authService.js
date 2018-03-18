@@ -1,17 +1,36 @@
+import jwt from 'jsonwebtoken';
+
 class Auth {
   constructor() {
-    this.loggedInUser = {
-      id: 3,
-      userName: 'Mac Miller',
-      img: 'https://i.scdn.co/image/f4509fe9c589c12be5470653178f901bd697b97b'
-    };
+    this.token = localStorage.getItem('token') || null;
+    this.userID = this.getUserID(this.token);
   }
 
-  getLoggedInUser() {
-    return this.loggedInUser;
+  getUserID(token) {
+    let id = -1;
+    if (token) {
+      const decoded = jwt.decode(token);
+      id = decoded.id;
+    }
+    return id;
+  }
+
+  getAuth() {
+    const token = this.token;
+    const userID = this.userID;
+    return { token, userID };
   }
 }
 
-module.exports = {
-  loggedInUser: new Auth().getLoggedInUser()
-};
+// const getAuth = () => {
+//   let userID = -1;
+//   let token = localStorage.getItem('token') || null;
+//   if (token) {
+//     const decoded = jwt.decode(token);
+//     console.log(decoded);
+//     userID = decoded.id;
+//   }
+//   return { token, userID };
+// };
+
+export default new Auth().getAuth();

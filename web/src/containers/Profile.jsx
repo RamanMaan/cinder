@@ -78,7 +78,7 @@ export class Profile extends Component {
       <div>
         <div className="name">
           <h5>Display Name</h5>
-          <Input type="text" defaultValue={this.props.profile.UserName} />
+          <Input type="text" defaultValue={this.props.profile.userName} />
         </div>
         <hr />
         <div className="birthday">
@@ -86,14 +86,14 @@ export class Profile extends Component {
           <Input
             type="date"
             defaultValue={
-              new Date(this.props.profile.Birthday).toJSON().split('T')[0]
+              new Date(this.props.profile.userBirthday).toJSON().split('T')[0]
             }
           />
         </div>
         <hr />
         <div className="bio">
           <h5>User Bio</h5>
-          <Input type="textarea" defaultValue={this.props.profile.Bio} />
+          <Input type="textarea" defaultValue={this.props.profile.userBio} />
         </div>
         <hr />
         <div className="filters">

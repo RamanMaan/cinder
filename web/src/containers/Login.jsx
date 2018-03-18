@@ -52,10 +52,6 @@ class Login extends Component {
         this.setState({ loginBtnText: 'Log In' });
         // TODO - better errors for user - what went wrong?
         alert(err);
-        // switch (err) {
-        // default:
-        // console.error(err);
-        // }
       });
   }
 

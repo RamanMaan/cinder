@@ -16,7 +16,7 @@ export class MatchesList extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchData(Auth.loggedInUser.id);
+    this.props.fetchData(Auth.userID, Auth.token);
   }
 
   onListItemClick(id) {
@@ -78,7 +78,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchData: userID => dispatch(matchesFetchData(userID))
+    fetchData: (userID, token) => dispatch(matchesFetchData(userID, token))
   };
 };
 

@@ -23,9 +23,7 @@ export class Recommendation extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchRecommends(
-      `/api/users/${Auth.loggedInUser.id}/recs`
-    );
+    this.props.fetchRecommends(Auth.userID, Auth.token);
   }
 
   incrementPotentialMatchIndex() {
@@ -45,9 +43,10 @@ export class Recommendation extends Component {
   submitUserAction(like) {
     const matchedUser = this.props.recommendations[0];
     this.props.submitRecommendation(
-      Auth.loggedInUser.id,
+      Auth.userID,
       matchedUser.userID,
-      like
+      like,
+      Auth.token
     );
   }
 
@@ -99,7 +98,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchRecommends: uri => dispatch(fetchRecommendations(uri)),
+  fetchRecommends: (userID, token) =>
+    dispatch(fetchRecommendations(userID, token)),
   popRecommend: () => dispatch(popRecommendation()),
   submitRecommendation: (user1, user2, like) =>
     dispatch(submitRecommendation(user1, user2, like))
