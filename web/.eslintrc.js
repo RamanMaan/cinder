@@ -22,7 +22,7 @@ module.exports = {
         ignoreComments: true
       }
     ],
-    indent: ['error', 2],
+    indent: ['error', 2, { SwitchCase: 1 }],
     'linebreak-style': ['error', 'unix'],
     quotes: ['warn', 'single'],
     semi: ['error', 'always'],
