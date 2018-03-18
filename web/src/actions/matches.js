@@ -21,11 +21,13 @@ export function matchesFetchSuccess(data) {
   };
 }
 
-export function matchesFetchData(userID) {
+export function matchesFetchData(userID, token) {
   return dispatch => {
     dispatch(matchesLoading(true));
 
-    fetch(`/api/users/${userID}/matches`)
+    fetch(`/api/users/${userID}/matches`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then(res => {
         if (!res.ok) {
           throw Error(res.statusText);

@@ -29,11 +29,13 @@ export function recSubmitSuccess(result) {
   };
 }
 
-export function fetchRecommendations(uri) {
+export function fetchRecommendations(userID, token) {
   return dispatch => {
     dispatch(recLoading(true));
 
-    fetch(uri)
+    fetch(`/api/users/${userID}/recs`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then(res => {
         if (!res.ok) {
           throw Error(res.statusText);
@@ -46,12 +48,13 @@ export function fetchRecommendations(uri) {
   };
 }
 
-export function submitRecommendation(currUserID, recID, like) {
+export function submitRecommendation(currUserID, recID, like, token) {
   return dispatch => {
     const userAction = like ? 'like' : 'pass';
 
     fetch(`/api/users/${currUserID}/matches/${recID}/${userAction}`, {
-      method: 'POST'
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => {
         if (!res.ok) {
@@ -62,7 +65,7 @@ export function submitRecommendation(currUserID, recID, like) {
       .then(data => {
         dispatch(recSubmitSuccess(data));
         if (data.matched) {
-          dispatch(matchesFetchData(currUserID));
+          dispatch(matchesFetchData(currUserID, token));
         }
       })
       .catch(() => dispatch(recErrored(true)));

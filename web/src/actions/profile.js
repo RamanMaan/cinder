@@ -26,7 +26,9 @@ export function fetchProfile() {
   return dispatch => {
     dispatch(profileLoading(true));
 
-    fetch(`/api/users/${Auth.loggedInUser.id}/`)
+    fetch(`/api/users/${Auth.userID}/`, {
+      headers: { Authorization: `Bearer ${Auth.token}` }
+    })
       .then(res => {
         if (!res.ok) {
           throw Error(res.statusText);
