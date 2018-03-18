@@ -75,13 +75,8 @@ const deleteFilterData = () => {
 
 
 describe(`getAgeFilter tests`, () => {
-  beforeAll(() => {
-    return insertFilterData();
-  });
-
-  afterAll(() => {
-    return deleteFilterData();
-  });
+  beforeAll(() => insertFilterData());
+  afterAll(() => deleteFilterData());
   
   it(`returns the correct age filter for the user`, () => {
     const currUserID = 1;
@@ -109,13 +104,8 @@ describe(`getAgeFilter tests`, () => {
 
 
 describe(`saveAgeFilter tests`, () => {
-  beforeAll(() => {
-    return insertFilterData();
-  });
-
-  afterAll(() => {
-    return deleteFilterData();
-  });
+  beforeAll(() => insertFilterData());
+  afterAll(() => deleteFilterData());
 
   it(`saves new age filters`, () => {
     const currUserID = 3;
@@ -126,28 +116,18 @@ describe(`saveAgeFilter tests`, () => {
     return mysql.createConnection(MYSQLDB)
     .then((conn) => {
       return conn.query(filterQuery, [currUserID])
-      .then((rows) => {
-        expect(rows).toHaveLength(0);
-      })
-      .then(() => {
-        return filterDB.saveAgeFilter(currUserID, newFilter);
-      })
-      .then(() => {
-        return conn.query(stateQuery, [currUserID]);
-      })
+      .then((rows) => expect(rows).toHaveLength(0))
+      .then(() => filterDB.saveAgeFilter(currUserID, newFilter))
+      .then(() => conn.query(stateQuery, [currUserID]))
       .then((rows) => {
         expect(rows).toHaveLength(1);
         expect(rows[0].ageFilterState == 1).toBe(newFilter.state);
       })
-      .then(() => {
-        return conn.query(filterQuery, [currUserID]);
-      })
+      .then(() => conn.query(filterQuery, [currUserID]))
       .then((rows) => {
         expect(rows).toHaveLength(1);
         expect(rows[0].minAge).toBe(newFilter.minAge);
         expect(rows[0].maxAge).toBe(newFilter.maxAge);
-      })
-      .then(() => {
         return conn.end();
       });
     });
@@ -162,36 +142,22 @@ describe(`saveAgeFilter tests`, () => {
     return mysql.createConnection(MYSQLDB)
     .then((conn) => {
       return conn.query(stateQuery, [currUserID])
-      .then((rows) => {
-        expect(rows).toHaveLength(1);
-      })
-      .then(() => {
-        return conn.query(filterQuery, [currUserID]);
-      })
-      .then((rows) => {
-        expect(rows).toHaveLength(1);
-      })
-      .then(() => {
-        return filterDB.saveAgeFilter(currUserID, newFilter);
-      })
-      .then(() => {
-        return conn.query(stateQuery, [currUserID]);
-      })
+      .then((rows) => expect(rows).toHaveLength(1))
+      .then(() => conn.query(filterQuery, [currUserID]))
+      .then((rows) => expect(rows).toHaveLength(1))
+      .then(() => filterDB.saveAgeFilter(currUserID, newFilter))
+      .then(() => conn.query(stateQuery, [currUserID]))
       .then((rows) => {
         expect(rows).toHaveLength(1);
         expect(rows[0].ageFilterState == 1).toBe(newFilter.state);
       })
-      .then(() => {
-        return conn.query(filterQuery, [currUserID]);
-      })
+      .then(() => conn.query(filterQuery, [currUserID]))
       .then((rows) => {
         expect(rows).toHaveLength(1);
         expect(rows[0].minAge).toBe(newFilter.minAge);
         expect(rows[0].maxAge).toBe(newFilter.maxAge);
-      })
-      .then(() => {
         return conn.end();
-      });
+      })
     });
   });
 
@@ -204,13 +170,8 @@ describe(`saveAgeFilter tests`, () => {
 
 
 describe(`getGenderFilter tests`, () => {
-  beforeAll(() => {
-    return insertFilterData();
-  });
-
-  afterAll(() => {
-    return deleteFilterData();
-  });
+  beforeAll(() => insertFilterData());
+  afterAll(() => deleteFilterData());
 
   it(`returns the correct gender filter for the user`, () => {
     const currUserID = 1;
@@ -246,13 +207,8 @@ describe(`getGenderFilter tests`, () => {
 
 
 describe(`saveGenderFilter tests`, () => {
-  beforeEach(() => {
-    return insertFilterData();
-  });
-
-  afterEach(() => {
-    return deleteFilterData();
-  });
+  beforeEach(() => insertFilterData());
+  afterEach(() => deleteFilterData());
 
   it(`saves new gender filter`, () => {
     const currUserID = 3;
@@ -263,30 +219,20 @@ describe(`saveGenderFilter tests`, () => {
     return mysql.createConnection(MYSQLDB)
     .then((conn) => {
       return conn.query(filterQuery, [currUserID])
-      .then((rows) => {
-        expect(rows).toHaveLength(0);
-      })
-      .then(() => {
-        return filterDB.saveGenderFilter(currUserID, newFilter);
-      })
-      .then(() => {
-        return conn.query(stateQuery, [currUserID]);
-      })
+      .then((rows) => expect(rows).toHaveLength(0))
+      .then(() => filterDB.saveGenderFilter(currUserID, newFilter))
+      .then(() => conn.query(stateQuery, [currUserID]))
       .then((rows) => {
         expect(rows).toHaveLength(1);
         expect(rows[0].genderFilterState == 1).toBe(newFilter.state);
       })
-      .then(() => {
-        return conn.query(filterQuery, [currUserID]);
-      })
+      .then(() => conn.query(filterQuery, [currUserID]))
       .then((rows) => {
         expect(rows).toHaveLength(newFilter.preference.length);
         rows.forEach((pref, i) => {
           expect(pref.genderID).toBe(newFilter.preference[i].genderID);
         });
-      })
-      .then(() => {
-        return conn.end();
+        return conn.end()
       });
     });
   });
@@ -300,36 +246,22 @@ describe(`saveGenderFilter tests`, () => {
     return mysql.createConnection(MYSQLDB)
     .then((conn) => {
       return conn.query(stateQuery, [currUserID])
-      .then((rows) => {
-        expect(rows).not.toHaveLength(0);
-      })
-      .then(() => {
-        return conn.query(filterQuery, [currUserID]);
-      })
-      .then((rows) => {
-        expect(rows).not.toHaveLength(0);
-      })
-      .then(() => {
-        return filterDB.saveGenderFilter(currUserID, newFilter);
-      })
-      .then(() => {
-        return conn.query(stateQuery, [currUserID]);
-      })
+      .then((rows) => expect(rows).not.toHaveLength(0))
+      .then(() => conn.query(filterQuery, [currUserID]))
+      .then((rows) => expect(rows).not.toHaveLength(0))
+      .then(() => filterDB.saveGenderFilter(currUserID, newFilter))
+      .then(() => conn.query(stateQuery, [currUserID]))
       .then((rows) => {
         expect(rows).toHaveLength(1);
         expect(rows[0].genderFilterState == 1).toBe(newFilter.state);
       })
-      .then(() => {
-        return conn.query(filterQuery, [currUserID]);
-      })
+      .then(() => conn.query(filterQuery, [currUserID]))
       .then((rows) => {
         expect(rows).toHaveLength(newFilter.preference.length);
         rows.forEach((pref, i) => {
           expect(pref.genderID).toBe(newFilter.preference[i].genderID);
         });
-      })
-      .then(() => {
-        return conn.end();
+        return conn.end()
       });
     });
   });
@@ -342,21 +274,11 @@ describe(`saveGenderFilter tests`, () => {
     return mysql.createConnection(MYSQLDB)
     .then((conn) => {
       return conn.query(genderFilterQuery)
-      .then((rows) => {
-        expect(rows).not.toHaveLength(0);
-      })
-      .then(() => {
-        return filterDB.saveGenderFilter(currUserID, emptyFilter);
-      })
-      .then(() => {
-        return conn.query(genderFilterQuery);
-      })
-      .then((rows) => {
-        expect(rows).toHaveLength(0);
-      })
-      .then(() => {
-        return conn.end();
-      });
+      .then((rows) => expect(rows).not.toHaveLength(0))
+      .then(() => filterDB.saveGenderFilter(currUserID, emptyFilter))
+      .then(() => conn.query(genderFilterQuery))
+      .then((rows) => expect(rows).toHaveLength(0))
+      .then(() => conn.end());
     });
   });
   

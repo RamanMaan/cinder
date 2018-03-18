@@ -59,19 +59,12 @@ const saveAgeFilter = (id, ageFilter) => {
   return mysql.createConnection(MYSQLDB)
   .then((conn) => {
     return conn.beginTransaction()
-    .then(() => {
-      return conn.query(insertStateQuery);
-    })
-    .then(() => {
-      return conn.query(insertFilterQuery);
-    })
-    .then(() => {
-      conn.commit();
-      conn.end();
-    })
+    .then(() => conn.query(insertStateQuery))
+    .then(() => conn.query(insertFilterQuery))
+    .then(() => conn.commit())
+    .then(() => conn.end())
     .catch((err) => {
-      conn.rollback();
-      conn.end();
+      conn.rollback().then(() => conn.end());
       throw err;
     });
   });
@@ -130,22 +123,13 @@ const saveGenderFilter = (id, genderFilter) => {
   return mysql.createConnection(MYSQLDB)
   .then((conn) => {
     return conn.beginTransaction()
-    .then(() => {
-      return conn.query(insertStateQuery);
-    })
-    .then(() => {
-      return conn.query(deleteFilterQuery);
-    })
-    .then(() => {
-      return insertFilterQuery ? conn.query(insertFilterQuery) : null;
-    })
-    .then(() => {
-      conn.commit();
-      conn.end();
-    })
+    .then(() => conn.query(insertStateQuery))
+    .then(() => conn.query(deleteFilterQuery))
+    .then(() => insertFilterQuery ? conn.query(insertFilterQuery) : null)
+    .then(() => conn.commit())
+    .then(() => conn.end())
     .catch((err) => {
-      conn.rollback();
-      conn.end();
+      conn.rollback().then(() => conn.end());
       throw err;
     });
   });

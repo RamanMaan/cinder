@@ -34,7 +34,7 @@ const createInsertGenderFilterQuery = (genderFilters) => {
   const rows = [];
   genderFilters.forEach(x => {
     x.preference.forEach(g => {
-      rows.push(Object.assign({}, { userID: x.userID }, g));
+      rows.push({userID: x.userID, ...g});
     });
   });
   return `INSERT INTO GenderFilter (UserID, GenderID) VALUES ` +
