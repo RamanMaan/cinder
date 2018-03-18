@@ -15,6 +15,13 @@ import {
   profileView
 } from './profile';
 
+import {
+  loginIsRequested,
+  loginHasErrored,
+  loginHasSucceeded,
+  logoutHasSucceeded
+} from './auth';
+
 export default combineReducers({
   routing: routerReducer,
 
@@ -30,5 +37,10 @@ export default combineReducers({
   profile,
   profileHasErrored,
   profileIsLoading,
-  profileView
+  profileView,
+
+  loginIsRequested,
+  loginHasErrored,
+  loginHasSucceeded,
+  logoutHasSucceeded
 });

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { Redirect, Link } from 'react-router-dom';
-
+import { loginUser } from '../actions';
+import { connect } from 'react-redux';
 import './styles/Login.css';
 import logo from '../assets/logo.svg';
 
@@ -26,38 +27,23 @@ class Login extends Component {
 
   userLogin(e) {
     e.preventDefault();
+    this.setState({ loginBtnText: 'Logging in...' });
+    this.props.loginUser({
+      email: this.state.email,
+      password: this.state.password
+    });
+  }
 
-    this.setState({ loginBtnText: 'Logging In...' });
-    fetch('/api/login', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password
-      })
-    })
-      .then(res => res.json())
-      .then(res => {
-        if (res.status === 200) {
-          this.setState({ loginBtnText: 'Log In', loggedIn: true });
-          localStorage.setItem('token', res.token);
-        } else {
-          throw new Error(`${res.status} ${res.err}`);
-        }
-      })
-      .catch(err => {
-        this.setState({ loginBtnText: 'Log In' });
-        // TODO - better errors for user - what went wrong?
-        alert(err);
-      });
+  componentDidMount() {
+    this.setState({
+      loggedIn: this.props.loggedIn
+    });
   }
 
   render() {
-    if (this.state.loggedIn) {
-      return <Redirect to="/" />;
+    if (this.props.loggedIn) {
+      const { from } = this.props.location.state || { from: { pathname: '/' } };
+      return <Redirect to={from} />;
     }
 
     return (
@@ -117,4 +103,13 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  loggedIn: state.loginHasSucceeded,
+  message: state.loginIsRequested
+});
+
+const mapDispatchToProps = dispatch => ({
+  loginUser: creds => dispatch(loginUser(creds))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
