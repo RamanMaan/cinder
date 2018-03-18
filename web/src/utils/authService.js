@@ -2,13 +2,17 @@ import jwt from 'jsonwebtoken';
 
 const getAuth = () => {
   let userID = -1;
-  let token = localStorage.getItem('token') || null;
+  const token = localStorage.getItem('token');
   if (token) {
+    const date = new Date();
     const decoded = jwt.decode(token);
-    console.log(decoded);
-    userID = decoded.id;
-  }
-  return { token, userID };
+    const exp = decoded.exp;
+
+    if (exp >= date.getTime() / 1000) {
+      userID = decoded.id;
+      return { isAuthenticated: true, token, userID };
+    }
+  } else return { isAuthenticated: false };
 };
 
 export const logout = () => {
