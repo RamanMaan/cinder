@@ -47,26 +47,16 @@ export class Profile extends Component {
   }
 
   onDropdownChange(field, value) {
-    if (!value || !value.length) {
-      this.setState(prev => ({
-        ...prev,
-        filters: {
-          ...prev.filters,
-          [field]: null
+    this.setState(prev => ({
+      ...prev,
+      filters: {
+        ...prev.filters,
+        [field]: {
+          ...prev.filters[field],
+          values: value
         }
-      }));
-    } else {
-      this.setState(prev => ({
-        ...prev,
-        filters: {
-          ...prev.filters,
-          [field]: {
-            ...prev.filters[field],
-            values: value
-          }
-        }
-      }));
-    }
+      }
+    }));
   }
 
   componentDidMount() {
@@ -99,7 +89,7 @@ export class Profile extends Component {
         <div className="filters">
           <h5>User Filters</h5>
           <div className="gender">
-            <h7>Gender Filter</h7>
+            <h6>Gender Filter</h6>
             <FilterElement
               round
               onChange={this.onElementToggle.bind(this, 'gender')}
