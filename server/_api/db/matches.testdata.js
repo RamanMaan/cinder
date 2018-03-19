@@ -1,7 +1,6 @@
 /**
  * Test data for the tests at matches.test.js
  */
-const mysql = require('promise-mysql');
 const testUtils = require('./utils/testutils');
 
 // data must be kept ordered by userID starting from 1

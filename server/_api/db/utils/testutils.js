@@ -20,10 +20,34 @@ const createInsertLikesQuery = (likes) => {
   likes.map(x => mysql.format(` (?, ?, ?, ?) `, [x.user1ID, x.user2ID, x.userAction, x.actionDate])).join(`, `) + `;`;
 }
 
+const createInsertFilterStateQuery = (filterStates) => {
+  return `INSERT INTO FilterState (UserID, AgeFilterState, GenderFilterState) VALUES ` +
+  filterStates.map(x => mysql.format(` (?, ?, ?) `, [x.userID, x.ageFilterState, x.genderFilterState])).join(`, `) + `;`;
+};
+
+const createInsertAgeFilterQuery = (ageFilters) => {
+  return `INSERT INTO AgeFilter (UserID, MinAge, MaxAge) VALUES ` + 
+  ageFilters.map(x => mysql.format(` (?, ?, ?) `, [x.userID, x.minAge, x.maxAge])).join(`, `) + `;`;
+};
+
+const createInsertGenderFilterQuery = (genderFilters) => {
+  const rows = [];
+  genderFilters.forEach(x => {
+    x.preference.forEach(g => {
+      rows.push({userID: x.userID, ...g});
+    });
+  });
+  return `INSERT INTO GenderFilter (UserID, GenderID) VALUES ` +
+  rows.map(x => mysql.format(` (?, ?) `, [x.userID, x.genderID])).join(`, `) + `;`;
+};
+
 const deleteUsersQuery = `TRUNCATE TABLE Users;`;
 const deleteUsersInfoQuery = `TRUNCATE TABLE UsersInfo;`;
 const deletePhotosQuery = `TRUNCATE TABLE UserPicture;`;
 const deleteLikesQuery = `TRUNCATE TABLE Likes;`;
+const deleteFilterStateQuery = `TRUNCATE TABLE FilterState;`;
+const deleteAgeFilterQuery = `TRUNCATE TABLE AgeFilter;`;
+const deleteGenderFilterQuery = `TRUNCATE TABLE GenderFilter;`;
 
 const calcBirthday = x => {
   var currDate = new Date();
@@ -37,9 +61,15 @@ module.exports = {
   createInsertUsersInfoQuery,
   createInsertPhotosQuery,
   createInsertLikesQuery,
+  createInsertFilterStateQuery,
+  createInsertAgeFilterQuery,
+  createInsertGenderFilterQuery,
   deleteUsersQuery,
   deleteUsersInfoQuery,
   deletePhotosQuery,
   deleteLikesQuery,
   calcBirthday,
+  deleteFilterStateQuery,
+  deleteAgeFilterQuery,
+  deleteGenderFilterQuery,
 };
