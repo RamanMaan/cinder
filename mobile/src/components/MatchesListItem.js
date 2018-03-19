@@ -4,9 +4,9 @@ import { ListItem, Text, Left, Right, Body, Thumbnail } from 'native-base';
 const dateFormat = date => new Date(date).toJSON().split('T')[0];
 
 const MatchesListItem = ({
-  userID, userName, userBio, primaryPic, matchDate,
+  userID, userName, userBio, primaryPic, matchDate, onPress,
 }) => (
-  <ListItem avatar>
+  <ListItem avatar onPress={onPress}>
     <Left>
       <Thumbnail source={{ uri: primaryPic }} style={{ resizeMode: 'contain' }} />
     </Left>

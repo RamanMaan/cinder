@@ -8,8 +8,9 @@ const util = require('./util');
 const responses = require('./responses');
 
 router.get('/', (req, res, next) => {
-  return usersDB.getUsers()
-    .then((users) => res.status(responses.SUCCESS).json(users))
+  return usersDB
+    .getUsers()
+    .then(users => res.status(responses.SUCCESS).json(users))
     .catch(next);
 });
 
@@ -17,17 +18,9 @@ router.get('/:userID', (req, res, next) => {
   const { userID } = req.params;
   util.validateID(userID);
 
-  return usersDB.getUser(userID)
+  return usersDB
+    .getUser(userID)
     .then(user => res.status(responses.SUCCESS).json(user[0]))
-    .catch(next);
-});
-
-router.get('/:userID/recommendations', (req, res, next) => {
-  const { userID } = req.params;
-  util.validateID(userID);
-
-  return usersDB.getUserRecommendations(userID)
-    .then(recommendations => res.status(responses.SUCCESS).json(recommendations))
     .catch(next);
 });
 
@@ -35,7 +28,7 @@ router.get('/:userID/recommendations', (req, res, next) => {
  * Error handler
  */
 router.use((err, req, res, next) => {
-  if(err.message.indexOf('[INTERNAL]')) {
+  if (err.message.indexOf('[INTERNAL]')) {
     //eslint-disable-next-line no-console
     console.error(err.message);
     return res.status(responses.BAD_REQUEST).send(err.message);
