@@ -14,17 +14,17 @@ router.get('/', (req, res, next) => {
   const { userID } = req.params;
   util.validateID(userID);
 
-  let filters = { age:null, gender:null };
+  let profile = { filters: {age:null, gender:null }} ;
 
   return filterDB.getAgeFilter(userID)
     .then(ageResult => {
-      filters.age = ageResult;
+      profile.filters.age = ageResult;
     })
     .then(() => filterDB.getGenderFilter(userID))
     .then(genderResult => {
-      filters.gender = genderResult;
+      profile.filters.gender = genderResult;
     })
-    .then(() => res.status(responses.SUCCESS).json(filters))
+    .then(() => res.status(responses.SUCCESS).json(profile))
     .catch(next);
 });
 
@@ -34,8 +34,8 @@ router.post('/', (req, res, next) => {
 
   return (
     filterDB
-      .saveGenderFilter(userID, req.body.gender)
-      .then(() => filterDB.saveAgeFilter(userID, req.body.age))
+      .saveGenderFilter(userID, req.body.filters.gender)
+      .then(() => filterDB.saveAgeFilter(userID, req.body.filters.age))
       .then(result => res.status(responses.CREATED).json(result[0]))
       .catch(next)
   );
