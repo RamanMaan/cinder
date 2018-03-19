@@ -15,7 +15,6 @@ const MYSQLDB = {
 
 const buildPairs = (val, index) => `(${index + 1}, '${val}')`;
 const prepareQuery = arr => arr.map(buildPairs).join(', ');
-
 // don't need to escape values - we're the only people writing these queries
 const refTableQueries = [
   `INSERT INTO GenderType (GenderID, GenderType) VALUES ${prepareQuery(
