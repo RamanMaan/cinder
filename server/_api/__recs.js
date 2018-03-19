@@ -12,41 +12,35 @@ router.get('/', (req, res, next) => {
   const { userID } = req.params;
   util.validateID(userID);
 
-  let allRecs;
-  let prefGender, recsGenderFiltered;
-  let prefAge, recsAgeFiltered;
+  let recommendations = [];
 
-  return recsDB
-    .getRecs(userID)
-    .then(recs => {
-      allRecs = recs;
-    })
-    .then(() => filterDB.getGenderFilter(userID))
-    .then(genderResult => {
-      if (genderResult && genderResult.state) {
-        prefGender = genderResult.preference.map(x => {
-          return x.genderID;
-        });
-        recsGenderFiltered = allRecs.filter(x =>
-          prefGender.some(genderID => genderID === x.genderID)
-        );
-      } else {
-        recsGenderFiltered = allRecs;
-      }
-      return recsGenderFiltered;
-    })
-    .then(() => filterDB.getAgeFilter(userID))
-    .then(ageResult => {
-      if (ageResult && ageResult.state) {
-        recsAgeFiltered = recsGenderFiltered.filter(
-          x => x.age >= ageResult.minAge && x.age <= ageResult.maxAge
-        );
-      } else {
-        recsAgeFiltered = recsGenderFiltered;
-      }
-      return recsAgeFiltered;
-    })
-    .then(recs => res.status(responses.SUCCESS).json(recs))
+  const ageFilterFunc = (user, recs) => {
+    return filterDB.getAgeFilter(user)
+      .then(result => {
+        if(result && result.state) {
+          recs = recs.filter(x => x.age >= result.minAge && x.age <= result.maxAge);
+        }
+        return recs;
+      });
+  };
+
+  const genderFilterFunc = (user, recs) => {
+    return filterDB.getGenderFilter(user)
+      .then(result => {
+        if(result && result.state) {
+          recs = recs.filter(x => result.preference.some(gender => gender.genderID === x.genderID));
+        }
+        return recs;
+      });
+  };
+
+  return recsDB.getRecs(userID)
+    .then(result => {recommendations = result;})
+    .then(result => genderFilterFunc(userID, recommendations))
+    .then(result => {recommendations = result;})
+    .then(result => ageFilterFunc(userID, recommendations))
+    .then(result => {recommendations = result;})
+    .then(result => res.status(responses.SUCCESS).json(recommendations))
     .catch(next);
 });
 
