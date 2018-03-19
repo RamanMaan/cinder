@@ -10,7 +10,6 @@ const MYSQLDB = {
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-  multipleStatements: true,
 };
 
 const getAgeFilter = (id) => {
@@ -45,30 +44,29 @@ const getAgeFilter = (id) => {
 };
 
 const saveAgeFilter = (id, ageFilter) => {
+  const insertStateQuery = mysql.format(`
+  INSERT INTO FilterState (UserID, AgeFilterState)
+  VALUES (?, ?)
+  ON DUPLICATE KEY UPDATE AgeFilterState = ?;
+  `, [id, ageFilter.state, ageFilter.state]);
+
+  const insertFilterQuery = mysql.format(`
+  INSERT INTO AgeFilter (UserID, MinAge, MaxAge)
+  VALUES (?, ?, ?) 
+  ON DUPLICATE KEY UPDATE MinAge = ?, MaxAge = ?;`, 
+  [id, ageFilter.minAge, ageFilter.maxAge, ageFilter.minAge, ageFilter.maxAge]);
+
   return mysql.createConnection(MYSQLDB)
   .then((conn) => {
-
-    const insertStateQuery = mysql.format(`
-    INSERT INTO FilterState (UserID, AgeFilterState)
-    VALUES (?, ?)
-    ON DUPLICATE KEY UPDATE AgeFilterState = ?;
-    `, [id, ageFilter.state, ageFilter.state]);
-
-    const insertFilterQuery = mysql.format(`
-    INSERT INTO AgeFilter (UserID, MinAge, MaxAge)
-    VALUES (?, ?, ?) 
-    ON DUPLICATE KEY UPDATE MinAge = ?, MaxAge = ?;`, 
-    [id, ageFilter.minAge, ageFilter.maxAge, ageFilter.minAge, ageFilter.maxAge]);
-
-    const result = conn.query(
-      'START TRANSACTION;' + 
-      insertStateQuery + 
-      insertFilterQuery + 
-      'COMMIT;'
-    );
-    
-    conn.end();
-    return result;
+    return conn.beginTransaction()
+    .then(() => conn.query(insertStateQuery))
+    .then(() => conn.query(insertFilterQuery))
+    .then(() => conn.commit())
+    .then(() => conn.end())
+    .catch((err) => {
+      conn.rollback().then(() => conn.end());
+      throw err;
+    });
   });
 }
 
@@ -106,34 +104,34 @@ const getGenderFilter = (id) => {
 }
 
 const saveGenderFilter = (id, genderFilter) => {
+  const insertStateQuery = mysql.format(`
+  INSERT INTO FilterState (UserID, GenderFilterState)
+  VALUES (?, ?)
+  ON DUPLICATE KEY UPDATE GenderFilterState = ?;`, 
+  [id, genderFilter.state, genderFilter.state]);
+
+  const deleteFilterQuery = mysql.format(`DELETE FROM GenderFilter WHERE UserID = ?;`, [id]);
+
+  var insertFilterQuery = null;
+    
+  if (genderFilter.preference && genderFilter.preference.length) {
+    insertFilterQuery = `INSERT INTO GenderFilter (UserID, GenderID) ` + 
+    genderFilter.preference.map(x => mysql.format(` SELECT ? AS UserID, ?  AS GenderID `, [id, x.genderID]))
+    .join(` UNION ALL `) + `;`;
+  } 
+
   return mysql.createConnection(MYSQLDB)
   .then((conn) => {
-    const insertStateQuery = mysql.format(`
-      INSERT INTO FilterState (UserID, GenderFilterState)
-      VALUES (?, ?)
-      ON DUPLICATE KEY UPDATE GenderFilterState = ?;`, 
-      [id, genderFilter.state, genderFilter.state]);
-
-    const deleteFilterQuery = mysql.format(`DELETE FROM GenderFilter WHERE UserID = ?;`, [id]);
-    
-    var insertFilterQuery = '';
-    
-    if (genderFilter.preference && genderFilter.preference.length) {
-      insertFilterQuery = `INSERT INTO GenderFilter (UserID, GenderID) ` + 
-      genderFilter.preference.map(x => mysql.format(` SELECT ? AS UserID, ?  AS GenderID `, [id, x.genderID]))
-      .join(` UNION ALL `) + `;`;
-    } 
-    
-    const result = conn.query(
-      'START TRANSACTION;' + 
-      insertStateQuery +
-      deleteFilterQuery +
-      insertFilterQuery +
-      'COMMIT;'
-    );
-
-    conn.end();
-    return result;
+    return conn.beginTransaction()
+    .then(() => conn.query(insertStateQuery))
+    .then(() => conn.query(deleteFilterQuery))
+    .then(() => insertFilterQuery ? conn.query(insertFilterQuery) : null)
+    .then(() => conn.commit())
+    .then(() => conn.end())
+    .catch((err) => {
+      conn.rollback().then(() => conn.end());
+      throw err;
+    });
   });
 };
 

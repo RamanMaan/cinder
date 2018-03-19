@@ -1,5 +1,5 @@
 /**
- * Test data for the tests at matches.test.js
+ * Test data for the tests at recs.test.js
  */
 const testUtils = require('./utils/testutils');
 
@@ -16,30 +16,27 @@ const users = [
 const likes = [
   { user1ID: 1, user2ID: 2, userAction: 'L', actionDate: '1997-05-15' },
   { user1ID: 1, user2ID: 3, userAction: 'L', actionDate: '1996-05-15' },
-  { user1ID: 1, user2ID: 4, userAction: 'L', actionDate: '1995-05-15' },
-  { user1ID: 1, user2ID: 5, userAction: 'L', actionDate: '1994-05-15' },
   { user1ID: 2, user2ID: 1, userAction: 'L', actionDate: '1993-05-15' },
-  { user1ID: 3, user2ID: 1, userAction: 'P', actionDate: '1992-05-15' },
-  { user1ID: 4, user2ID: 1, userAction: 'L', actionDate: '1991-05-15' },
-  { user1ID: 5, user2ID: 1, userAction: 'P', actionDate: '1990-05-15' },
+  { user1ID: 2, user2ID: 3, userAction: 'L', actionDate: '1963-05-15' },
+  { user1ID: 2, user2ID: 4, userAction: 'L', actionDate: '1992-05-15' },
+  { user1ID: 2, user2ID: 5, userAction: 'L', actionDate: '1983-05-15' },
+  { user1ID: 2, user2ID: 6, userAction: 'L', actionDate: '1992-05-15' },
+  { user1ID: 6, user2ID: 1, userAction: 'P', actionDate: '1995-05-15' },
+  { user1ID: 6, user2ID: 2, userAction: 'P', actionDate: '1999-05-15' },
+  { user1ID: 6, user2ID: 3, userAction: 'P', actionDate: '2005-05-15' },
+  { user1ID: 6, user2ID: 4, userAction: 'P', actionDate: '2002-05-15' },
+  { user1ID: 6, user2ID: 5, userAction: 'P', actionDate: '2015-05-15' },
 ];
 
 const getUserByID = (id) => { 
   if (users[id - 1].userID != id) {
-    throw Error('matches.testdata.getUserByID Error'); 
+    throw Error('recs.testdata.getUserByID Error'); 
   }
   return users[id - 1]; 
-};
-
-const getMatchDate = (id1, id2) => {
-  const matchDate1 = new Date(likes.find(x => x.user1ID == id1 && x.user2ID == id2).actionDate);
-  const matchDate2 = new Date(likes.find(x => x.user2ID == id1 && x.user1ID == id2).actionDate);
-  return new Date(Math.max(matchDate1, matchDate2)).toISOString().split('T')[0];
 };
 
 module.exports = {
   users,
   likes,
-  getUserByID,
-  getMatchDate
+  getUserByID
 };

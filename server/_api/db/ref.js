@@ -20,6 +20,7 @@ module.exports = {
             GT.GenderID AS id, 
             GT.GenderType AS value 
           FROM GenderType GT
+          ORDER BY id;
           `);
       conn.end();
       return rows;

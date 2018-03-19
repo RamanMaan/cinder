@@ -5,6 +5,7 @@ require('dotenv').load();
 const mysql = require('promise-mysql');
 const matchesDB = require('./matches');
 const matchesData = require('./matches.testdata');
+const testUtils = require('./utils/testutils');
 
 const MYSQLDB = {
   host: process.env.DB_HOST,
@@ -20,10 +21,10 @@ beforeAll(() => {
   return mysql.createConnection(MYSQLDB)
   .then((conn) => {
     const result = conn.query(
-      matchesData.insertUsersQuery + 
-      matchesData.insertUsersInfoQuery + 
-      matchesData.insertLikesQuery + 
-      matchesData.insertPhotosQuery
+      testUtils.createInsertUsersQuery(matchesData.users) +
+      testUtils.createInsertUsersInfoQuery(matchesData.users) +
+      testUtils.createInsertPhotosQuery(matchesData.users) +
+      testUtils.createInsertLikesQuery(matchesData.likes)
     );
     conn.end();
     return result;
@@ -36,10 +37,10 @@ afterAll(() => {
   .then((conn) => {
     const result = conn.query(
       `SET FOREIGN_KEY_CHECKS=0;` +
-      matchesData.deleteUsersQuery +
-      matchesData.deleteUsersInfoQuery +
-      matchesData.deletePhotosQuery +
-      matchesData.deleteLikesQuery +
+      testUtils.deleteUsersQuery +
+      testUtils.deleteUsersInfoQuery +
+      testUtils.deletePhotosQuery +
+      testUtils.deleteLikesQuery +
       `SET FOREIGN_KEY_CHECKS=1;`);
     conn.end();
     return result;
