@@ -3,6 +3,7 @@ import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { Redirect, Link } from 'react-router-dom';
 import { loginUser } from '../actions';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import './styles/Login.css';
 import logo from '../assets/logo.svg';
 
@@ -16,7 +17,6 @@ class Login extends Component {
     this.state = {
       email: '',
       password: '',
-      loggedIn: false,
       loginBtnText: 'Log In'
     };
   }
@@ -27,23 +27,17 @@ class Login extends Component {
 
   userLogin(e) {
     e.preventDefault();
-    this.setState({ loginBtnText: 'Logging in...' });
+    this.setState({ loginBtnText: this.props.auth.message });
     this.props.loginUser({
       email: this.state.email,
       password: this.state.password
     });
   }
 
-  componentDidMount() {
-    this.setState({
-      loggedIn: this.props.loggedIn
-    });
-  }
-
   render() {
-    if (this.props.loggedIn) {
+    if (this.props.auth.isAuthenticated) {
       const { from } = this.props.location.state || { from: { pathname: '/' } };
-      return <Redirect to={from} />;
+      return <Redirect exact to={from} />;
     }
 
     return (
@@ -104,12 +98,25 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: state.loginHasSucceeded,
-  message: state.loginIsRequested
+  auth: state.auth
 });
 
 const mapDispatchToProps = dispatch => ({
   loginUser: creds => dispatch(loginUser(creds))
 });
+
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.shape({
+    isFetching: PropTypes.bool,
+    isAuthenticated: PropTypes.bool.isRequired,
+    token: PropTypes.string,
+    userID: PropTypes.string,
+    message: PropTypes.string
+  }),
+  location: PropTypes.shape({
+    state: PropTypes.object
+  })
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

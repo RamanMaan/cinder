@@ -1,79 +1,69 @@
-import * as types from './actionTypes';
-import { matchesFetchData } from './matches';
+import {
+  REC_ERROR,
+  REC_LOADING,
+  REC_FETCH_SUCCESS,
+  REC_SUBMIT_SUCCESS,
+  REC_POP
+} from '../actions/actionTypes';
+import { fetchAllMatches } from './matches';
 
-export function recErrored(bool) {
+function recErrored(message) {
   return {
-    type: types.REC_ERROR,
-    error: bool
+    type: REC_ERROR,
+    payload: message
   };
 }
 
-export function recLoading(bool) {
+function recLoading() {
   return {
-    type: types.REC_LOADING,
-    loading: bool
+    type: REC_LOADING
   };
 }
 
-export function recFetchSuccess(data) {
+function recFetchSuccess(data) {
   return {
-    type: types.REC_FETCH_SUCCESS,
-    recommendations: data
+    type: REC_FETCH_SUCCESS,
+    payload: data
   };
 }
 
-export function recSubmitSuccess(result) {
+function recSubmitSuccess(result) {
   return {
-    type: types.REC_SUBMIT_SUCCESS,
-    result
+    type: REC_SUBMIT_SUCCESS,
+    payload: result
   };
 }
 
 export function fetchRecommendations(userID, token) {
   return dispatch => {
-    dispatch(recLoading(true));
+    dispatch(recLoading());
 
     fetch(`/api/users/${userID}/recs`, {
       headers: { Authorization: `Bearer ${token}` }
     })
-      .then(res => {
-        if (!res.ok) {
-          throw Error(res.statusText);
-        }
-        dispatch(recLoading(false));
-        return res.json();
-      })
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
       .then(data => dispatch(recFetchSuccess(data)))
-      .catch(() => dispatch(recErrored(true)));
+      .catch(err => dispatch(recErrored(err)));
   };
 }
 
-export function submitRecommendation(currUserID, recID, like, token) {
+export function submitRecommendation(userID, recID, like, token) {
   return dispatch => {
     const userAction = like ? 'like' : 'pass';
 
-    fetch(`/api/users/${currUserID}/matches/${recID}/${userAction}`, {
+    fetch(`/api/users/${userID}/matches/${recID}/${userAction}`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}` }
     })
-      .then(res => {
-        if (!res.ok) {
-          throw Error(res.statusText);
-        }
-        return res.json();
-      })
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
       .then(data => {
         dispatch(recSubmitSuccess(data));
-        if (data.matched) {
-          dispatch(matchesFetchData(currUserID, token));
-        }
+        if (data.matched) dispatch(fetchAllMatches(userID, token));
       })
-      .catch(() => dispatch(recErrored(true)));
+      .catch(err => dispatch(recErrored(err)));
   };
 }
 
 export function popRecommendation() {
-  return {
-    type: types.REC_POP
-  };
+  return dispatch => dispatch({ type: REC_POP });
 }

@@ -1,42 +1,53 @@
-import * as types from '../actions/actionTypes';
+import {
+  PROFILE_ERROR,
+  PROFILE_LOADING,
+  PROFILE_FETCHED,
+  SHOW_PROFILE,
+  HIDE_PROFILE
+} from '../actions/actionTypes';
 
-export function profileHasErrored(state = false, action) {
+const initState = {
+  loading: false,
+  errored: false,
+  details: {},
+  isVisible: false,
+  message: ''
+};
+
+export function profile(state = initState, action) {
   switch (action.type) {
-    case types.PROFILE_ERROR:
-      return action.error;
+    case PROFILE_ERROR:
+      return {
+        ...state,
+        loading: false,
+        errored: true,
+        message: action.payload
+      };
 
-    default:
-      return state;
-  }
-}
+    case PROFILE_LOADING:
+      return {
+        ...state,
+        loading: true
+      };
 
-export function profileIsLoading(state = false, action) {
-  switch (action.type) {
-    case types.PROFILE_LOADING:
-      return action.loading;
+    case PROFILE_FETCHED:
+      return {
+        ...state,
+        loading: false,
+        details: action.payload
+      };
 
-    default:
-      return state;
-  }
-}
+    case SHOW_PROFILE:
+      return {
+        ...state,
+        isVisible: true
+      };
 
-export function profile(state = null, action) {
-  switch (action.type) {
-    case types.PROFILE_FETCHED:
-      return action.profile;
-
-    default:
-      return state;
-  }
-}
-
-export function profileView(state = false, action) {
-  switch (action.type) {
-    case types.SHOW_PROFILE:
-      return true;
-
-    case types.HIDE_PROFILE:
-      return false;
+    case HIDE_PROFILE:
+      return {
+        ...state,
+        isVisible: false
+      };
 
     default:
       return state;

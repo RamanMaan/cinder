@@ -1,54 +1,55 @@
-import * as types from './actionTypes';
-import Auth from '../utils/authService';
+import {
+  PROFILE_ERROR,
+  PROFILE_LOADING,
+  PROFILE_FETCHED,
+  SHOW_PROFILE,
+  HIDE_PROFILE
+} from '../actions/actionTypes';
 
-export function profileErrored(bool) {
+function profileErrored(message) {
   return {
-    type: types.PROFILE_ERROR,
-    error: bool
+    type: PROFILE_ERROR,
+    payload: message
   };
 }
 
-export function profileLoading(bool) {
+function profileLoading() {
   return {
-    type: types.PROFILE_LOADING,
-    loading: bool
+    type: PROFILE_LOADING
   };
 }
 
-export function profileFetched(data) {
+function profileFetched(data) {
   return {
-    type: types.PROFILE_FETCHED,
-    profile: data
+    type: PROFILE_FETCHED,
+    payload: data
   };
 }
 
-export function fetchProfile() {
+export function fetchProfile(userID, token) {
   return dispatch => {
-    dispatch(profileLoading(true));
-
-    fetch(`/api/users/${Auth.userID}/`, {
-      headers: { Authorization: `Bearer ${Auth.token}` }
+    dispatch(profileLoading());
+    fetch(`/api/users/${userID}`, {
+      headers: { Authorization: `Bearer ${token}` }
     })
-      .then(res => {
-        if (!res.ok) {
-          throw Error(res.statusText);
-        }
-        dispatch(profileLoading(false));
-        return res.json();
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+      .then(data => {
+        dispatch(profileFetched(data));
       })
-      .then(data => dispatch(profileFetched(data)))
-      .catch(() => dispatch(profileErrored(true)));
+      .catch(err => dispatch(profileErrored(err)));
   };
 }
 
 export function showProfile() {
-  return {
-    type: types.SHOW_PROFILE
-  };
+  return dispatch =>
+    dispatch({
+      type: SHOW_PROFILE
+    });
 }
 
 export function hideProfile() {
-  return {
-    type: types.HIDE_PROFILE
-  };
+  return dispatch =>
+    dispatch({
+      type: HIDE_PROFILE
+    });
 }

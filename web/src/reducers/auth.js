@@ -1,42 +1,43 @@
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  LOGIN_ERROR,
-  LOGOUT_SUCCESS
+  LOGIN_ERROR
 } from '../actions/actionTypes';
-// import Auth from '../utils/authService';
 
-export function loginIsRequested(state = false, action) {
+const initState = {
+  isFetching: false,
+  isAuthenticated: localStorage.getItem('token') ? true : false,
+  token: localStorage.getItem('token'),
+  userID: localStorage.getItem('userID'),
+  message: ''
+};
+
+export function auth(state = initState, action) {
   switch (action.type) {
     case LOGIN_REQUEST:
-      return action.isAuthenticated;
-    default:
-      return state;
-  }
-}
-
-export function loginHasErrored(state = 'Error', action) {
-  switch (action.type) {
-    case LOGIN_ERROR:
-      return action.err;
-    default:
-      return state;
-  }
-}
-
-export function logoutHasSucceeded(state = false, action) {
-  switch (action.type) {
-    case LOGOUT_SUCCESS:
-      return action.isAuthenticated;
-    default:
-      return state;
-  }
-}
-
-export function loginHasSucceeded(state = false, action) {
-  switch (action.type) {
+      return {
+        ...state,
+        isFetching: true,
+        isAuthenticated: false,
+        message: action.payload
+      };
     case LOGIN_SUCCESS:
-      return action.isAuthenticated;
+      return {
+        ...state,
+        isFetching: false,
+        isAuthenticated: true,
+        token: action.payload.token,
+        userID: action.payload.userID
+      };
+
+    case LOGIN_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+        isAuthenticated: false,
+        message: action.payload
+      };
+
     default:
       return state;
   }

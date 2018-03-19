@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { matchesFetchData } from '../actions';
-import Auth from '../utils/authService';
-
+import { fetchAllMatches } from '../actions';
+import PropTypes from 'prop-types';
 import MatchesListItem from '../components/MatchesListItem';
 import './styles/MatchesList.css';
 
@@ -16,7 +15,7 @@ export class MatchesList extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchData(Auth.userID, Auth.token);
+    this.props.fetchData(this.props.auth.userID, this.props.auth.token);
   }
 
   onListItemClick(id) {
@@ -68,18 +67,30 @@ export class MatchesList extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    matches: state.matches,
-    errored: state.matchesHasErrored,
-    loading: state.matchesIsLoading
-  };
-};
+const mapStateToProps = state => ({
+  matches: state.match.matches,
+  errored: state.match.errored,
+  loading: state.match.loading,
+  auth: state.auth
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchData: (userID, token) => dispatch(matchesFetchData(userID, token))
-  };
+const mapDispatchToProps = dispatch => ({
+  fetchData: (userID, token) => dispatch(fetchAllMatches(userID, token))
+});
+
+MatchesList.propTypes = {
+  fetchData: PropTypes.func.isRequired,
+  auth: PropTypes.shape({
+    isFetching: PropTypes.bool,
+    isAuthenticated: PropTypes.bool.isRequired,
+    token: PropTypes.string,
+    userID: PropTypes.string,
+    message: PropTypes.string
+  }),
+  clickHandler: PropTypes.func.isRequired,
+  matches: PropTypes.array,
+  loading: PropTypes.bool,
+  errored: PropTypes.bool
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MatchesList);

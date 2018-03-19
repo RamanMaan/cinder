@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-
-import Auth from '../utils/authService';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchProfile } from '../actions';
 import Home from './Home';
 import Navbar from '../components/NavigationBar';
 import Profile from './Profile';
@@ -8,54 +9,47 @@ import Profile from './Profile';
 import './styles/Layout.css';
 
 class Layout extends Component {
-  constructor(props) {
-    super(props);
-
-    this.fetchLoggedInUserDetails = this.fetchLoggedInUserDetails.bind(this);
-
-    this.state = {
-      loggedInUserDetail: false
-    };
-  }
-
-  fetchLoggedInUserDetails() {
-    fetch(`/api/users/${Auth.userID}`, {
-      headers: { Authorization: `Bearer ${Auth.token}` }
-    })
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          loggedInUserDetail: {
-            userName: res.userName,
-            primaryPic: res.primaryPic
-          }
-        });
-      })
-      .catch(err => console.log(err));
-  }
-
   componentDidMount() {
-    this.fetchLoggedInUserDetails();
+    this.props.fetchUserData(this.props.userID, this.props.token);
   }
 
   render() {
-    const navbar = this.state.loggedInUserDetail ? (
-      <Navbar
-        userIcon={this.state.loggedInUserDetail.primaryPic}
-        userName={this.state.loggedInUserDetail.userName}
-      />
-    ) : (
-      <Navbar />
-    );
-
     return (
       <div className="LayoutContent">
-        {navbar}
-        <Profile />
+        <Navbar
+          userIcon={this.props.profile.primaryPic}
+          userName={this.props.profile.userName}
+        />
+        <Profile userInfo={this.props.profile} />
         <Home />
       </div>
     );
   }
 }
 
-export default Layout;
+const mapStateToProps = state => ({
+  userID: state.auth.userID,
+  token: state.auth.token,
+  profile: state.profile.details
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchUserData: (userID, token) => dispatch(fetchProfile(userID, token))
+});
+
+Layout.propTypes = {
+  fetchUserData: PropTypes.func.isRequired,
+
+  userID: PropTypes.string.isRequired,
+  token: PropTypes.string.isRequired,
+
+  profile: PropTypes.shape({
+    userID: PropTypes.number,
+    userName: PropTypes.string,
+    userBirthday: PropTypes.string,
+    userBio: PropTypes.string,
+    primaryPic: PropTypes.string
+  })
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);

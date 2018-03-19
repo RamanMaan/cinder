@@ -5,8 +5,7 @@ import {
   popRecommendation,
   submitRecommendation
 } from '../actions';
-import Auth from '../utils/authService';
-
+import PropTypes from 'prop-types';
 import './styles/Recommendation.css';
 import UserDetail from '../components/UserDetail';
 
@@ -23,7 +22,7 @@ export class Recommendation extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchRecommends(Auth.userID, Auth.token);
+    this.props.fetchRecommends(this.props.userID, this.props.token);
   }
 
   incrementPotentialMatchIndex() {
@@ -43,10 +42,10 @@ export class Recommendation extends Component {
   submitUserAction(like) {
     const matchedUser = this.props.recommendations[0];
     this.props.submitRecommendation(
-      Auth.userID,
+      this.props.userID,
       matchedUser.userID,
       like,
-      Auth.token
+      this.props.token
     );
   }
 
@@ -54,7 +53,7 @@ export class Recommendation extends Component {
     const msg = this.props.loading
       ? 'Loading...'
       : !this.props.recommendations.length
-        ? "There's no one new around you :("
+        ? 'There is no one new around you :('
         : 'There was an error loading matches';
 
     if (
@@ -92,17 +91,32 @@ export class Recommendation extends Component {
 }
 
 const mapStateToProps = state => ({
-  recommendations: state.recommendations,
-  errored: state.recommendationsHasErrored,
-  loading: state.recommendationsIsLoading
+  userID: state.auth.userID,
+  token: state.auth.token,
+  recommendations: state.rec.recommendations,
+  errored: state.rec.errored,
+  loading: state.rec.loading
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchRecommends: (userID, token) =>
     dispatch(fetchRecommendations(userID, token)),
   popRecommend: () => dispatch(popRecommendation()),
-  submitRecommendation: (user1, user2, like) =>
-    dispatch(submitRecommendation(user1, user2, like))
+  submitRecommendation: (user1, user2, like, token) =>
+    dispatch(submitRecommendation(user1, user2, like, token))
 });
+
+Recommendation.propTypes = {
+  fetchRecommends: PropTypes.func.isRequired,
+  popRecommend: PropTypes.func.isRequired,
+  submitRecommendation: PropTypes.func.isRequired,
+
+  userID: PropTypes.string.isRequired,
+  token: PropTypes.string.isRequired,
+
+  recommendations: PropTypes.array.isRequired,
+  errored: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recommendation);

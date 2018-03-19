@@ -8,8 +8,8 @@ import {
   Button,
   Input
 } from 'reactstrap';
-import { fetchProfile, hideProfile } from '../actions';
-
+import { hideProfile } from '../actions';
+import PropTypes from 'prop-types';
 import FilterElement from '../components/FilterElement';
 import Dropdown from '../components/Dropdown';
 
@@ -70,7 +70,7 @@ export class Profile extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchData();
+    // this.props.fetchData(this.props.userID, this.props.token);
   }
 
   renderBody() {
@@ -78,7 +78,7 @@ export class Profile extends Component {
       <div>
         <div className="name">
           <h5>Display Name</h5>
-          <Input type="text" defaultValue={this.props.profile.userName} />
+          <Input type="text" defaultValue={this.props.userInfo.userName} />
         </div>
         <hr />
         <div className="birthday">
@@ -86,14 +86,14 @@ export class Profile extends Component {
           <Input
             type="date"
             defaultValue={
-              new Date(this.props.profile.userBirthday).toJSON().split('T')[0]
+              new Date(this.props.userInfo.userBirthday).toJSON().split('T')[0]
             }
           />
         </div>
         <hr />
         <div className="bio">
           <h5>User Bio</h5>
-          <Input type="textarea" defaultValue={this.props.profile.userBio} />
+          <Input type="textarea" defaultValue={this.props.userInfo.userBio} />
         </div>
         <hr />
         <div className="filters">
@@ -116,7 +116,7 @@ export class Profile extends Component {
   }
 
   render() {
-    const modal = !this.props.view ? null : (
+    const modal = !this.props.isVisible ? null : (
       <div className="profile modal" onClick={e => this.toggle(e)}>
         <Container>
           <div className="modal-content" onClick={e => e.stopPropagation()}>
@@ -138,16 +138,27 @@ export class Profile extends Component {
 }
 
 const mapStateToProps = state => ({
-  profile: state.profile,
-  loading: state.profileIsLoading,
-  errored: state.profileHasErrored,
-  open: state.profileOpened,
-  view: state.profileView
+  isVisible: state.profile.isVisible,
+  userID: state.auth.userID,
+  token: state.auth.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchData: () => dispatch(fetchProfile()),
   hideProfile: () => dispatch(hideProfile())
 });
+
+Profile.propTypes = {
+  hideProfile: PropTypes.func.isRequired,
+
+  userID: PropTypes.string.isRequired,
+  token: PropTypes.string.isRequired,
+  userInfo: PropTypes.shape({
+    userName: PropTypes.string,
+    userBirthday: PropTypes.string,
+    userBio: PropTypes.string
+  }),
+
+  isVisible: PropTypes.bool.isRequired
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

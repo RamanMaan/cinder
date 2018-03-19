@@ -1,52 +1,30 @@
-import * as types from './actionTypes';
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR } from './actionTypes';
+import jwt from 'jsonwebtoken';
 
-function loginError(err) {
+function loginError(message) {
   return {
-    type: types.LOGIN_ERROR,
-    err
+    type: LOGIN_ERROR,
+    payload: message
   };
 }
 
 function loginRequest() {
   return {
-    type: types.LOGIN_REQUEST,
-    isAuthenticated: false
+    type: LOGIN_REQUEST,
+    payload: 'Logging in...'
   };
 }
 
-function loginSuccess() {
+function loginSuccess(userID, token) {
   return {
-    type: types.LOGIN_SUCCESS,
-    isAuthenticated: true
-  };
-}
-
-function logoutRequest() {
-  return {
-    type: types.LOGOUT_REQUEST,
-    isAuthenticated: false
-  };
-}
-
-function logoutSuccess() {
-  return {
-    type: types.LOGOUT_SUCCESS,
-    isAuthenticated: true
-  };
-}
-
-export function logoutUser() {
-  return dispatch => {
-    dispatch(logoutRequest());
-    localStorage.removeItem('token');
-    dispatch(logoutSuccess());
+    type: LOGIN_SUCCESS,
+    payload: { userID, token }
   };
 }
 
 export function loginUser(creds) {
   return dispatch => {
     dispatch(loginRequest());
-
     fetch('/api/login', {
       method: 'POST',
       headers: {
@@ -60,14 +38,19 @@ export function loginUser(creds) {
     })
       .then(res => res.json())
       .then(res => {
-        if (res.status === 200) {
-          localStorage.setItem('token', res.token);
-          dispatch(loginSuccess());
+        if (res.status === 200 && res.token) {
+          const token = res.token;
+          const decoded = jwt.decode(token);
+          const id = decoded.id;
+          localStorage.setItem('token', token);
+          localStorage.setItem('userID', id);
+          dispatch(loginSuccess(id, token));
         } else {
-          dispatch(loginError(res.err));
-          throw new Error(`${res.staus} ${res.err}`);
+          throw new Error(`${res.status} ${res.err}`);
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        dispatch(loginError(err));
+      });
   };
 }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import PrivateRoute from '../components/PrivateRoute';
-import Auth from '../utils/authService';
 import './styles/App.css';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import Layout from './Layout';
 import Login from './Login';
@@ -15,8 +16,9 @@ class App extends Component {
         <Switch>
           <Route exact path="/login" component={Login} />
           <PrivateRoute
+            exact
             path="/"
-            authed={Auth.isAuthenticated}
+            authed={this.props.isAuthenticated}
             component={Layout}
           />
           <Route exact path="/signup" component={Signup} />
@@ -26,4 +28,12 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+App.propTypes = {
+  isAuthenticated: PropTypes.bool.isRequired
+};
+
+export default withRouter(connect(mapStateToProps, null)(App));
