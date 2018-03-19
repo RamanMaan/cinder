@@ -1,38 +1,46 @@
 /**
- * These are the endpoints for user recommendation operations
+ * These are the endpoints for user filter operations
  */
 const express = require('express');
+const bodyParser = require('body-parser');
 const router = express.Router({ mergeParams: true });
-const recsDB = require('./db/recs');
 const filterDB = require('./db/filters');
 const util = require('./util');
 const responses = require('./responses');
+
+router.use(bodyParser.json());
 
 router.get('/', (req, res, next) => {
   const { userID } = req.params;
   util.validateID(userID);
 
-  let allRecs;
-  let prefGender, recsGenderFiltered;
+  let profile = { filters: {age:null, gender:null }} ;
 
-  return recsDB
-    .getRecs(userID)
-    .then(recs => {
-      allRecs = recs;
+  return filterDB.getAgeFilter(userID)
+    .then(ageResult => {
+      profile.filters.age = ageResult;
     })
     .then(() => filterDB.getGenderFilter(userID))
     .then(genderResult => {
-      if (genderResult && genderResult.state) {
-        prefGender = genderResult.preference.map(x => {return x.genderID});
-        recsGenderFiltered = allRecs.filter(x => prefGender.some(genderID => genderID === x.genderID));
-      } else {
-        recsGenderFiltered = allRecs;
-      }
-      return recsGenderFiltered;
+      profile.filters.gender = genderResult;
     })
-    .then(recs => res.status(responses.SUCCESS).json(recs))
+    .then(() => res.status(responses.SUCCESS).json(profile))
     .catch(next);
 });
+
+router.post('/', (req, res, next) => {
+  const {userID} = req.params;
+  util.validateID(userID);
+
+  return (
+    filterDB
+      .saveGenderFilter(userID, req.body.filters.gender)
+      .then(() => filterDB.saveAgeFilter(userID, req.body.filters.age))
+      .then(result => res.status(responses.CREATED).json(result[0]))
+      .catch(next)
+  );
+}
+);
 
 /**
  * Error handler
