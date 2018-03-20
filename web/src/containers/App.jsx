@@ -3,7 +3,6 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import PrivateRoute from '../components/PrivateRoute';
 import './styles/App.css';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import Layout from './Layout';
 import Login from './Login';
@@ -31,9 +30,5 @@ class App extends Component {
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
-
-App.propTypes = {
-  isAuthenticated: PropTypes.bool.isRequired
-};
 
 export default withRouter(connect(mapStateToProps, null)(App));

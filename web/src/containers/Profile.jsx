@@ -9,7 +9,6 @@ import {
   Input
 } from 'reactstrap';
 import { hideProfile } from '../actions';
-import PropTypes from 'prop-types';
 import FilterElement from '../components/FilterElement';
 import Dropdown from '../components/Dropdown';
 
@@ -143,15 +142,5 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   hideProfile: () => dispatch(hideProfile())
 });
-
-Profile.propTypes = {
-  hideProfile: PropTypes.func,
-
-  userID: PropTypes.string,
-  token: PropTypes.string,
-  userInfo: PropTypes.object,
-
-  isVisible: PropTypes.bool
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

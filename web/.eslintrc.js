@@ -22,6 +22,7 @@ module.exports = {
         ignoreComments: true
       }
     ],
+    'react/prop-types': 0,
     indent: ['error', 2, { SwitchCase: 1 }],
     'linebreak-style': ['error', 'unix'],
     quotes: ['warn', 'single'],

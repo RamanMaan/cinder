@@ -15,7 +15,6 @@
     "node-sass-chokidar": "0.0.3",
     "npm-run-all": "^4.1.2",
     "popper.js": "^1.12.9",
-    "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
@@ -39,13 +38,11 @@
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
     "build-css": "node-sass-chokidar --include-path ./src src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src src/ -o src/ --watch --recursive"
+    "watch-css":
+      "npm run build-css && node-sass-chokidar --include-path ./src src/ -o src/ --watch --recursive"
   },
   "lint-staged": {
-    "**/*.{js,jsx,json,scss}": [
-      "prettier --single-quote --write",
-      "git add"
-    ]
+    "**/*.{js,jsx,json,scss}": ["prettier --single-quote --write", "git add"]
   },
   "devDependencies": {
     "codeceptjs": "^1.1.7",

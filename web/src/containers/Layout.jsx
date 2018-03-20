@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { fetchProfile } from '../actions';
 import Home from './Home';
 import Navbar from '../components/NavigationBar';
@@ -36,20 +35,5 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchUserData: (userID, token) => dispatch(fetchProfile(userID, token))
 });
-
-Layout.propTypes = {
-  fetchUserData: PropTypes.func.isRequired,
-
-  userID: PropTypes.string.isRequired,
-  token: PropTypes.string.isRequired,
-
-  profile: PropTypes.shape({
-    userID: PropTypes.number,
-    userName: PropTypes.string,
-    userBirthday: PropTypes.string,
-    userBio: PropTypes.string,
-    primaryPic: PropTypes.string
-  })
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);

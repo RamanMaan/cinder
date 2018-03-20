@@ -5,7 +5,6 @@ import {
   popRecommendation,
   submitRecommendation
 } from '../actions';
-import PropTypes from 'prop-types';
 import './styles/Recommendation.css';
 import UserDetail from '../components/UserDetail';
 
@@ -105,18 +104,5 @@ const mapDispatchToProps = dispatch => ({
   submitRecommendation: (user1, user2, like, token) =>
     dispatch(submitRecommendation(user1, user2, like, token))
 });
-
-Recommendation.propTypes = {
-  fetchRecommends: PropTypes.func,
-  popRecommend: PropTypes.func,
-  submitRecommendation: PropTypes.func,
-
-  userID: PropTypes.string,
-  token: PropTypes.string,
-
-  recommendations: PropTypes.array,
-  errored: PropTypes.bool,
-  loading: PropTypes.bool
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recommendation);

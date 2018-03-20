@@ -9,8 +9,6 @@ const matchEndpoints = require('./__matches');
 const recsEndpoints = require('./__recs');
 const profileEndpoints = require('./__profile');
 const refEndpoints = require('./__ref');
-// const tasks = require('./__tasks');
-
 const login = require('./__login');
 /**
  * Attach endpoints to route
@@ -25,6 +23,5 @@ router.use('/users/:userID/matches', matchEndpoints);
 router.use('/users/:userID/recs', recsEndpoints);
 router.use('/users/:userID/profile', profileEndpoints);
 router.use('/ref', refEndpoints);
-// router.use('/', tasks);
 
 module.exports = router;
