@@ -37,4 +37,4 @@ deploy:
   bucket_name: "elasticbeanstalk-us-east-2-148400404701"
   skip_cleanup: true
   on:
-    branch: ContinuousDeployment
+    branch: master
