@@ -46,10 +46,13 @@
     ]
   },
   "devDependencies": {
+    "codeceptjs": "^1.1.7",
     "eslint": "^4.17.0",
     "eslint-plugin-react": "^7.6.1",
     "husky": "^0.14.3",
     "lint-staged": "^6.0.1",
-    "prettier": "1.10.2"
+    "prettier": "1.10.2",
+    "selenium-standalone": "^6.13.0",
+    "webdriverio": "^4.12.0"
   }
 }
