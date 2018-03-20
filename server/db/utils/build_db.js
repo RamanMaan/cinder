@@ -4,6 +4,7 @@ const mysql = require('promise-mysql');
 const setupFile = require('../setup.sql');
 const refData = require('../referenceData');
 
+//Will create variable to hold the MYSQL Root User name.
 const MYSQLDB = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
