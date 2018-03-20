@@ -10,7 +10,7 @@ const MYSQLDB = {
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   rootUser: process.env.DB_USER,
-  rootPass: process.env.DB_ROOT_PASSWORD
+  rootPass: process.env.MYSQL_ROOT_PASS
 };
 
 const buildPairs = (val, index) => `(${index + 1}, '${val}')`;
@@ -24,9 +24,6 @@ const refTableQueries = [
   `INSERT INTO EducationType (EducationID, EducationType) VALUES ${prepareQuery(
     refData.EducationType
   )};`,
-  `INSERT INTO StudyType (StudyID, StudyType) VALUES ${prepareQuery(
-    refData.StudyType
-  )};`,
   `INSERT INTO ReligionType (ReligionID, ReligionType) VALUES ${prepareQuery(
     refData.ReligionType
   )};`,
@@ -38,9 +35,6 @@ const refTableQueries = [
 console.log('╔═══════════════════════╗');
 console.log('║ Initializing Database ║');
 console.log('╚═══════════════════════╝');
-console.log('Host: ' + MYSQLDB.host);
-console.log('Host: ' + MYSQLDB.rootUser);
-console.log('Host: ' + MYSQLDB.rootPass);
 
 mysql
   .createConnection({
@@ -60,7 +54,7 @@ mysql
     console.log(`---Created ${MYSQLDB.database} database---`);
     return mysql.createConnection({
       host: MYSQLDB.host,
-      user: MYSQLDB.rootUser,
+      user: MYSQLDB.user,
       password: MYSQLDB.rootPass,
       database: MYSQLDB.database,
       multipleStatements: true
