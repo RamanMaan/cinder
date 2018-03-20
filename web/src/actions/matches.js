@@ -47,10 +47,7 @@ export function fetchAllMatches(userID, token) {
     fetch(`api/users/${userID}/matches`, {
       headers: { Authorization: `Bearer ${token}` }
     })
-      .then(res => {
-        if (!res.ok) throw Error(res.statusText);
-        else return res.json();
-      })
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
       .then(data => dispatch(matchesFetchSuccess(data)))
       .catch(err => dispatch(matchesError(err)));
   };

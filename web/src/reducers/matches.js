@@ -1,4 +1,3 @@
-// import * as types from '../actions/actionTypes';
 import {
   MATCHES_ERROR,
   MATCHES_LOADING,
