@@ -9,7 +9,8 @@ const initState = {
   isAuthenticated: localStorage.getItem('token') ? true : false,
   token: localStorage.getItem('token'),
   userID: localStorage.getItem('userID'),
-  message: ''
+  message: '',
+  errored: false
 };
 
 export function auth(state = initState, action) {
@@ -36,7 +37,8 @@ export function auth(state = initState, action) {
         ...state,
         isFetching: false,
         isAuthenticated: false,
-        message: 'Log in'
+        errored: true,
+        message: action.payload
       };
 
     default:

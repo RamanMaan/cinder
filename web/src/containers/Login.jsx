@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import {
+  Container,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  Alert
+} from 'reactstrap';
 import { Redirect, Link } from 'react-router-dom';
 import { loginUser } from '../actions';
 import { connect } from 'react-redux';
@@ -34,7 +42,7 @@ export class Login extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ loginBtnText: nextProps.message });
+    if (nextProps.errored) this.setState({ loginBtnText: 'Log in' });
   }
 
   render() {
@@ -51,7 +59,9 @@ export class Login extends Component {
             <img src={logo} className="App-logo" alt="logo" />
           </div>
           <hr />
-
+          {this.props.errored && (
+            <Alert color="danger">{this.props.message}</Alert>
+          )}
           <Form className="login-form" onSubmit={e => this.userLogin(e)}>
             <FormGroup>
               <Label for="email">Email</Label>
@@ -102,7 +112,8 @@ export class Login extends Component {
 
 const mapStateToProps = state => ({
   message: state.auth.message,
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  errored: state.auth.errored
 });
 
 const mapDispatchToProps = dispatch => ({

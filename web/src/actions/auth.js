@@ -1,9 +1,10 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR } from './actionTypes';
 import jwt from 'jsonwebtoken';
 
-function loginError() {
+function loginError(err) {
   return {
-    type: LOGIN_ERROR
+    type: LOGIN_ERROR,
+    payload: err
   };
 }
 
@@ -44,12 +45,11 @@ export function loginUser(creds) {
           localStorage.setItem('userID', id);
           dispatch(loginSuccess(id, token));
         } else {
-          dispatch(loginError());
-          throw new Error(`${res.status} ${res.err}`);
+          throw new Error(`${res.err}`);
         }
       })
       .catch(err => {
-        alert(err);
+        dispatch(loginError(err.message));
       });
   };
 }

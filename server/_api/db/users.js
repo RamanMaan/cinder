@@ -46,10 +46,9 @@ module.exports = {
     });
   },
 
-  getUserID(email, password) {
+  getUserID(email) {
     return mysql.createConnection(MYSQLDB).then(conn => {
-      const rows = conn.query('SELECT UserID FROM Users WHERE UserEmail = ? and UserPassword = ?',
-        [email, password]);
+      const rows = conn.query('SELECT * FROM Users WHERE UserEmail = ?', [email]);
       conn.end();
       return rows;
     });
