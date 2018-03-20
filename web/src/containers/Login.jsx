@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import './styles/Login.css';
 import logo from '../assets/logo.svg';
 
-class Login extends Component {
+export class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -27,7 +27,7 @@ class Login extends Component {
 
   userLogin(e) {
     e.preventDefault();
-    this.setState({ loginBtnText: this.props.auth.message });
+    this.setState({ loginBtnText: this.props.message });
     this.props.loginUser({
       email: this.state.email,
       password: this.state.password
@@ -35,7 +35,7 @@ class Login extends Component {
   }
 
   render() {
-    if (this.props.auth.isAuthenticated) {
+    if (this.props.isAuthenticated) {
       const { from } = this.props.location.state || { from: { pathname: '/' } };
       return <Redirect exact to={from} />;
     }
@@ -98,7 +98,8 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  message: state.auth.message,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -106,14 +107,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Login.propTypes = {
-  loginUser: PropTypes.func.isRequired,
-  auth: PropTypes.shape({
-    isFetching: PropTypes.bool,
-    isAuthenticated: PropTypes.bool.isRequired,
-    token: PropTypes.string,
-    userID: PropTypes.string,
-    message: PropTypes.string
-  }),
+  loginUser: PropTypes.func,
+  isAuthenticated: PropTypes.bool,
+  message: PropTypes.string,
   location: PropTypes.shape({
     state: PropTypes.object
   })

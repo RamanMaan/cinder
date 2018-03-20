@@ -74,11 +74,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Home.propTypes = {
-  fetchMatch: PropTypes.func.isRequired,
-  clearMatch: PropTypes.func.isRequired,
-  userID: PropTypes.string.isRequired,
-  token: PropTypes.string.isRequired,
-  match: PropTypes.object.isRequired
+  fetchMatch: PropTypes.func,
+  clearMatch: PropTypes.func,
+  userID: PropTypes.string,
+  token: PropTypes.string,
+  match: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

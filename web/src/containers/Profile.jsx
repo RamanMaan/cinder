@@ -69,10 +69,6 @@ export class Profile extends Component {
     }
   }
 
-  componentDidMount() {
-    // this.props.fetchData(this.props.userID, this.props.token);
-  }
-
   renderBody() {
     return (
       <div>
@@ -105,6 +101,7 @@ export class Profile extends Component {
               onChange={this.onElementToggle.bind(this, 'gender')}
             >
               <Dropdown
+                token={this.props.token}
                 endpoint="/api/ref/gender"
                 onChange={this.onDropdownChange.bind(this, 'gender')}
               />
@@ -148,17 +145,13 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Profile.propTypes = {
-  hideProfile: PropTypes.func.isRequired,
+  hideProfile: PropTypes.func,
 
-  userID: PropTypes.string.isRequired,
-  token: PropTypes.string.isRequired,
-  userInfo: PropTypes.shape({
-    userName: PropTypes.string,
-    userBirthday: PropTypes.string,
-    userBio: PropTypes.string
-  }),
+  userID: PropTypes.string,
+  token: PropTypes.string,
+  userInfo: PropTypes.object,
 
-  isVisible: PropTypes.bool.isRequired
+  isVisible: PropTypes.bool
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

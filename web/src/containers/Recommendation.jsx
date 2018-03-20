@@ -107,16 +107,16 @@ const mapDispatchToProps = dispatch => ({
 });
 
 Recommendation.propTypes = {
-  fetchRecommends: PropTypes.func.isRequired,
-  popRecommend: PropTypes.func.isRequired,
-  submitRecommendation: PropTypes.func.isRequired,
+  fetchRecommends: PropTypes.func,
+  popRecommend: PropTypes.func,
+  submitRecommendation: PropTypes.func,
 
-  userID: PropTypes.string.isRequired,
-  token: PropTypes.string.isRequired,
+  userID: PropTypes.string,
+  token: PropTypes.string,
 
-  recommendations: PropTypes.array.isRequired,
-  errored: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired
+  recommendations: PropTypes.array,
+  errored: PropTypes.bool,
+  loading: PropTypes.bool
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recommendation);
