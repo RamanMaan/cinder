@@ -16,5 +16,5 @@ module.exports = {
     if (!action.match(MATCH_ACTION_REGEX)) {
       throw new Error(`[INTERNAL]: Invalid Match Action: ${action}`);
     }
-  },
+  }
 };

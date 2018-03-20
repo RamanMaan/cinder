@@ -18,23 +18,25 @@ module.exports = {
       const query = mysql.format(
         `
         SELECT 
-            UI.UserID AS userID,
-            UI.UserName AS userName,
-            UI.GenderID AS genderID,
-            TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS age,
-            UP.PicturePath AS primaryPic,
-            UI.Bio AS userBio 
+          UI.UserID AS userID,
+          UI.UserName AS userName,
+          UI.GenderID AS genderID,
+          TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS age,
+          UP.PicturePath AS primaryPic,
+          UI.Bio AS userBio 
         FROM UsersInfo UI 
-            LEFT JOIN UserPicture UP 
+          LEFT JOIN UserPicture UP 
             ON UI.UserID = UP.UserID 
             AND UP.PrimaryPicture 
-            LEFT JOIN Likes L 
+          LEFT JOIN Likes L 
             ON UI.UserID = L.User2ID 
             AND L.User1ID = ? 
             AND L.UserAction = 'L'
         WHERE 
-            L.User2ID IS NULL 
-            AND UI.UserID != ?
+          L.User2ID IS NULL 
+          AND UI.UserID != ?
+        ORDER BY
+          userID
         `,
         [id, id]
       );
