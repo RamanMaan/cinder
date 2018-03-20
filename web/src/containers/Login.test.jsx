@@ -2,12 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
-// import sinon from 'sinon';
-// import fetchMock from 'fetch-mock';
-
 import { Login } from './Login';
-// import App from './App';
-// import Signup from './Signup';
 
 describe('<Login />', () => {
   it('renders without crashing', () => {
@@ -29,42 +24,6 @@ describe('<Login />', () => {
       .toJSON();
     expect(component).toMatchSnapshot();
   });
-
-  /* I think it's better to check routes in integration test
-   * And.. App is now connected to redux store so creates
-   * errors when trying to mount without importing store
-   */
-
-  // it('routes correctly', () => {
-  //   const wrapper = mount(
-  //     <MemoryRouter initialEntries={['/login']}>
-  //       <App />
-  //     </MemoryRouter>
-  //   );
-  //   expect(wrapper.find(Login)).toHaveLength(1);
-  // });
-
-  // describe('signup button', () => {
-  //   const wrapper = mount(
-  //     <MemoryRouter initialEntries={['/login']}>
-  //       <App />
-  //     </MemoryRouter>
-  //   );
-  //   const signUpBtn = wrapper.find('a#signUpBtn').first();
-
-  //   it('starts on login page', () => {
-  //     expect(wrapper.find(Login)).toHaveLength(1);
-  //     expect(wrapper.find(Signup)).toHaveLength(0);
-  //   });
-
-  //   it('redirects to sign up page after click', () => {
-  //     // need {button: 0} when clicking a btn-link
-  //     signUpBtn.simulate('click', { button: 0 });
-
-  //     expect(wrapper.find(Login)).toHaveLength(0);
-  //     expect(wrapper.find(Signup)).toHaveLength(1);
-  //   });
-  // });
 
   describe('Form value', () => {
     let wrapper;
