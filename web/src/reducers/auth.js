@@ -19,13 +19,14 @@ export function auth(state = initState, action) {
         ...state,
         isFetching: true,
         isAuthenticated: false,
-        message: action.payload
+        message: 'Logging in...'
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
         isFetching: false,
         isAuthenticated: true,
+        message: 'Login Successful! Wait a moment...',
         token: action.payload.token,
         userID: action.payload.userID
       };
@@ -35,7 +36,7 @@ export function auth(state = initState, action) {
         ...state,
         isFetching: false,
         isAuthenticated: false,
-        message: action.payload
+        message: 'Log in'
       };
 
     default:

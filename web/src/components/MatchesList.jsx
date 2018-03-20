@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchAllMatches } from '../actions';
-import PropTypes from 'prop-types';
 import MatchesListItem from '../components/MatchesListItem';
 import './styles/MatchesList.css';
 
@@ -78,15 +77,5 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchData: (userID, token) => dispatch(fetchAllMatches(userID, token))
 });
-
-MatchesList.propTypes = {
-  fetchData: PropTypes.func,
-  token: PropTypes.string,
-  userID: PropTypes.string,
-  clickHandler: PropTypes.func,
-  matches: PropTypes.array,
-  loading: PropTypes.bool,
-  errored: PropTypes.bool
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MatchesList);

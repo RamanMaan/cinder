@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchOneMatch, clearOneMatch } from '../actions';
 import './styles/Home.css';
@@ -72,13 +71,5 @@ const mapDispatchToProps = dispatch => ({
     dispatch(fetchOneMatch(userID, matchID, token)),
   clearMatch: () => dispatch(clearOneMatch())
 });
-
-Home.propTypes = {
-  fetchMatch: PropTypes.func,
-  clearMatch: PropTypes.func,
-  userID: PropTypes.string,
-  token: PropTypes.string,
-  match: PropTypes.object
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

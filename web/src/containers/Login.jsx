@@ -3,7 +3,6 @@ import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import { Redirect, Link } from 'react-router-dom';
 import { loginUser } from '../actions';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import './styles/Login.css';
 import logo from '../assets/logo.svg';
 
@@ -32,6 +31,10 @@ export class Login extends Component {
       email: this.state.email,
       password: this.state.password
     });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ loginBtnText: nextProps.message });
   }
 
   render() {
@@ -105,14 +108,5 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   loginUser: creds => dispatch(loginUser(creds))
 });
-
-Login.propTypes = {
-  loginUser: PropTypes.func,
-  isAuthenticated: PropTypes.bool,
-  message: PropTypes.string,
-  location: PropTypes.shape({
-    state: PropTypes.object
-  })
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
