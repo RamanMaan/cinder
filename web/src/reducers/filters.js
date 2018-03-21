@@ -1,22 +1,20 @@
 import {
-  PROFILE_ERROR,
-  PROFILE_LOADING,
-  PROFILE_FETCHED,
-  SHOW_PROFILE,
-  HIDE_PROFILE
+  FILTERS_ERROR,
+  FILTERS_LOADING,
+  FILTERS_FETCH_SUCCESS
 } from '../actions/actionTypes';
 
 const initState = {
   loading: false,
   errored: false,
-  details: {},
+  filters: {},
   isVisible: false,
   message: ''
 };
 
-export function profile(state = initState, action) {
+export function filters(state = initState, action) {
   switch (action.type) {
-    case PROFILE_ERROR:
+    case FILTERS_ERROR:
       return {
         ...state,
         loading: false,
@@ -24,29 +22,17 @@ export function profile(state = initState, action) {
         message: action.payload
       };
 
-    case PROFILE_LOADING:
+    case FILTERS_LOADING:
       return {
         ...state,
         loading: true
       };
 
-    case PROFILE_FETCHED:
+    case FILTERS_FETCH_SUCCESS:
       return {
         ...state,
         loading: false,
-        details: action.payload
-      };
-
-    case SHOW_PROFILE:
-      return {
-        ...state,
-        isVisible: true
-      };
-
-    case HIDE_PROFILE:
-      return {
-        ...state,
-        isVisible: false
+        filters: action.payload
       };
 
     default:

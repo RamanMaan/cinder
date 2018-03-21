@@ -8,7 +8,7 @@ import {
   Button,
   Input
 } from 'reactstrap';
-import { hideProfile } from '../actions';
+import { fetchFilters, hideProfile } from '../actions';
 import FilterElement from '../components/FilterElement';
 import Dropdown from '../components/Dropdown';
 
@@ -25,6 +25,13 @@ export class Profile extends Component {
         gender: null
       }
     };
+  }
+
+  // Call this function to fetch filters
+  // id and token are in this.props.userID and this.props.token
+  // filters will be in this.props.filters
+  fetchFilters(userID, token) {
+    this.props.fetchFilters(userID, token);
   }
 
   toggle(e) {
@@ -134,12 +141,14 @@ export class Profile extends Component {
 }
 
 const mapStateToProps = state => ({
-  isVisible: state.profile.isVisible,
+  isVisible: state.profileDisplay.isVisible,
   userID: state.auth.userID,
-  token: state.auth.token
+  token: state.auth.token,
+  filters: state.filters.filters
 });
 
 const mapDispatchToProps = dispatch => ({
+  fetchFilters: (userID, token) => dispatch(fetchFilters(userID, token)),
   hideProfile: () => dispatch(hideProfile())
 });
 

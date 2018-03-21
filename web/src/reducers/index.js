@@ -3,13 +3,17 @@ import { routerReducer } from 'react-router-redux';
 
 import { match } from './matches';
 import { recommendations } from './recommendations';
-import { profile } from './profile';
+import { profileDisplay } from './profileDisplay';
+import { filters } from './filters';
+import { userInfo } from './userInfo';
 import { auth } from './auth';
 
 export default combineReducers({
   routing: routerReducer,
   match,
   rec: recommendations,
-  profile,
+  profileDisplay,
+  filters,
+  userInfo,
   auth
 });
