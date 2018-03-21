@@ -43,7 +43,7 @@ export function fetchRecommendations(userID, token) {
     })
       .then(res => (res.ok ? res.json() : new Error(res.statusText)))
       .then(data => dispatch(recFetchSuccess(data)))
-      .catch(err => dispatch(recErrored(err)));
+      .catch(err => dispatch(recErrored(err.message)));
   };
 }
 

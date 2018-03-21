@@ -67,8 +67,8 @@ export function fetchOneMatch(userID, matchID, token) {
           userPics: res.userPics,
           userAge: res.userAge,
           userGender: res.userGender,
-          matchTime: new Date(),
-          userBio: res.userBio ? res.userBio : 'No bio'
+          matchTime: res.matchTime,
+          userBio: res.userBio
         };
         dispatch(oneMatchFetchSuccess(match));
       })

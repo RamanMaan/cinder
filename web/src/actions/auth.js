@@ -45,11 +45,9 @@ export function loginUser(creds) {
           localStorage.setItem('userID', id);
           dispatch(loginSuccess(id, token));
         } else {
-          throw new Error(`${res.err}`);
+          throw new Error(res.err);
         }
       })
-      .catch(err => {
-        dispatch(loginError(err.message));
-      });
+      .catch(err => dispatch(loginError(err.message)));
   };
 }
