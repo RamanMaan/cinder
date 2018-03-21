@@ -10,7 +10,7 @@ const MYSQLDB = {
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-  rootUser: process.env.DB_USER,
+  rootUser: process.env.MYSQL_ROOT_USER,
   rootPass: process.env.MYSQL_ROOT_PASS
 };
 
@@ -54,7 +54,7 @@ mysql
     console.log(`---Created ${MYSQLDB.database} database---`);
     return mysql.createConnection({
       host: MYSQLDB.host,
-      user: MYSQLDB.user,
+      user: MYSQLDB.rootUser,
       password: MYSQLDB.rootPass,
       database: MYSQLDB.database,
       multipleStatements: true
