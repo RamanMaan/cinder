@@ -135,10 +135,80 @@ const saveGenderFilter = (id, genderFilter) => {
   });
 };
 
+const getEducationFilter = (id) => {
+  return mysql.createConnection(MYSQLDB)
+  .then((conn) => {
+    const query = mysql.format(`
+    SELECT
+      FS.EducationFilterState AS state,
+      ET.EducationID AS educationID,
+      ET.EducationType AS educationName
+    FROM FilterState FS
+      INNER JOIN EducationFilter EF
+        ON FS.UserID = EF.UserID
+      INNER JOIN EducationType ET
+        ON EF.EducationID = ET.EducationID
+    WHERE
+      FS.UserID = ?
+    ORDER BY
+      educationID;
+    `, [id]);
+
+    const result = conn.query(query)
+    .then((rows) => {
+      if (rows && rows.length) {
+        return { 
+          state: rows[0].state === 1,
+          preference: rows.map(x => { return { educationID: x.educationID, educationName: x.educationName } })
+        }
+      }
+      return null;
+    });
+    conn.end();
+    return result;
+  });
+};
+
+const saveEducationFilter = (id, educationFilter) => {
+  const insertStateQuery = mysql.format(`
+  INSERT INTO FilterState (UserID, EducationFilterState)
+  VALUES (?, ?)
+  ON DUPLICATE KEY UPDATE EducationFilterState = ?;`, 
+  [id, educationFilter.state, educationFilter.state]);
+
+  const deleteFilterQuery = mysql.format(`
+  DELETE FROM EducationFilter 
+  WHERE UserID = ?;`, [id]);
+
+  var insertFilterQuery = null;
+  if (educationFilter.preference && educationFilter.preference.length) {
+    insertFilterQuery = `INSERT INTO EducationFilter (UserID, EducationID) ` + 
+    educationFilter.preference.map(x => mysql.format(` SELECT ? AS UserID, ?  AS EducationID `, [id, x.educationID]))
+    .join(` UNION ALL `) + `;`;
+  } 
+
+  return mysql.createConnection(MYSQLDB)
+  .then((conn) => {
+    return conn.beginTransaction()
+    .then(() => conn.query(insertStateQuery))
+    .then(() => conn.query(deleteFilterQuery))
+    .then(() => insertFilterQuery ? conn.query(insertFilterQuery) : null)
+    .then(() => conn.commit())
+    .then(() => conn.end())
+    .catch((err) => {
+      conn.rollback().then(() => conn.end());
+      throw err;
+    });
+  });
+};
+
+
 
 module.exports = {
   getAgeFilter,
   saveAgeFilter,
   getGenderFilter,
-  saveGenderFilter
+  saveGenderFilter,
+  getEducationFilter,
+  saveEducationFilter
 };

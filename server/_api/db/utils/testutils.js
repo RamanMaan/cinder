@@ -21,8 +21,9 @@ const createInsertLikesQuery = (likes) => {
 }
 
 const createInsertFilterStateQuery = (filterStates) => {
-  return `INSERT INTO FilterState (UserID, AgeFilterState, GenderFilterState) VALUES ` +
-  filterStates.map(x => mysql.format(` (?, ?, ?) `, [x.userID, x.ageFilterState, x.genderFilterState])).join(`, `) + `;`;
+  return `INSERT INTO FilterState (UserID, AgeFilterState, GenderFilterState, EducationFilterState) VALUES ` +
+  filterStates.map(x => mysql.format(` (?, ?, ?, ?) `, 
+  [x.userID, x.ageFilterState, x.genderFilterState, x.educationFilterState])).join(`, `) + `;`;
 };
 
 const createInsertAgeFilterQuery = (ageFilters) => {
@@ -41,6 +42,17 @@ const createInsertGenderFilterQuery = (genderFilters) => {
   rows.map(x => mysql.format(` (?, ?) `, [x.userID, x.genderID])).join(`, `) + `;`;
 };
 
+const createInsertEducationFilterQuery = (educationFilters) => {
+  const rows = [];
+  educationFilters.forEach(x => {
+    x.preference.forEach(e => {
+      rows.push({userID: x.userID, ...e});
+    });
+  });
+  return `INSERT INTO EducationFilter (UserID, EducationID) VALUES ` +
+  rows.map(x => mysql.format(` (?, ?) `, [x.userID, x.educationID])).join(`, `) + `;`;
+};
+
 const deleteUsersQuery = `TRUNCATE TABLE Users;`;
 const deleteUsersInfoQuery = `TRUNCATE TABLE UsersInfo;`;
 const deletePhotosQuery = `TRUNCATE TABLE UserPicture;`;
@@ -48,6 +60,7 @@ const deleteLikesQuery = `TRUNCATE TABLE Likes;`;
 const deleteFilterStateQuery = `TRUNCATE TABLE FilterState;`;
 const deleteAgeFilterQuery = `TRUNCATE TABLE AgeFilter;`;
 const deleteGenderFilterQuery = `TRUNCATE TABLE GenderFilter;`;
+const deleteEducationFilterQuery = `TRUNCATE TABLE EducationFilter;`;
 
 const calcBirthday = x => {
   var currDate = new Date();
@@ -64,6 +77,7 @@ module.exports = {
   createInsertFilterStateQuery,
   createInsertAgeFilterQuery,
   createInsertGenderFilterQuery,
+  createInsertEducationFilterQuery,
   deleteUsersQuery,
   deleteUsersInfoQuery,
   deletePhotosQuery,
@@ -72,4 +86,5 @@ module.exports = {
   deleteFilterStateQuery,
   deleteAgeFilterQuery,
   deleteGenderFilterQuery,
+  deleteEducationFilterQuery,
 };

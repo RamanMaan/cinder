@@ -122,6 +122,7 @@ CREATE TABLE FilterState
   UserID INT NOT NULL,
   AgeFilterState TINYINT(1) NOT NULL DEFAULT 0,
   GenderFilterState TINYINT(1) NOT NULL DEFAULT 0,
+  EducationFilterState TINYINT(1) NOT NULL DEFAULT 0,
   CONSTRAINT PK_FilterState_UserID PRIMARY KEY (UserID),
   CONSTRAINT FK_FilterState_Users_UserID FOREIGN KEY (UserID) REFERENCES Users(UserID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -146,5 +147,14 @@ CREATE TABLE GenderFilter
   CONSTRAINT FK_GenderFilter_GenderType_GenderID FOREIGN KEY (GenderID) REFERENCES GenderType(GenderID)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS EducationFilter;
+CREATE TABLE EducationFilter
+(
+  UserID INT NOT NULL,
+  EducationID INT NOT NULL,
+  CONSTRAINT PK_EducationFilter_UserID_EducationID PRIMARY KEY (UserID, EducationID),
+  CONSTRAINT FK_EducationFilter_FilterState_UserID FOREIGN KEY (UserID) REFERENCES FilterState(UserID),
+  CONSTRAINT FK_EducationFilter_EducationType_EducationID FOREIGN KEY (EducationID) REFERENCES EducationType(EducationID)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET FOREIGN_KEY_CHECKS=1;

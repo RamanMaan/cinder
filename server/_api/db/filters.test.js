@@ -50,7 +50,8 @@ const insertFilterData = () => {
     const result = conn.query(
       testUtils.createInsertFilterStateQuery(filterData.filterStates) +
       testUtils.createInsertAgeFilterQuery(filterData.ageFilters) +
-      testUtils.createInsertGenderFilterQuery(filterData.genderFilters)
+      testUtils.createInsertGenderFilterQuery(filterData.genderFilters) +
+      testUtils.createInsertEducationFilterQuery(filterData.educationFilters)
     );
     conn.end();
     return result;
@@ -66,6 +67,7 @@ const deleteFilterData = () => {
       testUtils.deleteFilterStateQuery +
       testUtils.deleteAgeFilterQuery +
       testUtils.deleteGenderFilterQuery +
+      testUtils.deleteEducationFilterQuery +
       `SET FOREIGN_KEY_CHECKS=1;`
     );
     conn.end();
@@ -128,7 +130,11 @@ describe(`saveAgeFilter tests`, () => {
         expect(rows).toHaveLength(1);
         expect(rows[0].minAge).toBe(newFilter.minAge);
         expect(rows[0].maxAge).toBe(newFilter.maxAge);
-        return conn.end();
+      })
+      .then(() => conn.end())
+      .catch((err) => {
+        conn.end();
+        throw err;
       });
     });
   });
@@ -156,8 +162,12 @@ describe(`saveAgeFilter tests`, () => {
         expect(rows).toHaveLength(1);
         expect(rows[0].minAge).toBe(newFilter.minAge);
         expect(rows[0].maxAge).toBe(newFilter.maxAge);
-        return conn.end();
       })
+      .then(() => conn.end())
+      .catch((err) => {
+        conn.end();
+        throw err;
+      });
     });
   });
 
@@ -232,7 +242,11 @@ describe(`saveGenderFilter tests`, () => {
         rows.forEach((pref, i) => {
           expect(pref.genderID).toBe(newFilter.preference[i].genderID);
         });
-        return conn.end()
+      })
+      .then(() => conn.end())
+      .catch((err) => {
+        conn.end();
+        throw err;
       });
     });
   });
@@ -261,7 +275,11 @@ describe(`saveGenderFilter tests`, () => {
         rows.forEach((pref, i) => {
           expect(pref.genderID).toBe(newFilter.preference[i].genderID);
         });
-        return conn.end()
+      })
+      .then(() => conn.end())
+      .catch((err) => {
+        conn.end();
+        throw err;
       });
     });
   });
@@ -278,7 +296,11 @@ describe(`saveGenderFilter tests`, () => {
       .then(() => filterDB.saveGenderFilter(currUserID, emptyFilter))
       .then(() => conn.query(genderFilterQuery))
       .then((rows) => expect(rows).toHaveLength(0))
-      .then(() => conn.end());
+      .then(() => conn.end())
+      .catch((err) => {
+        conn.end();
+        throw err;
+      });
     });
   });
   
@@ -286,5 +308,138 @@ describe(`saveGenderFilter tests`, () => {
     const currUserID = 9999;
     const someFilter = { state: true, preference: [{ genderID: 1 }] };
     expect(filterDB.saveGenderFilter(currUserID, someFilter)).rejects.toThrow();
+  });
+});
+
+
+describe(`getEducationFilter tests`, () => {
+  beforeAll(() => insertFilterData());
+  afterAll(() => deleteFilterData());
+
+  it(`returns the correct education filter for the user`, () => {
+    const currUserID = 1;
+    const expectedState = filterData.getEducationFilterState(currUserID);
+    const expectedFilter = filterData.getEducationFilter(currUserID);
+
+    return filterDB.getEducationFilter(currUserID).then((filter) => {
+      expect(filter).toBeTruthy();
+      expect(filter.state).toBe(expectedState);
+      expect(filter.preference).toHaveLength(expectedFilter.preference.length);
+
+      filter.preference.forEach((pref, i) => {
+        expect(pref.educationID).toBe(expectedFilter.preference[i].educationID);
+        expect(pref.educationName).toBe(expectedFilter.preference[i].educationName);
+      });
+    });
+  });
+
+  it(`returns null if the user does not exist`, () => {
+    const currUserID = 9999;
+    return filterDB.getEducationFilter(currUserID).then((filter) => {
+      expect(filter).toBeNull();
+    });
+  });
+
+  it(`returns null if the user does not have an education filter`, () => {
+    const currUserID = 3;
+    return filterDB.getEducationFilter(currUserID).then((filter) => {
+      expect(filter).toBeNull();
+    });
+  });
+});
+
+
+describe(`saveEducationFilter tests`, () => {
+  beforeEach(() => insertFilterData());
+  afterEach(() => deleteFilterData());
+
+  it(`saves new education filter`, () => {
+    const currUserID = 3;
+    const newFilter = { state: false, preference: [{ educationID: 1 }, { educationID: 2 }] };
+    const stateQuery = `SELECT EducationFilterState AS educationFilterState FROM FilterState WHERE UserID = ?`;
+    const filterQuery = `SELECT EducationID AS educationID FROM EducationFilter WHERE UserID = ?`;
+
+    return mysql.createConnection(MYSQLDB)
+    .then((conn) => {
+      return conn.query(filterQuery, [currUserID])
+      .then((rows) => expect(rows).toHaveLength(0))
+      .then(() => filterDB.saveEducationFilter(currUserID, newFilter))
+      .then(() => conn.query(stateQuery, [currUserID]))
+      .then((rows) => {
+        expect(rows).toHaveLength(1);
+        expect(rows[0].educationFilterState == 1).toBe(newFilter.state);
+      })
+      .then(() => conn.query(filterQuery, [currUserID]))
+      .then((rows) => {
+        expect(rows).toHaveLength(newFilter.preference.length);
+        rows.forEach((pref, i) => {
+          expect(pref.educationID).toBe(newFilter.preference[i].educationID);
+        });
+      })
+      .then(() => conn.end())
+      .catch((err) => {
+        conn.end();
+        throw err;
+      });
+    });
+  });
+
+  it(`overwrites existing education filter`, () => {
+    const currUserID = 1;
+    const newFilter = { state: false, preference: [{ educationID: 1 }, { educationID: 2 }] };
+    const stateQuery = `SELECT EducationFilterState AS educationFilterState FROM FilterState WHERE UserID = ?`;
+    const filterQuery = `SELECT EducationID AS educationID FROM EducationFilter WHERE UserID = ?`;
+
+    return mysql.createConnection(MYSQLDB)
+    .then((conn) => {
+      return conn.query(stateQuery, [currUserID])
+      .then((rows) => expect(rows).not.toHaveLength(0))
+      .then(() => conn.query(filterQuery, [currUserID]))
+      .then((rows) => expect(rows).not.toHaveLength(0))
+      .then(() => filterDB.saveEducationFilter(currUserID, newFilter))
+      .then(() => conn.query(stateQuery, [currUserID]))
+      .then((rows) => {
+        expect(rows).toHaveLength(1);
+        expect(rows[0].educationFilterState == 1).toBe(newFilter.state);
+      })
+      .then(() => conn.query(filterQuery, [currUserID]))
+      .then((rows) => {
+        expect(rows).toHaveLength(newFilter.preference.length);
+        rows.forEach((pref, i) => {
+          expect(pref.educationID).toBe(newFilter.preference[i].educationID);
+        });
+      })
+      .then(() => conn.end())
+      .catch((err) => {
+        conn.end();
+        throw err;
+      });
+    });
+  });
+
+  it(`saves an empty education filter`, () => {
+    const currUserID = 1;
+    const emptyFilter = { state: true, preference: [] };
+    const educationFilterQuery = mysql.format(`SELECT * FROM EducationFilter WHERE UserID = ?;`, [currUserID]);
+
+    return mysql.createConnection(MYSQLDB)
+    .then((conn) => {
+      return conn.query(educationFilterQuery)
+      .then((rows) => expect(rows).not.toHaveLength(0))
+      .then(() => filterDB.saveEducationFilter(currUserID, emptyFilter))
+      .then(() => conn.query(educationFilterQuery))
+      .then((rows) => expect(rows).toHaveLength(0))
+      .then(() => conn.end())
+      .catch((err) => {
+        conn.end();
+        throw err;
+      });
+    });
+  });
+  
+  it(`it throws an error for users that don't exist`, () => {
+    const currUserID = 9999;
+    const someFilter = { state: true, preference: [{ educationID: 1 }] };
+    expect(filterDB.saveEducationFilter(currUserID, someFilter)).rejects.toThrow();
   });
 });
