@@ -17,5 +17,4 @@ module.exports = {
       throw new Error(`[INTERNAL]: Invalid Match Action: ${action}`);
     }
   }
-  
 };

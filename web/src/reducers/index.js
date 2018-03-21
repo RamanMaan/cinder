@@ -1,34 +1,19 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import { matchesHasErrored, matchesIsLoading, matches } from './matches';
-import {
-  recommendationsHasErrored,
-  recommendationsIsLoading,
-  recommendationSubmitted,
-  recommendations
-} from './recommendations';
-import {
-  profile,
-  profileHasErrored,
-  profileIsLoading,
-  profileView
-} from './profile';
+import { match } from './matches';
+import { recommendations } from './recommendations';
+import { profileDisplay } from './profileDisplay';
+import { filters } from './filters';
+import { userInfo } from './userInfo';
+import { auth } from './auth';
 
 export default combineReducers({
   routing: routerReducer,
-
-  matches,
-  matchesHasErrored,
-  matchesIsLoading,
-
-  recommendations,
-  recommendationSubmitted,
-  recommendationsHasErrored,
-  recommendationsIsLoading,
-
-  profile,
-  profileHasErrored,
-  profileIsLoading,
-  profileView
+  match,
+  rec: recommendations,
+  profileDisplay,
+  filters,
+  userInfo,
+  auth
 });
