@@ -17,6 +17,13 @@ router.get('/gender', (req, res, next) => {
     .catch(next);
 });
 
+router.get('/education', (req, res, next) => {
+  return refDB
+    .getEducation()
+    .then(education => res.status(responses.SUCCESS).json(education))
+    .catch(next);
+});
+
 /**
  * Error handler
  */

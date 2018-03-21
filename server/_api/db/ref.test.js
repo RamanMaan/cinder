@@ -16,3 +16,15 @@ it(`returns all available gender reference data`, () => {
     });
   });
 })
+
+
+it(`returns all available education reference data`, () => {
+  return refDB.getEducation()
+  .then((educationRefs) => {
+    expect(educationRefs).toHaveLength(refData.EducationType.length);
+    educationRefs.forEach((eref, i) => {
+      expect(eref.educationID).toBe(i + 1);
+      expect(eref.educationName).toBe(refData.EducationType[i]);
+    });
+  });
+})
