@@ -14,19 +14,21 @@ const MYSQLDB = {
 
 const createUserObject = (rows) => {
   var user = null;
-  var educationIndex = interestIndex = {};
-
+  var educationIndex = {}, interestIndex = {};
+  
   rows.forEach((row) => {
     if (!user) {
       user = {
         userID: row.userID,
         userName: row.userName,
         userAge: row.userAge,
-        userBirthday: row.userBirthday,
+        birthday: row.userBirthday.toISOString().split('T')[0],
         userBio: row.userBio,
         primaryPic: row.primaryPic,
-        gender: { genderID: row.genderID, genderName: row.genderName },
-        religion: { religionID: row.religionID, religionName: row.religionName },
+        genderID: row.genderID,
+        genderName: row.genderName,
+        religionID: row.religionID,
+        religionName: row.religionName,
         education: [],
         interests: []
       };
@@ -62,7 +64,17 @@ module.exports = {
   },
 
   createUser(userEmail, userPassword) {
-    
+    return mysql.createConnection(MYSQLDB)
+    .then(conn => {
+      const result =  conn.query(`INSERT INTO Users (UserEmail, UserPassword) VALUES (?, ?)`, [userEmail, userPassword])
+      .then(res => res.insertId)
+      .catch(err => {
+        conn.end();
+        throw err;
+      })
+      conn.end();
+      return result;
+    });
   },
 
   getUser(id) {
@@ -71,6 +83,7 @@ module.exports = {
       SELECT
         UI.UserID AS userID,
         UI.UserName AS userName,
+        TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS userAge,
         UI.Birthday AS userBirthday,
         UI.Bio AS userBio,
         GT.GenderID AS genderID,
@@ -101,8 +114,8 @@ module.exports = {
       WHERE
         UI.UserID = ?
       ORDER BY
-        educationName,
-        interestName;
+        educationID,
+        interestID;
       `, [id])
       .then(rows => createUserObject(rows));
       conn.end();
@@ -110,10 +123,12 @@ module.exports = {
     });
   },
 
-  saveUser(id, user) {
+  saveUser(user) {
     const insertUsersInfoQuery = mysql.format(`
-    INSERT INTO UsersInfo (UserID, UserName, UserBirthday, UserBio, GenderID, ReligionID) VALUES (?, ?, ?, ?, ?, ?);`, 
-    [user.userID, user.userName, user.userBirthday, user.userBio, user.gender.genderID, user.religion.religionID]);
+    INSERT INTO UsersInfo (UserID, UserName, Birthday, Bio, GenderID, ReligionID) VALUES (?, ?, ?, ?, ?, ?) 
+    ON DUPLICATE KEY UPDATE UserName = ?, Birthday = ?, Bio = ?, GenderID = ?, ReligionID = ?;`, 
+    [user.userID, user.userName, user.birthday, user.userBio, user.genderID, user.religionID,
+      user.userName, user.birthday, user.userBio, user.genderID, user.religionID]);
 
     const deleteUserEducationQuery = mysql.format(`
     DELETE FROM UserEducation WHERE UserID = ?;`, [user.userID]);
@@ -138,9 +153,9 @@ module.exports = {
       return conn.beginTransaction()
       .then(() => conn.query(insertUsersInfoQuery))
       .then(() => conn.query(deleteUserEducationQuery))
-      .then(() => conn.query(insertUserEducationQuery))
+      .then(() => insertUserEducationQuery ? conn.query(insertUserEducationQuery) : null)
       .then(() => conn.query(deleteUserInterestsQuery))
-      .then(() => conn.query(insertUserInterestsQuery))
+      .then(() => insertUserInterestsQuery ? conn.query(insertUserInterestsQuery) : null)
       .then(() => conn.commit())
       .then(() => conn.end())
       .catch((err) => {

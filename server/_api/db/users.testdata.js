@@ -2,15 +2,66 @@
  * Test data for the tests at users.test.js
  */
 const testUtils = require('./utils/testutils');
+const refData = require('../../db/referenceData');
 
 // data must be kept ordered by userID starting from 1
 const users = [
-  { userID: 1, userName: 'User1', genderID: 1, userBio: 'Bio1', userAge: 27, birthday: testUtils.calcBirthday(27), primaryPic: 'path/to/pic1' },
-  { userID: 2, userName: 'User2', genderID: 1, userBio: 'Bio2', userAge: 22, birthday: testUtils.calcBirthday(22), primaryPic: 'path/to/pic2' },
-  { userID: 3, userName: 'User3', genderID: 1, userBio: 'Bio3', userAge: 36, birthday: testUtils.calcBirthday(36), primaryPic: 'path/to/pic3' },
-  { userID: 4, userName: 'User4', genderID: 2, userBio: 'Bio4', userAge: 20, birthday: testUtils.calcBirthday(20), primaryPic: 'path/to/pic4' },
-  { userID: 5, userName: 'User5', genderID: 2, userBio: 'Bio5', userAge: 44, birthday: testUtils.calcBirthday(44), primaryPic: 'path/to/pic5' },
-  { userID: 6, userName: 'User6', genderID: 2, userBio: 'Bio6', userAge: 23, birthday: testUtils.calcBirthday(23), primaryPic: 'path/to/pic6' },
+  { 
+    userID: 1, 
+    userName: 'User1', 
+    userAge: 27, 
+    birthday: testUtils.calcBirthday(27), 
+    userBio: 'Bio1', 
+    primaryPic: 'path/to/pic1',
+    genderID: 1,
+    genderName: refData.GenderType[0],
+    religionID: 2,
+    religionName: refData.ReligionType[1],
+    education: [ 
+      { educationID: 1, educationName: refData.EducationType[0] }, 
+      { educationID: 3, educationName: refData.EducationType[2] },
+      { educationID: 4, educationName: refData.EducationType[3] },
+      { educationID: 5, educationName: refData.EducationType[4] },
+    ],
+    interests: [ 
+      { interestID: 1, interestName: refData.InterestsType[0] }, 
+      { interestID: 3, interestName: refData.InterestsType[2] },
+      { interestID: 4, interestName: refData.InterestsType[3] },
+    ]
+  },{ 
+    userID: 2, 
+    userName: 'User2', 
+    userAge: 22, 
+    birthday: testUtils.calcBirthday(22), 
+    userBio: 'Bio2', 
+    primaryPic: 'path/to/pic2',
+    genderID: 2,
+    genderName: refData.GenderType[1],
+    religionID: 3,
+    religionName: refData.ReligionType[2],
+    education: [ 
+      { educationID: 1, educationName: refData.EducationType[0] }, 
+      { educationID: 3, educationName: refData.EducationType[2] },
+      { educationID: 4, educationName: refData.EducationType[3] },
+    ],
+    interests: [ 
+      { interestID: 1, interestName: refData.InterestsType[0] }, 
+      { interestID: 2, interestName: refData.InterestsType[1] },
+    ]
+  },{ 
+    userID: 3, 
+    userName: 'User3', 
+    userAge: 36, 
+    birthday: testUtils.calcBirthday(36), 
+    userBio: 'Bio3', 
+    primaryPic: 'path/to/pic3',
+    genderID: 2,
+    genderName: refData.GenderType[1],
+    religionID: 2,
+    religionName: refData.ReligionType[1],
+    education: [],
+    interests: [] 
+  },
 ];
 
 const getUserByID = (id) => { 
@@ -19,6 +70,7 @@ const getUserByID = (id) => {
   }
   return users[id - 1]; 
 };
+
 
 module.exports = {
   users,
