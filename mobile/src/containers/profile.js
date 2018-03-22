@@ -35,8 +35,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const items = [{ id: '1', name: 'Ondo' }, { id: '2', name: 'Ogun' }, { id: '3', name: 'Calabar' }, { id: '4', name: 'Lagos' }, { id: '5', name: 'Maiduguri' }, { id: '6', name: 'Anambra' }, { id: '7', name: 'Benue' }, { id: '8', name: 'Kaduna' }, { id: '9', name: 'Abuja' }];
-
 export default class Profile extends React.Component {
   static navigationOptions(props) {
     return {
@@ -47,25 +45,43 @@ export default class Profile extends React.Component {
   constructor(props) {
     super(props);
 
-    this.showModal = this.showModal.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.onSelectChange = this.onSelectChange.bind(this);
 
     this.state = {
-      genderModal: false,
+      gender: {
+        modal: false,
+        values: [],
+      },
     };
   }
 
-  showModal() {
-    this.setState({
-      genderModal: true,
-    });
+  toggleModal(type) {
+    this.setState(prev => ({
+      [type]: {
+        ...prev[type],
+        modal: !prev[type].modal,
+      },
+    }));
+  }
+
+  onSelectChange(type) {
+    return selections => this.setState(prev => ({
+      [type]: {
+        ...prev[type],
+        values: selections,
+      },
+    }));
   }
 
   render() {
     return (
       <Container style={styles.container}>
         <FilterModal
-          isVisible={this.state.genderModal}
-          onBackdropPress={() => this.setState({ genderModal: false })}
+          isVisible={this.state.gender.modal}
+          onBackdropPress={() => this.toggleModal('gender')}
+          selectedItems={this.state.gender.values}
+          onSelectChange={this.onSelectChange('gender')}
         />
 
         <Image style={styles.image} source={{ uri: userDetails.currUserPic }} />
@@ -74,7 +90,7 @@ export default class Profile extends React.Component {
 
         <Container style={styles.filterContainer}>
           <Text>Filtering Options Here</Text>
-          <Button onPress={() => this.showModal()} />
+          <Button onPress={() => this.toggleModal('gender')} />
         </Container>
       </Container>
     );

@@ -3,6 +3,7 @@ import { View, Text } from 'native-base';
 import { StyleSheet } from 'react-native';
 
 import Modal from 'react-native-modal';
+import SelectMultiple from 'react-native-select-multiple';
 
 /**
  * Props to develop TODO
@@ -13,7 +14,9 @@ export default class FilterModal extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      items: ['a', 'b', 'c'],
+    };
   }
 
   componentDidMount() {
@@ -22,9 +25,18 @@ export default class FilterModal extends React.Component {
 
   render() {
     return (
-      <Modal {...this.props} >
+      <Modal
+        avoidKeyboard
+        useNativeDriver
+        style={{ flex: 0.8 }}
+        {...this.props}
+      >
         <View style={{ flex: 1, backgroundColor: 'white' }}>
-          <Text>I am the modal content!</Text>
+          <SelectMultiple
+            items={this.state.items}
+            selectedItems={this.props.selectedItems}
+            onSelectionsChange={this.props.onSelectChange}
+          />
         </View>
       </Modal>
     );
