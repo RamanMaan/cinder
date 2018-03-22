@@ -63,6 +63,14 @@ module.exports = {
     });
   },
 
+  getUserID(email) {
+    return mysql.createConnection(MYSQLDB).then(conn => {
+      const rows = conn.query('SELECT * FROM Users WHERE UserEmail = ?', [email]);
+      conn.end();
+      return result;
+    });
+  },
+
   createUser(userEmail, userPassword) {
     return mysql.createConnection(MYSQLDB)
     .then(conn => {
@@ -118,11 +126,12 @@ module.exports = {
         interestID;
       `, [id])
       .then(rows => createUserObject(rows));
+
       conn.end();
       return result;
     });
   },
-
+  
   saveUser(user) {
     const insertUsersInfoQuery = mysql.format(`
     INSERT INTO UsersInfo (UserID, UserName, Birthday, Bio, GenderID, ReligionID) VALUES (?, ?, ?, ?, ?, ?) 

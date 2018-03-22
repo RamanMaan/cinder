@@ -1,29 +1,54 @@
-import * as types from '../actions/actionTypes';
+import {
+  MATCHES_ERROR,
+  MATCHES_LOADING,
+  MATCHES_FETCH_SUCCESS,
+  ONE_MATCH_FETCH_SUCCESS,
+  CLEAR_ONE_MATCH
+} from '../actions/actionTypes';
 
-export function matchesHasErrored(state = false, action) {
+const initState = {
+  loading: false,
+  errored: false,
+  message: '',
+  matches: [],
+  oneMatch: {}
+};
+
+export function match(state = initState, action) {
   switch (action.type) {
-    case types.MATCHES_ERROR:
-      return action.error;
+    case MATCHES_ERROR:
+      return {
+        ...state,
+        loading: false,
+        errored: true,
+        message: action.payload
+      };
 
-    default:
-      return state;
-  }
-}
+    case MATCHES_LOADING:
+      return {
+        ...state,
+        loading: true
+      };
 
-export function matchesIsLoading(state = false, action) {
-  switch (action.type) {
-    case types.MATCHES_LOADING:
-      return action.loading;
+    case MATCHES_FETCH_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        matches: action.payload
+      };
 
-    default:
-      return state;
-  }
-}
+    case ONE_MATCH_FETCH_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        oneMatch: action.payload
+      };
 
-export function matches(state = [], action) {
-  switch (action.type) {
-    case types.MATCHES_FETCH_SUCCESS:
-      return action.matches;
+    case CLEAR_ONE_MATCH:
+      return {
+        ...state,
+        oneMatch: action.payload
+      };
 
     default:
       return state;

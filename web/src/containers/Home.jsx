@@ -1,62 +1,43 @@
 import React, { Component } from 'react';
 import { Container, Row, Col } from 'reactstrap';
-
+import { connect } from 'react-redux';
+import { fetchOneMatch, clearOneMatch } from '../actions';
 import './styles/Home.css';
 import Recommendation from './Recommendation';
 import MatchesList from '../components/MatchesList';
 import UserDetail from '../components/UserDetail';
-import Auth from '../utils/authService';
 
 export class Home extends Component {
   constructor(props) {
     super(props);
 
     this.fetchUserDetail = this.fetchUserDetail.bind(this);
-
+    this.onBackButtonClick = this.onBackButtonClick.bind(this);
     this.state = {
-      matches: [],
-      userDetail: false,
       buttonSelected: false
     };
   }
 
   onBackButtonClick() {
     this.setState({ buttonSelected: true });
-    this.setState({ userDetail: false });
+    this.props.clearMatch();
   }
 
-  fetchUserDetail(id) {
-    fetch(`/api/users/${Auth.loggedInUser.id}/matches/${id}`)
-      .then(res => res.json())
-      .then(res => {
-        this.setState({
-          userDetail: {
-            userID: res.userID,
-            userName: res.userName,
-            userPics: res.userPics,
-            userAge: res.userAge,
-            userGender: res.userGender,
-            matchTime: new Date(),
-            userBio: res.userBio ? res.userBio : 'No bio'
-          }
-        });
-      })
-      .catch(err => err);
+  fetchUserDetail(matchID) {
+    this.props.fetchMatch(this.props.userID, matchID, this.props.token);
   }
 
   render() {
-    const leftPane = (
-      <MatchesList clickHandler={this.fetchUserDetail.bind(this)} />
-    );
+    const leftPane = <MatchesList clickHandler={this.fetchUserDetail} />;
 
-    const rightPane = this.state.userDetail ? (
+    const rightPane = Object.keys(this.props.match).length ? (
       <UserDetail
-        img={this.state.userDetail.userPics}
-        name={this.state.userDetail.userName}
-        age={this.state.userDetail.userAge}
-        bio={this.state.userDetail.userBio}
-        matchDate={this.state.userDetail.matchTime}
-        backButton={this.onBackButtonClick.bind(this)}
+        img={this.props.match.userPics}
+        name={this.props.match.userName}
+        age={this.props.match.userAge}
+        bio={this.props.match.userBio}
+        matchDate={this.props.match.matchTime}
+        backButton={this.onBackButtonClick}
       />
     ) : (
       <Recommendation />
@@ -79,4 +60,16 @@ export class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = state => ({
+  userID: state.auth.userID,
+  token: state.auth.token,
+  match: state.match.oneMatch
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchMatch: (userID, matchID, token) =>
+    dispatch(fetchOneMatch(userID, matchID, token)),
+  clearMatch: () => dispatch(clearOneMatch())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

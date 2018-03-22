@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { matchesFetchData } from '../actions';
-import Auth from '../utils/authService';
-
+import { fetchAllMatches } from '../actions';
 import MatchesListItem from '../components/MatchesListItem';
 import './styles/MatchesList.css';
 
@@ -16,7 +14,7 @@ export class MatchesList extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchData(Auth.loggedInUser.id);
+    this.props.fetchData(this.props.userID, this.props.token);
   }
 
   onListItemClick(id) {
@@ -68,18 +66,16 @@ export class MatchesList extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    matches: state.matches,
-    errored: state.matchesHasErrored,
-    loading: state.matchesIsLoading
-  };
-};
+const mapStateToProps = state => ({
+  matches: state.match.matches,
+  errored: state.match.errored,
+  loading: state.match.loading,
+  userID: state.auth.userID,
+  token: state.auth.token
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchData: userID => dispatch(matchesFetchData(userID))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  fetchData: (userID, token) => dispatch(fetchAllMatches(userID, token))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(MatchesList);
