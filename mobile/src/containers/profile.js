@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Image } from 'react-native';
-import { H1, View, Text, Container } from 'native-base';
+import { H1, View, Text, Container, Button } from 'native-base';
 
-import Dropdown from '../components/Dropdown';
+import FilterModal from '../components/FilterModal';
 
 const userDetails = {
   currUserPic: 'https://gazettereview.com/wp-content/uploads/2017/11/ugly-god.jpg',
@@ -47,30 +47,35 @@ export default class Profile extends React.Component {
   constructor(props) {
     super(props);
 
-    this.bindGender = this.bindGender.bind(this);
+    this.showModal = this.showModal.bind(this);
 
     this.state = {
-
+      genderModal: false,
     };
   }
 
-  bindGender(ref) {
-    this.gender = ref;
-    // this.gender.getSelectedItemsExt()
+  showModal() {
+    this.setState({
+      genderModal: true,
+    });
   }
 
   render() {
     return (
       <Container style={styles.container}>
-        {/* <Image style={styles.image} source={{ uri: userDetails.currUserPic }} />
+        <FilterModal
+          isVisible={this.state.genderModal}
+          onBackdropPress={() => this.setState({ genderModal: false })}
+        />
+
+        <Image style={styles.image} source={{ uri: userDetails.currUserPic }} />
         <H1 style={styles.userName}>{userDetails.currUserName}</H1>
-        <View style={styles.lineStyle} /> */}
-        <View style={styles.filterContainer}>
+        <View style={styles.lineStyle} />
+
+        <Container style={styles.filterContainer}>
           <Text>Filtering Options Here</Text>
-          <View style={{ flex: 1, height: '100%' }}>
-            <Dropdown items={items} field={this.bindGender} />
-          </View>
-        </View>
+          <Button onPress={() => this.showModal()} />
+        </Container>
       </Container>
     );
   }
