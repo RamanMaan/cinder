@@ -51,6 +51,7 @@ export default class Profile extends React.Component {
     this.state = {
       gender: {
         modal: false,
+        switch: false,
         values: [],
       },
     };
@@ -74,6 +75,15 @@ export default class Profile extends React.Component {
     }));
   }
 
+  toggleSwitch(type) {
+    this.setState(prev => ({
+      [type]: {
+        ...prev[type],
+        switch: !prev[type].switch,
+      },
+    }));
+  }
+
   render() {
     return (
       <Container style={styles.container}>
@@ -84,10 +94,13 @@ export default class Profile extends React.Component {
         <Container style={styles.filterContainer}>
           <Text>Filtering Options Here</Text>
           <FilterElement
+            switch={this.state.gender.switch}
+            switchToggle={() => this.toggleSwitch('gender')}
             isVisible={this.state.gender.modal}
             onBackdropPress={() => this.toggleModal('gender')}
             selectedItems={this.state.gender.values}
             onSelectChange={this.onSelectChange('gender')}
+            text="Filter by Gender"
           />
         </Container>
       </Container>

@@ -1,50 +1,33 @@
 import React from 'react';
-import { StyleSheet, Image } from 'react-native';
-import { H1, View, Text, Container, Button } from 'native-base';
+import { StyleSheet } from 'react-native';
+import { View, Text, Button, Switch } from 'native-base';
 
 import FilterModal from './FilterModal';
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    borderWidth: 1,
+    borderColor: '#CCC',
   },
-  image: {
-    height: 100,
-    width: 100,
-    marginTop: 20,
-    borderRadius: 50,
-  },
-  filterContainer: {
-    marginTop: 40,
-  },
-  userName: {
-    marginTop: 10,
-  },
-  lineStyle: {
-    alignSelf: 'stretch',
-    borderWidth: 0.5,
-    borderColor: 'grey',
-    marginTop: 15,
-    marginRight: 2,
-    marginLeft: 2,
+  button: {
+    flex: 1,
   },
 });
 
-export default class FilterElement extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Button onPress={this.props.onBackdropPress} />
-        <FilterModal
-          {...this.props}
-        />
-      </View>
-    );
-  }
-}
+export default props => (
+  <View style={styles.container}>
+    <Switch
+      value={props.switch}
+      onValueChange={props.switchToggle}
+    />
+    <Button light={!props.switch} onPress={props.onBackdropPress} style={styles.button}>
+      <Text>{props.text}</Text>
+    </Button>
+    <FilterModal
+      {...props}
+    />
+  </View>
+);
