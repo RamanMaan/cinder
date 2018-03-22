@@ -6,5 +6,6 @@ import * as types from './types';
 
 export * from './matches';
 export * from './recommendations';
+export * from './ref';
 
 export default types;

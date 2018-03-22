@@ -1,29 +1,25 @@
 import React from 'react';
-import { View, Text } from 'native-base';
+import { connect } from 'react-redux';
+import { View } from 'native-base';
 import { StyleSheet } from 'react-native';
 
 import Modal from 'react-native-modal';
 import SelectMultiple from 'react-native-select-multiple';
+
+import { refFetchData } from '../actions';
 
 /**
  * Props to develop TODO
  * - endpoint = provides endpoint to get data from
  * - multi - determines if multiple options
 */
-export default class FilterModal extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      items: ['a', 'b', 'c'],
-    };
-  }
-
+export class FilterModal extends React.Component {
   componentDidMount() {
-    // this.props.fetchData();
+    this.props.fetchData(this.props.type);
   }
 
   render() {
+    const items = this.props.refData.ref.map(x => ({ label: x.value, value: x.id }));
     return (
       <Modal
         avoidKeyboard
@@ -33,7 +29,7 @@ export default class FilterModal extends React.Component {
       >
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <SelectMultiple
-            items={this.state.items}
+            items={items}
             selectedItems={this.props.selectedItems}
             onSelectionsChange={this.props.onSelectChange}
           />
@@ -42,3 +38,13 @@ export default class FilterModal extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  refData: state.ref,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchData: type => dispatch(refFetchData(type)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterModal);

@@ -94,13 +94,13 @@ export default class Profile extends React.Component {
         <Container style={styles.filterContainer}>
           <Text>Filtering Options Here</Text>
           <FilterElement
+            type="gender"
             switch={this.state.gender.switch}
             switchToggle={() => this.toggleSwitch('gender')}
             isVisible={this.state.gender.modal}
             onBackdropPress={() => this.toggleModal('gender')}
             selectedItems={this.state.gender.values}
             onSelectChange={this.onSelectChange('gender')}
-            text="Filter by Gender"
           />
         </Container>
       </Container>
