@@ -2,7 +2,7 @@ const mysql = require('promise-mysql');
 
 const createInsertUsersQuery = (users) => {
   return `INSERT INTO Users (UserID, UserEmail, UserPassword) VALUES ` + 
-  users.map(x => mysql.format(` (?, 'SomeEmail', 'SomePassword') `, [x.userID])).join(', ') + `;`;
+  users.map(x => mysql.format(` (?, 'user${x.userID}@email.com', 'SomePassword') `, [x.userID])).join(', ') + `;`;
 }
 
 const createInsertUsersInfoQuery = (users) => {
