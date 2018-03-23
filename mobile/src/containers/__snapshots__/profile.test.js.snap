@@ -1,23 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders without crashing 1`] = `
+exports[`<Profile> fetchs data on load 1`] = `
 <View
   style={
-    Object {
-      "alignItems": "center",
-      "backgroundColor": "#fff",
-      "flex": 1,
-    }
+    Array [
+      Object {
+        "flex": 1,
+        "height": 1334,
+      },
+      Object {
+        "backgroundColor": "#fff",
+      },
+    ]
   }
+  virtual={undefined}
 >
   <Image
     source={
       Object {
-        "uri": "https://gazettereview.com/wp-content/uploads/2017/11/ugly-god.jpg",
+        "uri": "",
       }
     }
     style={
       Object {
+        "alignSelf": "center",
         "borderRadius": 50,
         "height": 100,
         "marginTop": 20,
@@ -37,40 +43,631 @@ exports[`renders without crashing 1`] = `
           "lineHeight": 32,
         },
         Object {
+          "alignSelf": "center",
           "marginTop": 10,
         },
       ]
     }
     virtual={undefined}
   >
-    Ugly God
+    Test Name
   </Text>
   <View
     style={
-      Object {
-        "alignSelf": "stretch",
-        "borderColor": "grey",
-        "borderWidth": 0.5,
-        "marginLeft": 2,
-        "marginRight": 2,
-        "marginTop": 15,
-      }
+      Array [
+        Object {},
+        Object {
+          "alignSelf": "stretch",
+          "borderColor": "grey",
+          "borderWidth": 0.5,
+          "marginLeft": 2,
+          "marginRight": 2,
+          "marginTop": 15,
+        },
+      ]
     }
+    virtual={undefined}
   />
   <View
     style={
-      Object {
-        "marginTop": 40,
-      }
+      Array [
+        Object {
+          "flex": 1,
+          "height": 1334,
+        },
+        Object {
+          "marginTop": 40,
+        },
+      ]
     }
+    virtual={undefined}
   >
     <Text
       accessible={true}
       allowFontScaling={true}
       ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "#000",
+          "fontFamily": "System",
+          "fontSize": 16,
+        }
+      }
+      uppercase={false}
+      virtual={undefined}
     >
       Filtering Options Here
     </Text>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "backgroundColor": "#fff",
+            "borderColor": "#CCC",
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "justifyContent": "space-around",
+          },
+        ]
+      }
+      virtual={undefined}
+    >
+      <RCTSwitch
+        disabled={false}
+        onChange={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        onValueChange={[Function]}
+        style={
+          Array [
+            Object {
+              "height": 31,
+              "width": 51,
+            },
+            Object {
+              "marginBottom": -5,
+              "marginTop": -5,
+            },
+          ]
+        }
+        value={false}
+        virtual={undefined}
+      />
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        collapsable={undefined}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "alignSelf": "flex-start",
+            "backgroundColor": "#f4f4f4",
+            "borderBottomWidth": null,
+            "borderColor": "#007aff",
+            "borderLeftWidth": null,
+            "borderRadius": 5,
+            "borderRightWidth": null,
+            "borderTopWidth": null,
+            "elevation": 2,
+            "flex": 1,
+            "flexDirection": "row",
+            "height": 45,
+            "justifyContent": "space-between",
+            "opacity": 1,
+            "paddingBottom": 6,
+            "paddingTop": 6,
+          }
+        }
+        testID={undefined}
+        tvParallaxProperties={undefined}
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16.5,
+              "lineHeight": 19,
+              "marginLeft": 0,
+              "marginRight": 0,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+            }
+          }
+          uppercase={false}
+          virtual={undefined}
+        >
+          Filter by gender
+        </Text>
+      </View>
+      <Modal
+        animationType="none"
+        fetchData={[Function]}
+        hardwareAccelerated={false}
+        hideModalContentWhileAnimating={false}
+        onModalHide={[Function]}
+        onRequestClose={[Function]}
+        onSelectChange={[Function]}
+        refData={undefined}
+        selectedItems={Array []}
+        swipeThreshold={100}
+        switch={false}
+        switchToggle={[Function]}
+        transparent={true}
+        type="gender"
+        visible={false}
+      >
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hitSlop={undefined}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "black",
+              "bottom": 0,
+              "height": 1334,
+              "left": 0,
+              "opacity": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 750,
+            }
+          }
+          testID={undefined}
+        />
+        <View
+          keyboardVerticalOffset={0}
+          onLayout={[Function]}
+          pointerEvents="box-none"
+          style={
+            Array [
+              Array [
+                Object {
+                  "margin": 37.5,
+                  "transform": Array [
+                    Object {
+                      "translateY": 0,
+                    },
+                  ],
+                },
+                Object {
+                  "flex": 1,
+                  "justifyContent": "center",
+                },
+                Object {
+                  "flex": 0.8,
+                },
+                Object {
+                  "margin": 0,
+                },
+              ],
+              Object {
+                "paddingBottom": 0,
+              },
+            ]
+          }
+        >
+          <View
+            collapsable={undefined}
+            fetchData={[Function]}
+            hideModalContentWhileAnimating={false}
+            onModalHide={[Function]}
+            onSelectChange={[Function]}
+            pointerEvents="box-none"
+            refData={undefined}
+            selectedItems={Array []}
+            style={
+              Object {
+                "flex": 0.8,
+                "justifyContent": "center",
+                "margin": 37.5,
+                "transform": Array [
+                  Object {
+                    "translateY": 0,
+                  },
+                ],
+              }
+            }
+            swipeThreshold={100}
+            switch={false}
+            switchToggle={[Function]}
+            type="gender"
+          >
+            <View
+              style={
+                Array [
+                  Object {},
+                  Object {
+                    "backgroundColor": "white",
+                    "flex": 1,
+                  },
+                ]
+              }
+              virtual={undefined}
+            >
+              <RCTScrollView
+                dataSource={
+                  ListViewDataSource {
+                    "items": 0,
+                  }
+                }
+                renderRow={[Function]}
+                renderScrollComponent={[Function]}
+                style={Object {}}
+              >
+                <View />
+              </RCTScrollView>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`<Profile> renders without crashing 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "flex": 1,
+        "height": 1334,
+      },
+      Object {
+        "backgroundColor": "#fff",
+      },
+    ]
+  }
+  virtual={undefined}
+>
+  <Image
+    source={
+      Object {
+        "uri": "",
+      }
+    }
+    style={
+      Object {
+        "alignSelf": "center",
+        "borderRadius": 50,
+        "height": 100,
+        "marginTop": 20,
+        "width": 100,
+      }
+    }
+  />
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Object {
+          "color": "#000",
+          "fontSize": 27,
+          "lineHeight": 32,
+        },
+        Object {
+          "alignSelf": "center",
+          "marginTop": 10,
+        },
+      ]
+    }
+    virtual={undefined}
+  >
+    Test Name
+  </Text>
+  <View
+    style={
+      Array [
+        Object {},
+        Object {
+          "alignSelf": "stretch",
+          "borderColor": "grey",
+          "borderWidth": 0.5,
+          "marginLeft": 2,
+          "marginRight": 2,
+          "marginTop": 15,
+        },
+      ]
+    }
+    virtual={undefined}
+  />
+  <View
+    style={
+      Array [
+        Object {
+          "flex": 1,
+          "height": 1334,
+        },
+        Object {
+          "marginTop": 40,
+        },
+      ]
+    }
+    virtual={undefined}
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Object {
+          "color": "#000",
+          "fontFamily": "System",
+          "fontSize": 16,
+        }
+      }
+      uppercase={false}
+      virtual={undefined}
+    >
+      Filtering Options Here
+    </Text>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "backgroundColor": "#fff",
+            "borderColor": "#CCC",
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "justifyContent": "space-around",
+          },
+        ]
+      }
+      virtual={undefined}
+    >
+      <RCTSwitch
+        disabled={false}
+        onChange={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        onValueChange={[Function]}
+        style={
+          Array [
+            Object {
+              "height": 31,
+              "width": 51,
+            },
+            Object {
+              "marginBottom": -5,
+              "marginTop": -5,
+            },
+          ]
+        }
+        value={false}
+        virtual={undefined}
+      />
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        collapsable={undefined}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "alignSelf": "flex-start",
+            "backgroundColor": "#f4f4f4",
+            "borderBottomWidth": null,
+            "borderColor": "#007aff",
+            "borderLeftWidth": null,
+            "borderRadius": 5,
+            "borderRightWidth": null,
+            "borderTopWidth": null,
+            "elevation": 2,
+            "flex": 1,
+            "flexDirection": "row",
+            "height": 45,
+            "justifyContent": "space-between",
+            "opacity": 1,
+            "paddingBottom": 6,
+            "paddingTop": 6,
+          }
+        }
+        testID={undefined}
+        tvParallaxProperties={undefined}
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16.5,
+              "lineHeight": 19,
+              "marginLeft": 0,
+              "marginRight": 0,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+            }
+          }
+          uppercase={false}
+          virtual={undefined}
+        >
+          Filter by gender
+        </Text>
+      </View>
+      <Modal
+        animationType="none"
+        fetchData={[Function]}
+        hardwareAccelerated={false}
+        hideModalContentWhileAnimating={false}
+        onModalHide={[Function]}
+        onRequestClose={[Function]}
+        onSelectChange={[Function]}
+        refData={undefined}
+        selectedItems={Array []}
+        swipeThreshold={100}
+        switch={false}
+        switchToggle={[Function]}
+        transparent={true}
+        type="gender"
+        visible={false}
+      >
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hitSlop={undefined}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "black",
+              "bottom": 0,
+              "height": 1334,
+              "left": 0,
+              "opacity": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 750,
+            }
+          }
+          testID={undefined}
+        />
+        <View
+          keyboardVerticalOffset={0}
+          onLayout={[Function]}
+          pointerEvents="box-none"
+          style={
+            Array [
+              Array [
+                Object {
+                  "margin": 37.5,
+                  "transform": Array [
+                    Object {
+                      "translateY": 0,
+                    },
+                  ],
+                },
+                Object {
+                  "flex": 1,
+                  "justifyContent": "center",
+                },
+                Object {
+                  "flex": 0.8,
+                },
+                Object {
+                  "margin": 0,
+                },
+              ],
+              Object {
+                "paddingBottom": 0,
+              },
+            ]
+          }
+        >
+          <View
+            collapsable={undefined}
+            fetchData={[Function]}
+            hideModalContentWhileAnimating={false}
+            onModalHide={[Function]}
+            onSelectChange={[Function]}
+            pointerEvents="box-none"
+            refData={undefined}
+            selectedItems={Array []}
+            style={
+              Object {
+                "flex": 0.8,
+                "justifyContent": "center",
+                "margin": 37.5,
+                "transform": Array [
+                  Object {
+                    "translateY": 0,
+                  },
+                ],
+              }
+            }
+            swipeThreshold={100}
+            switch={false}
+            switchToggle={[Function]}
+            type="gender"
+          >
+            <View
+              style={
+                Array [
+                  Object {},
+                  Object {
+                    "backgroundColor": "white",
+                    "flex": 1,
+                  },
+                ]
+              }
+              virtual={undefined}
+            >
+              <RCTScrollView
+                dataSource={
+                  ListViewDataSource {
+                    "items": 0,
+                  }
+                }
+                renderRow={[Function]}
+                renderScrollComponent={[Function]}
+                style={Object {}}
+              >
+                <View />
+              </RCTScrollView>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    </View>
   </View>
 </View>
 `;
