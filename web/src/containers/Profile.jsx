@@ -8,7 +8,7 @@ import {
   Button,
   Input
 } from 'reactstrap';
-import { fetchFilters, hideProfile } from '../actions';
+import { saveUserInfo, hideProfile } from '../actions';
 import FilterElement from '../components/FilterElement';
 import Dropdown from '../components/Dropdown';
 
@@ -27,11 +27,11 @@ export class Profile extends Component {
     };
   }
 
-  // Call this function to fetch filters
-  // id and token are in this.props.userID and this.props.token
-  // filters will be in this.props.filters
-  fetchFilters(userID, token) {
-    this.props.fetchFilters(userID, token);
+  saveChanges(e) {
+    e.stopPropagation();
+    var user = { ...this.props.userInfo }; // <-- remove this later once the profile state is configured
+    this.props.saveUser(user, this.props.token);
+    this.props.hideProfile();
   }
 
   toggle(e) {
@@ -129,7 +129,9 @@ export class Profile extends Component {
               <Button color="secondary" outline onClick={e => this.toggle(e)}>
                 Discard Changes
               </Button>
-              <Button color="primary">Save Changes</Button>
+              <Button color="primary" onClick={e => this.saveChanges(e)}>
+                Save Changes
+              </Button>
             </ModalFooter>
           </div>
         </Container>
@@ -143,12 +145,11 @@ export class Profile extends Component {
 const mapStateToProps = state => ({
   isVisible: state.profileDisplay.isVisible,
   userID: state.auth.userID,
-  token: state.auth.token,
-  filters: state.filters.filters
+  token: state.auth.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchFilters: (userID, token) => dispatch(fetchFilters(userID, token)),
+  saveUser: (user, token) => dispatch(saveUserInfo(user, token)),
   hideProfile: () => dispatch(hideProfile())
 });
 

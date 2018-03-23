@@ -12,7 +12,9 @@ const ageFilterFunc = (user, recs) => {
   return filterDB.getAgeFilter(user)
     .then(result => {
       if(result && result.state) {
-        recs = recs.filter(x => x.age >= result.minAge && x.age <= result.maxAge);
+        const minAge = result.minAge || 18;
+        const maxAge = result.maxAge || 120;
+        recs = recs.filter(x => x.age >= minAge && x.age <= maxAge);
       }
       return recs;
     });

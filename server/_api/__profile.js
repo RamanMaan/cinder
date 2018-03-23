@@ -17,11 +17,11 @@ router.get('/', (req, res, next) => {
 
   return usersDB.getUser(userID)
   .then(user => {
-    user.filter = {};
+    user.filters = {};
     return filterDB.getAgeFilter(userID)
-    .then(ageFilter => user.filter.ageFilter = ageFilter)
+    .then(ageFilter => user.filters.age = ageFilter)
     .then(() => filterDB.getGenderFilter(userID))
-    .then(genderFilter => user.filter.genderFilter = genderFilter)
+    .then(genderFilter => user.filters.gender = genderFilter)
     .then(() => user);
   })
   .then(user => res.status(responses.SUCCESS).json(user))
@@ -31,16 +31,13 @@ router.get('/', (req, res, next) => {
 router.post('/', (req, res, next) => {
   const {userID} = req.params;
   util.validateID(userID);
-
-  return (
-    filterDB
-      .saveGenderFilter(userID, req.body.filters.gender)
-      .then(() => filterDB.saveAgeFilter(userID, req.body.filters.age))
-      .then(result => res.status(responses.CREATED).json(result[0]))
-      .catch(next)
-  );
-}
-);
+  
+  return usersDB.saveUser(req.body)
+  .then(() => filterDB.saveAgeFilter(userID, req.body.filters.age))
+  .then(() => filterDB.saveGenderFilter(userID, req.body.filters.gender))
+  .then(result => res.status(responses.CREATED).json(result))
+  .catch(next);
+});
 
 /**
  * Error handler
