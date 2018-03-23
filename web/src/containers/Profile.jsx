@@ -78,7 +78,7 @@ export class Profile extends Component {
           <Input
             type="date"
             defaultValue={
-              new Date(this.props.userInfo.userBirthday).toJSON().split('T')[0]
+              new Date(this.props.userInfo.birthday).toJSON().split('T')[0]
             }
           />
         </div>

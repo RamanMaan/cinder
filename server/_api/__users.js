@@ -20,7 +20,7 @@ router.get('/:userID', (req, res, next) => {
 
   return usersDB
     .getUser(userID)
-    .then(user => res.status(responses.SUCCESS).json(user[0]))
+    .then(user => res.status(responses.SUCCESS).json(user))
     .catch(next);
 });
 
