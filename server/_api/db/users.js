@@ -21,11 +21,11 @@ const createUserObject = (rows) => {
     if (!user) {
       user = {
         userID: row.userID,
-        userName: row.userName,
-        userAge: row.userAge,
-        birthday: row.userBirthday.toISOString().split('T')[0],
-        userBio: row.userBio,
-        primaryPic: row.primaryPic,
+        name: row.name,
+        age: row.age,
+        birthday: row.birthday.toISOString().split('T')[0],
+        bio: row.bio,
+        img: row.img,
         genderID: row.genderID,
         genderName: row.genderName,
         religionID: row.religionID,
@@ -75,8 +75,8 @@ module.exports = {
   authenticateUser(email, password) {
     const query = mysql.format(`
     SELECT 
-      UserEmail AS userEmail,
-      UserPassword AS userPassword
+      UserEmail AS email,
+      UserPassword AS password
     FROM Users
     WHERE UserEmail = ?;
     `, [email]);
@@ -91,7 +91,7 @@ module.exports = {
             msg: `We couldn't find any user registered with ${email}. Please register with us by signing up first.`
           };
         }
-        return bcrypt.compare(password, rows[0].userPassword)
+        return bcrypt.compare(password, rows[0].password)
         .then(res => {
           return {
             authenticated: res,
@@ -105,15 +105,15 @@ module.exports = {
     });
   },
 
-  createUser(userEmail, userPassword) {
+  createUser(email, password) {
     const query = `INSERT INTO Users (UserEmail, UserPassword) VALUES (?, ?);`;
     const saltRounds = 12;
 
     return mysql.createConnection(MYSQLDB)
     .then(conn => {
-      return bcrypt.hash(userPassword, saltRounds)
+      return bcrypt.hash(password, saltRounds)
       .then(hash => {
-        return conn.query(query, [userEmail, hash])
+        return conn.query(query, [email, hash])
         .then(res => {
           conn.end();
           return res.insertId;
@@ -131,13 +131,13 @@ module.exports = {
       const result = conn.query(`
       SELECT
         UI.UserID AS userID,
-        UI.UserName AS userName,
-        TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS userAge,
-        UI.Birthday AS userBirthday,
-        UI.Bio AS userBio,
+        UI.UserName AS name,
+        TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS age,
+        UI.Birthday AS birthday,
+        UI.Bio AS bio,
         GT.GenderID AS genderID,
         GT.GenderType AS genderName,
-        UP.PicturePath AS primaryPic,
+        UP.PicturePath AS img,
         RT.ReligionID AS religionID,
         RT.ReligionType AS religionName,
         ET.EducationID AS educationID,
@@ -176,8 +176,8 @@ module.exports = {
     const insertUsersInfoQuery = mysql.format(`
     INSERT INTO UsersInfo (UserID, UserName, Birthday, Bio, GenderID, ReligionID) VALUES (?, ?, ?, ?, ?, ?) 
     ON DUPLICATE KEY UPDATE UserName = ?, Birthday = ?, Bio = ?, GenderID = ?, ReligionID = ?;`, 
-    [user.userID, user.userName, user.birthday, user.userBio, user.genderID, user.religionID,
-      user.userName, user.birthday, user.userBio, user.genderID, user.religionID]);
+    [user.userID, user.name, user.birthday, user.bio, user.genderID, user.religionID,
+      user.name, user.birthday, user.bio, user.genderID, user.religionID]);
 
     const deleteUserEducationQuery = mysql.format(`
     DELETE FROM UserEducation WHERE UserID = ?;`, [user.userID]);

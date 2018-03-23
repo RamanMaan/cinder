@@ -19,11 +19,11 @@ module.exports = {
         `
         SELECT 
           UI.UserID AS userID,
-          UI.UserName AS userName,
+          UI.UserName AS name,
           UI.GenderID AS genderID,
           TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS age,
-          UP.PicturePath AS primaryPic,
-          UI.Bio AS userBio 
+          UP.PicturePath AS img,
+          UI.Bio AS bio 
         FROM UsersInfo UI 
           LEFT JOIN UserPicture UP 
             ON UI.UserID = UP.UserID 

@@ -182,9 +182,9 @@ describe(`saveUser tests`, () => {
   it(`successfully saves changes to basic user information`, () => {
     const currUserID = 1;
     const modifiedUser = { ...usersData.getUserByID(currUserID) };
-    modifiedUser.userName = `Modified User`;
-    modifiedUser.userBio = `Modified Bio`;
-    modifiedUser.userAge = 99;
+    modifiedUser.name = `Modified User`;
+    modifiedUser.bio = `Modified Bio`;
+    modifiedUser.age = 99;
     modifiedUser.birthday = testUtils.calcBirthday(99);
     
     return usersDB.saveUser(modifiedUser)

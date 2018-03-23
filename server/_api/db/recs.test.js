@@ -59,11 +59,11 @@ describe(`getRecs tests`, () => {
       expect(recs).toHaveLength(expectedRecs.length);
       recs.forEach((rec, i) => {
         expect(rec.userID).toBe(expectedRecs[i].userID);
-        expect(rec.userName).toBe(expectedRecs[i].userName);
+        expect(rec.name).toBe(expectedRecs[i].name);
         expect(rec.genderID).toBe(expectedRecs[i].genderID);
-        expect(rec.userBio).toBe(expectedRecs[i].userBio);
-        expect(rec.age).toBe(expectedRecs[i].userAge);
-        expect(rec.primaryPic).toBe(expectedRecs[i].primaryPic);
+        expect(rec.bio).toBe(expectedRecs[i].bio);
+        expect(rec.age).toBe(expectedRecs[i].age);
+        expect(rec.img).toBe(expectedRecs[i].img);
       });
     });
   });
@@ -81,11 +81,11 @@ describe(`getRecs tests`, () => {
       expect(recs).toHaveLength(expectedRecs.length);
       recs.forEach((rec, i) => {
         expect(rec.userID).toBe(expectedRecs[i].userID);
-        expect(rec.userName).toBe(expectedRecs[i].userName);
+        expect(rec.name).toBe(expectedRecs[i].name);
         expect(rec.genderID).toBe(expectedRecs[i].genderID);
-        expect(rec.userBio).toBe(expectedRecs[i].userBio);
-        expect(rec.age).toBe(expectedRecs[i].userAge);
-        expect(rec.primaryPic).toBe(expectedRecs[i].primaryPic);
+        expect(rec.bio).toBe(expectedRecs[i].bio);
+        expect(rec.age).toBe(expectedRecs[i].age);
+        expect(rec.img).toBe(expectedRecs[i].img);
       });
     });
   });

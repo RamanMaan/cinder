@@ -6,9 +6,9 @@ const refData = require('../../db/referenceData');
 
 // keep the filters arranged by userID starting from 1
 const users = [
-  { userID: 1, userName: 'User1', genderID: 1, userBio: 'Bio1', userAge: 27, birthday: testUtils.calcBirthday(27), primaryPic: 'path/to/pic1' },
-  { userID: 2, userName: 'User2', genderID: 1, userBio: 'Bio2', userAge: 22, birthday: testUtils.calcBirthday(22), primaryPic: 'path/to/pic2' },
-  { userID: 3, userName: 'User3', genderID: 1, userBio: 'Bio3', userAge: 36, birthday: testUtils.calcBirthday(36), primaryPic: 'path/to/pic3' },
+  { userID: 1, name: 'User1', genderID: 1, bio: 'Bio1', age: 27, birthday: testUtils.calcBirthday(27), img: 'path/to/pic1' },
+  { userID: 2, name: 'User2', genderID: 1, bio: 'Bio2', age: 22, birthday: testUtils.calcBirthday(22), img: 'path/to/pic2' },
+  { userID: 3, name: 'User3', genderID: 1, bio: 'Bio3', age: 36, birthday: testUtils.calcBirthday(36), img: 'path/to/pic3' },
 ];
 
 const filterStates = [

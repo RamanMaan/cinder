@@ -11,8 +11,8 @@ it(`returns all available gender reference data`, () => {
   .then((genderRefs) => {
     expect(genderRefs).toHaveLength(refData.GenderType.length);
     genderRefs.forEach((gref, i) => {
-      expect(gref.id).toBe(i + 1);
-      expect(gref.value).toBe(refData.GenderType[i]);
+      expect(gref.genderID).toBe(i + 1);
+      expect(gref.genderName).toBe(refData.GenderType[i]);
     });
   });
 })

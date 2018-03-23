@@ -7,12 +7,12 @@ const createInsertUsersQuery = (users) => {
 
 const createInsertUsersInfoQuery = (users) => {
   return `INSERT INTO UsersInfo (UserID, UserName, Birthday, GenderID, ReligionID, Bio) VALUES ` + 
-  users.map(x => mysql.format(` (?, ?, ?, ?, ?, ?) `, [x.userID, x.userName, x.birthday, x.genderID, x.religionID, x.userBio])).join(`, `) + `;`;
+  users.map(x => mysql.format(` (?, ?, ?, ?, ?, ?) `, [x.userID, x.name, x.birthday, x.genderID, x.religionID, x.bio])).join(`, `) + `;`;
 }
 
 const createInsertPhotosQuery = (users) => {
   return `INSERT INTO UserPicture (UserID, PicturePath, PrimaryPicture) VALUES ` + 
-  users.map(x => mysql.format(` (?, ?, ?) `, [x.userID, x.primaryPic, 1])).join(`, `) + `;`;
+  users.map(x => mysql.format(` (?, ?, ?) `, [x.userID, x.img, 1])).join(`, `) + `;`;
 }
 
 const createInsertUserEducationQuery = (users) => {

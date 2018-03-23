@@ -53,10 +53,10 @@ describe('getUserMatches tests', () => {
     expect(expectedMatches).toHaveLength(actualMatches.length);
     actualMatches.forEach((match, i) => {
       expect(match.userID).toBe(expectedMatches[i].userID);
-      expect(match.userName).toBe(expectedMatches[i].userName);
-      expect(match.userBio).toBe(expectedMatches[i].userBio);
-      expect(match.userAge).toBe(expectedMatches[i].userAge);
-      expect(match.primaryPic).toBe(expectedMatches[i].primaryPic);
+      expect(match.name).toBe(expectedMatches[i].name);
+      expect(match.bio).toBe(expectedMatches[i].bio);
+      expect(match.age).toBe(expectedMatches[i].age);
+      expect(match.img).toBe(expectedMatches[i].img);
       expect(getYearMonthDay(match.matchDate)).toBe(matchesData.getMatchDate(match.userID, currUser));
     });
   }
@@ -100,11 +100,11 @@ describe('getUserMatches tests', () => {
 describe('getMatch tests', () => {
   const testMatchObject = (expectedMatch, actualMatch, expectedMatchDate) => {
     expect(actualMatch.userID).toBe(expectedMatch.userID);
-    expect(actualMatch.userName).toBe(expectedMatch.userName);
-    expect(actualMatch.userBio).toBe(expectedMatch.userBio);
-    expect(actualMatch.userAge).toBe(expectedMatch.userAge);
-    expect(actualMatch.userPics).toBe(expectedMatch.primaryPic);
-    expect(getYearMonthDay(actualMatch.matchTime)).toBe(expectedMatchDate);
+    expect(actualMatch.name).toBe(expectedMatch.name);
+    expect(actualMatch.bio).toBe(expectedMatch.bio);
+    expect(actualMatch.age).toBe(expectedMatch.age);
+    expect(actualMatch.img).toBe(expectedMatch.img);
+    expect(getYearMonthDay(actualMatch.matchDate)).toBe(expectedMatchDate);
   };
 
   test(`correct record is returned if the users are matched`, () => {

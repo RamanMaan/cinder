@@ -8,11 +8,11 @@ const refData = require('../../db/referenceData');
 const users = [
   { 
     userID: 1, 
-    userName: 'User1', 
-    userAge: 27, 
+    name: 'User1', 
+    age: 27, 
     birthday: testUtils.calcBirthday(27), 
-    userBio: 'Bio1', 
-    primaryPic: 'path/to/pic1',
+    bio: 'Bio1', 
+    img: 'path/to/pic1',
     genderID: 1,
     genderName: refData.GenderType[0],
     religionID: 2,
@@ -30,11 +30,11 @@ const users = [
     ]
   },{ 
     userID: 2, 
-    userName: 'User2', 
-    userAge: 22, 
+    name: 'User2', 
+    age: 22, 
     birthday: testUtils.calcBirthday(22), 
-    userBio: 'Bio2', 
-    primaryPic: 'path/to/pic2',
+    bio: 'Bio2', 
+    img: 'path/to/pic2',
     genderID: 2,
     genderName: refData.GenderType[1],
     religionID: 3,
@@ -50,11 +50,11 @@ const users = [
     ]
   },{ 
     userID: 3, 
-    userName: 'User3', 
-    userAge: 36, 
+    name: 'User3', 
+    age: 36, 
     birthday: testUtils.calcBirthday(36), 
-    userBio: 'Bio3', 
-    primaryPic: 'path/to/pic3',
+    bio: 'Bio3', 
+    img: 'path/to/pic3',
     genderID: 2,
     genderName: refData.GenderType[1],
     religionID: 2,

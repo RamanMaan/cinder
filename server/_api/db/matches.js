@@ -19,11 +19,11 @@ module.exports = {
         const rows = conn.query(`
           SELECT 
             L1.User2ID AS userID,
-            UI.UserName AS userName,
-            UI.Bio as userBio,
-            TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS userAge,
+            UI.UserName AS name,
+            UI.Bio as bio,
+            TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS age,
             GREATEST(L1.ActionDate, L2.ActionDate) AS matchDate,
-            UP.PicturePath AS primaryPic
+            UP.PicturePath AS img
           FROM Likes L1 
             INNER JOIN Likes L2
               ON L1.User2ID = L2.User1ID
@@ -52,12 +52,12 @@ module.exports = {
         const query = mysql.format(`
           SELECT 
             L1.User2ID AS userID,
-            UI.UserName AS userName,
-            TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS userAge,
-            GT.GenderType as userGender,
-            UI.Bio as userBio,
-            UP.PicturePath AS userPics,
-            GREATEST(L1.ActionDate, L2.ActionDate) AS matchTime
+            UI.UserName AS name,
+            TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS age,
+            GT.GenderType as genderName,
+            UI.Bio as bio,
+            UP.PicturePath AS img,
+            GREATEST(L1.ActionDate, L2.ActionDate) AS matchDate
           FROM Likes L1 
             INNER JOIN Likes L2
               ON L1.User2ID = L2.User1ID

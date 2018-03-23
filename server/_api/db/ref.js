@@ -17,10 +17,10 @@ module.exports = {
     return mysql.createConnection(MYSQLDB).then(conn => {
       const rows = conn.query(`
           SELECT 
-            GT.GenderID AS id, 
-            GT.GenderType AS value 
+            GT.GenderID AS genderID, 
+            GT.GenderType AS genderName 
           FROM GenderType GT
-          ORDER BY id;
+          ORDER BY genderID;
           `);
       conn.end();
       return rows;
