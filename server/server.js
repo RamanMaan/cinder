@@ -1,11 +1,16 @@
 const express = require('express');
 const ifaces = require('os').networkInterfaces();
+const bodyParser = require('body-parser');
 require('dotenv').load();
 
 const app = express();
 const port = process.env.SERVER_PORT || 5000;
 
 const api = require('./_api/__api.js');
+
+// Need body parser to get info from POST
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.json());
 
 // Attach api routes to app
 app.use('/api/', api);

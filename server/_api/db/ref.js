@@ -20,6 +20,21 @@ module.exports = {
             GT.GenderID AS id, 
             GT.GenderType AS value 
           FROM GenderType GT
+          ORDER BY id;
+          `);
+      conn.end();
+      return rows;
+    });
+  },
+
+  getEducation() {
+    return mysql.createConnection(MYSQLDB).then(conn => {
+      const rows = conn.query(`
+          SELECT 
+            ET.EducationID AS educationID, 
+            ET.EducationType AS educationName
+          FROM EducationType ET
+          ORDER BY educationID;
           `);
       conn.end();
       return rows;

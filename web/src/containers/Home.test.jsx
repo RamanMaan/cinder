@@ -7,9 +7,10 @@ import Recommendation from './Recommendation';
 
 describe('<Home />', () => {
   let wrapper;
-
   beforeEach(() => {
-    wrapper = shallow(<Home />);
+    wrapper = shallow(
+      <Home fetchMatch={jest.fn()} clearMatch={jest.fn()} match={{}} />
+    );
   });
 
   it('shows MatchesList and Recommendation components by default', () => {
