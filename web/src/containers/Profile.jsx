@@ -56,7 +56,7 @@ export class Profile extends Component {
     }));
   }
 
-  onDropdownChange(field, value) {
+  onElementChange(field, value) {
     if (!value || !value.length) {
       this.setState(prev => ({
         ...prev,
@@ -113,7 +113,7 @@ export class Profile extends Component {
               <Dropdown
                 token={this.props.token}
                 endpoint="/api/ref/gender"
-                onChange={this.onDropdownChange.bind(this, 'gender')}
+                onChange={this.onElementChange.bind(this, 'gender')}
               />
             </FilterElement>
           </div>
@@ -127,17 +127,15 @@ export class Profile extends Component {
                 <Col md={6}>
                   <span>Minimum Age: </span>
                   <NumericInput
-                    token={this.props.token}
                     min={18}
-                    onChange={this.onDropdownChange.bind(this, 'age')}
+                    onChange={this.onElementChange.bind(this, 'maxAge')}
                   />
                 </Col>
                 <Col md={6}>
                   <span>Maximum Age: </span>
                   <NumericInput
-                    token={this.props.token}
                     max={80}
-                    onChange={this.onDropdownChange.bind(this, 'age')}
+                    onChange={this.onElementChange.bind(this, 'minAge')}
                   />
                 </Col>
               </Row>
