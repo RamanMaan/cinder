@@ -6,11 +6,14 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  Input
+  Input,
+  Col,
+  Row
 } from 'reactstrap';
 import { fetchFilters, hideProfile } from '../actions';
 import FilterElement from '../components/FilterElement';
 import Dropdown from '../components/Dropdown';
+import NumericInput from 'react-numeric-input';
 
 import './styles/Profile.css';
 
@@ -22,7 +25,8 @@ export class Profile extends Component {
 
     this.state = {
       filters: {
-        gender: null
+        gender: null,
+        age: null
       }
     };
   }
@@ -111,6 +115,32 @@ export class Profile extends Component {
                 endpoint="/api/ref/gender"
                 onChange={this.onDropdownChange.bind(this, 'gender')}
               />
+            </FilterElement>
+          </div>
+          <div className="age">
+            <h7>Age Filter</h7>
+            <FilterElement
+              round
+              onChange={this.onElementToggle.bind(this, 'age')}
+            >
+              <Row>
+                <Col md={6}>
+                  <span>Minimum Age: </span>
+                  <NumericInput
+                    token={this.props.token}
+                    min={18}
+                    onChange={this.onDropdownChange.bind(this, 'age')}
+                  />
+                </Col>
+                <Col md={6}>
+                  <span>Maximum Age: </span>
+                  <NumericInput
+                    token={this.props.token}
+                    max={80}
+                    onChange={this.onDropdownChange.bind(this, 'age')}
+                  />
+                </Col>
+              </Row>
             </FilterElement>
           </div>
         </div>
