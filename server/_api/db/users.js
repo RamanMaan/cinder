@@ -166,11 +166,10 @@ module.exports = {
       ORDER BY
         educationID,
         interestID;
-      `, [id])
-        .then(rows => createUserObject(rows));
+      `, [id]);
       conn.end();
       return result;
-    });
+    }).then(rows => createUserObject(rows));
   },
 
   saveUser(user) {
