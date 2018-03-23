@@ -87,9 +87,9 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
               <div
                 className="gender"
               >
-                <h7>
+                <h6>
                   Gender Filter
-                </h7>
+                </h6>
                 <div
                   className="filter element disabled"
                 >
@@ -210,9 +210,9 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
               <div
                 className="age"
               >
-                <h7>
+                <h6>
                   Age Filter
-                </h7>
+                </h6>
                 <div
                   className="filter element disabled"
                 >
@@ -606,9 +606,9 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
               <div
                 className="gender"
               >
-                <h7>
+                <h6>
                   Gender Filter
-                </h7>
+                </h6>
                 <div
                   className="filter element disabled"
                 >
@@ -729,9 +729,9 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
               <div
                 className="age"
               >
-                <h7>
+                <h6>
                   Age Filter
-                </h7>
+                </h6>
                 <div
                   className="filter element disabled"
                 >

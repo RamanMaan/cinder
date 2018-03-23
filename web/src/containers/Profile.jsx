@@ -105,7 +105,7 @@ export class Profile extends Component {
         <div className="filters">
           <h5>User Filters</h5>
           <div className="gender">
-            <h7>Gender Filter</h7>
+            <h6>Gender Filter</h6>
             <FilterElement
               round
               onChange={this.onElementToggle.bind(this, 'gender')}
@@ -118,7 +118,7 @@ export class Profile extends Component {
             </FilterElement>
           </div>
           <div className="age">
-            <h7>Age Filter</h7>
+            <h6>Age Filter</h6>
             <FilterElement
               round
               onChange={this.onElementToggle.bind(this, 'age')}
