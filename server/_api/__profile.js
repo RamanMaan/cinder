@@ -4,6 +4,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const router = express.Router({ mergeParams: true });
+const usersDB = require('./db/users');
 const filterDB = require('./db/filters');
 const util = require('./util');
 const responses = require('./responses');
@@ -14,18 +15,17 @@ router.get('/', (req, res, next) => {
   const { userID } = req.params;
   util.validateID(userID);
 
-  let profile = { filters: {age:null, gender:null }} ;
-
-  return filterDB.getAgeFilter(userID)
-    .then(ageResult => {
-      profile.filters.age = ageResult;
-    })
+  return usersDB.getUser(userID)
+  .then(user => {
+    user.filter = {};
+    return filterDB.getAgeFilter(userID)
+    .then(ageFilter => user.filter.ageFilter = ageFilter)
     .then(() => filterDB.getGenderFilter(userID))
-    .then(genderResult => {
-      profile.filters.gender = genderResult;
-    })
-    .then(() => res.status(responses.SUCCESS).json(profile))
-    .catch(next);
+    .then(genderFilter => user.filter.genderFilter = genderFilter)
+    .then(() => user);
+  })
+  .then(user => res.status(responses.SUCCESS).json(user))
+  .catch(next);
 });
 
 router.post('/', (req, res, next) => {
