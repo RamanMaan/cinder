@@ -11,20 +11,14 @@ require('dotenv').load();
 const SECRET_KEY = process.env.SECRET_KEY || 'cinder_token';
 
 router.post('/login', (req, res, next) => {
-  return usersDB.getUserID(req.body.email)
-    .then(obj => {
-      if (obj.length === 0)
+  return usersDB.authenticateUser(req.body.email, req.body.password)
+    .then(res => {
+      if (!res.authenticated) {
         return res.status(responses.UNAUTHORIZED).json({
           status: responses.UNAUTHORIZED,
-          err: `We couldn't find any user registered with ${req.body.email}.` +
-            'You can register with us by signing up first'
+          err: res.msg
         });
-      else if (obj[0].UserPassword !== req.body.password)
-        return res.status(responses.UNAUTHORIZED).json({
-          status: responses.UNAUTHORIZED,
-          err: 'Your password is incorrect. Please try again.'
-        });
-      else {
+      } else {
         const token = jwt.sign({ id: obj[0].UserID }, SECRET_KEY, { expiresIn: '1d' });
         return res.status(responses.SUCCESS).json({
           status: responses.SUCCESS,
