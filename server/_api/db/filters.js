@@ -9,7 +9,7 @@ const MYSQLDB = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
+  database: process.env.DB_NAME
 };
 
 const getAgeFilter = (id) => {
@@ -25,7 +25,9 @@ const getAgeFilter = (id) => {
         ON FS.UserID = AF.UserID
     WHERE 
       FS.UserID = ?;
-    `, [id]);
+    `,
+      [id]
+    );
 
       const result = conn.query(query).then((rows) => {
         if (rows && rows.length) {
@@ -44,13 +46,17 @@ const getAgeFilter = (id) => {
 };
 
 const saveAgeFilter = (id, ageFilter) => {
-  const insertStateQuery = mysql.format(`
+  const insertStateQuery = mysql.format(
+    `
   INSERT INTO FilterState (UserID, AgeFilterState)
   VALUES (?, ?)
   ON DUPLICATE KEY UPDATE AgeFilterState = ?;
-  `, [id, ageFilter.state, ageFilter.state]);
+  `,
+    [id, ageFilter.state, ageFilter.state]
+  );
 
-  const insertFilterQuery = mysql.format(`
+  const insertFilterQuery = mysql.format(
+    `
   INSERT INTO AgeFilter (UserID, MinAge, MaxAge)
   VALUES (?, ?, ?) 
   ON DUPLICATE KEY UPDATE MinAge = ?, MaxAge = ?;`,
@@ -87,7 +93,9 @@ const getGenderFilter = (id) => {
       FS.UserID = ?
     ORDER BY
       genderID;
-    `, [id]);
+    `,
+      [id]
+    );
 
       const result = conn.query(query).then((rows) => {
         if (rows && rows.length) {
@@ -104,13 +112,17 @@ const getGenderFilter = (id) => {
 };
 
 const saveGenderFilter = (id, genderFilter) => {
-  const insertStateQuery = mysql.format(`
+  const insertStateQuery = mysql.format(
+    `
   INSERT INTO FilterState (UserID, GenderFilterState)
   VALUES (?, ?)
   ON DUPLICATE KEY UPDATE GenderFilterState = ?;`,
   [id, genderFilter.state, genderFilter.state]);
 
-  const deleteFilterQuery = mysql.format(`DELETE FROM GenderFilter WHERE UserID = ?;`, [id]);
+  const deleteFilterQuery = mysql.format(
+    `DELETE FROM GenderFilter WHERE UserID = ?;`,
+    [id]
+  );
 
   var insertFilterQuery = null;
 
@@ -134,7 +146,6 @@ const saveGenderFilter = (id, genderFilter) => {
         });
     });
 };
-
 
 module.exports = {
   getAgeFilter,

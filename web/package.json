@@ -38,13 +38,11 @@
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
     "build-css": "node-sass-chokidar --include-path ./src src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src src/ -o src/ --watch --recursive"
+    "watch-css":
+      "npm run build-css && node-sass-chokidar --include-path ./src src/ -o src/ --watch --recursive"
   },
   "lint-staged": {
-    "**/*.{js,jsx,json,scss}": [
-      "prettier --single-quote --write",
-      "git add"
-    ]
+    "**/*.{js,jsx,json,scss}": ["prettier --single-quote --write", "git add"]
   },
   "devDependencies": {
     "codeceptjs": "^1.1.7",

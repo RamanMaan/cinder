@@ -1,6 +1,6 @@
 Feature('Testing rejecting a recommended user');
 
-Scenario('Test rejecting a recommended user', (I) => {
+Scenario('Test rejecting a recommended user', I => {
   I.amOnPage('/login');
   I.see('Log In');
   I.fillField('#email', 'al@email.com');
