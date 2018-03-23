@@ -13,10 +13,6 @@ const MYSQLDB = {
   database: process.env.DB_NAME
 };
 
-const hashPassword = (password) => {
-  
-}
-
 const createUserObject = (rows) => {
   var user = null;
   var educationIndex = {}, interestIndex = {};
