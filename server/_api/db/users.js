@@ -23,7 +23,32 @@ module.exports = {
 
   getUser(id) {
     return mysql.createConnection(MYSQLDB).then(conn => {
-      const rows = conn.query('SELECT * FROM UsersInfo WHERE UserID = ?', [id]);
+      const rows = conn.query(`
+        SELECT 
+          UI.UserID as userID,
+          UI.UserName as userName,
+          UI.Birthday as userBirthday,
+          G.GenderType as userGender,
+          UI.Bio as userBio,
+          UP.PicturePath as primaryPic 
+        FROM UsersInfo UI
+          LEFT JOIN UserPicture UP
+            ON UI.UserID = UP.UserID
+            AND UP.PrimaryPicture
+          INNER JOIN GenderType G
+            ON UI.GenderID = G.GenderID
+        WHERE
+          UI.UserID = ?
+        `, [id]);
+
+      conn.end();
+      return rows;
+    });
+  },
+
+  getUserID(email) {
+    return mysql.createConnection(MYSQLDB).then(conn => {
+      const rows = conn.query('SELECT * FROM Users WHERE UserEmail = ?', [email]);
       conn.end();
       return rows;
     });

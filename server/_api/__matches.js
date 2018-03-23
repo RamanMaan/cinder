@@ -51,6 +51,7 @@ router.use((err, req, res, next) => {
   next(err);
 });
 
+//eslint-disable-next-line no-unused-vars
 router.use((err, req, res, next) => {
   //eslint-disable-next-line no-console
   console.error(err.message);

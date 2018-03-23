@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
-import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import {
+  Container,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  Alert
+} from 'reactstrap';
 import { Redirect, Link } from 'react-router-dom';
-
+import { loginUser } from '../actions';
+import { connect } from 'react-redux';
 import './styles/Login.css';
 import logo from '../assets/logo.svg';
 
-class Login extends Component {
+export class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -14,9 +23,7 @@ class Login extends Component {
 
     this.state = {
       email: '',
-      password: '',
-      loggedIn: false,
-      loginBtnText: 'Log In'
+      password: ''
     };
   }
 
@@ -26,35 +33,16 @@ class Login extends Component {
 
   userLogin(e) {
     e.preventDefault();
-
-    this.setState({ loginBtnText: 'Logging In...' });
-    fetch('/api/login', {
-      method: 'POST',
-      body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password
-      })
-    })
-      .then(res => {
-        if (res.status === 200) {
-          this.setState({ loginBtnText: 'Log In', loggedIn: true });
-        } else {
-          throw new Error(`Login Error: ${res.status}`);
-        }
-      })
-      .catch(err => {
-        this.setState({ loginBtnText: 'Log In' });
-        // TODO - better errors for user - what went wrong?
-        switch (err) {
-        default:
-          console.error(err);
-        }
-      });
+    this.props.loginUser({
+      email: this.state.email,
+      password: this.state.password
+    });
   }
 
   render() {
-    if (this.state.loggedIn) {
-      return <Redirect to="/" />;
+    if (this.props.isAuthenticated) {
+      const { from } = this.props.location.state || { from: { pathname: '/' } };
+      return <Redirect exact to={from} />;
     }
 
     return (
@@ -65,7 +53,9 @@ class Login extends Component {
             <img src={logo} className="App-logo" alt="logo" />
           </div>
           <hr />
-
+          {this.props.errored && (
+            <Alert color="danger">{this.props.message}</Alert>
+          )}
           <Form className="login-form" onSubmit={e => this.userLogin(e)}>
             <FormGroup>
               <Label for="email">Email</Label>
@@ -93,7 +83,7 @@ class Login extends Component {
 
             <FormGroup>
               <Button id="submitBtn" outline block color="dark" type="submit">
-                {this.state.loginBtnText}
+                Log In
               </Button>
 
               <Button
@@ -114,4 +104,14 @@ class Login extends Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  message: state.auth.message,
+  isAuthenticated: state.auth.isAuthenticated,
+  errored: state.auth.errored
+});
+
+const mapDispatchToProps = dispatch => ({
+  loginUser: creds => dispatch(loginUser(creds))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
