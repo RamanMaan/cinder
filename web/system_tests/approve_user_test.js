@@ -1,6 +1,6 @@
 Feature('Testing approving a recommended user');
 
-Scenario('Test approving a recommended user', (I) => {
+Scenario('Test approving a recommended user', I => {
   I.amOnPage('/login');
   I.see('Log In');
   I.fillField('#email', 'al@email.com');

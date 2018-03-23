@@ -1,6 +1,6 @@
-Feature('Testing rejecting a recommended user');
+Feature('View match details');
 
-Scenario('Test rejecting a recommended user', I => {
+Scenario('View match details', I => {
   I.amOnPage('/login');
   I.see('Log In');
   I.fillField('#email', 'al@email.com');
@@ -8,7 +8,9 @@ Scenario('Test rejecting a recommended user', I => {
   I.click('Log In');
   I.amOnPage('/');
   I.see('cinder');
+  I.seeElement('.MatchesList');
+  I.seeElement('.MatchesListItem');
+  I.click('.MatchesListItem');
   I.seeElement('.UserDetail');
-  I.click('NOT');
-  I.seeElement('.UserDetail');
+  I.click('Back to finding love');
 });
