@@ -8,7 +8,7 @@ Scenario('Test rejecting a recommended user', (I) => {
   I.click('Log In');
   I.amOnPage('/');
   I.see('cinder');
-  I.see('User Bio');
+  I.seeElement('.UserDetail');
   I.click('NOT');
-  I.see('User Bio');
+  I.seeElement('.UserDetail');
 });
