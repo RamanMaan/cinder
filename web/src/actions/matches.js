@@ -1,39 +1,77 @@
-import * as types from './actionTypes';
+import {
+  MATCHES_ERROR,
+  MATCHES_LOADING,
+  MATCHES_FETCH_SUCCESS,
+  ONE_MATCH_FETCH_SUCCESS,
+  CLEAR_ONE_MATCH
+} from './actionTypes';
 
-export function matchesErrored(bool) {
+function matchesError(message) {
   return {
-    type: types.MATCHES_ERROR,
-    error: bool
+    type: MATCHES_ERROR,
+    payload: message
   };
 }
 
-export function matchesLoading(bool) {
+function matchesLoading() {
   return {
-    type: types.MATCHES_LOADING,
-    loading: bool
+    type: MATCHES_LOADING
   };
 }
 
-export function matchesFetchSuccess(data) {
+function matchesFetchSuccess(matches) {
   return {
-    type: types.MATCHES_FETCH_SUCCESS,
-    matches: data
+    type: MATCHES_FETCH_SUCCESS,
+    payload: matches
   };
 }
 
-export function matchesFetchData(userID) {
+function oneMatchFetchSuccess(oneMatch) {
+  return {
+    type: ONE_MATCH_FETCH_SUCCESS,
+    payload: oneMatch
+  };
+}
+
+export function clearOneMatch() {
+  return dispatch =>
+    dispatch({
+      type: CLEAR_ONE_MATCH,
+      payload: {}
+    });
+}
+
+export function fetchAllMatches(userID, token) {
   return dispatch => {
-    dispatch(matchesLoading(true));
-
-    fetch(`/api/users/${userID}/matches`)
-      .then(res => {
-        if (!res.ok) {
-          throw Error(res.statusText);
-        }
-        dispatch(matchesLoading(false));
-        return res.json();
-      })
+    dispatch(matchesLoading());
+    fetch(`api/users/${userID}/matches`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
       .then(data => dispatch(matchesFetchSuccess(data)))
-      .catch(() => dispatch(matchesErrored(true)));
+      .catch(err => dispatch(matchesError(err)));
+  };
+}
+
+export function fetchOneMatch(userID, matchID, token) {
+  return dispatch => {
+    dispatch(matchesLoading());
+    fetch(`/api/users/${userID}/matches/${matchID}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then(res => res.json())
+      .then(res => {
+        const match = {
+          userID: res.userID,
+          userName: res.userName,
+          userPics: res.userPics,
+          userAge: res.userAge,
+          userGender: res.userGender,
+          matchTime: res.matchTime,
+          userBio: res.userBio
+        };
+        dispatch(oneMatchFetchSuccess(match));
+      })
+      .catch(err => dispatch(matchesError(err)));
   };
 }

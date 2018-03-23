@@ -1,0 +1,16 @@
+{
+  "tests": "./system_tests/*_test.js",
+  "timeout": 10000,
+  "output": "./system_tests_output",
+  "helpers": {
+    "Appium": {
+      "app": "http://localhost:4723",
+      "platform": "iOS",
+      "device": "emulator"
+    }
+  },
+  "include": {},
+  "bootstrap": false,
+  "mocha": {},
+  "name": "mobile"
+}
