@@ -34,17 +34,19 @@
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
     "build": "npm-run-all -p build-css build-js",
-    "test": "react-scripts test --env=jsdom",
+    "test":
+      "react-scripts test --env=jsdom && ./node_modules/.bin/codeceptjs run",
+    "start-selenium":
+      "./node_modules/.bin/selenium-standalone install && ./node_modules/.bin/selenium-standalone start &",
+    "system-tests": "../node_modules/.bin/codeceptjs run",
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
     "build-css": "node-sass-chokidar --include-path ./src src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src src/ -o src/ --watch --recursive"
+    "watch-css":
+      "npm run build-css && node-sass-chokidar --include-path ./src src/ -o src/ --watch --recursive"
   },
   "lint-staged": {
-    "**/*.{js,jsx,json,scss}": [
-      "prettier --single-quote --write",
-      "git add"
-    ]
+    "**/*.{js,jsx,json,scss}": ["prettier --single-quote --write", "git add"]
   },
   "devDependencies": {
     "codeceptjs": "^1.1.7",

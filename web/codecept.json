@@ -1,7 +1,7 @@
 {
-  "tests": "./*_test.js",
+  "tests": "./system_tests/*_test.js",
   "timeout": 10000,
-  "output": "./output",
+  "output": "./system_tests/output",
   "helpers": {
     "WebDriverIO": {
       "url": "http://localhost:3000",
@@ -9,9 +9,9 @@
     }
   },
   "include": {
-    "I": "./steps_file.js"
+    "I": "./system_tests/steps_file.js"
   },
   "bootstrap": false,
   "mocha": {},
-  "name": "system_tests"
+  "name": "web"
 }

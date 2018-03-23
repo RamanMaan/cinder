@@ -9,6 +9,7 @@ cache:
 before_script:
   - cd web
   - npm install
+  - npm run start-selenium
   - npm run build-css
   - cd ../server
   - npm install
