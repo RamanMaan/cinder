@@ -1,4 +1,9 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_ERROR } from './actionTypes';
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_ERROR,
+  LOGOUT_SUCCESS
+} from './actionTypes';
 import jwt from 'jsonwebtoken';
 
 function loginError(err) {
@@ -18,6 +23,12 @@ function loginSuccess(userID, token) {
   return {
     type: LOGIN_SUCCESS,
     payload: { userID, token }
+  };
+}
+
+function logoutSuccess() {
+  return {
+    type: LOGOUT_SUCCESS
   };
 }
 
@@ -49,5 +60,13 @@ export function loginUser(creds) {
         }
       })
       .catch(err => dispatch(loginError(err.message)));
+  };
+}
+
+export function logoutUser() {
+  return dispatch => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userID');
+    dispatch(logoutSuccess());
   };
 }
