@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { showProfile } from '../actions';
+import { showProfile, logoutUser } from '../actions';
 import {
+  Button,
   Collapse,
   Navbar,
   NavbarToggler,
@@ -39,6 +40,9 @@ export class NavigationBar extends Component {
                 {this.props.userName}
               </NavLink>
             </NavItem>
+            <Button onClick={() => this.props.logout()} color="danger">
+              Logout
+            </Button>
           </Nav>
         </Collapse>
       </Navbar>
@@ -51,7 +55,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  showProfile: () => dispatch(showProfile())
+  showProfile: () => dispatch(showProfile()),
+  logout: () => dispatch(logoutUser())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar);

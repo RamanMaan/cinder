@@ -1,43 +1,53 @@
-import * as types from '../actions/actionTypes';
+import {
+  REC_ERROR,
+  REC_LOADING,
+  REC_FETCH_SUCCESS,
+  REC_SUBMIT_SUCCESS,
+  REC_POP
+} from '../actions/actionTypes';
 
-export function recommendationsHasErrored(state = false, action) {
+const initState = {
+  message: '',
+  recommendations: [],
+  loading: false,
+  errored: false,
+  submitResult: {}
+};
+
+export function recommendations(state = initState, action) {
   switch (action.type) {
-    case types.REC_ERROR:
-      return action.error;
+    case REC_ERROR:
+      return {
+        ...state,
+        errored: true,
+        loading: false,
+        message: action.payload
+      };
 
-    default:
-      return state;
-  }
-}
+    case REC_LOADING:
+      return {
+        ...state,
+        loading: true
+      };
 
-export function recommendationsIsLoading(state = false, action) {
-  switch (action.type) {
-    case types.REC_LOADING:
-      return action.loading;
+    case REC_FETCH_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        recommendations: action.payload
+      };
 
-    default:
-      return state;
-  }
-}
+    case REC_SUBMIT_SUCCESS:
+      return {
+        ...state,
+        submitResult: action.payload
+      };
 
-export function recommendationSubmitted(state = false, action) {
-  switch (action.type) {
-    case types.REC_SUBMIT_SUCCESS:
-      return action.result;
-
-    default:
-      return state;
-  }
-}
-
-export function recommendations(state = [], action) {
-  switch (action.type) {
-    case types.REC_FETCH_SUCCESS:
-      return action.recommendations;
-
-    case types.REC_POP:
-      return state.slice(1);
-
+    case REC_POP:
+      return {
+        ...state,
+        recommendations: state.recommendations.slice(1)
+      };
     default:
       return state;
   }

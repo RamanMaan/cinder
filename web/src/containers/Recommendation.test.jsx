@@ -98,7 +98,7 @@ describe('<Recommendation />', () => {
         />
       );
 
-      expect(wrapper.text()).toEqual("There's no one new around you :(");
+      expect(wrapper.text()).toEqual('There is no one new around you :(');
       expect(mockFetchRecommends.mock.calls.length).toBe(5);
       expect(mockSubmitRecommendation.mock.calls.length).toBe(1);
       expect(mockPopRecommend.mock.calls.length).toBe(1);
