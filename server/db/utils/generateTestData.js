@@ -1,6 +1,7 @@
 const fs = require('fs');
 const request = require('request-promise');
 const cheerio = require('cheerio');
+const bcrypt = require('bcrypt');
 const refData = require('../referenceData');
 
 // Variables for building animal crossing characters
@@ -31,32 +32,27 @@ const genEducation = (name) => {
   return eduTypes[genRandomNumber(0, eduTypes.length, name)];
 };
 
-const genStudy = (name, edu) => {
-  const studyTypes = refData.StudyType;
-  return edu === 0 ? undefined : studyTypes[genRandomNumber(0, studyTypes.length, name)];
-};
-
 const escapeSQL = (val) => {
   val = val.replace(/[\0\n\r\b\t\\'"\x1a]/g, (s) => {
     switch (s) {
-      case '\0':
-        return '\\0';
-      case '\n':
-        return '\\n';
-      case '\r':
-        return '\\r';
-      case '\b':
-        return '\\b';
-      case '\t':
-        return '\\t';
-      case '\x1a':
-        return '\\Z';
-      case "'":
-        return "''";
-      case '"':
-        return '""';
-      default:
-        return `\\${s}`;
+    case '\0':
+      return '\\0';
+    case '\n':
+      return '\\n';
+    case '\r':
+      return '\\r';
+    case '\b':
+      return '\\b';
+    case '\t':
+      return '\\t';
+    case '\x1a':
+      return '\\Z';
+    case '\'':
+      return '\'\'';
+    case '"':
+      return '""';
+    default:
+      return `\\${s}`;
     }
   });
 
@@ -64,10 +60,10 @@ const escapeSQL = (val) => {
 };
 
 class UserBuilder {
-  constructor(name, birthday, gender, img, bio, education, study) {
+  build(name, birthday, gender, img, bio, education) {
     // Users Table Info
     this.email = name.toLowerCase().split(' ').join('_').concat('@email.com');
-    this.password = 'password';
+    this.password = bcrypt.hashSync('password', 1);
     // UsersInfo Table Info
     this.name = name;
     this.birthday = birthday;
@@ -78,7 +74,6 @@ class UserBuilder {
     this.imgs = Array.isArray(img) ? img : [img];
     // Education and Study
     this.education = education ? refData.EducationType.findIndex(x => x.toLowerCase() === education.toLowerCase()) + 1 : undefined;
-    this.study = study ? refData.StudyType.findIndex(x => x.toLowerCase() === study.toLowerCase()) + 1 : undefined;
   }
 }
 
@@ -111,9 +106,8 @@ request.get({ uri: URI })
       const img = data[1].children[1].attribs.href;
       const bio = `This is the bio for ${name}! I have a ${personality} personality, and my catch phrase is ${catchPhrase}! I am a ${species}.`;
       const education = genEducation(name);
-      const study = genStudy(name, education);
 
-      users.push(new UserBuilder(name, birthday, gender, img, bio, education, study));
+      users.push(new UserBuilder(name, birthday, gender, img, bio, education));
     });
 
     return users.map((x, i) => {

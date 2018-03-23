@@ -12,11 +12,11 @@ const SECRET_KEY = process.env.SECRET_KEY || 'cinder_token';
 
 router.post('/login', (req, res, next) => {
   return usersDB.authenticateUser(req.body.email, req.body.password)
-    .then(res => {
-      if (!res.authenticated) {
+    .then(obj => {
+      if (!obj.authenticated) {
         return res.status(responses.UNAUTHORIZED).json({
           status: responses.UNAUTHORIZED,
-          err: res.msg
+          err: obj.msg
         });
       } else {
         const token = jwt.sign({ id: obj[0].UserID }, SECRET_KEY, { expiresIn: '1d' });
