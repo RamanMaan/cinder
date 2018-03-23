@@ -23,7 +23,7 @@ const createUserObject = (rows) => {
         userID: row.userID,
         userName: row.userName,
         userAge: row.userAge,
-        userBirthday: row.userBirthday.toISOString().split('T')[0],
+        birthday: row.birthday.toISOString().split('T')[0],
         userBio: row.userBio,
         primaryPic: row.primaryPic,
         genderID: row.genderID,
@@ -134,7 +134,7 @@ module.exports = {
         UI.UserID AS userID,
         UI.UserName AS userName,
         TIMESTAMPDIFF(YEAR, UI.Birthday, CURDATE()) AS userAge,
-        UI.Birthday AS userBirthday,
+        UI.Birthday AS birthday,
         UI.Bio AS userBio,
         GT.GenderID AS genderID,
         GT.GenderType AS genderName,
@@ -176,8 +176,8 @@ module.exports = {
     const insertUsersInfoQuery = mysql.format(`
     INSERT INTO UsersInfo (UserID, UserName, Birthday, Bio, GenderID, ReligionID) VALUES (?, ?, ?, ?, ?, ?) 
     ON DUPLICATE KEY UPDATE UserName = ?, Birthday = ?, Bio = ?, GenderID = ?, ReligionID = ?;`,
-    [user.userID, user.userName, user.userBirthday, user.userBio, user.genderID, user.religionID,
-      user.userName, user.userBirthday, user.userBio, user.genderID, user.religionID]);
+    [user.userID, user.userName, user.birthday, user.userBio, user.genderID, user.religionID,
+      user.userName, user.birthday, user.userBio, user.genderID, user.religionID]);
 
     const deleteUserEducationQuery = mysql.format(`
     DELETE FROM UserEducation WHERE UserID = ?;`, [user.userID]);
