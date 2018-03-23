@@ -12,48 +12,44 @@ const MYSQLDB = {
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-  multipleStatements: true,
+  multipleStatements: true
 };
 
-
 beforeAll(() => {
-  return mysql.createConnection(MYSQLDB)
-  .then((conn) => {
+  return mysql.createConnection(MYSQLDB).then(conn => {
     const result = conn.query(
       testUtils.createInsertUsersQuery(recsData.users) +
-      testUtils.createInsertUsersInfoQuery(recsData.users) +
-      testUtils.createInsertPhotosQuery(recsData.users) +
-      testUtils.createInsertLikesQuery(recsData.likes)
+        testUtils.createInsertUsersInfoQuery(recsData.users) +
+        testUtils.createInsertPhotosQuery(recsData.users) +
+        testUtils.createInsertLikesQuery(recsData.likes)
     );
     conn.end();
     return result;
   });
 });
 
-
 afterAll(() => {
-  return mysql.createConnection(MYSQLDB)
-  .then((conn) => {
+  return mysql.createConnection(MYSQLDB).then(conn => {
     const result = conn.query(
       `SET FOREIGN_KEY_CHECKS=0;` +
-      testUtils.deleteUsersQuery +
-      testUtils.deleteUsersInfoQuery +
-      testUtils.deletePhotosQuery +
-      testUtils.deleteLikesQuery +
-      `SET FOREIGN_KEY_CHECKS=1;`);
+        testUtils.deleteUsersQuery +
+        testUtils.deleteUsersInfoQuery +
+        testUtils.deletePhotosQuery +
+        testUtils.deleteLikesQuery +
+        `SET FOREIGN_KEY_CHECKS=1;`
+    );
     conn.end();
     return result;
   });
 });
 
-
 describe(`getRecs tests`, () => {
   it(`excludes people the user already liked`, () => {
     const currUserID = 1;
-    return recsDB.getRecs(currUserID).then((recs) => {
+    return recsDB.getRecs(currUserID).then(recs => {
       const expectedRecs = [
-        recsData.getUserByID(4), 
-        recsData.getUserByID(5), 
+        recsData.getUserByID(4),
+        recsData.getUserByID(5),
         recsData.getUserByID(6)
       ];
       expect(recs).toHaveLength(expectedRecs.length);
@@ -70,13 +66,13 @@ describe(`getRecs tests`, () => {
 
   it(`still returns people the user already passed on`, () => {
     const currUserID = 6;
-    return recsDB.getRecs(currUserID).then((recs) => {
+    return recsDB.getRecs(currUserID).then(recs => {
       const expectedRecs = [
         recsData.getUserByID(1),
         recsData.getUserByID(2),
         recsData.getUserByID(3),
         recsData.getUserByID(4),
-        recsData.getUserByID(5),
+        recsData.getUserByID(5)
       ];
       expect(recs).toHaveLength(expectedRecs.length);
       recs.forEach((rec, i) => {
@@ -92,11 +88,8 @@ describe(`getRecs tests`, () => {
 
   it(`returns an empty list if the user liked everyone and there's no one else around`, () => {
     const currUserID = 2;
-    return recsDB.getRecs(currUserID).then((recs) => {
+    return recsDB.getRecs(currUserID).then(recs => {
       expect(recs).toHaveLength(0);
     });
   });
 });
-
-
-

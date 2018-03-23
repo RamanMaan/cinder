@@ -24,3 +24,17 @@ script:
   - npm test
   - cd ../server
   - npm test
+  - cd .. 
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: $EBS_ACCESS_KEY
+  secret_access_key:
+    secure: '$EBS_SECRET_KEY'
+  region: "us-east-2"  
+  app: "Cinder"
+  env: "Cinder-env"
+  bucket_name: "elasticbeanstalk-us-east-2-148400404701"
+  skip_cleanup: true
+  on:
+    branch: master
