@@ -19,7 +19,7 @@ router.post('/login', (req, res, next) => {
           err: obj.msg
         });
       } else {
-        const token = jwt.sign({ id: obj[0].UserID }, SECRET_KEY, { expiresIn: '1d' });
+        const token = jwt.sign({ id: obj.userID }, SECRET_KEY, { expiresIn: '1d' });
         return res.status(responses.SUCCESS).json({
           status: responses.SUCCESS,
           token
