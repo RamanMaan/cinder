@@ -4,6 +4,7 @@
  */
 
 const mysql = require('promise-mysql');
+const bcrypt = require('bcrypt');
 
 const MYSQLDB = {
   host: process.env.DB_HOST,
@@ -11,6 +12,10 @@ const MYSQLDB = {
   password: process.env.DB_PASS,
   database: process.env.DB_NAME
 };
+
+const hashPassword = (password) => {
+  
+}
 
 const createUserObject = (rows) => {
   var user = null;
@@ -71,17 +76,57 @@ module.exports = {
     });
   },
 
-  createUser(userEmail, userPassword) {
+  authenticateUser(email, password) {
+    const query = mysql.format(`
+    SELECT 
+      UserEmail AS userEmail,
+      UserPassword AS userPassword
+    FROM Users
+    WHERE UserEmail = ?;
+    `, [email]);
+
     return mysql.createConnection(MYSQLDB)
     .then(conn => {
-      const result =  conn.query(`INSERT INTO Users (UserEmail, UserPassword) VALUES (?, ?)`, [userEmail, userPassword])
-      .then(res => res.insertId)
-      .catch(err => {
-        conn.end();
-        throw err;
-      })
+      const result = conn.query(query)
+      .then(rows => {
+        if (!rows.length) {
+          return { 
+            authenticated: false, 
+            msg: `We couldn't find any user registered with ${email}. Please register with us by signing up first.`
+          };
+        }
+        return bcrypt.compare(password, rows[0].userPassword)
+        .then(res => {
+          return {
+            authenticated: res,
+            msg: res ? `Login Successful.` : `Your password is incorrect. Please try again.`
+          };
+        });
+      });
+
       conn.end();
       return result;
+    });
+  },
+
+  createUser(userEmail, userPassword) {
+    const query = `INSERT INTO Users (UserEmail, UserPassword) VALUES (?, ?);`;
+    const saltRounds = 12;
+
+    return mysql.createConnection(MYSQLDB)
+    .then(conn => {
+      return bcrypt.hash(userPassword, saltRounds)
+      .then(hash => {
+        return conn.query(query, [userEmail, hash])
+        .then(res => {
+          conn.end();
+          return res.insertId;
+        })
+        .catch((err) => {
+          conn.end();
+          throw err;
+        })
+      });
     });
   },
 
@@ -126,13 +171,17 @@ module.exports = {
         interestID;
       `, [id])
       .then(rows => createUserObject(rows));
-
       conn.end();
       return result;
     });
   },
   
   saveUser(user) {
+    const insertUsersQuery = mysql.format(`
+    INSERT INTO Users (UserID, UserEmail, UserPassword) VALUES (?, ?, ?)
+    ON DUPLICATE KEY UPDATE UserEmail = ?, UserPassword ?;`,
+    [])
+
     const insertUsersInfoQuery = mysql.format(`
     INSERT INTO UsersInfo (UserID, UserName, Birthday, Bio, GenderID, ReligionID) VALUES (?, ?, ?, ?, ?, ?) 
     ON DUPLICATE KEY UPDATE UserName = ?, Birthday = ?, Bio = ?, GenderID = ?, ReligionID = ?;`, 
