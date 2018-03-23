@@ -173,11 +173,6 @@ module.exports = {
   },
   
   saveUser(user) {
-    const insertUsersQuery = mysql.format(`
-    INSERT INTO Users (UserID, UserEmail, UserPassword) VALUES (?, ?, ?)
-    ON DUPLICATE KEY UPDATE UserEmail = ?, UserPassword ?;`,
-    [])
-
     const insertUsersInfoQuery = mysql.format(`
     INSERT INTO UsersInfo (UserID, UserName, Birthday, Bio, GenderID, ReligionID) VALUES (?, ?, ?, ?, ?, ?) 
     ON DUPLICATE KEY UPDATE UserName = ?, Birthday = ?, Bio = ?, GenderID = ?, ReligionID = ?;`, 
