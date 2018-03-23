@@ -60,7 +60,7 @@ const escapeSQL = (val) => {
 };
 
 class UserBuilder {
-  build(name, birthday, gender, img, bio, education) {
+  constructor(name, birthday, gender, img, bio, education) {
     // Users Table Info
     this.email = name.toLowerCase().split(' ').join('_').concat('@email.com');
     this.password = bcrypt.hashSync('password', 1);
