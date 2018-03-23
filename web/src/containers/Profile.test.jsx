@@ -8,7 +8,7 @@ import { Profile } from './Profile';
 describe('<Profile />', () => {
   const testProfile = {
     userBio: 'This is a test bio for a test user',
-    userBirthday: '1991-10-18T05:00:00.000Z',
+    birthday: '1991-10-18T05:00:00.000Z',
     userName: 'Test User'
   };
 
@@ -22,7 +22,7 @@ describe('<Profile />', () => {
       const component = renderer.create(
         <Profile
           isVisible
-          userInfo={{ userBio: null, userBirthday: null, userName: null }}
+          userInfo={{ userBio: null, birthday: null, userName: null }}
         />
       );
       expect(component).toMatchSnapshot();
