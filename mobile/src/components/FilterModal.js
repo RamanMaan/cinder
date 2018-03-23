@@ -8,11 +8,6 @@ import SelectMultiple from 'react-native-select-multiple';
 
 import { refFetchData } from '../actions';
 
-/**
- * Props to develop TODO
- * - endpoint = provides endpoint to get data from
- * - multi - determines if multiple options
-*/
 export class FilterModal extends React.Component {
   componentDidMount() {
     this.props.fetchData(this.props.type);
