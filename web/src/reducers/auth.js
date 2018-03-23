@@ -1,7 +1,8 @@
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
-  LOGIN_ERROR
+  LOGIN_ERROR,
+  LOGOUT_SUCCESS
 } from '../actions/actionTypes';
 
 const initState = {
@@ -39,6 +40,14 @@ export function auth(state = initState, action) {
         isAuthenticated: false,
         errored: true,
         message: action.payload
+      };
+
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        isAuthenticated: false,
+        token: null,
+        userID: null
       };
 
     default:
