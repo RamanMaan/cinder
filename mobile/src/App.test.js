@@ -5,7 +5,7 @@ import mockStore from '../__tests__/_config/mockStore';
 
 import App from './App';
 
-describe('App wide integration tests', () => {
+describe('App test', () => {
   const testData = [
     {
       userID: 1,
@@ -34,7 +34,6 @@ describe('App wide integration tests', () => {
   };
   const store = mockStore(initialState);
 
-  // TODO - write integration tests
   it('renders without crashing', () => {
     fetch.mockResponseSuccess('{"data": []}');
 

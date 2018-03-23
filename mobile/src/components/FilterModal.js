@@ -13,7 +13,10 @@ export class FilterModal extends React.Component {
   }
 
   render() {
-    const items = this.props.refData.ref.map(x => ({ label: x.value, value: x.id }));
+    const items = this.props.refData
+      ? this.props.refData.ref.map(x => ({ label: x.value, value: x.id }))
+      : [];
+
     return (
       <Modal
         avoidKeyboard
