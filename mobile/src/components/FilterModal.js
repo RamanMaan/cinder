@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { View } from 'native-base';
-import { StyleSheet } from 'react-native';
 
 import Modal from 'react-native-modal';
 import SelectMultiple from 'react-native-select-multiple';

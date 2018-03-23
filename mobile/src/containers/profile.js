@@ -1,13 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, Image } from 'react-native';
 import { H1, View, Text, Container } from 'native-base';
 
-import FilterElement from '../components/FilterElement';
+import { fetchUserInfo } from '../actions';
 
-const userDetails = {
-  currUserPic: 'https://gazettereview.com/wp-content/uploads/2017/11/ugly-god.jpg',
-  currUserName: 'Ugly God',
-};
+import FilterElement from '../components/FilterElement';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,12 +16,14 @@ const styles = StyleSheet.create({
     width: 100,
     marginTop: 20,
     borderRadius: 50,
+    alignSelf: 'center',
   },
   filterContainer: {
     marginTop: 40,
   },
   userName: {
     marginTop: 10,
+    alignSelf: 'center',
   },
   lineStyle: {
     alignSelf: 'stretch',
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Profile extends React.Component {
+export class Profile extends React.Component {
   static navigationOptions() {
     return {
       title: 'My Profile',
@@ -55,6 +55,10 @@ export default class Profile extends React.Component {
         values: [],
       },
     };
+  }
+
+  componentDidMount() {
+    this.props.fetchUserInfo(3);
   }
 
   toggleModal(type) {
@@ -87,8 +91,8 @@ export default class Profile extends React.Component {
   render() {
     return (
       <Container style={styles.container}>
-        <Image style={styles.image} source={{ uri: userDetails.currUserPic }} />
-        <H1 style={styles.userName}>{userDetails.currUserName}</H1>
+        <Image style={styles.image} source={{ uri: this.props.userInfo.primaryPic }} />
+        <H1 style={styles.userName}>{this.props.userInfo.userName}</H1>
         <View style={styles.lineStyle} />
 
         <Container style={styles.filterContainer}>
@@ -107,3 +111,13 @@ export default class Profile extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  userInfo: state.userInfo.userInfo,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchUserInfo: userID => dispatch(fetchUserInfo(userID)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
