@@ -35,9 +35,7 @@ router.post('/', (req, res, next) => {
   return usersDB.saveUser(req.body)
     .then(() => req.body.filters.age ? filterDB.saveAgeFilter(userID, req.body.filters.age) : null)
     .then(() => req.body.filters.gender ? filterDB.saveGenderFilter(userID, req.body.filters.gender) : null)
-    .then(result => {
-      return res.status(responses.CREATED).json(result);
-    })
+    .then(result => res.status(responses.CREATED).json(result))
     .catch(next);
 });
 

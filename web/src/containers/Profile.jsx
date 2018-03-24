@@ -26,9 +26,9 @@ export class Profile extends Component {
     this.onInputChange = this.onInputChange.bind(this);
 
     this.state = {
-      name: null,
-      birthday: null,
-      bio: null,
+      name: '',
+      birthday: '',
+      bio: '',
       filters: {
         gender: null,
         age: null
