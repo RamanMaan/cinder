@@ -20,11 +20,9 @@ before_script:
   - cd ../mobile
   - npm install
   - cd ..
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3
 script:
   - cd web
+  - xvfb-run --server-args="-screen 0 1024x768x24" make test
   - npm test
   - npm run build
   - cd ../mobile
