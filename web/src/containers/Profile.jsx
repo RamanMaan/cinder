@@ -23,13 +23,25 @@ export class Profile extends Component {
     super(props);
 
     this.toggle = this.toggle.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
 
     this.state = {
+      name: null,
+      birthday: null,
+      bio: null,
       filters: {
         gender: null,
         age: null
       }
     };
+  }
+
+  componentWillReceiveProps() {
+    this.setState({
+      name: this.props.userInfo.userName,
+      birthday: this.props.userInfo.birthday,
+      bio: this.props.userInfo.userBio
+    });
   }
 
   saveChanges(e) {
@@ -83,27 +95,41 @@ export class Profile extends Component {
     }));
   }
 
+  onInputChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
   renderBody() {
     return (
       <div>
         <div className="name">
           <h5>Display Name</h5>
-          <Input type="text" defaultValue={this.props.userInfo.userName} />
+          <Input
+            name="name"
+            type="text"
+            value={this.state.name}
+            onChange={this.onInputChange}
+          />
         </div>
         <hr />
         <div className="birthday">
           <h5>Birthday</h5>
           <Input
+            name="birthday"
             type="date"
-            defaultValue={
-              new Date(this.props.userInfo.birthday).toJSON().split('T')[0]
-            }
+            onChange={this.onInputChange}
+            value={this.state.birthday}
           />
         </div>
         <hr />
         <div className="bio">
           <h5>User Bio</h5>
-          <Input type="textarea" defaultValue={this.props.userInfo.userBio} />
+          <Input
+            name="bio"
+            type="textarea"
+            value={this.state.bio}
+            onChange={this.onInputChange}
+          />
         </div>
         <hr />
         <div className="filters">
