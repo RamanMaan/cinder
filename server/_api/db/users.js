@@ -121,6 +121,27 @@ module.exports = {
       });
   },
 
+  // TODO: Add users to other tables
+  // Tried to do it in one method in createUser
+  // but couldn't figure it out because wasn't sure
+  // exactly how promises worked
+  // createUserInfo(userID, userName, birthday) {
+  //   const userInfo = `(${userID}, ${userName}, ${birthday})`;
+  //   const userQueries = [
+  //     `INSERT INTO UsersInfo (UserID, UserName, Birthday) VALUES ${userInfo};`,
+  //     `INSERT INTO UserEducation (UserID) VALUES (${userID});`,
+  //     `INSERT INTO UserPicture (UserID) VALUES (${userID});`
+  //   ];
+  //   return mysql.createConnection(MYSQLDB).then(conn => {
+  //     return conn.query([...userQueries].join('\n'))
+  //       .then(() => conn.end())
+  //       .catch(err => {
+  //         conn.end();
+  //         throw err;
+  //       });
+  //   });
+  // },
+
   getUser(id) {
     return mysql.createConnection(MYSQLDB).then(conn => {
       const result = conn.query(`
@@ -170,7 +191,7 @@ module.exports = {
     const insertUsersInfoQuery = mysql.format(`
     INSERT INTO UsersInfo (UserID, UserName, Birthday, Bio, GenderID, ReligionID) VALUES (?, ?, ?, ?, ?, ?) 
     ON DUPLICATE KEY UPDATE UserName = ?, Birthday = ?, Bio = ?, GenderID = ?, ReligionID = ?;`,
-    [user.userID, user.userName, user.birthday, user.userBio, user.genderID, user.religionID,
+      [user.userID, user.userName, user.birthday, user.userBio, user.genderID, user.religionID,
       user.userName, user.birthday, user.userBio, user.genderID, user.religionID]);
 
     const deleteUserEducationQuery = mysql.format(`
@@ -179,7 +200,7 @@ module.exports = {
     var insertUserEducationQuery = null;
     if (user.education && user.education.length) {
       insertUserEducationQuery = 'INSERT INTO UserEducation (UserID, EducationID) VALUES ' +
-      user.education.map(x => mysql.format(' (?, ?) ', [user.userID, x.educationID])).join(', ') + ';';
+        user.education.map(x => mysql.format(' (?, ?) ', [user.userID, x.educationID])).join(', ') + ';';
     }
 
     const deleteUserInterestsQuery = mysql.format(`
@@ -188,7 +209,7 @@ module.exports = {
     var insertUserInterestsQuery = null;
     if (user.interests && user.interests.length) {
       insertUserInterestsQuery = 'INSERT INTO UserInterests (UserID, InterestID) VALUES ' +
-      user.interests.map(x => mysql.format(' (?, ?) ', [user.userID, x.interestID])).join(', ') + ';';
+        user.interests.map(x => mysql.format(' (?, ?) ', [user.userID, x.interestID])).join(', ') + ';';
     }
 
     return mysql.createConnection(MYSQLDB)

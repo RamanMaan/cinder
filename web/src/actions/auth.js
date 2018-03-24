@@ -105,7 +105,7 @@ export function signupUser(creds) {
     })
       .then(res => res.json())
       .then(res => {
-        if (res.status === 200 && res.token) {
+        if (res.status === 201 && res.token) {
           dispatch(signupSuccess(setToken(res.token), res.token));
         } else {
           throw new Error(res.err);
