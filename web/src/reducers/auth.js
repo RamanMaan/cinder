@@ -2,6 +2,9 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_ERROR,
+  SIGNUP_REQUEST,
+  SIGNUP_SUCCESS,
+  SIGNUP_ERROR,
   LOGOUT_SUCCESS
 } from '../actions/actionTypes';
 
@@ -28,12 +31,39 @@ export function auth(state = initState, action) {
         ...state,
         isFetching: false,
         isAuthenticated: true,
-        message: 'Login Successful! Wait a moment...',
+        message: 'Login successful! Wait a moment...',
         token: action.payload.token,
         userID: action.payload.userID
       };
 
     case LOGIN_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+        isAuthenticated: false,
+        errored: true,
+        message: action.payload
+      };
+
+    case SIGNUP_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+        isAuthenticated: false,
+        message: 'Signing up...'
+      };
+
+    case SIGNUP_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        isAuthenticated: true,
+        message: 'Sign up successful! Wait a moment...',
+        token: action.payload.token,
+        userID: action.payload.userID
+      };
+
+    case SIGNUP_ERROR:
       return {
         ...state,
         isFetching: false,

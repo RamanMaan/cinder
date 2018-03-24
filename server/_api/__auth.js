@@ -33,7 +33,7 @@ router.post('/login', (req, res, next) => {
 router.post('/signup', (req, res, next) => {
   return usersDB.authenticateUser(req.body.email, req.body.password)
     .then(obj => {
-      if (obj.authenticated) {
+      if (obj.exists) {
         return res.status(responses.UNAUTHORIZED).json({
           status: responses.UNAUTHORIZED,
           err: 'The email is already taken. Please try with another email.'

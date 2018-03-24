@@ -82,6 +82,7 @@ module.exports = {
       }).then(rows => {
         if (!rows.length) {
           return {
+            exists: false,
             authenticated: false,
             msg: `We couldn't find any user registered with ${email}. Please register with us by signing up first.`
           };
@@ -90,6 +91,7 @@ module.exports = {
         return bcrypt.compare(password, data.userPassword)
           .then(res => {
             return {
+              exists: true,
               userID: data.userID,
               authenticated: res,
               msg: res ? 'Login Successful.' : 'Your password is incorrect. Please try again.'

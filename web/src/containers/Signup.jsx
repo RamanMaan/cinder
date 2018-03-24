@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Alert,
   Container,
   Form,
   FormGroup,
@@ -9,6 +10,8 @@ import {
   Row,
   Col
 } from 'reactstrap';
+import { signupUser } from '../actions';
+import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 
 import './styles/Signup.css';
@@ -30,9 +33,7 @@ class Signup extends Component {
       passwordConfirm: '',
       userName: '',
       birthday: '',
-      gender: '',
-      signedUp: false,
-      signupBtnText: 'Sign Up'
+      gender: ''
     };
   }
 
@@ -65,14 +66,16 @@ class Signup extends Component {
 
   userSignup(e) {
     e.preventDefault();
-    this.setState({ signupBtnText: 'Signing up...' });
-    //TODO - adding signup connection with server
-    this.setState({ loginBtnText: 'Sign Up', signedUp: true });
+    this.props.signupUser({
+      email: this.state.email,
+      password: this.state.password
+    });
   }
 
   render() {
-    if (this.state.signedUp) {
-      return <Redirect to="/login" />;
+    if (this.props.isAuthenticated) {
+      const { from } = this.props.location.state || { from: { pathname: '/' } };
+      return <Redirect exact to={from} />;
     }
 
     return (
@@ -83,7 +86,9 @@ class Signup extends Component {
             <img src={logo} className="App-logo" alt="logo" />
           </div>
           <hr />
-
+          {this.props.errored && (
+            <Alert color="danger">{this.props.message}</Alert>
+          )}
           <Form className="signup-form" onSubmit={e => this.userSignup(e)}>
             <Row>
               <Col sm={6}>
@@ -201,7 +206,7 @@ class Signup extends Component {
                   size="md"
                   className="float-right"
                 >
-                  {this.state.signupBtnText}
+                  Sign Up
                 </Button>
               </Col>
 
@@ -214,7 +219,7 @@ class Signup extends Component {
                   outline
                   size="md"
                 >
-                  Log In
+                  Go to Log In
                 </Button>
               </Col>
             </Row>
@@ -224,5 +229,13 @@ class Signup extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  message: state.auth.message,
+  isAuthenticated: state.auth.isAuthenticated,
+  errored: state.auth.errored
+});
 
-export default Signup;
+const mapDispatchToProps = dispatch => ({
+  signupUser: creds => dispatch(signupUser(creds))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);
