@@ -10,10 +10,15 @@ const createInsertUsersInfoQuery = (users) => {
   users.map(x => mysql.format(` (?, ?, ?, ?, ?, ?) `, [x.userID, x.userName, x.birthday, x.genderID, x.religionID, x.userBio])).join(`, `) + `;`;
 }
 
-const createInsertPhotosQuery = (users) => {
-  return `INSERT INTO UserPicture (UserID, PicturePath, PrimaryPicture) VALUES ` + 
-  users.map(x => mysql.format(` (?, ?, ?) `, [x.userID, x.primaryPic, 1])).join(`, `) + `;`;
-}
+const createInsertPhotosQuery = users => {
+  return (
+    `INSERT INTO UserPicture (UserID, PicturePath, PrimaryPicture) VALUES ` +
+    users
+      .map(x => mysql.format(` (?, ?, ?) `, [x.userID, x.primaryPic, 1]))
+      .join(`, `) +
+    `;`
+  );
+};
 
 const createInsertUserEducationQuery = (users) => {
   const rows = [];
@@ -42,25 +47,44 @@ const createInsertLikesQuery = (likes) => {
   likes.map(x => mysql.format(` (?, ?, ?, ?) `, [x.user1ID, x.user2ID, x.userAction, x.actionDate])).join(`, `) + `;`;
 }
 
-const createInsertFilterStateQuery = (filterStates) => {
-  return `INSERT INTO FilterState (UserID, AgeFilterState, GenderFilterState) VALUES ` +
-  filterStates.map(x => mysql.format(` (?, ?, ?) `, [x.userID, x.ageFilterState, x.genderFilterState])).join(`, `) + `;`;
+const createInsertFilterStateQuery = filterStates => {
+  return (
+    `INSERT INTO FilterState (UserID, AgeFilterState, GenderFilterState) VALUES ` +
+    filterStates
+      .map(x =>
+        mysql.format(` (?, ?, ?) `, [
+          x.userID,
+          x.ageFilterState,
+          x.genderFilterState
+        ])
+      )
+      .join(`, `) +
+    `;`
+  );
 };
 
-const createInsertAgeFilterQuery = (ageFilters) => {
-  return `INSERT INTO AgeFilter (UserID, MinAge, MaxAge) VALUES ` + 
-  ageFilters.map(x => mysql.format(` (?, ?, ?) `, [x.userID, x.minAge, x.maxAge])).join(`, `) + `;`;
+const createInsertAgeFilterQuery = ageFilters => {
+  return (
+    `INSERT INTO AgeFilter (UserID, MinAge, MaxAge) VALUES ` +
+    ageFilters
+      .map(x => mysql.format(` (?, ?, ?) `, [x.userID, x.minAge, x.maxAge]))
+      .join(`, `) +
+    `;`
+  );
 };
 
-const createInsertGenderFilterQuery = (genderFilters) => {
+const createInsertGenderFilterQuery = genderFilters => {
   const rows = [];
   genderFilters.forEach(x => {
     x.preference.forEach(g => {
-      rows.push({userID: x.userID, ...g});
+      rows.push({ userID: x.userID, ...g });
     });
   });
-  return `INSERT INTO GenderFilter (UserID, GenderID) VALUES ` +
-  rows.map(x => mysql.format(` (?, ?) `, [x.userID, x.genderID])).join(`, `) + `;`;
+  return (
+    `INSERT INTO GenderFilter (UserID, GenderID) VALUES ` +
+    rows.map(x => mysql.format(` (?, ?) `, [x.userID, x.genderID])).join(`, `) +
+    `;`
+  );
 };
 
 
@@ -100,5 +124,5 @@ module.exports = {
   calcBirthday,
   deleteFilterStateQuery,
   deleteAgeFilterQuery,
-  deleteGenderFilterQuery,
+  deleteGenderFilterQuery
 };

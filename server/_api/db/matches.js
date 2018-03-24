@@ -9,14 +9,14 @@ const MYSQLDB = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
+  database: process.env.DB_NAME
 };
 
 module.exports = {
   getUserMatches(userID) {
-    return mysql.createConnection(MYSQLDB)
-      .then((conn) => {
-        const rows = conn.query(`
+    return mysql.createConnection(MYSQLDB).then(conn => {
+      const rows = conn.query(
+        `
           SELECT 
             L1.User2ID AS userID,
             UI.UserName AS userName,
@@ -39,17 +39,19 @@ module.exports = {
             AND L2.UserAction = 'L'
           ORDER BY
             matchDate DESC
-          `, [userID]);
+          `,
+        [userID]
+      );
 
-        conn.end();
-        return rows;
-      });
+      conn.end();
+      return rows;
+    });
   },
 
   getMatch(userID, matchUserID) {
-    return mysql.createConnection(MYSQLDB)
-      .then((conn) => {
-        const query = mysql.format(`
+    return mysql.createConnection(MYSQLDB).then(conn => {
+      const query = mysql.format(
+        `
           SELECT 
             L1.User2ID AS userID,
             UI.UserName AS userName,
@@ -74,39 +76,45 @@ module.exports = {
             AND L1.User2ID = ?
             AND L1.UserAction = 'L'
             AND L2.UserAction = 'L';
-          `, [userID, matchUserID]);
+          `,
+        [userID, matchUserID]
+      );
 
-        const rows = conn.query(query);
-        conn.end();
-        return rows;
-      });
+      const rows = conn.query(query);
+      conn.end();
+      return rows;
+    });
   },
 
   addUserSwipe(userID, matchUserID, action) {
-    return mysql.createConnection(MYSQLDB)
-      .then((conn) => {
-        let result = conn.query(`
+    return mysql.createConnection(MYSQLDB).then(conn => {
+      let result = conn.query(
+        `
           INSERT INTO Likes (User1ID, User2ID, UserAction)
           VALUES (?, ?, ?) 
           ON DUPLICATE KEY UPDATE UserAction = ?;
-        `, [userID, matchUserID, action, action]);
+        `,
+        [userID, matchUserID, action, action]
+      );
 
-        conn.end();
-        return result;
-      });
+      conn.end();
+      return result;
+    });
   },
 
   haveUsersMatched(user1ID, user2ID) {
-    return mysql.createConnection(MYSQLDB)
-      .then((conn) => {
-        const result = conn.query(`
+    return mysql.createConnection(MYSQLDB).then(conn => {
+      const result = conn.query(
+        `
           SELECT IF(COUNT(*) = 2, 'true', 'false') AS matched
           FROM Likes
           WHERE (User1ID = ? AND User2ID = ? AND UserAction = 'L')
           OR (User1ID = ? AND User2ID = ? AND UserAction = 'L')
-        `, [user1ID, user2ID, user2ID, user1ID]);
-        conn.end();
-        return result;
-      });
+        `,
+        [user1ID, user2ID, user2ID, user1ID]
+      );
+      conn.end();
+      return result;
+    });
   }
 };
