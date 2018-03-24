@@ -1,7 +1,7 @@
 
 Feature('Pressing the Like Button on a Recommendation');
 
-Scenario('I Like My Recommendation', (I) => {
+Scenario('I like my recommendation, therefore I will press the like button', (I) => {
 	I.runOnAndroid(() => {
 		I.seeAppIsInstalled("com.group7.cinder");
 	});

@@ -10,7 +10,7 @@ Scenario('I am very attractive, I want to view my plentiful matches by pressing 
 	//Check for matches button
 	I.seeElement('~matches_button');
 	I.click('~matches_button');
-	I.wait(10);
+	I.wait(15);
 	//Verify we're on the matches page.
 	I.seeElement('~matches_list');
 });
