@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, Picker } from 'react-native';
 import { H1, View, Text, Container } from 'native-base';
 
 import { fetchUserInfo } from '../actions';
 
 import FilterElement from '../components/FilterElement';
+import AgeFilterElement from '../components/AgeFilterElement';
 
 const styles = StyleSheet.create({
   container: {
@@ -53,6 +54,12 @@ export class Profile extends React.Component {
         modal: false,
         switch: false,
         values: [],
+      },
+      age: {
+        modal: false,
+        switch: false,
+        minAge: 0,
+        maxAge: 0,
       },
     };
   }
@@ -105,6 +112,15 @@ export class Profile extends React.Component {
             onBackdropPress={() => this.toggleModal('gender')}
             selectedItems={this.state.gender.values}
             onSelectChange={this.onSelectChange('gender')}
+          />
+          <AgeFilterElement
+            type="age"
+            switch={this.state.age.switch}
+            switchToggle={() => this.toggleSwitch('age')}
+            isVisible={this.state.age.modal}
+            onBackdropPress={() => this.toggleModal('age')}
+            selectedItems={this.state.age.minAge}
+            onSelectChange={this.onSelectChange('age')}
           />
         </Container>
       </Container>
