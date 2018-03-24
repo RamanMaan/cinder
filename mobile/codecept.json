@@ -4,9 +4,10 @@
   "output": "./system_tests_output",
   "helpers": {
     "Appium": {
-      "app": "http://localhost:4723",
-      "platform": "iOS",
-      "device": "emulator"
+      "app": "/Users/matt/workspace/cinder/mobile/android_build/cinder.apk",
+      "platform": "Android",
+      "platformVersion": "7.1",
+      "device": "Android Emulator"
     }
   },
   "include": {},
