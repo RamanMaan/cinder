@@ -9,7 +9,7 @@ const matchEndpoints = require('./__matches');
 const recsEndpoints = require('./__recs');
 const profileEndpoints = require('./__profile');
 const refEndpoints = require('./__ref');
-const login = require('./__login');
+const auth = require('./__auth');
 
 router.use('/users', userEndpoints);
 router.use('/users/:userID/matches', matchEndpoints);
@@ -22,6 +22,6 @@ router.use('/ref', refEndpoints);
  * Token authentication middleware is inside login route
  * Put endpoints that require authentication below this
  */
-router.use('/', login);
+router.use('/', auth);
 
 module.exports = router;
