@@ -8,7 +8,8 @@ import {
   Button,
   Input,
   Col,
-  Row
+  Row,
+  Label
 } from 'reactstrap';
 import { saveUserInfo, hideProfile } from '../actions';
 import FilterElement from '../components/FilterElement';
@@ -69,6 +70,19 @@ export class Profile extends Component {
     }));
   }
 
+  onAgeValueChange(field, value) {
+    this.setState(prev => ({
+      ...prev,
+      filters: {
+        ...prev.filters,
+        age: {
+          ...prev.filters.age,
+          [field]: value
+        }
+      }
+    }));
+  }
+
   renderBody() {
     return (
       <div>
@@ -115,17 +129,22 @@ export class Profile extends Component {
             >
               <Row>
                 <Col md={6}>
-                  <span>Minimum Age: </span>
+                  <Label>Minimum Age: </Label>
                   <NumericInput
                     min={18}
-                    onChange={this.onElementChange.bind(this, 'maxAge')}
+                    onChange={this.onAgeValueChange.bind(this, 'minAge')}
                   />
                 </Col>
                 <Col md={6}>
-                  <span>Maximum Age: </span>
+                  <Label>Maximum Age: </Label>
                   <NumericInput
+                    min={
+                      this.state.filters.age
+                        ? this.state.filters.age.minAge
+                        : 18
+                    }
                     max={80}
-                    onChange={this.onElementChange.bind(this, 'minAge')}
+                    onChange={this.onAgeValueChange.bind(this, 'maxAge')}
                   />
                 </Col>
               </Row>
