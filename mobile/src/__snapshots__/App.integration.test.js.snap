@@ -750,7 +750,7 @@ exports[`App wide integration tests renders without crashing 1`] = `
             >
               <View
                 accessibilityComponentType={undefined}
-                accessibilityLabel={undefined}
+                accessibilityLabel="pass_button"
                 accessibilityTraits={undefined}
                 accessible={true}
                 collapsable={undefined}
@@ -852,7 +852,7 @@ exports[`App wide integration tests renders without crashing 1`] = `
               </View>
               <View
                 accessibilityComponentType={undefined}
-                accessibilityLabel={undefined}
+                accessibilityLabel="like_button"
                 accessibilityTraits={undefined}
                 accessible={true}
                 collapsable={undefined}
@@ -1063,7 +1063,7 @@ exports[`App wide integration tests renders without crashing 1`] = `
             >
               <View
                 accessibilityComponentType={undefined}
-                accessibilityLabel={undefined}
+                accessibilityLabel="profile_button"
                 accessibilityTraits={undefined}
                 accessible={true}
                 collapsable={undefined}
@@ -1145,7 +1145,7 @@ exports[`App wide integration tests renders without crashing 1`] = `
             >
               <View
                 accessibilityComponentType={undefined}
-                accessibilityLabel={undefined}
+                accessibilityLabel="matches_button"
                 accessibilityTraits={undefined}
                 accessible={true}
                 collapsable={undefined}

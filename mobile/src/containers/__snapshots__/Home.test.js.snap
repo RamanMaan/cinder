@@ -678,7 +678,7 @@ exports[`<Home /> renders with data 1`] = `
     >
       <View
         accessibilityComponentType={undefined}
-        accessibilityLabel={undefined}
+        accessibilityLabel="pass_button"
         accessibilityTraits={undefined}
         accessible={true}
         collapsable={undefined}
@@ -780,7 +780,7 @@ exports[`<Home /> renders with data 1`] = `
       </View>
       <View
         accessibilityComponentType={undefined}
-        accessibilityLabel={undefined}
+        accessibilityLabel="like_button"
         accessibilityTraits={undefined}
         accessible={true}
         collapsable={undefined}

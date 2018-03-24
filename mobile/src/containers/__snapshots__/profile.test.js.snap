@@ -11,6 +11,7 @@ exports[`renders without crashing 1`] = `
   }
 >
   <Image
+    accessibilityLabel="profile_image"
     source={
       Object {
         "uri": "https://gazettereview.com/wp-content/uploads/2017/11/ugly-god.jpg",
@@ -26,6 +27,7 @@ exports[`renders without crashing 1`] = `
     }
   />
   <Text
+    accessibilityLabel="profile_name"
     accessible={true}
     allowFontScaling={true}
     ellipsizeMode="tail"
