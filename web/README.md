@@ -25,7 +25,14 @@ From web root:
 
     npm install
     npm test
+ 
+How to Run System Tests
+---
+From web root:
 
+    npm run start-selenium
+    npm run system-tests
+ 
 Structure
 ---
 ```
