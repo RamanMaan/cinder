@@ -12,5 +12,5 @@ Scenario('I am very attractive, I want to view my plentiful matches by pressing 
 	I.click('~matches_button');
 	I.wait(10);
 	//Verify we're on the matches page.
-	I.seeElement('~matches_element');
+	I.seeElement('~matches_list');
 });
