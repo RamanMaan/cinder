@@ -241,9 +241,12 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
                       <div
                         className="col col-md-6"
                       >
-                        <span>
+                        <label
+                          className=" form-control-label"
+                          htmlFor={undefined}
+                        >
                           Minimum Age: 
-                        </span>
+                        </label>
                         <span
                           className="react-numeric-input"
                           onMouseLeave={[Function]}
@@ -367,9 +370,12 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
                       <div
                         className="col col-md-6"
                       >
-                        <span>
+                        <label
+                          className=" form-control-label"
+                          htmlFor={undefined}
+                        >
                           Maximum Age: 
-                        </span>
+                        </label>
                         <span
                           className="react-numeric-input"
                           onMouseLeave={[Function]}
@@ -760,9 +766,12 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
                       <div
                         className="col col-md-6"
                       >
-                        <span>
+                        <label
+                          className=" form-control-label"
+                          htmlFor={undefined}
+                        >
                           Minimum Age: 
-                        </span>
+                        </label>
                         <span
                           className="react-numeric-input"
                           onMouseLeave={[Function]}
@@ -886,9 +895,12 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
                       <div
                         className="col col-md-6"
                       >
-                        <span>
+                        <label
+                          className=" form-control-label"
+                          htmlFor={undefined}
+                        >
                           Maximum Age: 
-                        </span>
+                        </label>
                         <span
                           className="react-numeric-input"
                           onMouseLeave={[Function]}
