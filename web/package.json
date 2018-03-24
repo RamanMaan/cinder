@@ -35,7 +35,11 @@
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
     "build": "npm-run-all -p build-css build-js",
-    "test": "react-scripts test --env=jsdom",
+    "test":
+      "react-scripts test --env=jsdom && ./node_modules/.bin/codeceptjs run --steps",
+    "start-selenium":
+      "./node_modules/.bin/selenium-standalone install && ./node_modules/.bin/selenium-standalone start &",
+    "system-tests": "../node_modules/.bin/codeceptjs run",
     "eject": "react-scripts eject",
     "precommit": "lint-staged",
     "build-css": "node-sass-chokidar --include-path ./src src/ -o src/",

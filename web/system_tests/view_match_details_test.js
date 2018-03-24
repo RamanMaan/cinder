@@ -2,6 +2,7 @@ Feature('View match details');
 
 Scenario('View match details', I => {
   I.amOnPage('/login');
+  I.waitForElement('.login-form', 25);
   I.see('Log In');
   I.fillField('#email', 'al@email.com');
   I.fillField('#password', 'password');

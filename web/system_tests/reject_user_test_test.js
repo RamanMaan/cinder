@@ -2,6 +2,7 @@ Feature('Testing rejecting a recommended user');
 
 Scenario('Test rejecting a recommended user', I => {
   I.amOnPage('/login');
+  I.waitForElement('.login-form', 50);
   I.see('Log In');
   I.fillField('#email', 'al@email.com');
   I.fillField('#password', 'password');
