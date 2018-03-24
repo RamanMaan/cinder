@@ -1,7 +1,7 @@
 Server
 ---
 
-This server manages the database and communicates with the clients through its API.
+This server interfaces with the database and serves clients content through an API.
 
 A Node.js server, leveraging Express for route management and MySQL for the database.
 
@@ -9,13 +9,13 @@ How To Run
 ---
 _Note: The server requires a MySQL instance running on the host machine with a .env file configured with the required variables listed in the .env.example file_
 
-Install MYSQL according to your OS's specifications.
+### 1) [Install MYSQL according to your OS's specifications](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/installing.html)
 
-### Configure .env variables
-Setup a ```.env``` file in the server root directory with variables from the ```.env.example``` file. Set these variable values to whatever you prefer.
+### 2) Configure .env variables
+Create a ```.env``` file in the server root directory with variables from the [```.env.example```](.env.example) file. Set these variable values to whatever you prefer.
 
-### Build the database
-From server/ root:
+### 3) Build the database
+From server root directory:
 
     npm install
     npm run db:build
@@ -24,10 +24,17 @@ To add test data:
 
     npm run db:dev
 
-### Run the server
+### 4) Run the server
 From server root:
 
     npm start
+
+How To Run Tests
+---
+From server root:
+
+    npm install
+    npm test
 
 Structure
 ---
@@ -45,16 +52,11 @@ Structure
     |       └── add_test_data.js        # adds the test data to the database
     └── _api/
         ├── __api.js                    # api controller - this controls api routes/endpoints
-        ├── __users.js                  # user endpoints
-        ├── __matches.js                # match endpoints
-        ├── __recs.js                   # recommendation endpoints
-        ├── __ref.js                    # ref table endpoints
-        ├── __tasks.js                  # server task endpoints
         ├── responses.js                # a collection of HTTP responses we use
+        ├── __*.js                      # * endpoints
         ├── util.js                     # API utility functions
         └── db/                         # each endpoints data access
-            ├── matches.js              # match data access
-            ├── recs.js                 # recommendation data access
-            ├── ref.js                  # reference table data access
-            └── users.js                # user data access
+            ├── *.js                    # * related data access functions
+            ├── *.test.js               # * related tests
+            └── *.testdata.js           # * related test data
 ```

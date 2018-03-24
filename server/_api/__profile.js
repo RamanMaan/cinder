@@ -29,7 +29,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  const {userID} = req.params;
+  const { userID } = req.params;
   util.validateID(userID);
   
   return usersDB.saveUser(req.body)
