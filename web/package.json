@@ -35,6 +35,9 @@
     "start": "npm-run-all -p watch-css start-js",
     "build-js": "react-scripts build",
     "build": "npm-run-all -p build-css build-js",
+    "start-selenium":
+      "./node_modules/.bin/selenium-standalone install && ./node_modules/.bin/selenium-standalone start",
+    "system-tests": "./node_modules/.bin/codeceptjs run --steps",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "precommit": "lint-staged",

@@ -179,11 +179,11 @@ export default class Recommendations extends React.Component {
 
     return (
       <View style={styles.buttons__container}>
-        <Button danger rounded bordered iconLeft onPress={passBtn}>
+        <Button accessibilityLabel={'pass_button'} danger rounded bordered iconLeft onPress={passBtn}>
           <Icon name="close" />
           <Text>Pass</Text>
         </Button>
-        <Button primary rounded iconRight onPress={likeBtn}>
+        <Button accessibilityLabel={'like_button'} primary rounded iconRight onPress={likeBtn}>
           <Text>Like</Text>
           <Icon name="heart" />
         </Button>
