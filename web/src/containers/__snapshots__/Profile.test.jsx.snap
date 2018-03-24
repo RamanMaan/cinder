@@ -223,7 +223,7 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
           <button
             className="btn btn-primary"
             onClick={[Function]}
-            type={undefined}
+            type="button"
           >
             Save Changes
           </button>
@@ -455,7 +455,7 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
           <button
             className="btn btn-primary"
             onClick={[Function]}
-            type={undefined}
+            type="button"
           >
             Save Changes
           </button>
@@ -687,7 +687,7 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
           <button
             className="btn btn-primary"
             onClick={[Function]}
-            type={undefined}
+            type="button"
           >
             Save Changes
           </button>
