@@ -11,7 +11,7 @@ export default class Matches extends React.Component {
   render() {
     return (
       <Container style={{ backgroundColor: '#fff' }}>
-        <MatchesList openDetails={this.openDetailsPage.bind(this)} />
+        <MatchesList accessibilityLabel={'matches_list'} openDetails={this.openDetailsPage.bind(this)} />
       </Container>
     );
   }

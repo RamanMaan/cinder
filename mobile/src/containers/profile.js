@@ -44,8 +44,8 @@ export default class Profile extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image style={styles.image} source={{uri: userDetails.currUserPic}}/>
-        <H1 style={styles.userName}>{userDetails.currUserName}</H1>
+        <Image accessibilityLabel={'profile_image'} style={styles.image} source={{uri: userDetails.currUserPic}}/>
+        <H1 accessibilityLabel={'profile_name'} style={styles.userName}>{userDetails.currUserName}</H1>
         <View style = {styles.lineStyle}/>
         <View style={styles.filterContainer}>
          <Text>Filtering Options Here</Text>
