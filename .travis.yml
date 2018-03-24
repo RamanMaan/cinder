@@ -22,8 +22,8 @@ before_script:
   - cd ..
 script:
   - cd web
-  - xvfb-run --server-args="-screen 0 1024x768x24" make test
-  - npm test
+  - xvfb-run test
+  - npm xvfb-run test
   - npm run build
   - cd ../mobile
   - npm test
