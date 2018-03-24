@@ -30,7 +30,7 @@ How to Run System Tests
 ---
 From web root:
 
-    npm run start-selenium
+    npm run start-selenium (NOTE: run the selenium server on a separate terminal window) 
     npm run system-tests
  
 Structure
