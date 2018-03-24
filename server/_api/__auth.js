@@ -10,6 +10,11 @@ require('dotenv').load();
 
 const SECRET_KEY = process.env.SECRET_KEY || 'cinder_token';
 
+function createTokenRes(userID) {
+  const token = jwt.sign({ id: userID }, SECRET_KEY, { expiresIn: '1d' });
+  return { status: responses.SUCCESS, token };
+}
+
 router.post('/login', (req, res, next) => {
   return usersDB.authenticateUser(req.body.email, req.body.password)
     .then(obj => {
@@ -19,11 +24,23 @@ router.post('/login', (req, res, next) => {
           err: obj.msg
         });
       } else {
-        const token = jwt.sign({ id: obj.userID }, SECRET_KEY, { expiresIn: '1d' });
-        return res.status(responses.SUCCESS).json({
-          status: responses.SUCCESS,
-          token
+        return res.status(responses.SUCCESS).json(createTokenRes(obj.userID));
+      }
+    })
+    .catch(next);
+});
+
+router.post('/signup', (req, res, next) => {
+  return usersDB.authenticateUser(req.body.email, req.body.password)
+    .then(obj => {
+      if (obj.authenticated) {
+        return res.status(responses.UNAUTHORIZED).json({
+          status: responses.UNAUTHORIZED,
+          err: 'The email is already taken. Please try with another email.'
         });
+      } else {
+        return usersDB.createUser(req.body.email, req.body.password)
+          .then(userID => res.status(responses.SUCCESS).json(createTokenRes(userID)));
       }
     })
     .catch(next);

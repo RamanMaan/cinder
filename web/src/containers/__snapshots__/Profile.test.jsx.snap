@@ -207,6 +207,293 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
                   </div>
                 </div>
               </div>
+              <div
+                className="age"
+              >
+                <h6>
+                  Age Filter
+                </h6>
+                <div
+                  className="filter element disabled"
+                >
+                  <div
+                    className="toggle"
+                  >
+                    <label
+                      className="switch"
+                    >
+                      <input
+                        checked={undefined}
+                        onChange={[Function]}
+                        type="checkbox"
+                      />
+                      <div
+                        className="slider round"
+                      />
+                    </label>
+                  </div>
+                  <div
+                    className="content"
+                  >
+                    <div
+                      className="row"
+                    >
+                      <div
+                        className="col col-md-6"
+                      >
+                        <span>
+                          Minimum Age: 
+                        </span>
+                        <span
+                          className="react-numeric-input"
+                          onMouseLeave={[Function]}
+                          onMouseUp={[Function]}
+                          style={
+                            Object {
+                              "display": "inline-block",
+                              "position": "relative",
+                            }
+                          }
+                        >
+                          <input
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            onInput={[Function]}
+                            onKeyDown={[Function]}
+                            onSelect={[Function]}
+                            style={
+                              Object {
+                                "WebkitAppearance": "none",
+                                "border": "1px solid #ccc",
+                                "borderRadius": 2,
+                                "boxSizing": "border-box",
+                                "display": "block",
+                                "fontSize": "inherit",
+                                "lineHeight": "normal",
+                                "paddingLeft": 4,
+                                "paddingRight": "3ex",
+                              }
+                            }
+                            type="text"
+                            value=""
+                          />
+                          <b
+                            onMouseDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseUp={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
+                            style={
+                              Object {
+                                "background": "rgba(0,0,0,.1)",
+                                "borderColor": "rgba(0,0,0,.1)",
+                                "borderRadius": "2px 2px 0 0",
+                                "borderStyle": "solid",
+                                "borderWidth": "1px 1px 0 1px",
+                                "bottom": "50%",
+                                "boxShadow": "-1px -1px 3px rgba(0,0,0,.1) inset,1px 1px 3px rgba(255,255,255,.7) inset",
+                                "cursor": "default",
+                                "position": "absolute",
+                                "right": 2,
+                                "textAlign": "center",
+                                "top": 2,
+                                "transition": "all 0.1s",
+                                "width": "2.26ex",
+                              }
+                            }
+                          >
+                            <i
+                              style={
+                                Object {
+                                  "borderColor": "transparent transparent rgba(0, 0, 0, 0.7)",
+                                  "borderStyle": "solid",
+                                  "borderWidth": "0 0.6ex 0.6ex 0.6ex",
+                                  "height": 0,
+                                  "left": "50%",
+                                  "margin": "-0.3ex 0 0 -0.56ex",
+                                  "position": "absolute",
+                                  "top": "50%",
+                                  "width": 0,
+                                }
+                              }
+                            />
+                          </b>
+                          <b
+                            onMouseDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseUp={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
+                            style={
+                              Object {
+                                "background": "rgba(0,0,0,.1)",
+                                "borderColor": "rgba(0,0,0,.1)",
+                                "borderRadius": "0 0 2px 2px",
+                                "borderStyle": "solid",
+                                "borderWidth": "0 1px 1px 1px",
+                                "bottom": 2,
+                                "boxShadow": "-1px -1px 3px rgba(0,0,0,.1) inset,1px 1px 3px rgba(255,255,255,.7) inset",
+                                "cursor": "default",
+                                "position": "absolute",
+                                "right": 2,
+                                "textAlign": "center",
+                                "top": "50%",
+                                "transition": "all 0.1s",
+                                "width": "2.26ex",
+                              }
+                            }
+                          >
+                            <i
+                              style={
+                                Object {
+                                  "borderColor": "rgba(0, 0, 0, 0.7) transparent transparent",
+                                  "borderStyle": "solid",
+                                  "borderWidth": "0.6ex 0.6ex 0 0.6ex",
+                                  "height": 0,
+                                  "left": "50%",
+                                  "margin": "-0.3ex 0 0 -0.56ex",
+                                  "position": "absolute",
+                                  "top": "50%",
+                                  "width": 0,
+                                }
+                              }
+                            />
+                          </b>
+                        </span>
+                      </div>
+                      <div
+                        className="col col-md-6"
+                      >
+                        <span>
+                          Maximum Age: 
+                        </span>
+                        <span
+                          className="react-numeric-input"
+                          onMouseLeave={[Function]}
+                          onMouseUp={[Function]}
+                          style={
+                            Object {
+                              "display": "inline-block",
+                              "position": "relative",
+                            }
+                          }
+                        >
+                          <input
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            onInput={[Function]}
+                            onKeyDown={[Function]}
+                            onSelect={[Function]}
+                            style={
+                              Object {
+                                "WebkitAppearance": "none",
+                                "border": "1px solid #ccc",
+                                "borderRadius": 2,
+                                "boxSizing": "border-box",
+                                "display": "block",
+                                "fontSize": "inherit",
+                                "lineHeight": "normal",
+                                "paddingLeft": 4,
+                                "paddingRight": "3ex",
+                              }
+                            }
+                            type="text"
+                            value=""
+                          />
+                          <b
+                            onMouseDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseUp={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
+                            style={
+                              Object {
+                                "background": "rgba(0,0,0,.1)",
+                                "borderColor": "rgba(0,0,0,.1)",
+                                "borderRadius": "2px 2px 0 0",
+                                "borderStyle": "solid",
+                                "borderWidth": "1px 1px 0 1px",
+                                "bottom": "50%",
+                                "boxShadow": "-1px -1px 3px rgba(0,0,0,.1) inset,1px 1px 3px rgba(255,255,255,.7) inset",
+                                "cursor": "default",
+                                "position": "absolute",
+                                "right": 2,
+                                "textAlign": "center",
+                                "top": 2,
+                                "transition": "all 0.1s",
+                                "width": "2.26ex",
+                              }
+                            }
+                          >
+                            <i
+                              style={
+                                Object {
+                                  "borderColor": "transparent transparent rgba(0, 0, 0, 0.7)",
+                                  "borderStyle": "solid",
+                                  "borderWidth": "0 0.6ex 0.6ex 0.6ex",
+                                  "height": 0,
+                                  "left": "50%",
+                                  "margin": "-0.3ex 0 0 -0.56ex",
+                                  "position": "absolute",
+                                  "top": "50%",
+                                  "width": 0,
+                                }
+                              }
+                            />
+                          </b>
+                          <b
+                            onMouseDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseUp={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
+                            style={
+                              Object {
+                                "background": "rgba(0,0,0,.1)",
+                                "borderColor": "rgba(0,0,0,.1)",
+                                "borderRadius": "0 0 2px 2px",
+                                "borderStyle": "solid",
+                                "borderWidth": "0 1px 1px 1px",
+                                "bottom": 2,
+                                "boxShadow": "-1px -1px 3px rgba(0,0,0,.1) inset,1px 1px 3px rgba(255,255,255,.7) inset",
+                                "cursor": "default",
+                                "position": "absolute",
+                                "right": 2,
+                                "textAlign": "center",
+                                "top": "50%",
+                                "transition": "all 0.1s",
+                                "width": "2.26ex",
+                              }
+                            }
+                          >
+                            <i
+                              style={
+                                Object {
+                                  "borderColor": "rgba(0, 0, 0, 0.7) transparent transparent",
+                                  "borderStyle": "solid",
+                                  "borderWidth": "0.6ex 0.6ex 0 0.6ex",
+                                  "height": 0,
+                                  "left": "50%",
+                                  "margin": "-0.3ex 0 0 -0.56ex",
+                                  "position": "absolute",
+                                  "top": "50%",
+                                  "width": 0,
+                                }
+                              }
+                            />
+                          </b>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -223,7 +510,7 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
           <button
             className="btn btn-primary"
             onClick={[Function]}
-            type={undefined}
+            type="button"
           >
             Save Changes
           </button>
@@ -439,6 +726,293 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
                   </div>
                 </div>
               </div>
+              <div
+                className="age"
+              >
+                <h6>
+                  Age Filter
+                </h6>
+                <div
+                  className="filter element disabled"
+                >
+                  <div
+                    className="toggle"
+                  >
+                    <label
+                      className="switch"
+                    >
+                      <input
+                        checked={undefined}
+                        onChange={[Function]}
+                        type="checkbox"
+                      />
+                      <div
+                        className="slider round"
+                      />
+                    </label>
+                  </div>
+                  <div
+                    className="content"
+                  >
+                    <div
+                      className="row"
+                    >
+                      <div
+                        className="col col-md-6"
+                      >
+                        <span>
+                          Minimum Age: 
+                        </span>
+                        <span
+                          className="react-numeric-input"
+                          onMouseLeave={[Function]}
+                          onMouseUp={[Function]}
+                          style={
+                            Object {
+                              "display": "inline-block",
+                              "position": "relative",
+                            }
+                          }
+                        >
+                          <input
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            onInput={[Function]}
+                            onKeyDown={[Function]}
+                            onSelect={[Function]}
+                            style={
+                              Object {
+                                "WebkitAppearance": "none",
+                                "border": "1px solid #ccc",
+                                "borderRadius": 2,
+                                "boxSizing": "border-box",
+                                "display": "block",
+                                "fontSize": "inherit",
+                                "lineHeight": "normal",
+                                "paddingLeft": 4,
+                                "paddingRight": "3ex",
+                              }
+                            }
+                            type="text"
+                            value=""
+                          />
+                          <b
+                            onMouseDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseUp={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
+                            style={
+                              Object {
+                                "background": "rgba(0,0,0,.1)",
+                                "borderColor": "rgba(0,0,0,.1)",
+                                "borderRadius": "2px 2px 0 0",
+                                "borderStyle": "solid",
+                                "borderWidth": "1px 1px 0 1px",
+                                "bottom": "50%",
+                                "boxShadow": "-1px -1px 3px rgba(0,0,0,.1) inset,1px 1px 3px rgba(255,255,255,.7) inset",
+                                "cursor": "default",
+                                "position": "absolute",
+                                "right": 2,
+                                "textAlign": "center",
+                                "top": 2,
+                                "transition": "all 0.1s",
+                                "width": "2.26ex",
+                              }
+                            }
+                          >
+                            <i
+                              style={
+                                Object {
+                                  "borderColor": "transparent transparent rgba(0, 0, 0, 0.7)",
+                                  "borderStyle": "solid",
+                                  "borderWidth": "0 0.6ex 0.6ex 0.6ex",
+                                  "height": 0,
+                                  "left": "50%",
+                                  "margin": "-0.3ex 0 0 -0.56ex",
+                                  "position": "absolute",
+                                  "top": "50%",
+                                  "width": 0,
+                                }
+                              }
+                            />
+                          </b>
+                          <b
+                            onMouseDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseUp={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
+                            style={
+                              Object {
+                                "background": "rgba(0,0,0,.1)",
+                                "borderColor": "rgba(0,0,0,.1)",
+                                "borderRadius": "0 0 2px 2px",
+                                "borderStyle": "solid",
+                                "borderWidth": "0 1px 1px 1px",
+                                "bottom": 2,
+                                "boxShadow": "-1px -1px 3px rgba(0,0,0,.1) inset,1px 1px 3px rgba(255,255,255,.7) inset",
+                                "cursor": "default",
+                                "position": "absolute",
+                                "right": 2,
+                                "textAlign": "center",
+                                "top": "50%",
+                                "transition": "all 0.1s",
+                                "width": "2.26ex",
+                              }
+                            }
+                          >
+                            <i
+                              style={
+                                Object {
+                                  "borderColor": "rgba(0, 0, 0, 0.7) transparent transparent",
+                                  "borderStyle": "solid",
+                                  "borderWidth": "0.6ex 0.6ex 0 0.6ex",
+                                  "height": 0,
+                                  "left": "50%",
+                                  "margin": "-0.3ex 0 0 -0.56ex",
+                                  "position": "absolute",
+                                  "top": "50%",
+                                  "width": 0,
+                                }
+                              }
+                            />
+                          </b>
+                        </span>
+                      </div>
+                      <div
+                        className="col col-md-6"
+                      >
+                        <span>
+                          Maximum Age: 
+                        </span>
+                        <span
+                          className="react-numeric-input"
+                          onMouseLeave={[Function]}
+                          onMouseUp={[Function]}
+                          style={
+                            Object {
+                              "display": "inline-block",
+                              "position": "relative",
+                            }
+                          }
+                        >
+                          <input
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            onInput={[Function]}
+                            onKeyDown={[Function]}
+                            onSelect={[Function]}
+                            style={
+                              Object {
+                                "WebkitAppearance": "none",
+                                "border": "1px solid #ccc",
+                                "borderRadius": 2,
+                                "boxSizing": "border-box",
+                                "display": "block",
+                                "fontSize": "inherit",
+                                "lineHeight": "normal",
+                                "paddingLeft": 4,
+                                "paddingRight": "3ex",
+                              }
+                            }
+                            type="text"
+                            value=""
+                          />
+                          <b
+                            onMouseDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseUp={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
+                            style={
+                              Object {
+                                "background": "rgba(0,0,0,.1)",
+                                "borderColor": "rgba(0,0,0,.1)",
+                                "borderRadius": "2px 2px 0 0",
+                                "borderStyle": "solid",
+                                "borderWidth": "1px 1px 0 1px",
+                                "bottom": "50%",
+                                "boxShadow": "-1px -1px 3px rgba(0,0,0,.1) inset,1px 1px 3px rgba(255,255,255,.7) inset",
+                                "cursor": "default",
+                                "position": "absolute",
+                                "right": 2,
+                                "textAlign": "center",
+                                "top": 2,
+                                "transition": "all 0.1s",
+                                "width": "2.26ex",
+                              }
+                            }
+                          >
+                            <i
+                              style={
+                                Object {
+                                  "borderColor": "transparent transparent rgba(0, 0, 0, 0.7)",
+                                  "borderStyle": "solid",
+                                  "borderWidth": "0 0.6ex 0.6ex 0.6ex",
+                                  "height": 0,
+                                  "left": "50%",
+                                  "margin": "-0.3ex 0 0 -0.56ex",
+                                  "position": "absolute",
+                                  "top": "50%",
+                                  "width": 0,
+                                }
+                              }
+                            />
+                          </b>
+                          <b
+                            onMouseDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseUp={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
+                            style={
+                              Object {
+                                "background": "rgba(0,0,0,.1)",
+                                "borderColor": "rgba(0,0,0,.1)",
+                                "borderRadius": "0 0 2px 2px",
+                                "borderStyle": "solid",
+                                "borderWidth": "0 1px 1px 1px",
+                                "bottom": 2,
+                                "boxShadow": "-1px -1px 3px rgba(0,0,0,.1) inset,1px 1px 3px rgba(255,255,255,.7) inset",
+                                "cursor": "default",
+                                "position": "absolute",
+                                "right": 2,
+                                "textAlign": "center",
+                                "top": "50%",
+                                "transition": "all 0.1s",
+                                "width": "2.26ex",
+                              }
+                            }
+                          >
+                            <i
+                              style={
+                                Object {
+                                  "borderColor": "rgba(0, 0, 0, 0.7) transparent transparent",
+                                  "borderStyle": "solid",
+                                  "borderWidth": "0.6ex 0.6ex 0 0.6ex",
+                                  "height": 0,
+                                  "left": "50%",
+                                  "margin": "-0.3ex 0 0 -0.56ex",
+                                  "position": "absolute",
+                                  "top": "50%",
+                                  "width": 0,
+                                }
+                              }
+                            />
+                          </b>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -455,7 +1029,7 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
           <button
             className="btn btn-primary"
             onClick={[Function]}
-            type={undefined}
+            type="button"
           >
             Save Changes
           </button>
