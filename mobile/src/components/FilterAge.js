@@ -67,7 +67,7 @@ export class FilterModal extends React.Component {
             onChangeText={this.updateMaxAge}
             keyboardType='numeric'
             placeholder='Enter maximum age filter'
-            alue={this.state.maxAge}
+            value={this.state.maxAge}
           />
         </View>
       </Modal>
