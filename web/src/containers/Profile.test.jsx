@@ -8,7 +8,7 @@ import { Profile } from './Profile';
 describe('<Profile />', () => {
   const testProfile = {
     userBio: 'This is a test bio for a test user',
-    userBirthday: '1991-10-18T05:00:00.000Z',
+    birthday: '1991-10-18T05:00:00.000Z',
     userName: 'Test User'
   };
 
@@ -22,7 +22,7 @@ describe('<Profile />', () => {
       const component = renderer.create(
         <Profile
           isVisible
-          userInfo={{ userBio: null, userBirthday: null, userName: null }}
+          userInfo={{ userBio: null, birthday: null, userName: null }}
         />
       );
       expect(component).toMatchSnapshot();
@@ -51,8 +51,9 @@ describe('<Profile />', () => {
       );
     });
 
-    describe('Gender Filter', () => {
+    describe('Gender and Age Filters', () => {
       let genderFilter;
+      let ageFilter;
       let defaultState;
 
       fetchMock.get(/\/api\/ref\/gender/, [
@@ -64,25 +65,30 @@ describe('<Profile />', () => {
       beforeEach(() => {
         fetchMock.reset();
         genderFilter = wrapper.find('div.filters .gender');
+        ageFilter = wrapper.find('div.filters .age');
         defaultState = wrapper.state();
       });
 
       it('should update state on toggle', () => {
-        expect(wrapper.find('.filter.element.disabled')).toHaveLength(1);
+        expect(wrapper.find('.filter.element.disabled')).toHaveLength(2);
         expect(!!defaultState.filters).toEqual(true);
         expect(defaultState.filters.gender).toBe(null);
 
         genderFilter.find('.toggle input').simulate('change');
+        ageFilter.find('.toggle input').simulate('change');
 
         expect(wrapper.find('.filter.element.disabled')).toHaveLength(0);
         expect(!!wrapper.state().filters).toEqual(true);
         expect(wrapper.state().filters.gender).toEqual({ active: true });
+        expect(wrapper.state().filters.age).toEqual({ active: true });
 
         genderFilter.find('.toggle input').simulate('change');
+        ageFilter.find('.toggle input').simulate('change');
 
-        expect(wrapper.find('.filter.element.disabled')).toHaveLength(1);
+        expect(wrapper.find('.filter.element.disabled')).toHaveLength(2);
         expect(!!wrapper.state().filters).toEqual(true);
         expect(wrapper.state().filters.gender).toEqual({ active: false });
+        expect(wrapper.state().filters.age).toEqual({ active: false });
       });
     });
   });

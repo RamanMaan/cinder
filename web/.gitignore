@@ -3,6 +3,7 @@
 
 # testing
 /coverage
+/system_tests/output
 
 # production
 /build

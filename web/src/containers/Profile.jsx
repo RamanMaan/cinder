@@ -6,11 +6,14 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  Input
+  Input,
+  Col,
+  Row
 } from 'reactstrap';
-import { fetchFilters, hideProfile } from '../actions';
+import { saveUserInfo, hideProfile } from '../actions';
 import FilterElement from '../components/FilterElement';
 import Dropdown from '../components/Dropdown';
+import NumericInput from 'react-numeric-input';
 
 import './styles/Profile.css';
 
@@ -22,16 +25,17 @@ export class Profile extends Component {
 
     this.state = {
       filters: {
-        gender: null
+        gender: null,
+        age: null
       }
     };
   }
 
-  // Call this function to fetch filters
-  // id and token are in this.props.userID and this.props.token
-  // filters will be in this.props.filters
-  fetchFilters(userID, token) {
-    this.props.fetchFilters(userID, token);
+  saveChanges(e) {
+    e.stopPropagation();
+    var user = { ...this.props.userInfo }; // <-- remove this later once the profile state is configured
+    this.props.saveUser(user, this.props.token);
+    this.props.hideProfile();
   }
 
   toggle(e) {
@@ -52,7 +56,7 @@ export class Profile extends Component {
     }));
   }
 
-  onDropdownChange(field, value) {
+  onElementChange(field, value) {
     if (!value || !value.length) {
       this.setState(prev => ({
         ...prev,
@@ -88,7 +92,7 @@ export class Profile extends Component {
           <Input
             type="date"
             defaultValue={
-              new Date(this.props.userInfo.userBirthday).toJSON().split('T')[0]
+              new Date(this.props.userInfo.birthday).toJSON().split('T')[0]
             }
           />
         </div>
@@ -101,7 +105,7 @@ export class Profile extends Component {
         <div className="filters">
           <h5>User Filters</h5>
           <div className="gender">
-            <h7>Gender Filter</h7>
+            <h6>Gender Filter</h6>
             <FilterElement
               round
               onChange={this.onElementToggle.bind(this, 'gender')}
@@ -109,8 +113,32 @@ export class Profile extends Component {
               <Dropdown
                 token={this.props.token}
                 endpoint="/api/ref/gender"
-                onChange={this.onDropdownChange.bind(this, 'gender')}
+                onChange={this.onElementChange.bind(this, 'gender')}
               />
+            </FilterElement>
+          </div>
+          <div className="age">
+            <h6>Age Filter</h6>
+            <FilterElement
+              round
+              onChange={this.onElementToggle.bind(this, 'age')}
+            >
+              <Row>
+                <Col md={6}>
+                  <span>Minimum Age: </span>
+                  <NumericInput
+                    min={18}
+                    onChange={this.onElementChange.bind(this, 'maxAge')}
+                  />
+                </Col>
+                <Col md={6}>
+                  <span>Maximum Age: </span>
+                  <NumericInput
+                    max={80}
+                    onChange={this.onElementChange.bind(this, 'minAge')}
+                  />
+                </Col>
+              </Row>
             </FilterElement>
           </div>
         </div>
@@ -129,7 +157,9 @@ export class Profile extends Component {
               <Button color="secondary" outline onClick={e => this.toggle(e)}>
                 Discard Changes
               </Button>
-              <Button color="primary">Save Changes</Button>
+              <Button color="primary" onClick={e => this.saveChanges(e)}>
+                Save Changes
+              </Button>
             </ModalFooter>
           </div>
         </Container>
@@ -143,12 +173,11 @@ export class Profile extends Component {
 const mapStateToProps = state => ({
   isVisible: state.profileDisplay.isVisible,
   userID: state.auth.userID,
-  token: state.auth.token,
-  filters: state.filters.filters
+  token: state.auth.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchFilters: (userID, token) => dispatch(fetchFilters(userID, token)),
+  saveUser: (user, token) => dispatch(saveUserInfo(user, token)),
   hideProfile: () => dispatch(hideProfile())
 });
 

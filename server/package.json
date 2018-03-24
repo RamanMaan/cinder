@@ -4,7 +4,8 @@
   "scripts": {
     "web": "cd ../web && npm start && npm run watch-css",
     "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run web\"",
+    "dev":
+      "concurrently --kill-others-on-fail \"npm run server\" \"npm run web\"",
     "test": "node db/utils/build_db.js && jest -i",
     "precommit": "lint-staged",
     "build:testdata": "node db/utils/generateTestData.js",
@@ -17,12 +18,10 @@
   "author": "COMP4350 Group 7",
   "license": "ISC",
   "lint-staged": {
-    "**/*.{js,jsx,json,scss}": [
-      "prettier --single-quote --write",
-      "git add"
-    ]
+    "**/*.{js,jsx,json,scss}": ["prettier --single-quote --write", "git add"]
   },
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "dotenv": "^5.0.0",
     "express": "^4.16.2",

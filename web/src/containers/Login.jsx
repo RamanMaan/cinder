@@ -23,8 +23,7 @@ export class Login extends Component {
 
     this.state = {
       email: '',
-      password: '',
-      loginBtnText: 'Log In'
+      password: ''
     };
   }
 
@@ -34,15 +33,10 @@ export class Login extends Component {
 
   userLogin(e) {
     e.preventDefault();
-    this.setState({ loginBtnText: this.props.message });
     this.props.loginUser({
       email: this.state.email,
       password: this.state.password
     });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.errored) this.setState({ loginBtnText: 'Log in' });
   }
 
   render() {
@@ -89,7 +83,7 @@ export class Login extends Component {
 
             <FormGroup>
               <Button id="submitBtn" outline block color="dark" type="submit">
-                {this.state.loginBtnText}
+                Log In
               </Button>
 
               <Button

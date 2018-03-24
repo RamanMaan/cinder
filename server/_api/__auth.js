@@ -10,26 +10,42 @@ require('dotenv').load();
 
 const SECRET_KEY = process.env.SECRET_KEY || 'cinder_token';
 
+function createTokenRes(userID) {
+  const token = jwt.sign({ id: userID }, SECRET_KEY, { expiresIn: '1d' });
+  return { status: responses.SUCCESS, token };
+}
+
 router.post('/login', (req, res, next) => {
-  return usersDB.getUserID(req.body.email)
+  return usersDB
+    .authenticateUser(req.body.email, req.body.password)
     .then(obj => {
-      if (obj.length === 0)
+      if (!obj.authenticated) {
         return res.status(responses.UNAUTHORIZED).json({
           status: responses.UNAUTHORIZED,
-          err: `We couldn't find any user registered with ${req.body.email}.` +
-            'You can register with us by signing up first'
+          err: obj.msg
         });
-      else if (obj[0].UserPassword !== req.body.password)
+      } else {
+        return res.status(responses.SUCCESS).json(createTokenRes(obj.userID));
+      }
+    })
+    .catch(next);
+});
+
+router.post('/signup', (req, res, next) => {
+  return usersDB
+    .authenticateUser(req.body.email, req.body.password)
+    .then(obj => {
+      if (obj.authenticated) {
         return res.status(responses.UNAUTHORIZED).json({
           status: responses.UNAUTHORIZED,
-          err: 'Your password is incorrect. Please try again.'
+          err: 'The email is already taken. Please try with another email.'
         });
-      else {
-        const token = jwt.sign({ id: obj[0].UserID }, SECRET_KEY, { expiresIn: '1d' });
-        return res.status(responses.SUCCESS).json({
-          status: responses.SUCCESS,
-          token
-        });
+      } else {
+        return usersDB
+          .createUser(req.body.email, req.body.password)
+          .then(userID =>
+            res.status(responses.SUCCESS).json(createTokenRes(userID))
+          );
       }
     })
     .catch(next);

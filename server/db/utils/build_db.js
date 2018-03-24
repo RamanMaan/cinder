@@ -4,57 +4,73 @@ const mysql = require('promise-mysql');
 const setupFile = require('../setup.sql');
 const refData = require('../referenceData');
 
+//Will create variable to hold the MYSQL Root User name.
 const MYSQLDB = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
-  rootUser: 'root',
-  rootPass: process.env.MYSQL_ROOT_PASS,
+  rootUser: process.env.MYSQL_ROOT_USER,
+  rootPass: process.env.MYSQL_ROOT_PASS
 };
 
 const buildPairs = (val, index) => `(${index + 1}, '${val}')`;
-const prepareQuery = arr => (arr.map(buildPairs).join(', '));
-
+const prepareQuery = arr => arr.map(buildPairs).join(', ');
 // don't need to escape values - we're the only people writing these queries
 const refTableQueries = [
-  `INSERT INTO GenderType (GenderID, GenderType) VALUES ${prepareQuery(refData.GenderType)};`,
-  `INSERT INTO EducationType (EducationID, EducationType) VALUES ${prepareQuery(refData.EducationType)};`,
-  `INSERT INTO ReligionType (ReligionID, ReligionType) VALUES ${prepareQuery(refData.ReligionType)};`,
-  `INSERT INTO InterestsType (InterestID, InterestType) VALUES ${prepareQuery(refData.InterestsType)};`,
+  `INSERT INTO GenderType (GenderID, GenderType) VALUES ${prepareQuery(
+    refData.GenderType
+  )};`,
+  `INSERT INTO EducationType (EducationID, EducationType) VALUES ${prepareQuery(
+    refData.EducationType
+  )};`,
+  `INSERT INTO ReligionType (ReligionID, ReligionType) VALUES ${prepareQuery(
+    refData.ReligionType
+  )};`,
+  `INSERT INTO InterestsType (InterestID, InterestType) VALUES ${prepareQuery(
+    refData.InterestsType
+  )};`
 ];
 
 console.log('╔═══════════════════════╗');
 console.log('║ Initializing Database ║');
 console.log('╚═══════════════════════╝');
 
-mysql.createConnection({
-  host: MYSQLDB.host,
-  user: MYSQLDB.rootUser,
-  password: MYSQLDB.rootPass,
-}).then((conn) => {
-  console.log('---Connected to MYSQL---');
-  const res = conn.query('CREATE DATABASE IF NOT EXISTS ??', [MYSQLDB.database]);
-  conn.end();
-  return res;
-}).then(() => {
-  console.log(`---Created ${MYSQLDB.database} database---`);
-  return mysql.createConnection({
+mysql
+  .createConnection({
     host: MYSQLDB.host,
-    user: 'root',
-    password: MYSQLDB.rootPass,
-    database: MYSQLDB.database,
-    multipleStatements: true,
-  });
-}).then((conn) => {
-  console.log(`---Connected to ${MYSQLDB.database} database---`);
-  const res = conn.query(
-    'GRANT ALL ON ??.* TO ??@?? IDENTIFIED BY ?',
-    [MYSQLDB.database, MYSQLDB.user, MYSQLDB.host, MYSQLDB.password]
-  )
-  conn.end();
-  return res;
-})
+    user: MYSQLDB.rootUser,
+    password: MYSQLDB.rootPass
+  })
+  .then(conn => {
+    console.log('---Connected to MYSQL---');
+    const res = conn.query('CREATE DATABASE IF NOT EXISTS ??', [
+      MYSQLDB.database
+    ]);
+    conn.end();
+    return res;
+  })
+  .then(() => {
+    console.log(`---Created ${MYSQLDB.database} database---`);
+    return mysql.createConnection({
+      host: MYSQLDB.host,
+      user: MYSQLDB.rootUser,
+      password: MYSQLDB.rootPass,
+      database: MYSQLDB.database,
+      multipleStatements: true
+    });
+  })
+  .then(conn => {
+    console.log(`---Connected to ${MYSQLDB.database} database---`);
+    const res = conn.query(
+      'GRANT ALL ON ??.* TO ??@' +
+        mysql.escapeId(MYSQLDB.host, true) +
+        ' IDENTIFIED BY ?',
+      [MYSQLDB.database, MYSQLDB.user, MYSQLDB.password]
+    );
+    conn.end();
+    return res;
+  })
   .then(() => {
     console.log(`---Created ${MYSQLDB.user} user---`);
     return mysql.createConnection({
@@ -62,11 +78,13 @@ mysql.createConnection({
       user: MYSQLDB.user,
       password: MYSQLDB.password,
       database: MYSQLDB.database,
-      multipleStatements: true,
+      multipleStatements: true
     });
   })
-  .then((conn) => {
-    console.log('╔═══════════════════════════╗\n║ Database and User Created ║\n╚═══════════════════════════╝\nBe sure to set your .env file accordingly.');
+  .then(conn => {
+    console.log(
+      '╔═══════════════════════════╗\n║ Database and User Created ║\n╚═══════════════════════════╝\nBe sure to set your .env file accordingly.'
+    );
     console.log('---Building database schemas from setup.sql---');
 
     const res = conn.query(setupFile);
@@ -74,19 +92,25 @@ mysql.createConnection({
 
     return res;
   })
-  .then(() => mysql.createConnection({
-    host: MYSQLDB.host,
-    user: MYSQLDB.user,
-    password: MYSQLDB.password,
-    database: MYSQLDB.database,
-    multipleStatements: true,
-  }))
-  .then((conn) => {
+  .then(() =>
+    mysql.createConnection({
+      host: MYSQLDB.host,
+      user: MYSQLDB.user,
+      password: MYSQLDB.password,
+      database: MYSQLDB.database,
+      multipleStatements: true
+    })
+  )
+  .then(conn => {
     console.log('---Loading reference tables---');
     conn.query(refTableQueries.join('\n'));
     return conn.end();
   })
-  .then(() => console.log('╔═════════════════════╗\n║ Database initalized ║\n╚═════════════════════╝'))
-  .catch((err) => {
+  .then(() =>
+    console.log(
+      '╔═════════════════════╗\n║ Database initalized ║\n╚═════════════════════╝'
+    )
+  )
+  .catch(err => {
     console.error(err.message);
   });
