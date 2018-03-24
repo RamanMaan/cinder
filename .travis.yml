@@ -24,6 +24,7 @@ before_script:
   - cd ..
 script:
   - cd web
+  - xvfb-run -a run test
   - xvfb-run -a test
   - npm test
   - npm run build
