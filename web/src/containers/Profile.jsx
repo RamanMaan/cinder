@@ -8,7 +8,8 @@ import {
   Button,
   Input,
   Col,
-  Row
+  Row,
+  Label
 } from 'reactstrap';
 import { saveUserInfo, hideProfile } from '../actions';
 import FilterElement from '../components/FilterElement';
@@ -22,13 +23,25 @@ export class Profile extends Component {
     super(props);
 
     this.toggle = this.toggle.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
 
     this.state = {
+      name: '',
+      birthday: '',
+      bio: '',
       filters: {
         gender: null,
         age: null
       }
     };
+  }
+
+  componentWillReceiveProps() {
+    this.setState({
+      name: this.props.userInfo.userName,
+      birthday: this.props.userInfo.birthday,
+      bio: this.props.userInfo.userBio
+    });
   }
 
   saveChanges(e) {
@@ -57,26 +70,33 @@ export class Profile extends Component {
   }
 
   onElementChange(field, value) {
-    if (!value || !value.length) {
-      this.setState(prev => ({
-        ...prev,
-        filters: {
-          ...prev.filters,
-          [field]: null
+    this.setState(prev => ({
+      ...prev,
+      filters: {
+        ...prev.filters,
+        [field]: {
+          ...prev.filters[field],
+          values: value
         }
-      }));
-    } else {
-      this.setState(prev => ({
-        ...prev,
-        filters: {
-          ...prev.filters,
-          [field]: {
-            ...prev.filters[field],
-            values: value
-          }
+      }
+    }));
+  }
+
+  onAgeValueChange(field, value) {
+    this.setState(prev => ({
+      ...prev,
+      filters: {
+        ...prev.filters,
+        age: {
+          ...prev.filters.age,
+          [field]: value
         }
-      }));
-    }
+      }
+    }));
+  }
+
+  onInputChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   renderBody() {
@@ -84,22 +104,32 @@ export class Profile extends Component {
       <div>
         <div className="name">
           <h5>Display Name</h5>
-          <Input type="text" defaultValue={this.props.userInfo.userName} />
+          <Input
+            name="name"
+            type="text"
+            value={this.state.name}
+            onChange={this.onInputChange}
+          />
         </div>
         <hr />
         <div className="birthday">
           <h5>Birthday</h5>
           <Input
+            name="birthday"
             type="date"
-            defaultValue={
-              new Date(this.props.userInfo.birthday).toJSON().split('T')[0]
-            }
+            onChange={this.onInputChange}
+            value={this.state.birthday}
           />
         </div>
         <hr />
         <div className="bio">
           <h5>User Bio</h5>
-          <Input type="textarea" defaultValue={this.props.userInfo.userBio} />
+          <Input
+            name="bio"
+            type="textarea"
+            value={this.state.bio}
+            onChange={this.onInputChange}
+          />
         </div>
         <hr />
         <div className="filters">
@@ -125,17 +155,22 @@ export class Profile extends Component {
             >
               <Row>
                 <Col md={6}>
-                  <span>Minimum Age: </span>
+                  <Label>Minimum Age: </Label>
                   <NumericInput
                     min={18}
-                    onChange={this.onElementChange.bind(this, 'maxAge')}
+                    onChange={this.onAgeValueChange.bind(this, 'minAge')}
                   />
                 </Col>
                 <Col md={6}>
-                  <span>Maximum Age: </span>
+                  <Label>Maximum Age: </Label>
                   <NumericInput
+                    min={
+                      this.state.filters.age
+                        ? this.state.filters.age.minAge
+                        : 18
+                    }
                     max={80}
-                    onChange={this.onElementChange.bind(this, 'minAge')}
+                    onChange={this.onAgeValueChange.bind(this, 'maxAge')}
                   />
                 </Col>
               </Row>

@@ -48,8 +48,10 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
               </h5>
               <input
                 className="form-control"
-                defaultValue={null}
+                name="name"
+                onChange={[Function]}
                 type="text"
+                value=""
               />
             </div>
             <hr />
@@ -61,8 +63,10 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
               </h5>
               <input
                 className="form-control"
-                defaultValue="1970-01-01"
+                name="birthday"
+                onChange={[Function]}
                 type="date"
+                value=""
               />
             </div>
             <hr />
@@ -74,7 +78,9 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
               </h5>
               <textarea
                 className="form-control"
-                defaultValue={null}
+                name="bio"
+                onChange={[Function]}
+                value=""
               />
             </div>
             <hr />
@@ -241,9 +247,12 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
                       <div
                         className="col col-md-6"
                       >
-                        <span>
+                        <label
+                          className=" form-control-label"
+                          htmlFor={undefined}
+                        >
                           Minimum Age: 
-                        </span>
+                        </label>
                         <span
                           className="react-numeric-input"
                           onMouseLeave={[Function]}
@@ -367,9 +376,12 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
                       <div
                         className="col col-md-6"
                       >
-                        <span>
+                        <label
+                          className=" form-control-label"
+                          htmlFor={undefined}
+                        >
                           Maximum Age: 
-                        </span>
+                        </label>
                         <span
                           className="react-numeric-input"
                           onMouseLeave={[Function]}
@@ -567,8 +579,10 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
               </h5>
               <input
                 className="form-control"
-                defaultValue="Test User"
+                name="name"
+                onChange={[Function]}
                 type="text"
+                value=""
               />
             </div>
             <hr />
@@ -580,8 +594,10 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
               </h5>
               <input
                 className="form-control"
-                defaultValue="1991-10-18"
+                name="birthday"
+                onChange={[Function]}
                 type="date"
+                value=""
               />
             </div>
             <hr />
@@ -593,7 +609,9 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
               </h5>
               <textarea
                 className="form-control"
-                defaultValue="This is a test bio for a test user"
+                name="bio"
+                onChange={[Function]}
+                value=""
               />
             </div>
             <hr />
@@ -760,9 +778,12 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
                       <div
                         className="col col-md-6"
                       >
-                        <span>
+                        <label
+                          className=" form-control-label"
+                          htmlFor={undefined}
+                        >
                           Minimum Age: 
-                        </span>
+                        </label>
                         <span
                           className="react-numeric-input"
                           onMouseLeave={[Function]}
@@ -886,9 +907,12 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
                       <div
                         className="col col-md-6"
                       >
-                        <span>
+                        <label
+                          className=" form-control-label"
+                          htmlFor={undefined}
+                        >
                           Maximum Age: 
-                        </span>
+                        </label>
                         <span
                           className="react-numeric-input"
                           onMouseLeave={[Function]}
