@@ -6,6 +6,9 @@ services:
 cache:
   directories:
   - node_modules
+sudo: required
+addons:
+  chrome: stable
 before_script:
   - cd web
   - npm install
