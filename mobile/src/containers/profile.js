@@ -91,9 +91,11 @@ export class Profile extends React.Component {
   render() {
     return (
       <Container style={styles.container}>
-        <Image style={styles.image} source={{ uri: this.props.userInfo.primaryPic }} />
-        <H1 style={styles.userName}>{this.props.userInfo.userName}</H1>
+      <View>
+        <Image accessibilityLabel={'profile_image'} style={styles.image} source={{ uri: this.props.userInfo.primaryPic }} />
+        <H1 accessibilityLabel={'profile_name'} style={styles.userName}>{this.props.userInfo.userName}</H1>
         <View style={styles.lineStyle} />
+      </View>
 
         <Container style={styles.filterContainer}>
           <Text>Filtering Options Here</Text>
