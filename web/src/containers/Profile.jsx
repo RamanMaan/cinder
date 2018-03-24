@@ -6,11 +6,14 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  Input
+  Input,
+  Col,
+  Row
 } from 'reactstrap';
 import { saveUserInfo, hideProfile } from '../actions';
 import FilterElement from '../components/FilterElement';
 import Dropdown from '../components/Dropdown';
+import NumericInput from 'react-numeric-input';
 
 import './styles/Profile.css';
 
@@ -22,7 +25,8 @@ export class Profile extends Component {
 
     this.state = {
       filters: {
-        gender: null
+        gender: null,
+        age: null
       }
     };
   }
@@ -52,7 +56,7 @@ export class Profile extends Component {
     }));
   }
 
-  onDropdownChange(field, value) {
+  onElementChange(field, value) {
     if (!value || !value.length) {
       this.setState(prev => ({
         ...prev,
@@ -101,7 +105,7 @@ export class Profile extends Component {
         <div className="filters">
           <h5>User Filters</h5>
           <div className="gender">
-            <h7>Gender Filter</h7>
+            <h6>Gender Filter</h6>
             <FilterElement
               round
               onChange={this.onElementToggle.bind(this, 'gender')}
@@ -109,8 +113,32 @@ export class Profile extends Component {
               <Dropdown
                 token={this.props.token}
                 endpoint="/api/ref/gender"
-                onChange={this.onDropdownChange.bind(this, 'gender')}
+                onChange={this.onElementChange.bind(this, 'gender')}
               />
+            </FilterElement>
+          </div>
+          <div className="age">
+            <h6>Age Filter</h6>
+            <FilterElement
+              round
+              onChange={this.onElementToggle.bind(this, 'age')}
+            >
+              <Row>
+                <Col md={6}>
+                  <span>Minimum Age: </span>
+                  <NumericInput
+                    min={18}
+                    onChange={this.onElementChange.bind(this, 'maxAge')}
+                  />
+                </Col>
+                <Col md={6}>
+                  <span>Maximum Age: </span>
+                  <NumericInput
+                    max={80}
+                    onChange={this.onElementChange.bind(this, 'minAge')}
+                  />
+                </Col>
+              </Row>
             </FilterElement>
           </div>
         </div>
