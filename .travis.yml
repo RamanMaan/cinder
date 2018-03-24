@@ -24,6 +24,7 @@ before_script:
   - cd ..
 script:
   - cd web
+  - xvfb-run make test
   - npm test
   - npm run build
   - cd ../mobile
