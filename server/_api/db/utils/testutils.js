@@ -1,14 +1,38 @@
 const mysql = require('promise-mysql');
 
-const createInsertUsersQuery = (users) => {
-  return `INSERT INTO Users (UserID, UserEmail, UserPassword) VALUES ` + 
-  users.map(x => mysql.format(` (?, 'user${x.userID}@email.com', 'password${x.userID}') `, [x.userID])).join(', ') + `;`;
-}
+const createInsertUsersQuery = users => {
+  return (
+    `INSERT INTO Users (UserID, UserEmail, UserPassword) VALUES ` +
+    users
+      .map(x =>
+        mysql.format(
+          ` (?, 'user${x.userID}@email.com', 'password${x.userID}') `,
+          [x.userID]
+        )
+      )
+      .join(', ') +
+    `;`
+  );
+};
 
-const createInsertUsersInfoQuery = (users) => {
-  return `INSERT INTO UsersInfo (UserID, UserName, Birthday, GenderID, ReligionID, Bio) VALUES ` + 
-  users.map(x => mysql.format(` (?, ?, ?, ?, ?, ?) `, [x.userID, x.userName, x.birthday, x.genderID, x.religionID, x.userBio])).join(`, `) + `;`;
-}
+const createInsertUsersInfoQuery = users => {
+  return (
+    `INSERT INTO UsersInfo (UserID, UserName, Birthday, GenderID, ReligionID, Bio) VALUES ` +
+    users
+      .map(x =>
+        mysql.format(` (?, ?, ?, ?, ?, ?) `, [
+          x.userID,
+          x.userName,
+          x.birthday,
+          x.genderID,
+          x.religionID,
+          x.userBio
+        ])
+      )
+      .join(`, `) +
+    `;`
+  );
+};
 
 const createInsertPhotosQuery = users => {
   return (
@@ -20,32 +44,54 @@ const createInsertPhotosQuery = users => {
   );
 };
 
-const createInsertUserEducationQuery = (users) => {
+const createInsertUserEducationQuery = users => {
   const rows = [];
   users.forEach(x => {
     x.education.forEach(e => {
       rows.push({ userID: x.userID, ...e });
     });
   });
-  return `INSERT INTO UserEducation (UserID, EducationID) VALUES ` + 
-  rows.map(x => mysql.format(` (?, ?) `, [x.userID, x.educationID])).join(`, `) + `;`;
+  return (
+    `INSERT INTO UserEducation (UserID, EducationID) VALUES ` +
+    rows
+      .map(x => mysql.format(` (?, ?) `, [x.userID, x.educationID]))
+      .join(`, `) +
+    `;`
+  );
 };
 
-const createInsertUserInterestsQuery = (users) => {
+const createInsertUserInterestsQuery = users => {
   const rows = [];
   users.forEach(x => {
     x.interests.forEach(i => {
       rows.push({ userID: x.userID, ...i });
     });
   });
-  return `INSERT INTO UserInterests (UserID, InterestID) VALUES ` + 
-  rows.map(x => mysql.format(` (?, ?) `, [x.userID, x.interestID])).join(`, `) + `;`;
+  return (
+    `INSERT INTO UserInterests (UserID, InterestID) VALUES ` +
+    rows
+      .map(x => mysql.format(` (?, ?) `, [x.userID, x.interestID]))
+      .join(`, `) +
+    `;`
+  );
 };
 
-const createInsertLikesQuery = (likes) => {
-  return `INSERT INTO Likes (User1ID, User2ID, UserAction, ActionDate) VALUES ` + 
-  likes.map(x => mysql.format(` (?, ?, ?, ?) `, [x.user1ID, x.user2ID, x.userAction, x.actionDate])).join(`, `) + `;`;
-}
+const createInsertLikesQuery = likes => {
+  return (
+    `INSERT INTO Likes (User1ID, User2ID, UserAction, ActionDate) VALUES ` +
+    likes
+      .map(x =>
+        mysql.format(` (?, ?, ?, ?) `, [
+          x.user1ID,
+          x.user2ID,
+          x.userAction,
+          x.actionDate
+        ])
+      )
+      .join(`, `) +
+    `;`
+  );
+};
 
 const createInsertFilterStateQuery = filterStates => {
   return (
@@ -86,7 +132,6 @@ const createInsertGenderFilterQuery = genderFilters => {
     `;`
   );
 };
-
 
 const deleteUsersQuery = `TRUNCATE TABLE Users;`;
 const deleteUsersInfoQuery = `TRUNCATE TABLE UsersInfo;`;

@@ -1,5 +1,13 @@
 {
   "expo": {
-    "sdkVersion": "25.0.0"
+    "sdkVersion": "25.0.0",
+    "name": "cinder",
+    "description": "Dating for the 21st Century",
+    "ios": {
+    	"bundleIdentifier": "com.group7.cinder"
+    },
+    "android": {
+    	"package": "com.group7.cinder"
+    }
   }
 }
