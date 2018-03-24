@@ -5,12 +5,7 @@
   "helpers": {
     "WebDriverIO": {
       "url": "http://localhost:3000",
-      "browser": "chrome",
-      "desiredCapabilities": {
-        "chromeOptions": {
-          "args": ["--headless", "--window-size=800,600", "--no-sandbox"]
-        }
-      }
+      "browser": "chrome"
     }
   },
   "include": {
