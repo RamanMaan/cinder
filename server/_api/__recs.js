@@ -32,6 +32,7 @@ router.get('/', (req, res, next) => {
   const { userID } = req.params;
   util.validateID(userID);
 
+
   return recsDB.getRecs(userID)
     .then(result => genderFilterFunc(userID, result))
     .then(result => ageFilterFunc(userID, result))
