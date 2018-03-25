@@ -16,7 +16,8 @@ function createTokenRes(resNum, userID) {
 }
 
 router.post('/login', (req, res, next) => {
-  return usersDB.authenticateUser(req.body.email, req.body.password)
+  return usersDB
+    .authenticateUser(req.body.email, req.body.password)
     .then(obj => {
       if (!obj.authenticated) {
         return res.status(responses.UNAUTHORIZED).json({

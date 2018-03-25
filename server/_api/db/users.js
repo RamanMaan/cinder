@@ -13,11 +13,12 @@ const MYSQLDB = {
   database: process.env.DB_NAME
 };
 
-const createUserObject = (rows) => {
+const createUserObject = rows => {
   var user = null;
-  var educationIndex = {}, interestIndex = {};
+  var educationIndex = {},
+    interestIndex = {};
 
-  rows.forEach((row) => {
+  rows.forEach(row => {
     if (!user) {
       user = {
         userID: row.userID,
@@ -73,21 +74,26 @@ module.exports = {
   },
 
   authenticateUser(email, password) {
-    const query = mysql.format(`
+    const query = mysql.format(
+      `
     SELECT 
       UserID as userID,
       UserEmail AS userEmail,
       UserPassword AS userPassword
     FROM Users
     WHERE UserEmail = ?;
-    `, [email]);
+    `,
+      [email]
+    );
 
-    return mysql.createConnection(MYSQLDB)
+    return mysql
+      .createConnection(MYSQLDB)
       .then(conn => {
         const result = conn.query(query);
         conn.end();
         return result;
-      }).then(rows => {
+      })
+      .then(rows => {
         if (!rows.length) {
           return {
             authenticated: false,
@@ -95,14 +101,15 @@ module.exports = {
           };
         }
         const data = rows[0];
-        return bcrypt.compare(password, data.userPassword)
-          .then(res => {
-            return {
-              userID: data.userID,
-              authenticated: res,
-              msg: res ? 'Login Successful.' : 'Your password is incorrect. Please try again.'
-            };
-          });
+        return bcrypt.compare(password, data.userPassword).then(res => {
+          return {
+            userID: data.userID,
+            authenticated: res,
+            msg: res
+              ? 'Login Successful.'
+              : 'Your password is incorrect. Please try again.'
+          };
+        });
       });
   },
 
@@ -110,26 +117,28 @@ module.exports = {
     const query = 'INSERT INTO Users (UserEmail, UserPassword) VALUES (?, ?);';
     const saltRounds = 12;
 
-    return mysql.createConnection(MYSQLDB)
-      .then(conn => {
-        return bcrypt.hash(userPassword, saltRounds)
-          .then(hash => {
-            return conn.query(query, [userEmail, hash])
-              .then(res => {
-                conn.end();
-                return res.insertId;
-              })
-              .catch((err) => {
-                conn.end();
-                throw err;
-              });
+    return mysql.createConnection(MYSQLDB).then(conn => {
+      return bcrypt.hash(userPassword, saltRounds).then(hash => {
+        return conn
+          .query(query, [userEmail, hash])
+          .then(res => {
+            conn.end();
+            return res.insertId;
+          })
+          .catch(err => {
+            conn.end();
+            throw err;
           });
       });
+    });
   },
 
   getUser(id) {
-    return mysql.createConnection(MYSQLDB).then(conn => {
-      const result = conn.query(`
+    return mysql
+      .createConnection(MYSQLDB)
+      .then(conn => {
+        const result = conn.query(
+          `
       SELECT
         UI.UserID AS userID,
         UI.UserName AS userName,
@@ -166,52 +175,92 @@ module.exports = {
       ORDER BY
         educationID,
         interestID;
-      `, [id]);
-      conn.end();
-      return result;
-    }).then(rows => createUserObject(rows));
+      `,
+          [id]
+        );
+        conn.end();
+        return result;
+      })
+      .then(rows => createUserObject(rows));
   },
 
   saveUser(user) {
-    const insertUsersInfoQuery = mysql.format(`
+    const insertUsersInfoQuery = mysql.format(
+      `
     INSERT INTO UsersInfo (UserID, UserName, Birthday, Bio, GenderID, ReligionID) VALUES (?, ?, ?, ?, ?, ?) 
     ON DUPLICATE KEY UPDATE UserName = ?, Birthday = ?, Bio = ?, GenderID = ?, ReligionID = ?;`,
-      [user.userID, user.userName, user.birthday, user.userBio, user.genderID, user.religionID,
-      user.userName, user.birthday, user.userBio, user.genderID, user.religionID]);
+      [
+        user.userID,
+        user.userName,
+        user.birthday,
+        user.userBio,
+        user.genderID,
+        user.religionID,
+        user.userName,
+        user.birthday,
+        user.userBio,
+        user.genderID,
+        user.religionID
+      ]
+    );
 
-    const deleteUserEducationQuery = mysql.format(`
-    DELETE FROM UserEducation WHERE UserID = ?;`, [user.userID]);
+    const deleteUserEducationQuery = mysql.format(
+      `
+    DELETE FROM UserEducation WHERE UserID = ?;`,
+      [user.userID]
+    );
 
     var insertUserEducationQuery = null;
     if (user.education && user.education.length) {
-      insertUserEducationQuery = 'INSERT INTO UserEducation (UserID, EducationID) VALUES ' +
-        user.education.map(x => mysql.format(' (?, ?) ', [user.userID, x.educationID])).join(', ') + ';';
+      insertUserEducationQuery =
+        'INSERT INTO UserEducation (UserID, EducationID) VALUES ' +
+        user.education
+          .map(x => mysql.format(' (?, ?) ', [user.userID, x.educationID]))
+          .join(', ') +
+        ';';
     }
 
-    const deleteUserInterestsQuery = mysql.format(`
-    DELETE FROM UserInterests WHERE UserID = ?;`, [user.userID]);
+    const deleteUserInterestsQuery = mysql.format(
+      `
+    DELETE FROM UserInterests WHERE UserID = ?;`,
+      [user.userID]
+    );
 
     var insertUserInterestsQuery = null;
     if (user.interests && user.interests.length) {
-      insertUserInterestsQuery = 'INSERT INTO UserInterests (UserID, InterestID) VALUES ' +
-        user.interests.map(x => mysql.format(' (?, ?) ', [user.userID, x.interestID])).join(', ') + ';';
+      insertUserInterestsQuery =
+        'INSERT INTO UserInterests (UserID, InterestID) VALUES ' +
+        user.interests
+          .map(x => mysql.format(' (?, ?) ', [user.userID, x.interestID]))
+          .join(', ') +
+        ';';
     }
 
-    return mysql.createConnection(MYSQLDB)
-      .then((conn) => {
-        return conn.beginTransaction()
-          .then(() => conn.query(insertUsersInfoQuery))
-          .then(() => conn.query(deleteUserEducationQuery))
-          .then(() => insertUserEducationQuery ? conn.query(insertUserEducationQuery) : null)
-          .then(() => conn.query(deleteUserInterestsQuery))
-          .then(() => insertUserInterestsQuery ? conn.query(insertUserInterestsQuery) : null)
-          .then(() => conn.commit())
-          .then(() => conn.end())
-          .catch((err) => {
-            conn.rollback();
-            conn.end();
-            throw err;
-          });
-      });
-  },
+    return mysql.createConnection(MYSQLDB).then(conn => {
+      return conn
+        .beginTransaction()
+        .then(() => conn.query(insertUsersInfoQuery))
+        .then(() => conn.query(deleteUserEducationQuery))
+        .then(
+          () =>
+            insertUserEducationQuery
+              ? conn.query(insertUserEducationQuery)
+              : null
+        )
+        .then(() => conn.query(deleteUserInterestsQuery))
+        .then(
+          () =>
+            insertUserInterestsQuery
+              ? conn.query(insertUserInterestsQuery)
+              : null
+        )
+        .then(() => conn.commit())
+        .then(() => conn.end())
+        .catch(err => {
+          conn.rollback();
+          conn.end();
+          throw err;
+        });
+    });
+  }
 };

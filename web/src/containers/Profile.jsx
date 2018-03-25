@@ -6,11 +6,15 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  Input
+  Input,
+  Col,
+  Row,
+  Label
 } from 'reactstrap';
-import { fetchFilters, hideProfile } from '../actions';
+import { saveUserInfo, hideProfile } from '../actions';
 import FilterElement from '../components/FilterElement';
 import Dropdown from '../components/Dropdown';
+import NumericInput from 'react-numeric-input';
 
 import './styles/Profile.css';
 
@@ -19,19 +23,32 @@ export class Profile extends Component {
     super(props);
 
     this.toggle = this.toggle.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
 
     this.state = {
+      name: '',
+      birthday: '',
+      bio: '',
       filters: {
-        gender: null
+        gender: null,
+        age: null
       }
     };
   }
 
-  // Call this function to fetch filters
-  // id and token are in this.props.userID and this.props.token
-  // filters will be in this.props.filters
-  fetchFilters(userID, token) {
-    this.props.fetchFilters(userID, token);
+  componentWillReceiveProps() {
+    this.setState({
+      name: this.props.userInfo.userName,
+      birthday: this.props.userInfo.birthday,
+      bio: this.props.userInfo.userBio
+    });
+  }
+
+  saveChanges(e) {
+    e.stopPropagation();
+    var user = { ...this.props.userInfo }; // <-- remove this later once the profile state is configured
+    this.props.saveUser(user, this.props.token);
+    this.props.hideProfile();
   }
 
   toggle(e) {
@@ -52,27 +69,34 @@ export class Profile extends Component {
     }));
   }
 
-  onDropdownChange(field, value) {
-    if (!value || !value.length) {
-      this.setState(prev => ({
-        ...prev,
-        filters: {
-          ...prev.filters,
-          [field]: null
+  onElementChange(field, value) {
+    this.setState(prev => ({
+      ...prev,
+      filters: {
+        ...prev.filters,
+        [field]: {
+          ...prev.filters[field],
+          values: value
         }
-      }));
-    } else {
-      this.setState(prev => ({
-        ...prev,
-        filters: {
-          ...prev.filters,
-          [field]: {
-            ...prev.filters[field],
-            values: value
-          }
+      }
+    }));
+  }
+
+  onAgeValueChange(field, value) {
+    this.setState(prev => ({
+      ...prev,
+      filters: {
+        ...prev.filters,
+        age: {
+          ...prev.filters.age,
+          [field]: value
         }
-      }));
-    }
+      }
+    }));
+  }
+
+  onInputChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   renderBody() {
@@ -80,28 +104,38 @@ export class Profile extends Component {
       <div>
         <div className="name">
           <h5>Display Name</h5>
-          <Input type="text" defaultValue={this.props.userInfo.userName} />
+          <Input
+            name="name"
+            type="text"
+            value={this.state.name}
+            onChange={this.onInputChange}
+          />
         </div>
         <hr />
         <div className="birthday">
           <h5>Birthday</h5>
           <Input
+            name="birthday"
             type="date"
-            defaultValue={
-              new Date(this.props.userInfo.birthday).toJSON().split('T')[0]
-            }
+            onChange={this.onInputChange}
+            value={this.state.birthday}
           />
         </div>
         <hr />
         <div className="bio">
           <h5>User Bio</h5>
-          <Input type="textarea" defaultValue={this.props.userInfo.userBio} />
+          <Input
+            name="bio"
+            type="textarea"
+            value={this.state.bio}
+            onChange={this.onInputChange}
+          />
         </div>
         <hr />
         <div className="filters">
           <h5>User Filters</h5>
           <div className="gender">
-            <h7>Gender Filter</h7>
+            <h6>Gender Filter</h6>
             <FilterElement
               round
               onChange={this.onElementToggle.bind(this, 'gender')}
@@ -109,8 +143,37 @@ export class Profile extends Component {
               <Dropdown
                 token={this.props.token}
                 endpoint="/api/ref/gender"
-                onChange={this.onDropdownChange.bind(this, 'gender')}
+                onChange={this.onElementChange.bind(this, 'gender')}
               />
+            </FilterElement>
+          </div>
+          <div className="age">
+            <h6>Age Filter</h6>
+            <FilterElement
+              round
+              onChange={this.onElementToggle.bind(this, 'age')}
+            >
+              <Row>
+                <Col md={6}>
+                  <Label>Minimum Age: </Label>
+                  <NumericInput
+                    min={18}
+                    onChange={this.onAgeValueChange.bind(this, 'minAge')}
+                  />
+                </Col>
+                <Col md={6}>
+                  <Label>Maximum Age: </Label>
+                  <NumericInput
+                    min={
+                      this.state.filters.age
+                        ? this.state.filters.age.minAge
+                        : 18
+                    }
+                    max={80}
+                    onChange={this.onAgeValueChange.bind(this, 'maxAge')}
+                  />
+                </Col>
+              </Row>
             </FilterElement>
           </div>
         </div>
@@ -129,7 +192,9 @@ export class Profile extends Component {
               <Button color="secondary" outline onClick={e => this.toggle(e)}>
                 Discard Changes
               </Button>
-              <Button color="primary">Save Changes</Button>
+              <Button color="primary" onClick={e => this.saveChanges(e)}>
+                Save Changes
+              </Button>
             </ModalFooter>
           </div>
         </Container>
@@ -143,12 +208,11 @@ export class Profile extends Component {
 const mapStateToProps = state => ({
   isVisible: state.profileDisplay.isVisible,
   userID: state.auth.userID,
-  token: state.auth.token,
-  filters: state.filters.filters
+  token: state.auth.token
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchFilters: (userID, token) => dispatch(fetchFilters(userID, token)),
+  saveUser: (user, token) => dispatch(saveUserInfo(user, token)),
   hideProfile: () => dispatch(hideProfile())
 });
 

@@ -27,14 +27,14 @@ export class Home extends React.Component {
   static navigationOptions({ navigation }) {
     const leftItem = (
       <View style={styles.itemLeft}>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity accessibilityLabel={'profile_button'} onPress={() => navigation.navigate('Profile')}>
           <Icon name="ios-contact" />
         </TouchableOpacity>
       </View>
     );
     const rightItem = (
       <View style={styles.itemRight}>
-        <TouchableOpacity onPress={() => navigation.navigate('Matches')}>
+        <TouchableOpacity accessibilityLabel={'matches_button'} onPress={() => navigation.navigate('Matches')}>
           <Icon name="ios-send" />
         </TouchableOpacity>
       </View>

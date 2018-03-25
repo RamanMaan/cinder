@@ -65,6 +65,16 @@ From mobile root:
     npm install
     npm test
 
+How To Run System Tests
+---
+You need to spin up your own Android Emulator, running Android version 8.0.
+
+This android emulator must be visible when the command `adb devices` is run.
+
+From mobile root:
+    
+    sh run_systems_tests.sh
+
 
 Structure
 ---
