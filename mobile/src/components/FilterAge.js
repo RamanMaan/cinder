@@ -1,20 +1,24 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { View } from 'native-base';
 import { TextInput, StyleSheet } from 'react-native';
 
 import Modal from 'react-native-modal';
 
-import { refFetchData } from '../actions';
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  input: {
+    height: 40,
+    margin: 15,
+    padding: 5,
+  },
+});
 
-export class FilterModal extends React.Component {
+export default class FilterAge extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      minAge: '',
-      maxAge: '',
-    };
 
     this.updateMinAge = this.updateMinAge.bind(this);
     this.updateMaxAge = this.updateMaxAge.bind(this);
@@ -29,7 +33,7 @@ export class FilterModal extends React.Component {
         newValue += value[i];
       }
     }
-    this.setState({ minAge: newValue });
+    this.props.onChange('minAge', newValue);
   }
 
   updateMaxAge(value) {
@@ -41,7 +45,7 @@ export class FilterModal extends React.Component {
         newValue += value[i];
       }
     }
-    this.setState({ maxAge: newValue });
+    this.props.onChange('maxAge', newValue);
   }
 
   render() {
@@ -57,7 +61,7 @@ export class FilterModal extends React.Component {
             onChangeText={this.updateMinAge}
             keyboardType="numeric"
             placeholder="Enter minimum age filter"
-            value={this.state.minAge}
+            value={`${this.props.values.minAge}`}
           />
 
           <TextInput
@@ -65,27 +69,10 @@ export class FilterModal extends React.Component {
             onChangeText={this.updateMaxAge}
             keyboardType="numeric"
             placeholder="Enter maximum age filter"
-            value={this.state.maxAge}
+            value={`${this.props.values.maxAge}`}
           />
         </View>
       </Modal>
     );
   }
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  input: {
-    height: 40,
-    margin: 15,
-    padding: 5,
-  },
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchData: type => dispatch(refFetchData(type)),
-});
-
-export default connect(mapDispatchToProps)(FilterModal);

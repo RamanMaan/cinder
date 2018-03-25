@@ -49,18 +49,19 @@ export class Profile extends React.Component {
 
     this.toggleModal = this.toggleModal.bind(this);
     this.onSelectChange = this.onSelectChange.bind(this);
+    this.onAgeChange = this.onAgeChange.bind(this);
 
     this.state = {
       gender: {
         modal: false,
         switch: false,
-        values: [],
+        preference: [],
       },
       age: {
         modal: false,
         switch: false,
-        minAge: 0,
-        maxAge: 0,
+        minAge: 18,
+        maxAge: 150,
       },
     };
   }
@@ -82,7 +83,16 @@ export class Profile extends React.Component {
     return selections => this.setState(prev => ({
       [type]: {
         ...prev[type],
-        values: selections,
+        preference: selections,
+      },
+    }));
+  }
+
+  onAgeChange() {
+    return (field, value) => this.setState(prev => ({
+      age: {
+        ...prev.age,
+        [field]: value,
       },
     }));
   }
@@ -133,6 +143,8 @@ export class Profile extends React.Component {
               type="age"
               isVisible={this.state.age.modal}
               onBackdropPress={() => this.toggleModal('age')}
+              values={this.state.age}
+              onChange={this.onAgeChange()}
             />
           </FilterElement>
         </Container>
