@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+  Alert,
   Container,
   Form,
   FormGroup,
@@ -9,12 +10,14 @@ import {
   Row,
   Col
 } from 'reactstrap';
+import { signupUser } from '../actions';
+import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 
 import './styles/Signup.css';
 import logo from '../assets/logo.svg';
 
-class Signup extends Component {
+export class Signup extends Component {
   constructor(props) {
     super(props);
 
@@ -23,6 +26,8 @@ class Signup extends Component {
     this.userSignup = this.userSignup.bind(this);
 
     this.state = {
+      errored: false,
+      message: '',
       genderList: [],
       email: '',
       emailConfirm: '',
@@ -30,9 +35,7 @@ class Signup extends Component {
       passwordConfirm: '',
       userName: '',
       birthday: '',
-      gender: '',
-      signedUp: false,
-      signupBtnText: 'Sign Up'
+      gender: ''
     };
   }
 
@@ -40,19 +43,26 @@ class Signup extends Component {
     this.fetchGenderList();
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      errored: nextProps.errored,
+      message: nextProps.message
+    });
+  }
+
   fetchGenderList() {
     this.setState({
       genderList: [
         {
-          id: 0,
+          id: 1,
           type: 'Male'
         },
         {
-          id: 1,
+          id: 2,
           type: 'Female'
         },
         {
-          id: 2,
+          id: 3,
           type: 'Other'
         }
       ]
@@ -65,14 +75,29 @@ class Signup extends Component {
 
   userSignup(e) {
     e.preventDefault();
-    this.setState({ signupBtnText: 'Signing up...' });
-    //TODO - adding signup connection with server
-    this.setState({ loginBtnText: 'Sign Up', signedUp: true });
+    if (
+      this.state.email === this.state.emailConfirm &&
+      this.state.password === this.state.passwordConfirm
+    ) {
+      this.props.signupUser({
+        email: this.state.email,
+        password: this.state.password,
+        userName: this.state.userName,
+        birthday: this.state.birthday,
+        genderID: this.state.gender
+      });
+    } else {
+      this.setState({
+        errored: true,
+        message: 'Your email or password are not matching'
+      });
+    }
   }
 
   render() {
-    if (this.state.signedUp) {
-      return <Redirect to="/login" />;
+    if (this.props.isAuthenticated) {
+      const { from } = this.props.location.state || { from: { pathname: '/' } };
+      return <Redirect exact to={from} />;
     }
 
     return (
@@ -83,7 +108,9 @@ class Signup extends Component {
             <img src={logo} className="App-logo" alt="logo" />
           </div>
           <hr />
-
+          {this.state.errored && (
+            <Alert color="danger">{this.state.message}</Alert>
+          )}
           <Form className="signup-form" onSubmit={e => this.userSignup(e)}>
             <Row>
               <Col sm={6}>
@@ -161,7 +188,6 @@ class Signup extends Component {
                   </Input>
                 </FormGroup>
               </Col>
-
               <Col sm={6}>
                 <FormGroup>
                   <Label for="birthday">Birthday</Label>
@@ -201,7 +227,7 @@ class Signup extends Component {
                   size="md"
                   className="float-right"
                 >
-                  {this.state.signupBtnText}
+                  Sign Up
                 </Button>
               </Col>
 
@@ -214,7 +240,7 @@ class Signup extends Component {
                   outline
                   size="md"
                 >
-                  Log In
+                  Go back to Log In
                 </Button>
               </Col>
             </Row>
@@ -224,5 +250,14 @@ class Signup extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  message: state.auth.message,
+  isAuthenticated: state.auth.isAuthenticated,
+  errored: state.auth.errored
+});
 
-export default Signup;
+const mapDispatchToProps = dispatch => ({
+  signupUser: creds => dispatch(signupUser(creds))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

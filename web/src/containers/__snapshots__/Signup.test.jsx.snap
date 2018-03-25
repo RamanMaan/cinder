@@ -148,17 +148,17 @@ exports[`<Signup /> renders correctly 1`] = `
                 value=""
               />
               <option
-                value={0}
+                value={1}
               >
                 Male
               </option>
               <option
-                value={1}
+                value={2}
               >
                 Female
               </option>
               <option
-                value={2}
+                value={3}
               >
                 Other
               </option>
@@ -240,7 +240,7 @@ exports[`<Signup /> renders correctly 1`] = `
             onClick={[Function]}
             type={undefined}
           >
-            Log In
+            Go back to Log In
           </a>
         </div>
       </div>
