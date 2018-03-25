@@ -53,14 +53,14 @@ export class Profile extends Component {
     this.props.hideProfile();
   }
 
-  onElementToggle(field, value) {
+  onElementToggle(field) {
     this.setState(prev => ({
       ...prev,
       filters: {
         ...prev.filters,
         [field]: {
           ...prev.filters[field],
-          state: value
+          state: prev.filters[field] ? !prev.filters[field].state : true
         }
       }
     }));
@@ -135,11 +135,21 @@ export class Profile extends Component {
             <h6>Gender Filter</h6>
             <FilterElement
               round
+              checked={
+                this.state.filters.gender
+                  ? this.state.filters.gender.state
+                  : false
+              }
               onChange={this.onElementToggle.bind(this, 'gender')}
             >
               <Dropdown
                 token={this.props.token}
                 endpoint="/api/ref/gender"
+                value={
+                  this.state.filters.gender
+                    ? this.state.filters.gender.preference
+                    : null
+                }
                 onChange={this.onElementChange.bind(this, 'gender')}
               />
             </FilterElement>
@@ -148,6 +158,7 @@ export class Profile extends Component {
             <h6>Age Filter</h6>
             <FilterElement
               round
+              checked={this.state.filters.age.state}
               onChange={this.onElementToggle.bind(this, 'age')}
             >
               <Row>
@@ -161,11 +172,7 @@ export class Profile extends Component {
                 <Col md={6}>
                   <Label>Maximum Age: </Label>
                   <NumericInput
-                    min={
-                      this.state.filters.age
-                        ? this.state.filters.age.minAge
-                        : 18
-                    }
+                    min={this.state.filters.age.minAge}
                     max={80}
                     onChange={this.onAgeValueChange.bind(this, 'maxAge')}
                   />
