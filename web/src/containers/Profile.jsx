@@ -26,9 +26,9 @@ export class Profile extends Component {
     this.onInputChange = this.onInputChange.bind(this);
 
     this.state = {
-      name: '',
+      userName: '',
       birthday: '',
-      bio: '',
+      userBio: '',
       filters: {
         gender: null,
         age: null
@@ -38,16 +38,13 @@ export class Profile extends Component {
 
   componentWillReceiveProps() {
     this.setState({
-      name: this.props.userInfo.userName,
-      birthday: this.props.userInfo.birthday,
-      bio: this.props.userInfo.userBio
+      ...this.props.userInfo
     });
   }
 
   saveChanges(e) {
     e.stopPropagation();
-    var user = { ...this.props.userInfo }; // <-- remove this later once the profile state is configured
-    this.props.saveUser(user, this.props.token);
+    this.props.saveUser(this.state, this.props.token);
     this.props.hideProfile();
   }
 
@@ -63,7 +60,7 @@ export class Profile extends Component {
         ...prev.filters,
         [field]: {
           ...prev.filters[field],
-          active: value
+          state: value
         }
       }
     }));
@@ -76,7 +73,7 @@ export class Profile extends Component {
         ...prev.filters,
         [field]: {
           ...prev.filters[field],
-          values: value
+          preference: value
         }
       }
     }));
@@ -105,9 +102,9 @@ export class Profile extends Component {
         <div className="name">
           <h5>Display Name</h5>
           <Input
-            name="name"
+            name="userName"
             type="text"
-            value={this.state.name}
+            value={this.state.userName}
             onChange={this.onInputChange}
           />
         </div>
@@ -125,9 +122,9 @@ export class Profile extends Component {
         <div className="bio">
           <h5>User Bio</h5>
           <Input
-            name="bio"
+            name="userBio"
             type="textarea"
-            value={this.state.bio}
+            value={this.state.userBio}
             onChange={this.onInputChange}
           />
         </div>
