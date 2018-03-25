@@ -65,6 +65,14 @@ module.exports = {
     });
   },
 
+  getUserID(email) {
+    return mysql.createConnection(MYSQLDB).then(conn => {
+      const row = conn.query('SELECT * FROM Users WHERE UserEmail = ?', [email]);
+      conn.end();
+      return row;
+    });
+  },
+
   authenticateUser(email, password) {
     const query = mysql.format(
       `
