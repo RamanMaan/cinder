@@ -148,7 +148,7 @@ export class Profile extends Component {
                 value={
                   this.state.filters.gender
                     ? this.state.filters.gender.preference
-                    : null
+                    : []
                 }
                 onChange={this.onElementChange.bind(this, 'gender')}
               />
@@ -166,6 +166,11 @@ export class Profile extends Component {
                   <Label>Minimum Age: </Label>
                   <NumericInput
                     min={18}
+                    value={
+                      this.state.filters.age
+                        ? this.state.filters.age.minAge
+                        : null
+                    }
                     onChange={this.onAgeValueChange.bind(this, 'minAge')}
                   />
                 </Col>
@@ -174,6 +179,11 @@ export class Profile extends Component {
                   <NumericInput
                     min={this.state.filters.age.minAge}
                     max={80}
+                    value={
+                      this.state.filters.age
+                        ? this.state.filters.age.maxAge
+                        : null
+                    }
                     onChange={this.onAgeValueChange.bind(this, 'maxAge')}
                   />
                 </Col>

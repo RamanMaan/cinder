@@ -42,6 +42,14 @@ export function fetchUserInfo(userID, token) {
     })
       .then(res => (res.ok ? res.json() : new Error(res.statusText)))
       .then(data => {
+        if (data.filters.gender) {
+          data.filters.gender.preference = data.filters.gender.preference.map(
+            x => ({ label: x.genderName, value: x.genderID })
+          );
+        }
+        return data;
+      })
+      .then(data => {
         dispatch(userInfoFetchSuccess(data));
       })
       .catch(err => dispatch(userInfoErrored(err.message)));
