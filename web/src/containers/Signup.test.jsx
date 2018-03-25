@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 import { MemoryRouter } from 'react-router-dom';
-import Signup from './Signup';
+import { Signup } from './Signup';
 
 describe('<Signup />', () => {
   let wrapper;

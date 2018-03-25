@@ -17,7 +17,7 @@ import { Redirect, Link } from 'react-router-dom';
 import './styles/Signup.css';
 import logo from '../assets/logo.svg';
 
-class Signup extends Component {
+export class Signup extends Component {
   constructor(props) {
     super(props);
 
