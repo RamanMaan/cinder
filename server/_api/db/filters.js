@@ -124,7 +124,7 @@ const saveGenderFilter = (id, genderFilter) => {
   );
 
   const deleteFilterQuery = mysql.format(
-    `DELETE FROM GenderFilter WHERE UserID = ?;`,
+    'DELETE FROM GenderFilter WHERE UserID = ?;',
     [id]
   );
 

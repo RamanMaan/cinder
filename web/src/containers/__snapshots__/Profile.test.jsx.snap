@@ -48,7 +48,7 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
               </h5>
               <input
                 className="form-control"
-                name="name"
+                name="userName"
                 onChange={[Function]}
                 type="text"
                 value=""
@@ -78,7 +78,7 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
               </h5>
               <textarea
                 className="form-control"
-                name="bio"
+                name="userBio"
                 onChange={[Function]}
                 value=""
               />
@@ -579,7 +579,7 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
               </h5>
               <input
                 className="form-control"
-                name="name"
+                name="userName"
                 onChange={[Function]}
                 type="text"
                 value=""
@@ -609,7 +609,7 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
               </h5>
               <textarea
                 className="form-control"
-                name="bio"
+                name="userBio"
                 onChange={[Function]}
                 value=""
               />

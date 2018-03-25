@@ -79,16 +79,16 @@ describe('<Profile />', () => {
 
         expect(wrapper.find('.filter.element.disabled')).toHaveLength(0);
         expect(!!wrapper.state().filters).toEqual(true);
-        expect(wrapper.state().filters.gender).toEqual({ active: true });
-        expect(wrapper.state().filters.age).toEqual({ active: true });
+        expect(wrapper.state().filters.gender).toEqual({ state: true });
+        expect(wrapper.state().filters.age).toEqual({ state: true });
 
         genderFilter.find('.toggle input').simulate('change');
         ageFilter.find('.toggle input').simulate('change');
 
         expect(wrapper.find('.filter.element.disabled')).toHaveLength(2);
         expect(!!wrapper.state().filters).toEqual(true);
-        expect(wrapper.state().filters.gender).toEqual({ active: false });
-        expect(wrapper.state().filters.age).toEqual({ active: false });
+        expect(wrapper.state().filters.gender).toEqual({ state: false });
+        expect(wrapper.state().filters.age).toEqual({ state: false });
       });
     });
   });
