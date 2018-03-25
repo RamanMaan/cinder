@@ -15,59 +15,66 @@ exports[`<Profile> fetchs data on load 1`] = `
   }
   virtual={undefined}
 >
-  <Image
-    source={
-      Object {
-        "uri": "",
-      }
-    }
-    style={
-      Object {
-        "alignSelf": "center",
-        "borderRadius": 50,
-        "height": 100,
-        "marginTop": 20,
-        "width": 100,
-      }
-    }
-  />
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-    style={
-      Array [
-        Object {
-          "color": "#000",
-          "fontSize": 27,
-          "lineHeight": 32,
-        },
-        Object {
-          "alignSelf": "center",
-          "marginTop": 10,
-        },
-      ]
-    }
+  <View
+    style={Object {}}
     virtual={undefined}
   >
-    Test Name
-  </Text>
-  <View
-    style={
-      Array [
-        Object {},
+    <Image
+      accessibilityLabel="profile_image"
+      source={
         Object {
-          "alignSelf": "stretch",
-          "borderColor": "grey",
-          "borderWidth": 0.5,
-          "marginLeft": 2,
-          "marginRight": 2,
-          "marginTop": 15,
-        },
-      ]
-    }
-    virtual={undefined}
-  />
+          "uri": "",
+        }
+      }
+      style={
+        Object {
+          "alignSelf": "center",
+          "borderRadius": 50,
+          "height": 100,
+          "marginTop": 20,
+          "width": 100,
+        }
+      }
+    />
+    <Text
+      accessibilityLabel="profile_name"
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "color": "#000",
+            "fontSize": 27,
+            "lineHeight": 32,
+          },
+          Object {
+            "alignSelf": "center",
+            "marginTop": 10,
+          },
+        ]
+      }
+      virtual={undefined}
+    >
+      Test Name
+    </Text>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "alignSelf": "stretch",
+            "borderColor": "grey",
+            "borderWidth": 0.5,
+            "marginLeft": 2,
+            "marginRight": 2,
+            "marginTop": 15,
+          },
+        ]
+      }
+      virtual={undefined}
+    />
+  </View>
   <View
     style={
       Array [
@@ -603,59 +610,66 @@ exports[`<Profile> renders without crashing 1`] = `
   }
   virtual={undefined}
 >
-  <Image
-    source={
-      Object {
-        "uri": "",
-      }
-    }
-    style={
-      Object {
-        "alignSelf": "center",
-        "borderRadius": 50,
-        "height": 100,
-        "marginTop": 20,
-        "width": 100,
-      }
-    }
-  />
-  <Text
-    accessible={true}
-    allowFontScaling={true}
-    ellipsizeMode="tail"
-    style={
-      Array [
-        Object {
-          "color": "#000",
-          "fontSize": 27,
-          "lineHeight": 32,
-        },
-        Object {
-          "alignSelf": "center",
-          "marginTop": 10,
-        },
-      ]
-    }
+  <View
+    style={Object {}}
     virtual={undefined}
   >
-    Test Name
-  </Text>
-  <View
-    style={
-      Array [
-        Object {},
+    <Image
+      accessibilityLabel="profile_image"
+      source={
         Object {
-          "alignSelf": "stretch",
-          "borderColor": "grey",
-          "borderWidth": 0.5,
-          "marginLeft": 2,
-          "marginRight": 2,
-          "marginTop": 15,
-        },
-      ]
-    }
-    virtual={undefined}
-  />
+          "uri": "",
+        }
+      }
+      style={
+        Object {
+          "alignSelf": "center",
+          "borderRadius": 50,
+          "height": 100,
+          "marginTop": 20,
+          "width": 100,
+        }
+      }
+    />
+    <Text
+      accessibilityLabel="profile_name"
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "color": "#000",
+            "fontSize": 27,
+            "lineHeight": 32,
+          },
+          Object {
+            "alignSelf": "center",
+            "marginTop": 10,
+          },
+        ]
+      }
+      virtual={undefined}
+    >
+      Test Name
+    </Text>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "alignSelf": "stretch",
+            "borderColor": "grey",
+            "borderWidth": 0.5,
+            "marginLeft": 2,
+            "marginRight": 2,
+            "marginTop": 15,
+          },
+        ]
+      }
+      virtual={undefined}
+    />
+  </View>
   <View
     style={
       Array [

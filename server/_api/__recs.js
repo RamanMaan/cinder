@@ -9,33 +9,33 @@ const util = require('./util');
 const responses = require('./responses');
 
 const ageFilterFunc = (user, recs) => {
-  return filterDB.getAgeFilter(user)
-    .then(result => {
-      if(result && result.state) {
-        const minAge = result.minAge || 18;
-        const maxAge = result.maxAge || 120;
-        recs = recs.filter(x => x.age >= minAge && x.age <= maxAge);
-      }
-      return recs;
-    });
+  return filterDB.getAgeFilter(user).then(result => {
+    if (result && result.state) {
+      const minAge = result.minAge || 18;
+      const maxAge = result.maxAge || 120;
+      recs = recs.filter(x => x.age >= minAge && x.age <= maxAge);
+    }
+    return recs;
+  });
 };
 
 const genderFilterFunc = (user, recs) => {
-  return filterDB.getGenderFilter(user)
-    .then(result => {
-      if(result && result.state) {
-        recs = recs.filter(x => result.preference.some(gender => gender.genderID === x.genderID));
-      }
-      return recs;
-    });
+  return filterDB.getGenderFilter(user).then(result => {
+    if (result && result.state) {
+      recs = recs.filter(x =>
+        result.preference.some(gender => gender.genderID === x.genderID)
+      );
+    }
+    return recs;
+  });
 };
 
 router.get('/', (req, res, next) => {
   const { userID } = req.params;
   util.validateID(userID);
 
-
-  return recsDB.getRecs(userID)
+  return recsDB
+    .getRecs(userID)
     .then(result => genderFilterFunc(userID, result))
     .then(result => ageFilterFunc(userID, result))
     .then(result => res.status(responses.SUCCESS).json(result))

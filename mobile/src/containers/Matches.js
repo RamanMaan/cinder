@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from 'native-base';
+import { View } from 'react-native';
 
 import MatchesList from '../components/MatchesList';
 
@@ -11,7 +12,9 @@ export default class Matches extends React.Component {
   render() {
     return (
       <Container style={{ backgroundColor: '#fff' }}>
-        <MatchesList openDetails={this.openDetailsPage.bind(this)} />
+        <View accessibilityLabel={'matches_list'}>
+          <MatchesList openDetails={this.openDetailsPage.bind(this)} />
+        </View>
       </Container>
     );
   }

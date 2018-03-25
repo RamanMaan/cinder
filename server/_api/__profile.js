@@ -16,27 +16,27 @@ router.get('/', (req, res, next) => {
   util.validateID(userID);
 
   return usersDB.getUser(userID)
-  .then(user => {
-    user.filters = {};
-    return filterDB.getAgeFilter(userID)
-    .then(ageFilter => user.filters.age = ageFilter)
-    .then(() => filterDB.getGenderFilter(userID))
-    .then(genderFilter => user.filters.gender = genderFilter)
-    .then(() => user);
-  })
-  .then(user => res.status(responses.SUCCESS).json(user))
-  .catch(next);
+    .then(user => {
+      user.filters = {};
+      return filterDB.getAgeFilter(userID)
+        .then(ageFilter => user.filters.age = ageFilter)
+        .then(() => filterDB.getGenderFilter(userID))
+        .then(genderFilter => user.filters.gender = genderFilter)
+        .then(() => user);
+    })
+    .then(user => res.status(responses.SUCCESS).json(user))
+    .catch(next);
 });
 
 router.post('/', (req, res, next) => {
   const { userID } = req.params;
   util.validateID(userID);
-  
+
   return usersDB.saveUser(req.body)
-  .then(() => filterDB.saveAgeFilter(userID, req.body.filters.age))
-  .then(() => filterDB.saveGenderFilter(userID, req.body.filters.gender))
-  .then(result => res.status(responses.CREATED).json(result))
-  .catch(next);
+    .then(() => req.body.filters.age ? filterDB.saveAgeFilter(userID, req.body.filters.age) : null)
+    .then(() => req.body.filters.gender ? filterDB.saveGenderFilter(userID, req.body.filters.gender) : null)
+    .then(result => res.status(responses.CREATED).json(result))
+    .catch(next);
 });
 
 /**
