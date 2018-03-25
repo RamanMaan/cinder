@@ -214,10 +214,8 @@ exports[`<Profile> fetchs data on load 1`] = `
         onRequestClose={[Function]}
         onSelectChange={[Function]}
         refData={undefined}
-        selectedItems={Array []}
+        selectedItems={undefined}
         swipeThreshold={100}
-        switch={false}
-        switchToggle={[Function]}
         transparent={true}
         type="gender"
         visible={false}
@@ -292,7 +290,7 @@ exports[`<Profile> fetchs data on load 1`] = `
             onSelectChange={[Function]}
             pointerEvents="box-none"
             refData={undefined}
-            selectedItems={Array []}
+            selectedItems={undefined}
             style={
               Object {
                 "flex": 0.8,
@@ -306,8 +304,6 @@ exports[`<Profile> fetchs data on load 1`] = `
               }
             }
             swipeThreshold={100}
-            switch={false}
-            switchToggle={[Function]}
             type="gender"
           >
             <View
@@ -441,19 +437,22 @@ exports[`<Profile> fetchs data on load 1`] = `
       </View>
       <Modal
         animationType="none"
-        dispatch={[Function]}
-        fetchData={[Function]}
         hardwareAccelerated={false}
         hideModalContentWhileAnimating={false}
+        onChange={[Function]}
         onModalHide={[Function]}
         onRequestClose={[Function]}
-        onSelectChange={[Function]}
-        selectedItems={0}
         swipeThreshold={100}
-        switch={false}
-        switchToggle={[Function]}
         transparent={true}
         type="age"
+        values={
+          Object {
+            "maxAge": 150,
+            "minAge": 18,
+            "modal": false,
+            "switch": false,
+          }
+        }
         visible={false}
       >
         <View
@@ -487,106 +486,74 @@ exports[`<Profile> fetchs data on load 1`] = `
           testID={undefined}
         />
         <View
-          keyboardVerticalOffset={0}
-          onLayout={[Function]}
+          collapsable={undefined}
+          hideModalContentWhileAnimating={false}
+          onChange={[Function]}
+          onModalHide={[Function]}
           pointerEvents="box-none"
           style={
-            Array [
-              Array [
+            Object {
+              "flex": 0.5,
+              "justifyContent": "center",
+              "margin": 37.5,
+              "transform": Array [
                 Object {
-                  "margin": 37.5,
-                  "transform": Array [
-                    Object {
-                      "translateY": 0,
-                    },
-                  ],
-                },
-                Object {
-                  "flex": 1,
-                  "justifyContent": "center",
-                },
-                Object {
-                  "flex": 0.5,
-                },
-                Object {
-                  "margin": 0,
+                  "translateY": 0,
                 },
               ],
-              Object {
-                "paddingBottom": 0,
-              },
-            ]
+            }
+          }
+          swipeThreshold={100}
+          type="age"
+          values={
+            Object {
+              "maxAge": 150,
+              "minAge": 18,
+              "modal": false,
+              "switch": false,
+            }
           }
         >
           <View
-            collapsable={undefined}
-            dispatch={[Function]}
-            fetchData={[Function]}
-            hideModalContentWhileAnimating={false}
-            onModalHide={[Function]}
-            onSelectChange={[Function]}
-            pointerEvents="box-none"
-            selectedItems={0}
             style={
-              Object {
-                "flex": 0.5,
-                "justifyContent": "center",
-                "margin": 37.5,
-                "transform": Array [
-                  Object {
-                    "translateY": 0,
-                  },
-                ],
-              }
+              Array [
+                Object {},
+                Object {
+                  "backgroundColor": "white",
+                  "flex": 1,
+                },
+              ]
             }
-            swipeThreshold={100}
-            switch={false}
-            switchToggle={[Function]}
-            type="age"
+            virtual={undefined}
           >
-            <View
+            <TextInput
+              allowFontScaling={true}
+              keyboardType="numeric"
+              onChangeText={[Function]}
+              placeholder="Enter minimum age filter"
               style={
-                Array [
-                  Object {},
-                  Object {
-                    "backgroundColor": "white",
-                    "flex": 1,
-                  },
-                ]
+                Object {
+                  "height": 40,
+                  "margin": 15,
+                  "padding": 5,
+                }
               }
-              virtual={undefined}
-            >
-              <TextInput
-                allowFontScaling={true}
-                keyboardType="numeric"
-                onChangeText={[Function]}
-                placeholder="Enter minimum age filter"
-                style={
-                  Object {
-                    "borderColor": "gray",
-                    "borderWidth": 1,
-                    "flex": 1,
-                    "margin": 15,
-                  }
+              value="18"
+            />
+            <TextInput
+              allowFontScaling={true}
+              keyboardType="numeric"
+              onChangeText={[Function]}
+              placeholder="Enter maximum age filter"
+              style={
+                Object {
+                  "height": 40,
+                  "margin": 15,
+                  "padding": 5,
                 }
-                value=""
-              />
-              <TextInput
-                allowFontScaling={true}
-                keyboardType="numeric"
-                onChangeText={[Function]}
-                placeholder="Enter maximum age filter"
-                style={
-                  Object {
-                    "borderColor": "gray",
-                    "borderWidth": 1,
-                    "flex": 1,
-                    "margin": 15,
-                  }
-                }
-                value=""
-              />
-            </View>
+              }
+              value="150"
+            />
           </View>
         </View>
       </Modal>
@@ -809,10 +776,8 @@ exports[`<Profile> renders without crashing 1`] = `
         onRequestClose={[Function]}
         onSelectChange={[Function]}
         refData={undefined}
-        selectedItems={Array []}
+        selectedItems={undefined}
         swipeThreshold={100}
-        switch={false}
-        switchToggle={[Function]}
         transparent={true}
         type="gender"
         visible={false}
@@ -887,7 +852,7 @@ exports[`<Profile> renders without crashing 1`] = `
             onSelectChange={[Function]}
             pointerEvents="box-none"
             refData={undefined}
-            selectedItems={Array []}
+            selectedItems={undefined}
             style={
               Object {
                 "flex": 0.8,
@@ -901,8 +866,6 @@ exports[`<Profile> renders without crashing 1`] = `
               }
             }
             swipeThreshold={100}
-            switch={false}
-            switchToggle={[Function]}
             type="gender"
           >
             <View
@@ -1036,19 +999,22 @@ exports[`<Profile> renders without crashing 1`] = `
       </View>
       <Modal
         animationType="none"
-        dispatch={[Function]}
-        fetchData={[Function]}
         hardwareAccelerated={false}
         hideModalContentWhileAnimating={false}
+        onChange={[Function]}
         onModalHide={[Function]}
         onRequestClose={[Function]}
-        onSelectChange={[Function]}
-        selectedItems={0}
         swipeThreshold={100}
-        switch={false}
-        switchToggle={[Function]}
         transparent={true}
         type="age"
+        values={
+          Object {
+            "maxAge": 150,
+            "minAge": 18,
+            "modal": false,
+            "switch": false,
+          }
+        }
         visible={false}
       >
         <View
@@ -1082,106 +1048,74 @@ exports[`<Profile> renders without crashing 1`] = `
           testID={undefined}
         />
         <View
-          keyboardVerticalOffset={0}
-          onLayout={[Function]}
+          collapsable={undefined}
+          hideModalContentWhileAnimating={false}
+          onChange={[Function]}
+          onModalHide={[Function]}
           pointerEvents="box-none"
           style={
-            Array [
-              Array [
+            Object {
+              "flex": 0.5,
+              "justifyContent": "center",
+              "margin": 37.5,
+              "transform": Array [
                 Object {
-                  "margin": 37.5,
-                  "transform": Array [
-                    Object {
-                      "translateY": 0,
-                    },
-                  ],
-                },
-                Object {
-                  "flex": 1,
-                  "justifyContent": "center",
-                },
-                Object {
-                  "flex": 0.5,
-                },
-                Object {
-                  "margin": 0,
+                  "translateY": 0,
                 },
               ],
-              Object {
-                "paddingBottom": 0,
-              },
-            ]
+            }
+          }
+          swipeThreshold={100}
+          type="age"
+          values={
+            Object {
+              "maxAge": 150,
+              "minAge": 18,
+              "modal": false,
+              "switch": false,
+            }
           }
         >
           <View
-            collapsable={undefined}
-            dispatch={[Function]}
-            fetchData={[Function]}
-            hideModalContentWhileAnimating={false}
-            onModalHide={[Function]}
-            onSelectChange={[Function]}
-            pointerEvents="box-none"
-            selectedItems={0}
             style={
-              Object {
-                "flex": 0.5,
-                "justifyContent": "center",
-                "margin": 37.5,
-                "transform": Array [
-                  Object {
-                    "translateY": 0,
-                  },
-                ],
-              }
+              Array [
+                Object {},
+                Object {
+                  "backgroundColor": "white",
+                  "flex": 1,
+                },
+              ]
             }
-            swipeThreshold={100}
-            switch={false}
-            switchToggle={[Function]}
-            type="age"
+            virtual={undefined}
           >
-            <View
+            <TextInput
+              allowFontScaling={true}
+              keyboardType="numeric"
+              onChangeText={[Function]}
+              placeholder="Enter minimum age filter"
               style={
-                Array [
-                  Object {},
-                  Object {
-                    "backgroundColor": "white",
-                    "flex": 1,
-                  },
-                ]
+                Object {
+                  "height": 40,
+                  "margin": 15,
+                  "padding": 5,
+                }
               }
-              virtual={undefined}
-            >
-              <TextInput
-                allowFontScaling={true}
-                keyboardType="numeric"
-                onChangeText={[Function]}
-                placeholder="Enter minimum age filter"
-                style={
-                  Object {
-                    "borderColor": "gray",
-                    "borderWidth": 1,
-                    "flex": 1,
-                    "margin": 15,
-                  }
+              value="18"
+            />
+            <TextInput
+              allowFontScaling={true}
+              keyboardType="numeric"
+              onChangeText={[Function]}
+              placeholder="Enter maximum age filter"
+              style={
+                Object {
+                  "height": 40,
+                  "margin": 15,
+                  "padding": 5,
                 }
-                value=""
-              />
-              <TextInput
-                allowFontScaling={true}
-                keyboardType="numeric"
-                onChangeText={[Function]}
-                placeholder="Enter maximum age filter"
-                style={
-                  Object {
-                    "borderColor": "gray",
-                    "borderWidth": 1,
-                    "flex": 1,
-                    "margin": 15,
-                  }
-                }
-                value=""
-              />
-            </View>
+              }
+              value="150"
+            />
           </View>
         </View>
       </Modal>
