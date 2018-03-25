@@ -20,3 +20,18 @@ How To Run
 ### [Server Setup](/server/README.md)
 ### [Web Setup](/web/README.md)
 ### [Mobile Setup](/mobile/README.md)
+
+Test Users
+---
+Here are a few users you can use with our service (or you can sign up and create your own):
+```
+FORMAT: <username> | <password>
+al@email.com | password : 
+    This user has a few matches already set up, and other users have already liked Al so you can see what happens when you like someone who has liked you
+    
+agnes@email.com | password
+    This user is a blank slate user with no other user interactions
+    
+alice@email.com | password
+    This user is a blank slate user with no other user interactions
+```
