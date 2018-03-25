@@ -26,8 +26,6 @@ export default props => (
     <Button light={!props.switch} onPress={props.onBackdropPress} style={styles.button}>
       <Text>{`Filter by ${props.type}`}</Text>
     </Button>
-    <FilterModal
-      {...props}
-    />
+    {props.children}
   </View>
 );
