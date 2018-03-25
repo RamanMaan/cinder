@@ -22,43 +22,43 @@ class Signup extends Component {
     super(props);
 
     this.setInput = this.setInput.bind(this);
-    // this.fetchGenderList = this.fetchGenderList.bind(this);
+    this.fetchGenderList = this.fetchGenderList.bind(this);
     this.userSignup = this.userSignup.bind(this);
 
     this.state = {
-      // genderList: [],
+      genderList: [],
       email: '',
       emailConfirm: '',
       password: '',
       passwordConfirm: '',
       userName: '',
-      birthday: ''
-      // gender: ''
+      birthday: '',
+      gender: ''
     };
   }
 
-  // componentDidMount() {
-  //   this.fetchGenderList();
-  // }
+  componentDidMount() {
+    this.fetchGenderList();
+  }
 
-  // fetchGenderList() {
-  //   this.setState({
-  //     genderList: [
-  //       {
-  //         id: 0,
-  //         type: 'Male'
-  //       },
-  //       {
-  //         id: 1,
-  //         type: 'Female'
-  //       },
-  //       {
-  //         id: 2,
-  //         type: 'Other'
-  //       }
-  //     ]
-  //   });
-  // }
+  fetchGenderList() {
+    this.setState({
+      genderList: [
+        {
+          id: 1,
+          type: 'Male'
+        },
+        {
+          id: 2,
+          type: 'Female'
+        },
+        {
+          id: 3,
+          type: 'Other'
+        }
+      ]
+    });
+  }
 
   setInput(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -70,7 +70,8 @@ class Signup extends Component {
       email: this.state.email,
       password: this.state.password,
       userName: this.state.userName,
-      birthday: this.state.birthday
+      birthday: this.state.birthday,
+      genderID: this.state.gender
     });
   }
 
@@ -147,7 +148,7 @@ class Signup extends Component {
             </Row>
 
             <Row>
-              {/* <Col sm={6}>
+              <Col sm={6}>
                 <FormGroup>
                   <Label for="gender">Gender</Label>
                   <Input
@@ -167,18 +168,6 @@ class Signup extends Component {
                     })}
                   </Input>
                 </FormGroup>
-              </Col> */}
-              <Col sm={6}>
-                <FormGroup>
-                  <Label for="userName">Name</Label>
-                  <Input
-                    required
-                    id="userName"
-                    name="userName"
-                    placeholder="Just first name is enough"
-                    onChange={this.setInput}
-                  />
-                </FormGroup>
               </Col>
               <Col sm={6}>
                 <FormGroup>
@@ -195,7 +184,7 @@ class Signup extends Component {
             </Row>
 
             <Row>
-              {/* <Col sm={12}>
+              <Col sm={12}>
                 <FormGroup>
                   <Label for="userName">Name</Label>
                   <Input
@@ -206,7 +195,7 @@ class Signup extends Component {
                     onChange={this.setInput}
                   />
                 </FormGroup>
-              </Col> */}
+              </Col>
             </Row>
 
             <Row>
@@ -232,7 +221,7 @@ class Signup extends Component {
                   outline
                   size="md"
                 >
-                  Go to Log In
+                  Go back to Log In
                 </Button>
               </Col>
             </Row>

@@ -72,10 +72,7 @@ export function loginUser(creds) {
         Accept: 'application/json',
         'Content-type': 'application/json'
       },
-      body: JSON.stringify({
-        email: creds.email,
-        password: creds.password
-      })
+      body: JSON.stringify(creds)
     })
       .then(res => res.json())
       .then(res => {
@@ -98,10 +95,7 @@ export function signupUser(creds) {
         Accept: 'application/json',
         'Content-type': 'application/json'
       },
-      body: JSON.stringify({
-        email: creds.email,
-        password: creds.password
-      })
+      body: JSON.stringify(creds)
     })
       .then(res => res.json())
       .then(res => {
