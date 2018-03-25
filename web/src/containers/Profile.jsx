@@ -158,7 +158,9 @@ export class Profile extends Component {
             <h6>Age Filter</h6>
             <FilterElement
               round
-              checked={this.state.filters.age.state}
+              checked={
+                this.state.filters.age ? this.state.filters.age.state : false
+              }
               onChange={this.onElementToggle.bind(this, 'age')}
             >
               <Row>
@@ -177,7 +179,11 @@ export class Profile extends Component {
                 <Col md={6}>
                   <Label>Maximum Age: </Label>
                   <NumericInput
-                    min={this.state.filters.age.minAge}
+                    min={
+                      this.state.filters.age
+                        ? this.state.filters.age.minAge
+                        : 18
+                    }
                     max={80}
                     value={
                       this.state.filters.age

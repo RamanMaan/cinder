@@ -41,14 +41,8 @@ describe('<FilterElement />', () => {
     });
 
     it('should toggle', () => {
-      expect(wrapper.find('.filter.element.disabled')).toHaveLength(1);
-      expect(wrapper.state('disabled')).toEqual(true);
-
       expect(mockActiveChange.mock.calls).toHaveLength(0);
       wrapper.find('input').simulate('change');
-      expect(wrapper.find('filter.element.disabled')).toHaveLength(0);
-      expect(wrapper.state('disabled')).toEqual(false);
-
       expect(mockActiveChange.mock.calls).toHaveLength(1);
     });
 

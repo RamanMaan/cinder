@@ -12,6 +12,23 @@ describe('<Profile />', () => {
     userName: 'Test User'
   };
 
+  const testFilters = {
+    filters: {
+      age: {
+        state: false,
+        minAge: 50,
+        maxAge: 65
+      },
+      gender: {
+        state: true,
+        preferences: [
+          { label: 'test1', value: 1 },
+          { label: 'test2', value: 2 }
+        ]
+      }
+    }
+  };
+
   describe('Snapshot tests', () => {
     it('should be hidden by default', () => {
       const component = renderer.create(<Profile hideProfile={jest.fn()} />);
@@ -31,6 +48,13 @@ describe('<Profile />', () => {
     it('should display profile properties when provided', () => {
       const component = renderer.create(
         <Profile isVisible userInfo={testProfile} />
+      );
+      expect(component).toMatchSnapshot();
+    });
+
+    it('should populate all values if provided', () => {
+      const component = renderer.create(
+        <Profile isVisible userInfo={{ ...testProfile, ...testFilters }} />
       );
       expect(component).toMatchSnapshot();
     });
@@ -70,14 +94,12 @@ describe('<Profile />', () => {
       });
 
       it('should update state on toggle', () => {
-        expect(wrapper.find('.filter.element.disabled')).toHaveLength(2);
         expect(!!defaultState.filters).toEqual(true);
         expect(defaultState.filters.gender).toBe(null);
 
         genderFilter.find('.toggle input').simulate('change');
         ageFilter.find('.toggle input').simulate('change');
 
-        expect(wrapper.find('.filter.element.disabled')).toHaveLength(0);
         expect(!!wrapper.state().filters).toEqual(true);
         expect(wrapper.state().filters.gender).toEqual({ state: true });
         expect(wrapper.state().filters.age).toEqual({ state: true });
@@ -85,7 +107,6 @@ describe('<Profile />', () => {
         genderFilter.find('.toggle input').simulate('change');
         ageFilter.find('.toggle input').simulate('change');
 
-        expect(wrapper.find('.filter.element.disabled')).toHaveLength(2);
         expect(!!wrapper.state().filters).toEqual(true);
         expect(wrapper.state().filters.gender).toEqual({ state: false });
         expect(wrapper.state().filters.age).toEqual({ state: false });
