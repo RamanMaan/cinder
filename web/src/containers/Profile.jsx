@@ -184,7 +184,7 @@ export class Profile extends Component {
                         ? this.state.filters.age.minAge
                         : 18
                     }
-                    max={80}
+                    max={150}
                     value={
                       this.state.filters.age
                         ? this.state.filters.age.maxAge
