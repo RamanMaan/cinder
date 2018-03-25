@@ -29,10 +29,10 @@ beforeAll(() => {
 afterAll(() => {
   return mysql.createConnection(MYSQLDB).then(conn => {
     const result = conn.query(
-      `SET FOREIGN_KEY_CHECKS=0;` +
+      'SET FOREIGN_KEY_CHECKS=0;' +
         testUtils.deleteUsersQuery +
         testUtils.deleteUsersInfoQuery +
-        `SET FOREIGN_KEY_CHECKS=1;`
+        'SET FOREIGN_KEY_CHECKS=1;'
     );
     conn.end();
     return result;
@@ -54,22 +54,22 @@ const insertFilterData = () => {
 const deleteFilterData = () => {
   return mysql.createConnection(MYSQLDB).then(conn => {
     const result = conn.query(
-      `SET FOREIGN_KEY_CHECKS=0;` +
+      'SET FOREIGN_KEY_CHECKS=0;' +
         testUtils.deleteFilterStateQuery +
         testUtils.deleteAgeFilterQuery +
         testUtils.deleteGenderFilterQuery +
-        `SET FOREIGN_KEY_CHECKS=1;`
+        'SET FOREIGN_KEY_CHECKS=1;'
     );
     conn.end();
     return result;
   });
 };
 
-describe(`getAgeFilter tests`, () => {
+describe('getAgeFilter tests', () => {
   beforeAll(() => insertFilterData());
   afterAll(() => deleteFilterData());
 
-  it(`returns the correct age filter for the user`, () => {
+  it('returns the correct age filter for the user', () => {
     const currUserID = 1;
     return filterDB.getAgeFilter(currUserID).then(filter => {
       expect(filter.state).toBe(filterData.getAgeFilterState(currUserID));
@@ -78,14 +78,14 @@ describe(`getAgeFilter tests`, () => {
     });
   });
 
-  it(`returns null if the user does not exist`, () => {
+  it('returns null if the user does not exist', () => {
     const currUserID = 9999;
     return filterDB.getAgeFilter(currUserID).then(filter => {
       expect(filter).toBeNull();
     });
   });
 
-  it(`returns null if the user does not have an age filter`, () => {
+  it('returns null if the user does not have an age filter', () => {
     const currUserID = 3;
     return filterDB.getAgeFilter(currUserID).then(filter => {
       expect(filter).toBeNull();
@@ -93,15 +93,15 @@ describe(`getAgeFilter tests`, () => {
   });
 });
 
-describe(`saveAgeFilter tests`, () => {
+describe('saveAgeFilter tests', () => {
   beforeAll(() => insertFilterData());
   afterAll(() => deleteFilterData());
 
-  it(`saves new age filters`, () => {
+  it('saves new age filters', () => {
     const currUserID = 3;
     const newFilter = { state: true, minAge: 18, maxAge: 125 };
-    const stateQuery = `SELECT AgeFilterState AS ageFilterState FROM FilterState WHERE UserID = ?`;
-    const filterQuery = `SELECT MinAge AS minAge, MaxAge AS maxAge FROM AgeFilter WHERE UserID = ?`;
+    const stateQuery = 'SELECT AgeFilterState AS ageFilterState FROM FilterState WHERE UserID = ?';
+    const filterQuery = 'SELECT MinAge AS minAge, MaxAge AS maxAge FROM AgeFilter WHERE UserID = ?';
 
     return mysql.createConnection(MYSQLDB).then(conn => {
       return conn
@@ -123,11 +123,11 @@ describe(`saveAgeFilter tests`, () => {
     });
   });
 
-  it(`overwrites existing age filters`, () => {
+  it('overwrites existing age filters', () => {
     const currUserID = 1;
     const newFilter = { state: false, minAge: 666, maxAge: 777 };
-    const stateQuery = `SELECT AgeFilterState AS ageFilterState FROM FilterState WHERE UserID = ?`;
-    const filterQuery = `SELECT MinAge AS minAge, MaxAge AS maxAge FROM AgeFilter WHERE UserID = ?`;
+    const stateQuery = 'SELECT AgeFilterState AS ageFilterState FROM FilterState WHERE UserID = ?';
+    const filterQuery = 'SELECT MinAge AS minAge, MaxAge AS maxAge FROM AgeFilter WHERE UserID = ?';
 
     return mysql.createConnection(MYSQLDB).then(conn => {
       return conn
@@ -151,18 +151,18 @@ describe(`saveAgeFilter tests`, () => {
     });
   });
 
-  it(`it throws an error for users that don't exist`, () => {
+  it('it throws an error for users that don\'t exist', () => {
     const currUserID = 9999;
     const someFilter = { state: true, minAge: 18, maxAge: 55 };
     expect(filterDB.saveAgeFilter(currUserID, someFilter)).rejects.toThrow();
   });
 });
 
-describe(`getGenderFilter tests`, () => {
+describe('getGenderFilter tests', () => {
   beforeAll(() => insertFilterData());
   afterAll(() => deleteFilterData());
 
-  it(`returns the correct gender filter for the user`, () => {
+  it('returns the correct gender filter for the user', () => {
     const currUserID = 1;
     const expectedState = filterData.getGenderFilterState(currUserID);
     const expectedFilter = filterData.getGenderFilter(currUserID);
@@ -179,14 +179,14 @@ describe(`getGenderFilter tests`, () => {
     });
   });
 
-  it(`returns null if the user does not exist`, () => {
+  it('returns null if the user does not exist', () => {
     const currUserID = 9999;
     return filterDB.getGenderFilter(currUserID).then(filter => {
       expect(filter).toBeNull();
     });
   });
 
-  it(`returns null if the user does not have a gender filter`, () => {
+  it('returns null if the user does not have a gender filter', () => {
     const currUserID = 3;
     return filterDB.getGenderFilter(currUserID).then(filter => {
       expect(filter).toBeNull();
@@ -194,18 +194,18 @@ describe(`getGenderFilter tests`, () => {
   });
 });
 
-describe(`saveGenderFilter tests`, () => {
+describe('saveGenderFilter tests', () => {
   beforeEach(() => insertFilterData());
   afterEach(() => deleteFilterData());
 
-  it(`saves new gender filter`, () => {
+  it('saves new gender filter', () => {
     const currUserID = 3;
     const newFilter = {
       state: false,
-      preference: [{ genderID: 1 }, { genderID: 2 }]
+      preference: [{ value: 1 }, { value: 2 }]
     };
-    const stateQuery = `SELECT GenderFilterState AS genderFilterState FROM FilterState WHERE UserID = ?`;
-    const filterQuery = `SELECT GenderID AS genderID FROM GenderFilter WHERE UserID = ?`;
+    const stateQuery = 'SELECT GenderFilterState AS genderFilterState FROM FilterState WHERE UserID = ?';
+    const filterQuery = 'SELECT GenderID AS genderID FROM GenderFilter WHERE UserID = ?';
 
     return mysql.createConnection(MYSQLDB).then(conn => {
       return conn
@@ -215,24 +215,24 @@ describe(`saveGenderFilter tests`, () => {
         .then(() => conn.query(stateQuery, [currUserID]))
         .then(rows => {
           expect(rows).toHaveLength(1);
-          expect(rows[0].genderFilterState == 1).toBe(newFilter.state);
+          expect(rows[0].genderFilterState === 1).toBe(newFilter.state);
         })
         .then(() => conn.query(filterQuery, [currUserID]))
         .then(rows => {
           expect(rows).toHaveLength(newFilter.preference.length);
           rows.forEach((pref, i) => {
-            expect(pref.genderID).toBe(newFilter.preference[i].genderID);
+            expect(pref.genderID).toBe(newFilter.preference[i].value);
           });
           return conn.end();
         });
     });
   });
 
-  it(`overwrites existing gender filter`, () => {
+  it('overwrites existing gender filter', () => {
     const currUserID = 1;
-    const newFilter = { state: false, preference: [{ genderID: 3 }] };
-    const stateQuery = `SELECT GenderFilterState AS genderFilterState FROM FilterState WHERE UserID = ?`;
-    const filterQuery = `SELECT GenderID AS genderID FROM GenderFilter WHERE UserID = ?`;
+    const newFilter = { state: false, preference: [{ value: 3 }] };
+    const stateQuery = 'SELECT GenderFilterState AS genderFilterState FROM FilterState WHERE UserID = ?';
+    const filterQuery = 'SELECT GenderID AS genderID FROM GenderFilter WHERE UserID = ?';
 
     return mysql.createConnection(MYSQLDB).then(conn => {
       return conn
@@ -250,18 +250,18 @@ describe(`saveGenderFilter tests`, () => {
         .then(rows => {
           expect(rows).toHaveLength(newFilter.preference.length);
           rows.forEach((pref, i) => {
-            expect(pref.genderID).toBe(newFilter.preference[i].genderID);
+            expect(pref.genderID).toBe(newFilter.preference[i].value);
           });
           return conn.end();
         });
     });
   });
 
-  it(`saves an empty gender filter`, () => {
+  it('saves an empty gender filter', () => {
     const currUserID = 1;
     const emptyFilter = { state: true, preference: [] };
     const genderFilterQuery = mysql.format(
-      `SELECT * FROM GenderFilter WHERE UserID = ?;`,
+      'SELECT * FROM GenderFilter WHERE UserID = ?;',
       [currUserID]
     );
 
@@ -276,7 +276,7 @@ describe(`saveGenderFilter tests`, () => {
     });
   });
 
-  it(`it throws an error for users that don't exist`, () => {
+  it('it throws an error for users that don\'t exist', () => {
     const currUserID = 9999;
     const someFilter = { state: true, preference: [{ genderID: 1 }] };
     expect(filterDB.saveGenderFilter(currUserID, someFilter)).rejects.toThrow();
