@@ -332,6 +332,258 @@ exports[`<Profile> fetchs data on load 1`] = `
         </View>
       </Modal>
     </View>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "backgroundColor": "#fff",
+            "borderColor": "#CCC",
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "justifyContent": "space-around",
+          },
+        ]
+      }
+      virtual={undefined}
+    >
+      <RCTSwitch
+        disabled={false}
+        onChange={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        onValueChange={[Function]}
+        style={
+          Array [
+            Object {
+              "height": 31,
+              "width": 51,
+            },
+            Object {
+              "marginBottom": -5,
+              "marginTop": -5,
+            },
+          ]
+        }
+        value={false}
+        virtual={undefined}
+      />
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        collapsable={undefined}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "alignSelf": "flex-start",
+            "backgroundColor": "#f4f4f4",
+            "borderBottomWidth": null,
+            "borderColor": "#007aff",
+            "borderLeftWidth": null,
+            "borderRadius": 5,
+            "borderRightWidth": null,
+            "borderTopWidth": null,
+            "elevation": 2,
+            "flex": 1,
+            "flexDirection": "row",
+            "height": 45,
+            "justifyContent": "space-between",
+            "opacity": 1,
+            "paddingBottom": 6,
+            "paddingTop": 6,
+          }
+        }
+        testID={undefined}
+        tvParallaxProperties={undefined}
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16.5,
+              "lineHeight": 19,
+              "marginLeft": 0,
+              "marginRight": 0,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+            }
+          }
+          uppercase={false}
+          virtual={undefined}
+        >
+          Filter by age
+        </Text>
+      </View>
+      <Modal
+        animationType="none"
+        dispatch={[Function]}
+        fetchData={[Function]}
+        hardwareAccelerated={false}
+        hideModalContentWhileAnimating={false}
+        onModalHide={[Function]}
+        onRequestClose={[Function]}
+        onSelectChange={[Function]}
+        selectedItems={0}
+        swipeThreshold={100}
+        switch={false}
+        switchToggle={[Function]}
+        transparent={true}
+        type="age"
+        visible={false}
+      >
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hitSlop={undefined}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "black",
+              "bottom": 0,
+              "height": 1334,
+              "left": 0,
+              "opacity": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 750,
+            }
+          }
+          testID={undefined}
+        />
+        <View
+          keyboardVerticalOffset={0}
+          onLayout={[Function]}
+          pointerEvents="box-none"
+          style={
+            Array [
+              Array [
+                Object {
+                  "margin": 37.5,
+                  "transform": Array [
+                    Object {
+                      "translateY": 0,
+                    },
+                  ],
+                },
+                Object {
+                  "flex": 1,
+                  "justifyContent": "center",
+                },
+                Object {
+                  "flex": 0.5,
+                },
+                Object {
+                  "margin": 0,
+                },
+              ],
+              Object {
+                "paddingBottom": 0,
+              },
+            ]
+          }
+        >
+          <View
+            collapsable={undefined}
+            dispatch={[Function]}
+            fetchData={[Function]}
+            hideModalContentWhileAnimating={false}
+            onModalHide={[Function]}
+            onSelectChange={[Function]}
+            pointerEvents="box-none"
+            selectedItems={0}
+            style={
+              Object {
+                "flex": 0.5,
+                "justifyContent": "center",
+                "margin": 37.5,
+                "transform": Array [
+                  Object {
+                    "translateY": 0,
+                  },
+                ],
+              }
+            }
+            swipeThreshold={100}
+            switch={false}
+            switchToggle={[Function]}
+            type="age"
+          >
+            <View
+              style={
+                Array [
+                  Object {},
+                  Object {
+                    "backgroundColor": "white",
+                    "flex": 1,
+                  },
+                ]
+              }
+              virtual={undefined}
+            >
+              <TextInput
+                allowFontScaling={true}
+                keyboardType="numeric"
+                onChangeText={[Function]}
+                placeholder="Enter minimum age filter"
+                style={
+                  Object {
+                    "borderColor": "gray",
+                    "borderWidth": 1,
+                    "flex": 1,
+                    "margin": 15,
+                  }
+                }
+                value=""
+              />
+              <TextInput
+                allowFontScaling={true}
+                keyboardType="numeric"
+                onChangeText={[Function]}
+                placeholder="Enter maximum age filter"
+                style={
+                  Object {
+                    "borderColor": "gray",
+                    "borderWidth": 1,
+                    "flex": 1,
+                    "margin": 15,
+                  }
+                }
+                value=""
+              />
+            </View>
+          </View>
+        </View>
+      </Modal>
+    </View>
   </View>
 </View>
 `;
@@ -663,6 +915,258 @@ exports[`<Profile> renders without crashing 1`] = `
               >
                 <View />
               </RCTScrollView>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    </View>
+    <View
+      style={
+        Array [
+          Object {},
+          Object {
+            "backgroundColor": "#fff",
+            "borderColor": "#CCC",
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "justifyContent": "space-around",
+          },
+        ]
+      }
+      virtual={undefined}
+    >
+      <RCTSwitch
+        disabled={false}
+        onChange={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        onValueChange={[Function]}
+        style={
+          Array [
+            Object {
+              "height": 31,
+              "width": 51,
+            },
+            Object {
+              "marginBottom": -5,
+              "marginTop": -5,
+            },
+          ]
+        }
+        value={false}
+        virtual={undefined}
+      />
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        collapsable={undefined}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "alignSelf": "flex-start",
+            "backgroundColor": "#f4f4f4",
+            "borderBottomWidth": null,
+            "borderColor": "#007aff",
+            "borderLeftWidth": null,
+            "borderRadius": 5,
+            "borderRightWidth": null,
+            "borderTopWidth": null,
+            "elevation": 2,
+            "flex": 1,
+            "flexDirection": "row",
+            "height": 45,
+            "justifyContent": "space-between",
+            "opacity": 1,
+            "paddingBottom": 6,
+            "paddingTop": 6,
+          }
+        }
+        testID={undefined}
+        tvParallaxProperties={undefined}
+      >
+        <Text
+          accessible={true}
+          allowFontScaling={true}
+          ellipsizeMode="tail"
+          style={
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#000",
+              "fontFamily": "System",
+              "fontSize": 16.5,
+              "lineHeight": 19,
+              "marginLeft": 0,
+              "marginRight": 0,
+              "paddingLeft": 16,
+              "paddingRight": 16,
+            }
+          }
+          uppercase={false}
+          virtual={undefined}
+        >
+          Filter by age
+        </Text>
+      </View>
+      <Modal
+        animationType="none"
+        dispatch={[Function]}
+        fetchData={[Function]}
+        hardwareAccelerated={false}
+        hideModalContentWhileAnimating={false}
+        onModalHide={[Function]}
+        onRequestClose={[Function]}
+        onSelectChange={[Function]}
+        selectedItems={0}
+        swipeThreshold={100}
+        switch={false}
+        switchToggle={[Function]}
+        transparent={true}
+        type="age"
+        visible={false}
+      >
+        <View
+          accessibilityComponentType={undefined}
+          accessibilityLabel={undefined}
+          accessibilityTraits={undefined}
+          accessible={true}
+          collapsable={undefined}
+          hitSlop={undefined}
+          nativeID={undefined}
+          onLayout={undefined}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "backgroundColor": "black",
+              "bottom": 0,
+              "height": 1334,
+              "left": 0,
+              "opacity": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+              "width": 750,
+            }
+          }
+          testID={undefined}
+        />
+        <View
+          keyboardVerticalOffset={0}
+          onLayout={[Function]}
+          pointerEvents="box-none"
+          style={
+            Array [
+              Array [
+                Object {
+                  "margin": 37.5,
+                  "transform": Array [
+                    Object {
+                      "translateY": 0,
+                    },
+                  ],
+                },
+                Object {
+                  "flex": 1,
+                  "justifyContent": "center",
+                },
+                Object {
+                  "flex": 0.5,
+                },
+                Object {
+                  "margin": 0,
+                },
+              ],
+              Object {
+                "paddingBottom": 0,
+              },
+            ]
+          }
+        >
+          <View
+            collapsable={undefined}
+            dispatch={[Function]}
+            fetchData={[Function]}
+            hideModalContentWhileAnimating={false}
+            onModalHide={[Function]}
+            onSelectChange={[Function]}
+            pointerEvents="box-none"
+            selectedItems={0}
+            style={
+              Object {
+                "flex": 0.5,
+                "justifyContent": "center",
+                "margin": 37.5,
+                "transform": Array [
+                  Object {
+                    "translateY": 0,
+                  },
+                ],
+              }
+            }
+            swipeThreshold={100}
+            switch={false}
+            switchToggle={[Function]}
+            type="age"
+          >
+            <View
+              style={
+                Array [
+                  Object {},
+                  Object {
+                    "backgroundColor": "white",
+                    "flex": 1,
+                  },
+                ]
+              }
+              virtual={undefined}
+            >
+              <TextInput
+                allowFontScaling={true}
+                keyboardType="numeric"
+                onChangeText={[Function]}
+                placeholder="Enter minimum age filter"
+                style={
+                  Object {
+                    "borderColor": "gray",
+                    "borderWidth": 1,
+                    "flex": 1,
+                    "margin": 15,
+                  }
+                }
+                value=""
+              />
+              <TextInput
+                allowFontScaling={true}
+                keyboardType="numeric"
+                onChangeText={[Function]}
+                placeholder="Enter maximum age filter"
+                style={
+                  Object {
+                    "borderColor": "gray",
+                    "borderWidth": 1,
+                    "flex": 1,
+                    "margin": 15,
+                  }
+                }
+                value=""
+              />
             </View>
           </View>
         </View>
