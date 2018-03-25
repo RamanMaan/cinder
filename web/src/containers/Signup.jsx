@@ -26,6 +26,8 @@ class Signup extends Component {
     this.userSignup = this.userSignup.bind(this);
 
     this.state = {
+      errored: false,
+      message: '',
       genderList: [],
       email: '',
       emailConfirm: '',
@@ -39,6 +41,13 @@ class Signup extends Component {
 
   componentDidMount() {
     this.fetchGenderList();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      errored: nextProps.errored,
+      message: nextProps.message
+    });
   }
 
   fetchGenderList() {
@@ -66,13 +75,23 @@ class Signup extends Component {
 
   userSignup(e) {
     e.preventDefault();
-    this.props.signupUser({
-      email: this.state.email,
-      password: this.state.password,
-      userName: this.state.userName,
-      birthday: this.state.birthday,
-      genderID: this.state.gender
-    });
+    if (
+      this.state.email === this.state.emailConfirm &&
+      this.state.password === this.state.passwordConfirm
+    ) {
+      this.props.signupUser({
+        email: this.state.email,
+        password: this.state.password,
+        userName: this.state.userName,
+        birthday: this.state.birthday,
+        genderID: this.state.gender
+      });
+    } else {
+      this.setState({
+        errored: true,
+        message: 'Your email or password are not matching'
+      });
+    }
   }
 
   render() {
@@ -89,8 +108,8 @@ class Signup extends Component {
             <img src={logo} className="App-logo" alt="logo" />
           </div>
           <hr />
-          {this.props.errored && (
-            <Alert color="danger">{this.props.message}</Alert>
+          {this.state.errored && (
+            <Alert color="danger">{this.state.message}</Alert>
           )}
           <Form className="signup-form" onSubmit={e => this.userSignup(e)}>
             <Row>
@@ -240,4 +259,5 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   signupUser: creds => dispatch(signupUser(creds))
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(Signup);
