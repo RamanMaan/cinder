@@ -6,8 +6,8 @@ import { H1, View, Text, Container } from 'native-base';
 import { fetchUserInfo } from '../actions';
 
 import FilterElement from '../components/FilterElement';
-import AgeFilterElement from '../components/AgeFilterElement';
 import FilterModal from '../components/FilterModal';
+import FilterAge from '../components/FilterAge';
 
 const styles = StyleSheet.create({
   container: {
@@ -122,15 +122,19 @@ export class Profile extends React.Component {
               onSelectChange={this.onSelectChange('gender')}
             />
           </FilterElement>
-          <AgeFilterElement
+          <FilterElement
             type="age"
             switch={this.state.age.switch}
             switchToggle={() => this.toggleSwitch('age')}
             isVisible={this.state.age.modal}
             onBackdropPress={() => this.toggleModal('age')}
-            selectedItems={this.state.age.minAge}
-            onSelectChange={this.onSelectChange('age')}
-          />
+          >
+            <FilterAge
+              type="age"
+              isVisible={this.state.age.modal}
+              onBackdropPress={() => this.toggleModal('age')}
+            />
+          </FilterElement>
         </Container>
       </Container>
     );

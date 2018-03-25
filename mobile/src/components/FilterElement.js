@@ -2,8 +2,6 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { View, Text, Button, Switch } from 'native-base';
 
-import FilterModal from './FilterModal';
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',

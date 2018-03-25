@@ -8,7 +8,6 @@ import Modal from 'react-native-modal';
 import { refFetchData } from '../actions';
 
 export class FilterModal extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -48,7 +47,6 @@ export class FilterModal extends React.Component {
   render() {
     return (
       <Modal
-        avoidKeyboard
         useNativeDriver
         style={{ flex: 0.5 }}
         {...this.props}
@@ -57,16 +55,16 @@ export class FilterModal extends React.Component {
           <TextInput
             style={styles.input}
             onChangeText={this.updateMinAge}
-            keyboardType='numeric'
-            placeholder='Enter minimum age filter'
+            keyboardType="numeric"
+            placeholder="Enter minimum age filter"
             value={this.state.minAge}
           />
 
           <TextInput
             style={styles.input}
             onChangeText={this.updateMaxAge}
-            keyboardType='numeric'
-            placeholder='Enter maximum age filter'
+            keyboardType="numeric"
+            placeholder="Enter maximum age filter"
             value={this.state.maxAge}
           />
         </View>
@@ -80,10 +78,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   input: {
-    flex: 1,
+    height: 40,
     margin: 15,
-    borderColor: 'gray',
-    borderWidth: 1,
+    padding: 5,
   },
 });
 
