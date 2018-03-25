@@ -26,9 +26,9 @@ export class Profile extends Component {
     this.onInputChange = this.onInputChange.bind(this);
 
     this.state = {
-      name: '',
+      userName: '',
       birthday: '',
-      bio: '',
+      userBio: '',
       filters: {
         gender: null,
         age: null
@@ -38,16 +38,13 @@ export class Profile extends Component {
 
   componentWillReceiveProps() {
     this.setState({
-      name: this.props.userInfo.userName,
-      birthday: this.props.userInfo.birthday,
-      bio: this.props.userInfo.userBio
+      ...this.props.userInfo
     });
   }
 
   saveChanges(e) {
     e.stopPropagation();
-    var user = { ...this.props.userInfo }; // <-- remove this later once the profile state is configured
-    this.props.saveUser(user, this.props.token);
+    this.props.saveUser(this.state, this.props.token);
     this.props.hideProfile();
   }
 
@@ -56,14 +53,14 @@ export class Profile extends Component {
     this.props.hideProfile();
   }
 
-  onElementToggle(field, value) {
+  onElementToggle(field) {
     this.setState(prev => ({
       ...prev,
       filters: {
         ...prev.filters,
         [field]: {
           ...prev.filters[field],
-          active: value
+          state: prev.filters[field] ? !prev.filters[field].state : true
         }
       }
     }));
@@ -76,7 +73,7 @@ export class Profile extends Component {
         ...prev.filters,
         [field]: {
           ...prev.filters[field],
-          values: value
+          preference: value
         }
       }
     }));
@@ -105,9 +102,9 @@ export class Profile extends Component {
         <div className="name">
           <h5>Display Name</h5>
           <Input
-            name="name"
+            name="userName"
             type="text"
-            value={this.state.name}
+            value={this.state.userName}
             onChange={this.onInputChange}
           />
         </div>
@@ -125,9 +122,9 @@ export class Profile extends Component {
         <div className="bio">
           <h5>User Bio</h5>
           <Input
-            name="bio"
+            name="userBio"
             type="textarea"
-            value={this.state.bio}
+            value={this.state.userBio}
             onChange={this.onInputChange}
           />
         </div>
@@ -138,11 +135,21 @@ export class Profile extends Component {
             <h6>Gender Filter</h6>
             <FilterElement
               round
+              checked={
+                this.state.filters.gender
+                  ? this.state.filters.gender.state
+                  : false
+              }
               onChange={this.onElementToggle.bind(this, 'gender')}
             >
               <Dropdown
                 token={this.props.token}
                 endpoint="/api/ref/gender"
+                value={
+                  this.state.filters.gender
+                    ? this.state.filters.gender.preference
+                    : []
+                }
                 onChange={this.onElementChange.bind(this, 'gender')}
               />
             </FilterElement>
@@ -151,6 +158,9 @@ export class Profile extends Component {
             <h6>Age Filter</h6>
             <FilterElement
               round
+              checked={
+                this.state.filters.age ? this.state.filters.age.state : false
+              }
               onChange={this.onElementToggle.bind(this, 'age')}
             >
               <Row>
@@ -158,6 +168,11 @@ export class Profile extends Component {
                   <Label>Minimum Age: </Label>
                   <NumericInput
                     min={18}
+                    value={
+                      this.state.filters.age
+                        ? this.state.filters.age.minAge
+                        : null
+                    }
                     onChange={this.onAgeValueChange.bind(this, 'minAge')}
                   />
                 </Col>
@@ -169,7 +184,12 @@ export class Profile extends Component {
                         ? this.state.filters.age.minAge
                         : 18
                     }
-                    max={80}
+                    max={150}
+                    value={
+                      this.state.filters.age
+                        ? this.state.filters.age.maxAge
+                        : null
+                    }
                     onChange={this.onAgeValueChange.bind(this, 'maxAge')}
                   />
                 </Col>

@@ -124,7 +124,7 @@ const saveGenderFilter = (id, genderFilter) => {
   );
 
   const deleteFilterQuery = mysql.format(
-    `DELETE FROM GenderFilter WHERE UserID = ?;`,
+    'DELETE FROM GenderFilter WHERE UserID = ?;',
     [id]
   );
 
@@ -132,13 +132,10 @@ const saveGenderFilter = (id, genderFilter) => {
 
   if (genderFilter.preference && genderFilter.preference.length) {
     insertFilterQuery =
-      `INSERT INTO GenderFilter (UserID, GenderID) ` +
-      genderFilter.preference
-        .map(x =>
-          mysql.format(` SELECT ? AS UserID, ?  AS GenderID `, [id, x.genderID])
-        )
-        .join(` UNION ALL `) +
-      `;`;
+      'INSERT INTO GenderFilter (UserID, GenderID) ' +
+      genderFilter.preference.map(x => ({genderID: x.value}))
+        .map(x => mysql.format(' SELECT ? AS UserID, ?  AS GenderID ', [id, x.genderID]))
+        .join(' UNION ALL ') + ';';
   }
 
   return mysql.createConnection(MYSQLDB).then(conn => {

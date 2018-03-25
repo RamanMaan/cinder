@@ -7,19 +7,7 @@ export default class Dropdown extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onChange = this.onChange.bind(this);
     this.fetchData = this.fetchData.bind(this);
-
-    this.state = {
-      value: []
-    };
-  }
-
-  onChange(value) {
-    this.setState({
-      value: value
-    });
-    this.props.onChange(value);
   }
 
   fetchData() {
@@ -38,8 +26,8 @@ export default class Dropdown extends React.Component {
         <Select.Async
           loadOptions={this.fetchData}
           multi={true}
-          value={this.state.value}
-          onChange={this.onChange}
+          value={this.props.value}
+          onChange={this.props.onChange}
         />
       </div>
     );
