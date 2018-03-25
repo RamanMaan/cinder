@@ -2,8 +2,6 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { View, Text, Button, Switch } from 'native-base';
 
-import FilterModal from './FilterModal';
-
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
@@ -26,8 +24,6 @@ export default props => (
     <Button light={!props.switch} onPress={props.onBackdropPress} style={styles.button}>
       <Text>{`Filter by ${props.type}`}</Text>
     </Button>
-    <FilterModal
-      {...props}
-    />
+    {props.children}
   </View>
 );
