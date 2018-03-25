@@ -5,6 +5,8 @@ import {
   USER_INFO_SAVE_SUCCESS
 } from '../actions/actionTypes';
 
+import { fetchRecommendations } from './recommendations';
+
 function userInfoErrored(message) {
   return {
     type: USER_INFO_ERROR,
@@ -64,6 +66,7 @@ export function saveUserInfo(user, token) {
             ? dispatch(userInfoSaveSuccess(user))
             : new Error(res.statusText)
       )
+      .then(() => dispatch(fetchRecommendations(user.userID, token)))
       .catch(err => dispatch(userInfoErrored(err.message)));
   };
 }
