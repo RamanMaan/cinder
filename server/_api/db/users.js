@@ -64,6 +64,14 @@ module.exports = {
     });
   },
 
+  getUserID(email) {
+    return mysql.createConnection(MYSQLDB).then(conn => {
+      const row = conn.query('SELECT * FROM Users WHERE UserEmail = ?', [email]);
+      conn.end();
+      return row;
+    });
+  },
+
   authenticateUser(email, password) {
     const query = mysql.format(`
     SELECT 
@@ -82,7 +90,6 @@ module.exports = {
       }).then(rows => {
         if (!rows.length) {
           return {
-            exists: false,
             authenticated: false,
             msg: `We couldn't find any user registered with ${email}. Please register with us by signing up first.`
           };
@@ -91,7 +98,6 @@ module.exports = {
         return bcrypt.compare(password, data.userPassword)
           .then(res => {
             return {
-              exists: true,
               userID: data.userID,
               authenticated: res,
               msg: res ? 'Login Successful.' : 'Your password is incorrect. Please try again.'
@@ -120,27 +126,6 @@ module.exports = {
           });
       });
   },
-
-  // TODO: Add users to other tables
-  // Tried to do it in one method in createUser
-  // but couldn't figure it out because wasn't sure
-  // exactly how promises worked
-  // createUserInfo(userID, userName, birthday) {
-  //   const userInfo = `(${userID}, ${userName}, ${birthday})`;
-  //   const userQueries = [
-  //     `INSERT INTO UsersInfo (UserID, UserName, Birthday) VALUES ${userInfo};`,
-  //     `INSERT INTO UserEducation (UserID) VALUES (${userID});`,
-  //     `INSERT INTO UserPicture (UserID) VALUES (${userID});`
-  //   ];
-  //   return mysql.createConnection(MYSQLDB).then(conn => {
-  //     return conn.query([...userQueries].join('\n'))
-  //       .then(() => conn.end())
-  //       .catch(err => {
-  //         conn.end();
-  //         throw err;
-  //       });
-  //   });
-  // },
 
   getUser(id) {
     return mysql.createConnection(MYSQLDB).then(conn => {
