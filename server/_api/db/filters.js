@@ -132,13 +132,10 @@ const saveGenderFilter = (id, genderFilter) => {
 
   if (genderFilter.preference && genderFilter.preference.length) {
     insertFilterQuery =
-      `INSERT INTO GenderFilter (UserID, GenderID) ` +
-      genderFilter.preference
-        .map(x =>
-          mysql.format(` SELECT ? AS UserID, ?  AS GenderID `, [id, x.genderID])
-        )
-        .join(` UNION ALL `) +
-      `;`;
+      'INSERT INTO GenderFilter (UserID, GenderID) ' +
+      genderFilter.preference.map(x => ({genderID: x.value}))
+        .map(x => mysql.format(' SELECT ? AS UserID, ?  AS GenderID ', [id, x.genderID]))
+        .join(' UNION ALL ') + ';';
   }
 
   return mysql.createConnection(MYSQLDB).then(conn => {
