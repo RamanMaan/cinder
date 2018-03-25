@@ -43,24 +43,24 @@ const genEducation = name => {
 const escapeSQL = val => {
   val = val.replace(/[\0\n\r\b\t\\'"\x1a]/g, s => {
     switch (s) {
-      case '\0':
-        return '\\0';
-      case '\n':
-        return '\\n';
-      case '\r':
-        return '\\r';
-      case '\b':
-        return '\\b';
-      case '\t':
-        return '\\t';
-      case '\x1a':
-        return '\\Z';
-      case "'":
-        return "''";
-      case '"':
-        return '""';
-      default:
-        return `\\${s}`;
+    case '\0':
+      return '\\0';
+    case '\n':
+      return '\\n';
+    case '\r':
+      return '\\r';
+    case '\b':
+      return '\\b';
+    case '\t':
+      return '\\t';
+    case '\x1a':
+      return '\\Z';
+    case '\'':
+      return '\'\'';
+    case '"':
+      return '""';
+    default:
+      return `\\${s}`;
     }
   });
 
@@ -90,8 +90,8 @@ class UserBuilder {
     // Education and Study
     this.education = education
       ? refData.EducationType.findIndex(
-          x => x.toLowerCase() === education.toLowerCase()
-        ) + 1
+        x => x.toLowerCase() === education.toLowerCase()
+      ) + 1
       : undefined;
   }
 }
@@ -129,9 +129,7 @@ request
         data[0].children[1].firstChild.attribs.title.split('(')[0].trim()
       );
       const birthday = genBirthday(name, data[4].firstChild.data.trim());
-      const gender = data[2].children[1].firstChild.data.indexOf('♀')
-        ? 'Female'
-        : 'Male';
+      const gender = data[2].children[1].firstChild.data.indexOf('♀') < 0 ? 'Male' : 'Female';
       const img = data[1].children[1].attribs.href;
       const bio = `This is the bio for ${name}! I have a ${personality} personality, and my catch phrase is ${catchPhrase}! I am a ${species}.`;
       const education = genEducation(name);
