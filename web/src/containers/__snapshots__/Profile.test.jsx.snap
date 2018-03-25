@@ -48,7 +48,7 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
               </h5>
               <input
                 className="form-control"
-                name="name"
+                name="userName"
                 onChange={[Function]}
                 type="text"
                 value=""
@@ -78,7 +78,7 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
               </h5>
               <textarea
                 className="form-control"
-                name="bio"
+                name="userBio"
                 onChange={[Function]}
                 value=""
               />
@@ -97,7 +97,7 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
                   Gender Filter
                 </h6>
                 <div
-                  className="filter element disabled"
+                  className="filter element"
                 >
                   <div
                     className="toggle"
@@ -106,7 +106,7 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
                       className="switch"
                     >
                       <input
-                        checked={undefined}
+                        checked={false}
                         onChange={[Function]}
                         type="checkbox"
                       />
@@ -220,7 +220,7 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
                   Age Filter
                 </h6>
                 <div
-                  className="filter element disabled"
+                  className="filter element"
                 >
                   <div
                     className="toggle"
@@ -229,7 +229,7 @@ exports[`<Profile /> Snapshot tests should display if profile properties are all
                       className="switch"
                     >
                       <input
-                        checked={undefined}
+                        checked={false}
                         onChange={[Function]}
                         type="checkbox"
                       />
@@ -579,7 +579,7 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
               </h5>
               <input
                 className="form-control"
-                name="name"
+                name="userName"
                 onChange={[Function]}
                 type="text"
                 value=""
@@ -609,7 +609,7 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
               </h5>
               <textarea
                 className="form-control"
-                name="bio"
+                name="userBio"
                 onChange={[Function]}
                 value=""
               />
@@ -628,7 +628,7 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
                   Gender Filter
                 </h6>
                 <div
-                  className="filter element disabled"
+                  className="filter element"
                 >
                   <div
                     className="toggle"
@@ -637,7 +637,7 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
                       className="switch"
                     >
                       <input
-                        checked={undefined}
+                        checked={false}
                         onChange={[Function]}
                         type="checkbox"
                       />
@@ -751,7 +751,7 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
                   Age Filter
                 </h6>
                 <div
-                  className="filter element disabled"
+                  className="filter element"
                 >
                   <div
                     className="toggle"
@@ -760,7 +760,538 @@ exports[`<Profile /> Snapshot tests should display profile properties when provi
                       className="switch"
                     >
                       <input
-                        checked={undefined}
+                        checked={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                      />
+                      <div
+                        className="slider round"
+                      />
+                    </label>
+                  </div>
+                  <div
+                    className="content"
+                  >
+                    <div
+                      className="row"
+                    >
+                      <div
+                        className="col col-md-6"
+                      >
+                        <label
+                          className=" form-control-label"
+                          htmlFor={undefined}
+                        >
+                          Minimum Age: 
+                        </label>
+                        <span
+                          className="react-numeric-input"
+                          onMouseLeave={[Function]}
+                          onMouseUp={[Function]}
+                          style={
+                            Object {
+                              "display": "inline-block",
+                              "position": "relative",
+                            }
+                          }
+                        >
+                          <input
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            onInput={[Function]}
+                            onKeyDown={[Function]}
+                            onSelect={[Function]}
+                            style={
+                              Object {
+                                "WebkitAppearance": "none",
+                                "border": "1px solid #ccc",
+                                "borderRadius": 2,
+                                "boxSizing": "border-box",
+                                "display": "block",
+                                "fontSize": "inherit",
+                                "lineHeight": "normal",
+                                "paddingLeft": 4,
+                                "paddingRight": "3ex",
+                              }
+                            }
+                            type="text"
+                            value=""
+                          />
+                          <b
+                            onMouseDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseUp={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
+                            style={
+                              Object {
+                                "background": "rgba(0,0,0,.1)",
+                                "borderColor": "rgba(0,0,0,.1)",
+                                "borderRadius": "2px 2px 0 0",
+                                "borderStyle": "solid",
+                                "borderWidth": "1px 1px 0 1px",
+                                "bottom": "50%",
+                                "boxShadow": "-1px -1px 3px rgba(0,0,0,.1) inset,1px 1px 3px rgba(255,255,255,.7) inset",
+                                "cursor": "default",
+                                "position": "absolute",
+                                "right": 2,
+                                "textAlign": "center",
+                                "top": 2,
+                                "transition": "all 0.1s",
+                                "width": "2.26ex",
+                              }
+                            }
+                          >
+                            <i
+                              style={
+                                Object {
+                                  "borderColor": "transparent transparent rgba(0, 0, 0, 0.7)",
+                                  "borderStyle": "solid",
+                                  "borderWidth": "0 0.6ex 0.6ex 0.6ex",
+                                  "height": 0,
+                                  "left": "50%",
+                                  "margin": "-0.3ex 0 0 -0.56ex",
+                                  "position": "absolute",
+                                  "top": "50%",
+                                  "width": 0,
+                                }
+                              }
+                            />
+                          </b>
+                          <b
+                            onMouseDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseUp={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
+                            style={
+                              Object {
+                                "background": "rgba(0,0,0,.1)",
+                                "borderColor": "rgba(0,0,0,.1)",
+                                "borderRadius": "0 0 2px 2px",
+                                "borderStyle": "solid",
+                                "borderWidth": "0 1px 1px 1px",
+                                "bottom": 2,
+                                "boxShadow": "-1px -1px 3px rgba(0,0,0,.1) inset,1px 1px 3px rgba(255,255,255,.7) inset",
+                                "cursor": "default",
+                                "position": "absolute",
+                                "right": 2,
+                                "textAlign": "center",
+                                "top": "50%",
+                                "transition": "all 0.1s",
+                                "width": "2.26ex",
+                              }
+                            }
+                          >
+                            <i
+                              style={
+                                Object {
+                                  "borderColor": "rgba(0, 0, 0, 0.7) transparent transparent",
+                                  "borderStyle": "solid",
+                                  "borderWidth": "0.6ex 0.6ex 0 0.6ex",
+                                  "height": 0,
+                                  "left": "50%",
+                                  "margin": "-0.3ex 0 0 -0.56ex",
+                                  "position": "absolute",
+                                  "top": "50%",
+                                  "width": 0,
+                                }
+                              }
+                            />
+                          </b>
+                        </span>
+                      </div>
+                      <div
+                        className="col col-md-6"
+                      >
+                        <label
+                          className=" form-control-label"
+                          htmlFor={undefined}
+                        >
+                          Maximum Age: 
+                        </label>
+                        <span
+                          className="react-numeric-input"
+                          onMouseLeave={[Function]}
+                          onMouseUp={[Function]}
+                          style={
+                            Object {
+                              "display": "inline-block",
+                              "position": "relative",
+                            }
+                          }
+                        >
+                          <input
+                            onBlur={[Function]}
+                            onChange={[Function]}
+                            onFocus={[Function]}
+                            onInput={[Function]}
+                            onKeyDown={[Function]}
+                            onSelect={[Function]}
+                            style={
+                              Object {
+                                "WebkitAppearance": "none",
+                                "border": "1px solid #ccc",
+                                "borderRadius": 2,
+                                "boxSizing": "border-box",
+                                "display": "block",
+                                "fontSize": "inherit",
+                                "lineHeight": "normal",
+                                "paddingLeft": 4,
+                                "paddingRight": "3ex",
+                              }
+                            }
+                            type="text"
+                            value=""
+                          />
+                          <b
+                            onMouseDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseUp={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
+                            style={
+                              Object {
+                                "background": "rgba(0,0,0,.1)",
+                                "borderColor": "rgba(0,0,0,.1)",
+                                "borderRadius": "2px 2px 0 0",
+                                "borderStyle": "solid",
+                                "borderWidth": "1px 1px 0 1px",
+                                "bottom": "50%",
+                                "boxShadow": "-1px -1px 3px rgba(0,0,0,.1) inset,1px 1px 3px rgba(255,255,255,.7) inset",
+                                "cursor": "default",
+                                "position": "absolute",
+                                "right": 2,
+                                "textAlign": "center",
+                                "top": 2,
+                                "transition": "all 0.1s",
+                                "width": "2.26ex",
+                              }
+                            }
+                          >
+                            <i
+                              style={
+                                Object {
+                                  "borderColor": "transparent transparent rgba(0, 0, 0, 0.7)",
+                                  "borderStyle": "solid",
+                                  "borderWidth": "0 0.6ex 0.6ex 0.6ex",
+                                  "height": 0,
+                                  "left": "50%",
+                                  "margin": "-0.3ex 0 0 -0.56ex",
+                                  "position": "absolute",
+                                  "top": "50%",
+                                  "width": 0,
+                                }
+                              }
+                            />
+                          </b>
+                          <b
+                            onMouseDown={[Function]}
+                            onMouseEnter={[Function]}
+                            onMouseLeave={[Function]}
+                            onMouseUp={[Function]}
+                            onTouchEnd={[Function]}
+                            onTouchStart={[Function]}
+                            style={
+                              Object {
+                                "background": "rgba(0,0,0,.1)",
+                                "borderColor": "rgba(0,0,0,.1)",
+                                "borderRadius": "0 0 2px 2px",
+                                "borderStyle": "solid",
+                                "borderWidth": "0 1px 1px 1px",
+                                "bottom": 2,
+                                "boxShadow": "-1px -1px 3px rgba(0,0,0,.1) inset,1px 1px 3px rgba(255,255,255,.7) inset",
+                                "cursor": "default",
+                                "position": "absolute",
+                                "right": 2,
+                                "textAlign": "center",
+                                "top": "50%",
+                                "transition": "all 0.1s",
+                                "width": "2.26ex",
+                              }
+                            }
+                          >
+                            <i
+                              style={
+                                Object {
+                                  "borderColor": "rgba(0, 0, 0, 0.7) transparent transparent",
+                                  "borderStyle": "solid",
+                                  "borderWidth": "0.6ex 0.6ex 0 0.6ex",
+                                  "height": 0,
+                                  "left": "50%",
+                                  "margin": "-0.3ex 0 0 -0.56ex",
+                                  "position": "absolute",
+                                  "top": "50%",
+                                  "width": 0,
+                                }
+                              }
+                            />
+                          </b>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="modal-footer"
+        >
+          <button
+            className="btn btn-outline-secondary"
+            onClick={[Function]}
+            type="button"
+          >
+            Discard Changes
+          </button>
+          <button
+            className="btn btn-primary"
+            onClick={[Function]}
+            type="button"
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Profile /> Snapshot tests should populate all values if provided 1`] = `
+<div>
+  <div
+    className="profile modal"
+    onClick={[Function]}
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="modal-content"
+        onClick={[Function]}
+      >
+        <div
+          className="modal-header"
+        >
+          <h4
+            className="modal-title"
+          >
+            My Profile
+          </h4>
+          <button
+            aria-label="Close"
+            className="close"
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              aria-hidden="true"
+            >
+              ×
+            </span>
+          </button>
+        </div>
+        <div
+          className="modal-body"
+        >
+          <div>
+            <div
+              className="name"
+            >
+              <h5>
+                Display Name
+              </h5>
+              <input
+                className="form-control"
+                name="userName"
+                onChange={[Function]}
+                type="text"
+                value=""
+              />
+            </div>
+            <hr />
+            <div
+              className="birthday"
+            >
+              <h5>
+                Birthday
+              </h5>
+              <input
+                className="form-control"
+                name="birthday"
+                onChange={[Function]}
+                type="date"
+                value=""
+              />
+            </div>
+            <hr />
+            <div
+              className="bio"
+            >
+              <h5>
+                User Bio
+              </h5>
+              <textarea
+                className="form-control"
+                name="userBio"
+                onChange={[Function]}
+                value=""
+              />
+            </div>
+            <hr />
+            <div
+              className="filters"
+            >
+              <h5>
+                User Filters
+              </h5>
+              <div
+                className="gender"
+              >
+                <h6>
+                  Gender Filter
+                </h6>
+                <div
+                  className="filter element"
+                >
+                  <div
+                    className="toggle"
+                  >
+                    <label
+                      className="switch"
+                    >
+                      <input
+                        checked={false}
+                        onChange={[Function]}
+                        type="checkbox"
+                      />
+                      <div
+                        className="slider round"
+                      />
+                    </label>
+                  </div>
+                  <div
+                    className="content"
+                  >
+                    <div>
+                      <div
+                        className="Select is-clearable is-loading is-searchable Select--multi"
+                        style={undefined}
+                      >
+                        <div
+                          className="Select-control"
+                          onKeyDown={[Function]}
+                          onMouseDown={[Function]}
+                          onTouchEnd={[Function]}
+                          onTouchMove={[Function]}
+                          onTouchStart={[Function]}
+                          style={undefined}
+                        >
+                          <span
+                            className="Select-multi-value-wrapper"
+                            id="react-select-4--value"
+                          >
+                            <div
+                              className="Select-placeholder"
+                            >
+                              Loading...
+                            </div>
+                            <div
+                              className="Select-input"
+                              style={
+                                Object {
+                                  "display": "inline-block",
+                                }
+                              }
+                            >
+                              <input
+                                aria-activedescendant="react-select-4--value"
+                                aria-describedby={undefined}
+                                aria-expanded="false"
+                                aria-haspopup="false"
+                                aria-label={undefined}
+                                aria-labelledby={undefined}
+                                aria-owns=""
+                                className={undefined}
+                                id={undefined}
+                                onBlur={[Function]}
+                                onChange={[Function]}
+                                onFocus={[Function]}
+                                required={false}
+                                role="combobox"
+                                style={
+                                  Object {
+                                    "boxSizing": "content-box",
+                                    "width": "5px",
+                                  }
+                                }
+                                tabIndex={undefined}
+                                value=""
+                              />
+                              <div
+                                style={
+                                  Object {
+                                    "height": 0,
+                                    "left": 0,
+                                    "overflow": "scroll",
+                                    "position": "absolute",
+                                    "top": 0,
+                                    "visibility": "hidden",
+                                    "whiteSpace": "pre",
+                                  }
+                                }
+                              >
+                                
+                              </div>
+                            </div>
+                          </span>
+                          <span
+                            aria-hidden="true"
+                            className="Select-loading-zone"
+                          >
+                            <span
+                              className="Select-loading"
+                            />
+                          </span>
+                          <span
+                            className="Select-arrow-zone"
+                            onMouseDown={[Function]}
+                          >
+                            <span
+                              className="Select-arrow"
+                              onMouseDown={[Function]}
+                            />
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="age"
+              >
+                <h6>
+                  Age Filter
+                </h6>
+                <div
+                  className="filter element"
+                >
+                  <div
+                    className="toggle"
+                  >
+                    <label
+                      className="switch"
+                    >
+                      <input
+                        checked={false}
                         onChange={[Function]}
                         type="checkbox"
                       />

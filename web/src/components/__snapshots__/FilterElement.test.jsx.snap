@@ -2,7 +2,7 @@
 
 exports[`<FilterElement /> Snapshot tests should render not disabled if checked 1`] = `
 <div
-  className="filter element "
+  className="filter element"
 >
   <div
     className="toggle"
@@ -12,7 +12,7 @@ exports[`<FilterElement /> Snapshot tests should render not disabled if checked 
     >
       <input
         checked={true}
-        onChange={[Function]}
+        onChange={undefined}
         type="checkbox"
       />
       <div
@@ -28,7 +28,7 @@ exports[`<FilterElement /> Snapshot tests should render not disabled if checked 
 
 exports[`<FilterElement /> Snapshot tests should render round if round 1`] = `
 <div
-  className="filter element disabled"
+  className="filter element"
 >
   <div
     className="toggle"
@@ -38,7 +38,7 @@ exports[`<FilterElement /> Snapshot tests should render round if round 1`] = `
     >
       <input
         checked={undefined}
-        onChange={[Function]}
+        onChange={undefined}
         type="checkbox"
       />
       <div
@@ -54,7 +54,7 @@ exports[`<FilterElement /> Snapshot tests should render round if round 1`] = `
 
 exports[`<FilterElement /> Snapshot tests should render with children 1`] = `
 <div
-  className="filter element disabled"
+  className="filter element"
 >
   <div
     className="toggle"
@@ -64,7 +64,7 @@ exports[`<FilterElement /> Snapshot tests should render with children 1`] = `
     >
       <input
         checked={undefined}
-        onChange={[Function]}
+        onChange={undefined}
         type="checkbox"
       />
       <div
@@ -84,7 +84,7 @@ exports[`<FilterElement /> Snapshot tests should render with children 1`] = `
 
 exports[`<FilterElement /> Snapshot tests should render with no children - disabled by default 1`] = `
 <div
-  className="filter element disabled"
+  className="filter element"
 >
   <div
     className="toggle"
@@ -94,7 +94,7 @@ exports[`<FilterElement /> Snapshot tests should render with no children - disab
     >
       <input
         checked={undefined}
-        onChange={[Function]}
+        onChange={undefined}
         type="checkbox"
       />
       <div
