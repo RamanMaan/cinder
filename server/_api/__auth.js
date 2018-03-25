@@ -24,27 +24,29 @@ router.post('/login', (req, res, next) => {
           err: obj.msg
         });
       } else {
-        return res.status(responses.SUCCESS).json(createTokenRes(responses.SUCCESS, obj.userID));
+        return res.status(responses.SUCCESS).json(
+          createTokenRes(responses.SUCCESS, obj.userID));
       }
     })
     .catch(next);
 });
 
 router.post('/signup', (req, res, next) => {
-  return usersDB.authenticateUser(req.body.email, req.body.password)
+  const newUser = req.body;
+  return usersDB.getUserID(req.body.email)
     .then(obj => {
-      if (obj.exists) {
+      if (obj.length) {
         return res.status(responses.UNAUTHORIZED).json({
           status: responses.UNAUTHORIZED,
           err: 'The email is already taken. Please try with another email.'
         });
       } else {
-        return usersDB.createUser(req.body.email, req.body.password)
-          .then(userID => {
-            // TODO: Add endpoint to add user to other tables
-            // usersDB.createUserInfo(userID, req.body.userName, req.body.birthday);
-            return res.status(responses.CREATED).json(createTokenRes(responses.CREATED, userID));
-          });
+        return usersDB.createUser(newUser.email, newUser.password)
+          .then(newID => newUser.userID = newID)
+          .then(() => usersDB.saveUser(newUser))
+          .then(() => res.status(responses.CREATED).json(
+            createTokenRes(responses.CREATED, newUser.userID))
+          );
       }
     })
     .catch(next);
